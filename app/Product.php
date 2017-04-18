@@ -24,4 +24,34 @@ class Product extends Model
     	return $this->belongsToMany('App\Orders');
     }
 
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    public function getSlug()
+    {
+        return removeTitle($this->getName());
+    }
+
+    public function getSku()
+    {
+        return $this->sku;
+    }
+
+    public function getPrice()
+    {
+        return $this->price;
+    }
+
+    public function getUrl()
+    {
+        return route('shop.product.detail', [$this->getId(), $this->getSlug()]);
+    }
+
 }

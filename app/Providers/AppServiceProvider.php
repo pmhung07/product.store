@@ -23,6 +23,20 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        /**
+         * Upload file
+         */
+        $this->app->singleton('Uploader', function() {
+            return new \Nht\Hocs\Core\Uploads\Uploader(new \Nht\Hocs\Core\Uploads\Upload());
+        });
+
+        /**
+         * Upload ảnh, có resize, crop
+         */
+        $this->app->singleton('ImageFactory', function() {
+            $uploader = resolve('Uploader');
+            $image = new \Nht\Hocs\Core\Images\Image();
+            return new \Nht\Hocs\Core\Images\ImageFactory($uploader, $image);
+        });
     }
 }
