@@ -1,0 +1,61 @@
+#section-gioi-thieu .sidebar, #section-info .sidebar {
+  list-style: none;
+  margin-right: -15px; }
+  #section-gioi-thieu .sidebar li, #section-info .sidebar li {
+    margin-bottom: 10px; }
+    #section-gioi-thieu .sidebar li a, #section-info .sidebar li a {
+      color: #333333;
+      font-size: 14px;
+      line-height: 24px; }
+      #section-gioi-thieu .sidebar li a:hover, #section-info .sidebar li a:hover {
+        text-decoration: none; }
+    #section-gioi-thieu .sidebar li .active, #section-info .sidebar li .active {
+      color: #e32124;
+      position: relative;
+      width: 100%;
+      display: inline-block; }
+    #section-gioi-thieu .sidebar li .active:before, #section-info .sidebar li .active:before {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: -2px;
+      width: 3px;
+      height: 100%;
+      background: #e32124;
+      z-index: 4; }
+
+#section-gioi-thieu .content, #section-info .content {
+  border-left: 1px solid #d7d7d7; }
+
+#section-gioi-thieu .title, #section-info .title {
+  position: relative;
+  margin: 0;
+  padding: 0;
+  font-size: 20px;
+  line-height: 20px;
+  text-transform: uppercase;
+  color: #161616;
+  padding-left: 15px;
+  display: table;
+  margin-bottom: 10px; }
+
+#section-gioi-thieu .title:after, #section-info .title:after {
+  content: "";
+  float: right;
+  width: 27px;
+  background: #333;
+  height: 1px;
+  margin: 9px; }
+
+#section-gioi-thieu p, #section-info p {
+  color: #666666;
+  font-size: 14px;
+  line-height: 22px; }
+
+#section-gioi-thieu .breadcrumb, #section-info .breadcrumb {
+  background: transparent; }
+  #section-gioi-thieu .breadcrumb a, #section-info .breadcrumb a {
+    font-size: 12px;
+    color: #666; }
+  #section-gioi-thieu .breadcrumb .active, #section-info .breadcrumb .active {
+    color: #333; }

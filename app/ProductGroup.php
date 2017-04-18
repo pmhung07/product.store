@@ -15,4 +15,24 @@ class ProductGroup extends Model
     public function product_group(){
 
     }
+
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    public function getSlug()
+    {
+        return removeTitle($this->getName());
+    }
+
+    public function getUrl()
+    {
+        return route('shop.category.products', [$this->getId(), $this->getSlug()]);
+    }
 }
