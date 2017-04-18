@@ -7,7 +7,7 @@
             <?php for($i = 0; $i < 3; $i ++): ?>
                 <div class="item">
                     <a href="/single-product.php">
-                    <img src="/assets/file.hstatic.net/1000003969/file/sd01034-banner-web-fix.jpg" />
+                    <img src="/shop/assets/file.hstatic.net/1000003969/file/sd01034-banner-web-fix.jpg" />
                     </a>
                 </div>
             <?php endfor; ?>
@@ -87,8 +87,8 @@
                     <div class="row">
                         <div id="owl-blog-slider" class="owl-carousel owl-theme">
                             <?php for($i = 0; $i < 5; $i ++): ?>
-                                <div class="blog-slider-item 5">
-                                    <a href="/single-blog.php" target="_blank"><img src="/assets/file.hstatic.net/1000003969/file/kel_0077_copy_1024x1024.jpg" alt="Mẹo bảo quản giày và túi xách mùa nắng nóng"></a>
+                                <div class="blog-slider-item 5 item">
+                                    <a href="/single-blog.php" target="_blank"><img src="/shop/assets/file.hstatic.net/1000003969/file/kel_0077_copy_1024x1024.jpg" alt="Mẹo bảo quản giày và túi xách mùa nắng nóng"></a>
                                     <div class="blog-slider-info">
                                         <a href="blogs/meo.1.html" target="_blank" class="blog-category">Mẹo</a>
                                         <h3>
@@ -133,7 +133,7 @@
                                 <div class="clearfix blog-read-item">
                                     <a href="/single-blog.php" target="_blank">
                                         <div class="item-img pull-left">
-                                            <img class="lazy" src="/assets/file.hstatic.net/1000003969/file/kel_0077_copy_1024x1024.jpg"/><span style="margin-left:-100px">1</span>
+                                            <img class="lazy" src="/shop/assets/file.hstatic.net/1000003969/file/kel_0077_copy_1024x1024.jpg"/><span style="margin-left:-100px">1</span>
                                         </div>
                                     </a>
                                     <div class="caption pull-right" >
