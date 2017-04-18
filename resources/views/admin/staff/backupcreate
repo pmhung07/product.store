@@ -1,0 +1,145 @@
+@extends('layout.admin.index')
+
+@section('breadcrumbs')
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>Thêm khách hàng</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a>Hệ thống khách hàng </a>
+            </li>
+            <li class="active">
+                <strong>Thêm khách hàng</strong>
+            </li>
+        </ol>
+    </div>
+    <div class="col-lg-2">
+
+    </div>
+</div>
+@stop            
+
+@section('content')
+
+<div class="row">
+	<div class="col-lg-12">
+		<div class="ibox-title">
+            <h5>Thêm nhân viên <small> Nhập đầy đủ thông tin nhân viên</small></h5>
+            <div class="ibox-tools">
+                <a class="collapse-link">
+                    <i class="fa fa-chevron-up"></i>
+                </a>
+                <a class="close-link">
+                    <i class="fa fa-times"></i>
+                </a>
+            </div>
+        </div>
+        <div class="ibox-content">
+            <form method="get" class="form-horizontal">
+                <div class="form-group"><label class="col-sm-2 control-label">Tên nhân viên</label>
+                    <div class="col-sm-10"><input type="text" class="form-control"></div>
+                </div>
+                <div class="form-group"><label class="col-sm-2 control-label">Số điện thoại</label>
+                    <div class="col-sm-10"><input type="text" class="form-control"></div>
+                </div>
+                <div class="form-group"><label class="col-sm-2 control-label">Email</label>
+                    <div class="col-sm-10"><input type="text" class="form-control"></div>
+                </div>
+                <div class="form-group"><label class="col-sm-2 control-label">Địa chỉ</label>
+                    <div class="col-sm-10"><input type="text" class="form-control"></div>
+                </div>
+                <div class="form-group"><label class="col-sm-2 control-label">Giới tính</label>
+                    <div class="col-sm-10">
+	                    <select class="form-control m-b" name="account">
+	                    	<option value="-1" selected="">-- Giới tính --</option>	       
+                            <option value="0">Giới tính nữ</option>   
+                            <option value="1">Giới tính nam</option>             
+	                    </select>
+                    </div>
+                </div>
+             	<div class="form-group"><label class="col-sm-2 control-label">Ngày sinh</label>
+                    <div class="col-sm-10">
+                        <div class="row">
+                            <div class="col-md-2"><input type="text" placeholder="Ngày sinh" class="form-control"></div>
+                            <div class="col-md-3"><input type="text" placeholder="Tháng sinh" class="form-control"></div>
+                            <div class="col-md-4"><input type="text" placeholder="Năm sinh" class="form-control"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="hr-line-dashed"></div>
+                <div class="form-group">
+                	<label class="col-sm-2 control-label">Phân quyền quản lý <br><small class="text-navy">Danh sách Module</small></label>
+                    <div class="col-sm-10">
+                    	<div class="i-checks"><label class=""> <div class="icheckbox_square-green checked" style="position: relative;"><input type="checkbox" value="" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div> <i></i> Tổng quan </label></div>
+                        <div class="i-checks"><label class=""> <div class="icheckbox_square-green checked" style="position: relative;"><input type="checkbox" value="" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div> <i></i> Quản lý bán hàng </label></div>
+                        <div class="i-checks"><label class=""> <div class="icheckbox_square-green checked" style="position: relative;"><input type="checkbox" value="" checked="" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div> <i></i> Quản lý nhập hàng </label></div>
+                    	<div class="i-checks"><label class=""> <div class="icheckbox_square-green checked" style="position: relative;"><input type="checkbox" value="" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div> <i></i> Quản lý kho </label></div>
+                    	<div class="i-checks"><label class=""> <div class="icheckbox_square-green checked" style="position: relative;"><input type="checkbox" value="" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div> <i></i> Thống kê doanh số </label></div>
+                   		<div class="i-checks"><label class=""> <div class="icheckbox_square-green checked" style="position: relative;"><input type="checkbox" value="" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div> <i></i> Tạo Landing Page </label></div>
+                    	<div class="i-checks"><label class=""> <div class="icheckbox_square-green checked" style="position: relative;"><input type="checkbox" value="" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div> <i></i> Hệ thống nhân viên </label></div>
+                    	<div class="i-checks"><label class=""> <div class="icheckbox_square-green checked" style="position: relative;"><input type="checkbox" value="" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div> <i></i> Hệ thống khách hàng </label></div>
+                    </div>
+                </div>
+                <div class="hr-line-dashed"></div>
+                <div class="form-group">
+                    <div class="col-sm-4 col-sm-offset-2">
+                        <button class="btn btn-white" type="submit">Huỷ tạo</button>
+                        <button class="btn btn-primary" type="submit">Lưu thông tin</button>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+	</div>
+</div>
+
+@stop
+
+@section('script')
+<link href="css/plugins/datapicker/datepicker3.css" rel="stylesheet">
+<link href="css/plugins/iCheck/custom.css" rel="stylesheet">
+<link href="css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
+
+
+
+<!-- Data picker -->
+<script src="js/plugins/datapicker/bootstrap-datepicker.js"></script>
+
+<!-- FooTable -->
+<script src="js/plugins/footable/footable.all.min.js"></script>
+
+<!-- iCheck -->
+<script src="js/plugins/iCheck/icheck.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('.i-checks').iCheck({
+            checkboxClass: 'icheckbox_square-green',
+            radioClass: 'iradio_square-green',
+        });
+    });
+</script>
+
+<!-- Page-Level Scripts -->
+<script>
+$(document).ready(function() {
+
+    $('.footable').footable();
+
+    $('#date_added').datepicker({
+        todayBtn: "linked",
+        keyboardNavigation: false,
+        forceParse: false,
+        calendarWeeks: true,
+        autoclose: true
+    });
+
+    $('#date_modified').datepicker({
+        todayBtn: "linked",
+        keyboardNavigation: false,
+        forceParse: false,
+        calendarWeeks: true,
+        autoclose: true
+    });
+});
+</script>
+@stop
