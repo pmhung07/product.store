@@ -1,0 +1,212 @@
+#marchCode{padding-top:165px}
+.table-container
+{
+	width: 100%;
+	overflow-y: auto;
+	_overflow: auto;
+	margin: 0 0 1em;
+}
+.table-container::-webkit-scrollbar
+{
+	-webkit-appearance: none;
+	width: 14px;
+	height: 14px;
+}
+#gform .title-input{margin: 20px 0;display:inline-block;font-weight:bold;font-size:17px;color:#333}
+#thankyou_message h3{padding:12px 30px;color:#000;font-family:SFU,Arial,sans-serif;font-size:18px}
+.table-container::-webkit-scrollbar-thumb
+{
+	border-radius: 8px;
+	border: 3px solid #fff;
+	background-color: rgba(0, 0, 0, .3);
+}
+#marchCode,.form_sheet{
+	width: 100%;
+	margin: 0 auto;
+	text-align:left;
+}
+.form_sheet{}
+#marchCode .form-control,
+.form_sheet #email{
+	max-width: 490px;
+	margin:0;
+	text-align:left;
+	background: #fff;
+	color: #333;
+	border-color: #c6d3f4;
+	border-radius: 0
+}
+.form_sheet #email{}
+#marchCode .desc-input{
+	margin: 20px 0;
+	display: inline-block;
+	font-weight: bold;
+	font-size: 15px;
+	color: #333;
+	line-height: 22px;
+	max-width: 460px;
+	letter-spacing: 1px;
+	font-family: Roboto-Regular;
+}
+.content-info p{font-family:'Roboto-Regular';color: #037bc0;}
+#marchCode .form-control::-webkit-outer-spin-button,
+#marchCode .form-control::-webkit-inner-spin-button {
+	/* display: none; <- Crashes Chrome on hover */
+	-webkit-appearance: none;
+	margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
+#banner-plugin img{width:100%;max-width:100%;}
+
+#marchCode .title-input,
+#gform .title-input{
+	display: block;
+	text-transform: uppercase;
+	padding: 12px 0px;
+	color: #000;
+	font-family: SFU,Arial,sans-serif;
+	font-size: 22px;
+	position: relative;
+	text-align:left;
+	letter-spacing:2px
+}
+#marchCode .title-input:after,
+#gform .title-input:after{
+	content: "";
+	width: 20px;
+	height: 2px;
+	background: #000;
+	position: absolute;
+	top: 30px;
+	left: -18px;
+	transform: translateX(-50%);
+}
+#marchCode .submitAjax, .button-success{
+	color: #fff;
+	background: #000;
+	border-radius: 0;
+	border-color: transparent;
+	text-transform: uppercase;
+	padding: 6px 18px;
+	margin-bottom: 15px;
+	min-width:184px
+}
+#marchCode .more-info{
+	padding-top: 10px;
+	padding-bottom: 30px;
+	color:#0087f0
+}
+#showResultsEmail .modal-dialog{
+	width:700px;
+	padding:0;
+	font-family:'Roboto', sans-serif;
+}
+#showResults .modal-dialog{
+	width:600px;
+	padding:0;
+	font-family:'Roboto', sans-serif;
+}
+
+#showResults .modal-header,#showResultsEmail .modal-header{border:1px solid transparent}
+#showResults .modal-body,#showResultsEmail .modal-body{
+	padding-top:0
+}
+#showResults .modal-body .content{
+	max-height:270px;overflow-y: scroll;
+}
+#showResults .modal-body .content::-webkit-scrollbar {
+	width: 8px;
+}
+
+#showResults .modal-body .content::-webkit-scrollbar-track {
+	-webkit-box-shadow: inset 0 0 6px #ccc; 
+	border-radius: 10px;
+}
+
+#showResults .modal-body .content::-webkit-scrollbar-thumb {
+	border-radius: 10px;
+	-webkit-box-shadow: inset 0 0 6px #ccc; 
+}
+
+#showResults .modal-body .footer,#showResultsEmail .modal-body .footer{
+	margin-top:15px
+}
+#showResults .modal-title,
+#showResultsEmail .modal-title{
+	text-transform: uppercase;
+	padding: 12px 30px;
+	color: #000;
+	font-family: SFU,Arial,sans-serif;
+	font-size: 22px;
+	text-align:center
+}
+#showResults .header-content,#showResultsEmail .header-content{
+	font-weight:bold;	
+	text-align: center;
+	text-transform: uppercase;
+}
+#showResults .header-content .phone{
+	color:#E32124
+}
+#showResults .header-content .count{
+	color:#E32124
+}
+#showResults .modal-body .header .item{
+	background: #ddd;
+	color: #333;
+	font-weight:bold;
+}
+#showResults .modal-body .header .item{}
+#showResults .modal-body .header .item span{
+	display: inline-block;
+	float: left;
+	padding: 12px 0;
+	font-size: 16px;
+
+}
+
+#showResults .modal-body .header .item .numb,
+#showResults .modal-body .content .item .numb{
+	padding-right: 15px;
+	width: 70px;
+	text-align: right;
+}
+#showResults .modal-body .content .item .numb{padding-right:25px}
+
+#showResults .modal-body .header .item .code,
+#showResults .modal-body .content .item .code{
+	width: 180px;
+	padding-left: 35px;
+}
+#showResults .modal-body .header .item .datetime,
+#showResults .modal-body .content .item .datetime{padding-left:10px}
+
+#showResults .modal-body .content .item span{
+	display: inline-block;
+	float: left;
+	padding: 4px 7px;
+}
+#showResults .modal-body .content .item:nth-child(even){
+	background: #efefef;
+}
+#showResults .modal-body .content .item:nth-child(odd){}
+#showResults .modal-body .content .error{padding:15px 0;text-align:center;color:#E32124}
+#showResults .modal-body .footer p:nth-child(1),
+#showResults .modal-body .footer p:nth-child(2),
+#showResultsEmail .modal-body .footer p:nth-child(1),
+#showResultsEmail .modal-body .footer p:nth-child(2){
+	color:#333;
+	font-weight: bold;
+	font-size: 12px;
+	margin-bottom:5px;
+
+}
+#showResults .modal-body .footer p:nth-child(3),
+#showResults .modal-body .footer p:nth-child(4),
+#showResultsEmail .modal-body .footer p:nth-child(3),
+#showResultsEmail .modal-body .footer p:nth-child(4){
+	color:#2196f3;
+	margin-bottom: 10px;
+	font-size: 13px}
+#showResults .modal-body .footer p,#showResultsEmail .modal-body .footer p{text-align:center}
+#showResultsEmail{text-align:center;}
+#showResultsEmail .modal-body .content{padding:20px 0;text-align:center;color:#E32124}

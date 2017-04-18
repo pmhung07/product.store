@@ -1,0 +1,168 @@
+$(document).ready(function() {
+	$('#phone').blur(function(e) {
+		if (validatePhone('txtPhone')) {
+			$('.button-success').removeAttr('disabled');
+			$('#phone').removeClass('error');
+			$('#phone').removeAttr('data-toggle');
+			$('#phone').removeAttr('data-original-title');
+			$("#phone").tooltip().tooltip("close");
+		}
+		else {
+			$('.button-success').attr('disabled','disabled');
+			$('#phone').addClass('error');
+			$('#phone').attr('data-toggle','tooltip');
+			$('#phone').attr('title','Vui lòng nhập đúng số điện thoại');
+			$("#phone").tooltip().tooltip("open");
+
+
+		}
+	});
+	$('body').on('click','#showResultsEmail .close ,#showResultsEmail',function(){
+		$('#showResultsEmail').modal('hide');
+	});
+});
+
+function validatePhone(phone) {
+	var a = document.getElementById('phone').value;
+	var filter = /^((\+[1-9]{1,4}[ \-]*)|(\([0-9]{2,3}\)[ \-]*)|([0-9]{2,4})[ \-]*)*?[0-9]{3,4}?[ \-]*[0-9]{3,4}?$/;
+	if (filter.test(a)) {
+		return true;
+	}
+	else {
+		return false;
+	}
+}
+
+
+
+
+
+(function (exports) {
+	function valOrFunction(val, ctx, args) {
+		if (typeof val == "function") {
+			return val.apply(ctx, args);
+		} else {
+			return val;
+		}
+	}
+
+	function InvalidInputHelper(input, options) {
+		input.setCustomValidity(valOrFunction(options.defaultText, window, [input]));
+
+		function changeOrInput() {
+			if (input.value == "") {
+				input.setCustomValidity(valOrFunction(options.emptyText, window, [input]));
+			} else {
+				input.setCustomValidity("");
+			}
+		}
+
+		function invalid() {
+			if (input.value == "") {
+				input.setCustomValidity(valOrFunction(options.emptyText, window, [input]));
+			} else {
+				input.setCustomValidity(valOrFunction(options.invalidText, window, [input]));
+			}
+		}
+
+		input.addEventListener("change", changeOrInput);
+		input.addEventListener("input", changeOrInput);
+		input.addEventListener("invalid", invalid);
+	}
+	exports.InvalidInputHelper = InvalidInputHelper;
+})(window);
+
+
+
+InvalidInputHelper(document.getElementById("phone"), {
+	defaultText: "Vui lòng nhập số điện thoại!",
+	emptyText: "Bạn chưa nhập số điện thoại!",
+	invalidText: function (input) {
+		return 'Số điện thoại này:  "' + input.value + '" đã tồn tại!';
+	}
+});
+
+
+
+
+function validEmail(email) { // see:
+	var re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+	return re.test(email);
+}
+
+// get all data in form and return object
+function getFormData() {
+	var elements = document.getElementById("gform").elements; // all form elements
+	var fields = Object.keys(elements).map(function(k) {
+		if(elements[k].name !== undefined) {
+			return elements[k].name;
+			// special case for Edge's html collection
+		}else if(elements[k].length > 0){
+			return elements[k].item(0).name;
+		}
+	}).filter(function(item, pos, self) {
+		return self.indexOf(item) == pos && item;
+	});
+	var data = {};
+	fields.forEach(function(k){
+		data[k] = elements[k].value;
+		if(elements[k].type === "checkbox"){
+			data[k] = elements[k].checked;
+			// special case for Edge's html collection
+		}else if(elements[k].length){
+			for(var i = 0; i < elements[k].length; i++){
+				if(elements[k].item(i).checked){
+					data[k] = elements[k].item(i).value;
+				}
+			}
+		}
+	});
+	// console.log(data);
+	return data;
+}
+
+
+
+function handleFormSubmit(event) {  // handles form submit withtout any jquery
+
+	event.preventDefault();           // we are submitting via xhr below
+	$('#gform .button-success').prop("disabled","disabled");
+	var data = getFormData();         // get the values submitted in the form
+
+
+
+	if( !validEmail(data.email) ) {   // if email is not valid show error
+		document.getElementById('email-invalid').style.display = 'block';
+		return false;
+	} else {
+		var url = event.target.action;  //
+		var xhr = new XMLHttpRequest();
+		xhr.open('POST', url);
+		// xhr.withCredentials = true;
+		xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+		xhr.onreadystatechange = function() {
+			console.log( xhr.status, xhr.statusText )
+			console.log(xhr.responseText);
+			document.getElementById('gform').style.display = 'none'; /* hide form*/
+			/*document.getElementById('thankyou_message').style.display = 'block';*/
+			$('#showResultsEmail').modal();
+			return;
+		};
+		// url encode form data for sending as post data
+		var encoded = Object.keys(data).map(function(k) {
+			return encodeURIComponent(k) + '=' + encodeURIComponent(data[k])
+		}).join('&')
+		xhr.send(encoded);
+
+
+	}
+}
+
+function loaded() {
+	// console.log('contact form submission handler loaded successfully');
+	// bind to the submit event of our form
+	var form = document.getElementById('gform');
+	form.addEventListener("submit", handleFormSubmit, false);
+};
+document.addEventListener('DOMContentLoaded', loaded, false);
+
