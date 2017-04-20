@@ -11,6 +11,9 @@
 |
 */
 
+require_once __DIR__ . '/shop_routes.php';
+
+
 // Load ajax
 Route::post('update-price','OrdersController@loadPrice');
 Route::post('post-order',array('uses'=>'OrdersController@postCreate'));
@@ -56,10 +59,10 @@ Route::post('auth/login', 'LoginController@postLogin');
 Route::group(['middleware' => 'auth'], function(){
 	Route::group(['prefix' => 'system'], function(){
 
-		// Tổng quan - thống kê 
+		// Tổng quan - thống kê
 		Route::get('dashboard', ['as' => 'admin.dashboard' , 'uses' => 'DashboardController@getDashboard']); // Per
 
-		// Quản lý Đơn hàng	
+		// Quản lý Đơn hàng
 		Route::group(['prefix' => 'orders'], function(){
 
 			// Danh sách đơn hàng
@@ -67,7 +70,7 @@ Route::group(['middleware' => 'auth'], function(){
 			Route::get('trash', ['as' => 'admin.orders.trash' , 'uses' => 'OrdersController@getTrash']); // Per
 			Route::get('return', ['as' => 'admin.orders.return' , 'uses' => 'OrdersController@getReturn']); // Per
 			Route::get('details/{id}', ['as' => 'admin.orders.details' , 'uses' => 'OrdersController@getDetails']); // Per
-			
+
 			// Chi tiết vận đơn
 			Route::get('delivery/details/{id}', ['as' => 'admin.orders.delivery' , 'uses' => 'OrdersController@getDeliveryDetails']); // Per
 			Route::post('delivery/details/{id}', ['as' => 'admin.orders.createInfoDelivery' , 'uses' => 'OrdersController@postCreateInfoDelivery']);
@@ -75,10 +78,10 @@ Route::group(['middleware' => 'auth'], function(){
 			// Tạo đơn hàng
 			Route::get('create', ['as' => 'admin.orders.getCreate' , 'uses' => 'OrdersController@getCreate']); // Per
 			Route::post('create', ['as' => 'admin.orders.getCreate' , 'uses' => 'OrdersController@postCreate']); // Per
-			
+
 		});
 
-		// Quản lý Nhóm sản phẩm 
+		// Quản lý Nhóm sản phẩm
 		Route::group(['prefix' => 'product-group'], function(){
 
 			// Danh sách nhóm sản phẩm
@@ -96,7 +99,7 @@ Route::group(['middleware' => 'auth'], function(){
 			Route::get('delete/{id}', ['as' => 'admin.product-group.getDelete' , 'uses' => 'ProductGroupController@getDelete']); // Per
 		});
 
-		// Quản lý Sản phẩm 
+		// Quản lý Sản phẩm
 		Route::group(['prefix' => 'product'], function(){
 
 			// Danh sách sản phẩm
@@ -113,8 +116,8 @@ Route::group(['middleware' => 'auth'], function(){
 			// Xoá sản phẩm
 			Route::get('delete/{id}', ['as' => 'admin.product.getDelete' , 'uses' => 'ProductController@getDelete']); // Per
 		});
- 
-		// Quản lý kho hàng 
+
+		// Quản lý kho hàng
 		Route::group(['prefix' => 'stock'], function(){
 
 			// Danh sách kho hàng
@@ -132,14 +135,14 @@ Route::group(['middleware' => 'auth'], function(){
 			Route::get('delete/{id}', ['as' => 'admin.stock.getDelete' , 'uses' => 'WarehouseController@getDelete']); // Per
 		});
 
-		// Quản lý hàng tồn kho 
+		// Quản lý hàng tồn kho
 		Route::group(['prefix' => 'inventory'], function(){
 
 			// Danh sách sản phẩm tồn kho
 			Route::get('index', ['as' => 'admin.inventory.index' , 'uses' => 'WarehouseInventoryController@getIndex']); // Per
 		});
 
-		// Quản lý nhập kho 
+		// Quản lý nhập kho
 		Route::group(['prefix' => 'stock-receipt'], function(){
 
 			// Chi tiết sản phẩm đã nhập vào kho
@@ -166,13 +169,13 @@ Route::group(['middleware' => 'auth'], function(){
 		});
 
 		// Trả hàng
-		Route::group(['prefix' => 'return-product'], function(){	
+		Route::group(['prefix' => 'return-product'], function(){
 			Route::get('index', ['as' => 'admin.return-product.index' , 'uses' => 'WarehouseReturnProductPhController@getIndex']); // Per
 			Route::get('details/{id}', ['as' => 'admin.return-product.details' , 'uses' => 'WarehouseReturnProductPhController@getDetails']); // Per
 			Route::get('processing', ['as' => 'admin.return-product.processing' , 'uses' => 'WarehouseReturnProductPhController@getProcessing']); // Per
-		});		
+		});
 
-		// Quản lý thống kê doanh số 
+		// Quản lý thống kê doanh số
 		Route::group(['prefix' => 'statistic'], function(){
 			Route::get('sales/dashboard', ['as' => 'admin.sale-statistic.getDashboard' , 'uses' => 'StatisticController@getStatistic']); // Per
 			Route::post('sales/dashboard', ['as' => 'admin.sale-statistic.getDashboard' , 'uses' => 'StatisticController@getStatisticDashboard']); // Per
@@ -195,7 +198,7 @@ Route::group(['middleware' => 'auth'], function(){
 			Route::get('orders/{id}', ['as' => 'admin.staff.getOrders' , 'uses' => 'StaffController@getOrders']); // Per
 		});
 
-		// Quản lý khách hàng 
+		// Quản lý khách hàng
 		Route::group(['prefix' => 'customer'], function(){
 			Route::get('index', ['as' => 'admin.customer.index' , 'uses' => 'CustomersController@getIndex']); // Per
 			Route::get('details/{id}', ['as' => 'admin.customer.getDetails' , 'uses' => 'CustomersController@getDetails']); // Per
@@ -205,7 +208,7 @@ Route::group(['middleware' => 'auth'], function(){
 			Route::post('update/{id}', ['as' => 'admin.customer.getUpdate' , 'uses' => 'CustomersController@postUpdate']); // Per
 		});
 
-		// Các kênh bán hàng 
+		// Các kênh bán hàng
 		Route::group(['prefix' => 'channel'], function(){
 			Route::get('index', ['as' => 'admin.channel.index' , 'uses' => 'ChannelController@getIndex']); // Per
 			Route::get('create', ['as' => 'admin.channel.getCreate' , 'uses' => 'ChannelController@getCreate']); // Per
@@ -215,7 +218,7 @@ Route::group(['middleware' => 'auth'], function(){
 			Route::get('delete/{id}', ['as' => 'admin.channel.getDelete' , 'uses' => 'ChannelController@getDelete']); // Per
 		});
 
-		// Các phương thức thanh toán 
+		// Các phương thức thanh toán
 		Route::group(['prefix' => 'payment-method'], function(){
 			Route::get('index', ['as' => 'admin.payment-method.index' , 'uses' => 'PaymentMethodsController@getIndex']); // Per
 			Route::get('create', ['as' => 'admin.payment-method.getCreate' , 'uses' => 'PaymentMethodsController@getCreate']); // Per
@@ -225,7 +228,7 @@ Route::group(['middleware' => 'auth'], function(){
 			Route::get('delete/{id}', ['as' => 'admin.payment-method.getDelete' , 'uses' => 'PaymentMethodsController@getDelete']); // Per
 		});
 
-		// Các đơn vị 
+		// Các đơn vị
 		Route::group(['prefix' => 'units'], function(){
 			Route::get('index', ['as' => 'admin.units.index' , 'uses' => 'UnitsController@getIndex']); // Per
 			Route::get('create', ['as' => 'admin.units.getCreate' , 'uses' => 'UnitsController@getCreate']); // Per
@@ -257,13 +260,13 @@ Route::group(['middleware' => 'auth'], function(){
 
 		// Quản lý chức vụ nhân viên
 		Route::group(['prefix' => 'position'], function(){
-			Route::get('index', ['as' => 'admin.position.index' , 'uses' => 'UsersPositionController@getIndex']); 
-			Route::get('permissions/{id}', ['as' => 'admin.position.permissions' , 'uses' => 'UsersPositionController@getPermissions']); 
-			Route::post('permissions/{id}', ['as' => 'admin.position.permissions' , 'uses' => 'UsersPositionController@postPermissions']); 
-			Route::get('create', ['as' => 'admin.position.getCreate' , 'uses' => 'UsersPositionController@getCreate']); 
-			Route::post('create', ['as' => 'admin.position.getCreate' , 'uses' => 'UsersPositionController@postCreate']); 
-			Route::get('update/{id}', ['as' => 'admin.position.getUpdate' , 'uses' => 'UsersPositionController@getUpdate']); 
-			Route::post('update/{id}', ['as' => 'admin.position.getUpdate' , 'uses' => 'UsersPositionController@postUpdate']); 
+			Route::get('index', ['as' => 'admin.position.index' , 'uses' => 'UsersPositionController@getIndex']);
+			Route::get('permissions/{id}', ['as' => 'admin.position.permissions' , 'uses' => 'UsersPositionController@getPermissions']);
+			Route::post('permissions/{id}', ['as' => 'admin.position.permissions' , 'uses' => 'UsersPositionController@postPermissions']);
+			Route::get('create', ['as' => 'admin.position.getCreate' , 'uses' => 'UsersPositionController@getCreate']);
+			Route::post('create', ['as' => 'admin.position.getCreate' , 'uses' => 'UsersPositionController@postCreate']);
+			Route::get('update/{id}', ['as' => 'admin.position.getUpdate' , 'uses' => 'UsersPositionController@getUpdate']);
+			Route::post('update/{id}', ['as' => 'admin.position.getUpdate' , 'uses' => 'UsersPositionController@postUpdate']);
 		});
 
 		// Tạo Landing-Page bán hàng
@@ -273,8 +276,29 @@ Route::group(['middleware' => 'auth'], function(){
 			Route::post('create_info', ['as' => 'admin.landing-page.create_info' , 'uses' => 'SiteController@postInfoSiteCreate']); // Per
 			Route::get('create', ['as' => 'admin.landing-page.create' , 'uses' => 'SiteController@getSiteCreate']); // Per
 			Route::get('order', ['as' => 'admin.landing-page.order' , 'uses' => 'SiteController@getOrder']); // Per
-			Route::post('updatePageData', ['as' => 'updatePageData', 'uses' => 'SiteController@postUpdatePageData']); // Per	
+			Route::post('updatePageData', ['as' => 'updatePageData', 'uses' => 'SiteController@postUpdatePageData']); // Per
 			Route::get('site/{site_id}', [ 'as' => 'admin.landing-page.site', 'uses' => 'SiteController@getSite']); // Per
+		});
+
+		// Shop
+		Route::group(['prefix' => 'shop'], function(){
+			Route::group(['prefix' => 'post-categories'], function(){
+				Route::get('index', ['as' => 'admin.post-categories.index' , 'uses' => 'ShopPostCategoriesController@getIndex']);
+				Route::get('create', ['as' => 'admin.post-categories.create' , 'uses' => 'ShopPostCategoriesController@getCreate']);
+				Route::post('create', ['as' => 'admin.post-categories.create' , 'uses' => 'ShopPostCategoriesController@postCreate']);
+				Route::get('update/{id}', ['as' => 'admin.post-categories.getUpdate' , 'uses' => 'ShopPostCategoriesController@getUpdate']);
+				Route::post('update/{id}', ['as' => 'admin.post-categories.getUpdate' , 'uses' => 'ShopPostCategoriesController@postUpdate']);
+				Route::get('delete/{id}', ['as' => 'admin.post-categories.getDelete' , 'uses' => 'ShopPostCategoriesController@getDelete']); // Per
+			});
+
+			Route::group(['prefix' => 'post'], function(){
+				Route::get('index', ['as' => 'admin.post.index' , 'uses' => 'ShopPostController@getIndex']);
+				Route::get('create', ['as' => 'admin.post.getCreate' , 'uses' => 'ShopPostController@getCreate']);
+				Route::post('create', ['as' => 'admin.post.getCreate' , 'uses' => 'ShopPostController@postCreate']);
+				Route::get('update/{id}', ['as' => 'admin.post.getUpdate' , 'uses' => 'ShopPostController@getUpdate']);
+				Route::post('update/{id}', ['as' => 'admin.post.getUpdate' , 'uses' => 'ShopPostController@postUpdate']);
+				Route::get('delete/{id}', ['as' => 'admin.post.getDelete' , 'uses' => 'ShopPostController@getDelete']); // Per
+			});
 		});
 
 	});
@@ -285,13 +309,13 @@ Route::get('siteData', ['as' => 'siteData', 'uses' => 'SiteController@getSiteDat
 
 // Revision section route
 Route::get('site/getRevisions/{site_id}/{page}', ['uses' => 'SiteController@getRevisions','as' => 'getRevisions']);
-Route::get('site/rpreview/{site_id}/{datetime}/{page}', ['uses' => 'SiteController@getRevisionPreview','as' => 'revision.preview']); 
-Route::get('deleterevision/{site_id}/{datetime}/{page}', ['uses' => 'SiteController@getRevisionDelete','as' => 'revision.delete']); 
+Route::get('site/rpreview/{site_id}/{datetime}/{page}', ['uses' => 'SiteController@getRevisionPreview','as' => 'revision.preview']);
+Route::get('deleterevision/{site_id}/{datetime}/{page}', ['uses' => 'SiteController@getRevisionDelete','as' => 'revision.delete']);
 Route::get('restorerevision/{site_id}/{datetime}/{page}', ['uses' => 'SiteController@getRevisionRestore','as' => 'revision.restore']);
 
 // Save
 Route::post('site/save', ['as' => 'site-save', 'uses' => 'SiteController@postSave']);
-Route::get('site/getframe/{frame_id}', ['as' => 'getframe', 'uses' => 'SiteController@getFrame']); 
+Route::get('site/getframe/{frame_id}', ['as' => 'getframe', 'uses' => 'SiteController@getFrame']);
 Route::get('siteAjax/{site_id}', ['as' => 'siteAjax', 'uses' => 'SiteController@getSiteAjax']);
 Route::post('site/live/preview', ['uses' => 'SiteController@postLivePreview','as' => 'live.preview']);
 
@@ -316,5 +340,5 @@ Route::get('settings', ['uses' => 'SettingController@getSetting','as' => 'settin
 Route::post('edit-settings', ['uses' => 'SettingController@postSetting','as' => 'edit-settings']);
 
 // Get LandingPage
-Route::get('lp{site_id}/{slug}', ['uses' => 'SiteController@getLandingPage','as' => 'viewLandingPage']); 
-Route::post('lp{site_id}/{slug}', ['uses' => 'SiteController@createOrderLandingPage','as' => 'viewLandingPage']); 
+Route::get('lp{site_id}/{slug}', ['uses' => 'SiteController@getLandingPage','as' => 'viewLandingPage']);
+Route::post('lp{site_id}/{slug}', ['uses' => 'SiteController@createOrderLandingPage','as' => 'viewLandingPage']);

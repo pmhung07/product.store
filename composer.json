@@ -7,10 +7,11 @@
     "require": {
         "php": ">=5.5.9",
         "laravel/framework": "5.2.*" ,
-        "illuminate/html": "~5.0",
+        "laravelcollective/html": "5.2.*",
         "barryvdh/laravel-debugbar": "2.*",
         "sunra/php-simple-html-dom-parser": "1.5.2",
-        "anhskohbo/no-captcha": "*"
+        "anhskohbo/no-captcha": "*",
+        "intervention/image": "^2.3@dev"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
@@ -27,7 +28,8 @@
             "App\\": "app/"
         },
         "files": [
-            "app/Functions/functions.php"
+            "app/Functions/functions.php",
+            "app/Hocs/Helpers/helper.php"
         ]
     },
     "autoload-dev": {

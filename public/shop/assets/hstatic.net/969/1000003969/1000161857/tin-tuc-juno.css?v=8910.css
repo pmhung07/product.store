@@ -1,0 +1,278 @@
+/******************** SFU font *********************/
+@font-face {
+	font-family: 'SFU';
+	src: url('../../../288/1000046288/10/2015/10-29/sfu-avantgardeitcbybt-book.otf');
+	font-weight: normal;
+	font-style: normal;
+}
+.item-to-img {
+	position: relative;
+}
+.item-to-img img{
+	height:330px;
+}
+.item-to-img a.link-blog-category {
+	position: absolute;
+	bottom: 0;
+	color: #fff;
+	background: #3BA1A2;
+	padding: 3px 10px;
+	text-transform: uppercase;
+	font-family: 'SFU', Arial, sans-serif;
+	font-weight: 600;
+}
+.item-to h3 {
+	margin-top: 15px;
+}
+.item-to h3 a {
+	color: #000;
+	font-family: 'SFU', Arial, sans-serif;
+	line-height: 1.4;
+	text-transform: uppercase;
+	font-size: 20px;
+}
+.blog-read-item{
+	margin-bottom:20px;
+}
+.blog-read-item .item-img{
+	width:30%;
+	height:80px;
+	display: flex;
+	align-items: center;
+}
+.blog-read-item .item-img span {
+	display: block;
+	text-align: center;
+	width: 100%;
+	color: #000;
+	font-size: 40px;
+	font-style: italic;
+	font-weight: 600;
+}
+.blog-read-item .caption {
+	width: 70%;
+	float: right;
+	padding: 0px 0px 0px 20px;
+}
+.blog-read-item .caption h3{
+	margin:0;
+	max-height:42px;
+	overflow:hidden;
+	margin-bottom:5px;
+}
+.blog-read-item .caption h3 a{
+	color:#333;
+	font-family: 'SFU', Arial, sans-serif;
+	font-size: 13pt;
+	display: block;
+	line-height: 21px;
+}
+span.date{
+	font-size:11px;
+	color:#666;
+	display:block;
+	font-family: Arial, sans-serif;
+}
+.blog-read-item .caption a.title-category {
+	font-family: Arial, sans-serif;
+	color: #3BA1A2;
+	font-size: 13px;
+	text-transform: uppercase;
+}
+.items-ngang {
+	margin-top: 20px;
+	padding-bottom: 20px;
+	//border-bottom: 1px solid #ddd;
+}
+.items-ngang .info{
+	width:50%;
+	padding-right:15px;
+}
+.items-ngang .info h3{
+	margin: 0;
+	margin-bottom:5px;
+	//max-height: 66px;
+	//overflow: hidden;
+}
+.items-ngang .info h3 a{
+	font-family: 'SFU', Arial, sans-serif;
+	font-size: 19pt;
+	color: #000;
+	line-height: 32px;
+	//max-height: 66px;
+	//overflow: hidden;
+	display: block;
+}
+.items-ngang .info p.des{
+	font-size: 15px;
+	margin: 10px 0;
+	line-height: 24px;
+}
+.link-icon a{
+	display:inline-block;
+	width:30px;
+	height:30px;
+	border-radius:30px;
+	margin-right:8px;
+	float:left;
+}
+.link-icon a.share-icon{
+	background:#d9d6d6 url('https://hstatic.net/434/1000006434/1000066622/share.png?v=188') center center no-repeat;
+}
+.link-icon a.comment-icon{
+	background:#d9d6d6 url('https://hstatic.net/434/1000006434/1000066622/comment.png?v=188') center center no-repeat;
+}
+.link-icon span{
+	float: left;
+	line-height: 30px;
+}
+.items-ngang .item-img{
+	width:50%;
+	height:250px;
+}
+.blog-km{
+	color: #3ABFF7;
+	font-size: 16px;
+	display: inline-block;
+	padding: 5px 15px;
+	border: 1px solid #666;
+	width: 400px;
+}
+.blog-product-km{
+	border: 1px solid #ddd;
+	width: calc(100% + 40px);
+	margin-left: -10px;
+}
+.blog-product-km h3{
+	background: #000;
+	color: #fff;
+	font-size: 16px;
+	text-transform: uppercase;
+	margin: 0;
+	text-align: center;
+	padding: 10px;
+	font-weight: 600;
+}
+.blog-product-km .product-wrapper.image1x{
+	width:100% !important;
+}
+.blog-product-km .product-wrapper .product-info h2 {
+	margin: 0px;
+	height: 31px;
+	overflow: hidden;
+	margin-bottom: 5px;
+}
+
+.blog-product-km .product-wrapper .product-info .field-sale {
+	float: left;
+	padding-left: 15px;
+	border-left: 1px solid #e7e7e7;
+}
+.blog-product-km .product-wrapper .product-image {
+	position: relative;
+	text-align: center;
+	padding: 0px 15px;
+}
+.blog-product-km .product-wrapper .product-new {
+	font-size: 11px;
+	color: #000;
+	background-color: #feabab;
+	display: inline-block;
+	padding: 3px 8px;
+	border: 1px solid #fa9494;
+}
+.blog-product-km .product-wrapper .product-sale-small, .blog-product-km .product-wrapper .product-sale-big {
+	font-size: 11px;
+	color: #000;
+	float: right;
+}
+.blog-product-km .product-wrapper .product-sale-small div, .blog-product-km .product-wrapper .product-sale-big div {
+	display: inline-block;
+	vertical-align: middle;
+	margin-top: 8px;
+	margin-right: 4px;
+}
+.share{position:relative;margin-bottom: 10px;}
+.share .content {
+	margin: 0;
+	display: none;
+	background: #fff;
+	box-shadow: 1px 1px 1px;
+	width:79px;
+	position:absolute;
+	top:100%;
+}
+ul.icon-share-share {
+	padding: 5px;
+	height: 42px;
+}
+ul.icon-share-share li {
+	display: inline-block;
+	width:32px;
+	height:32px;
+}
+.icon-share-share .facebook{
+	background:url('https://hstatic.net/434/1000006434/10/2015/11-4/facebook.png') center center no-repeat;
+	background-size: 70%;
+}
+.icon-share-share .google{
+	background:url('https://hstatic.net/434/1000006434/10/2015/11-4/gplus2.png') center center no-repeat;
+	background-size: 70%;
+}
+ul.icon-share-share li a{
+	display:block;
+	height:100%;
+}
+h2.parent {
+	background: #3AA0A2;	
+	display: table;
+	padding: 6px 10px;
+	font-size: 15px;
+	margin-top:15px;
+}
+h2.parent a{
+	color: #fff;
+	text-transform: uppercase;
+}
+
+h1.title-post {
+	font-family: 'SFU', Arial, sans-serif;
+	color:#000;
+	font-size: 28px;
+}
+
+.detail {
+	font-family: initial;
+	font-style: italic;
+	font-size: 16px;
+	line-height: 20px;
+	text-align: justify;
+	margin-bottom: 10px;
+	margin-top:7px;
+}
+@media screen and (max-width:767px){
+	.blog-km{
+		color: #3ABFF7;
+		font-size: 16px;
+		display: inline-block;
+		padding: 5px 15px;
+		border: 1px solid #666;
+		width: 100%;
+	}
+}
+.h3replay{
+	background:none !important;
+font-size: 14px !important;
+color: #333 !important;
+font-family: 'Roboto-Medium' !important;
+text-align:left !important;
+font-weight:300!important;
+}
+@media (min-width: 1200px)
+.height-index-1 {
+    width: 100%;
+    height: 301px !important;
+}
+.height-index-1{
+	 height: 301px !important;
+}

@@ -123,7 +123,7 @@ function list_cate($data, $parent = 0, $str=""){
 			echo '
 			<tr class="footable-even" style="display: table-row;">
 			    <td class="hasinput"><span class="footable-toggle"></span>
-			      	'.$i.'
+			      	#
 			    </td>
 			    <td>
 			       '.$str.$name.'
@@ -186,7 +186,71 @@ function list_permissions($data, $parent = 0, $str=""){
 	}
 }
 
+function list_post_categories($data, $parent = 0, $str=""){
+	$i = 0;
+	foreach ($data as $val){
+		$i++;
+		$id = $val['id'];
+		$name = $val['name'];
+		$parent_id = $val['parent_id'];
+		
+		if($val['parent_id'] == $parent) {
+			echo '
+			<tr class="footable-even" style="display: table-row;">
+			    <td class="hasinput"><span class="footable-toggle"></span>
+			      	#
+			    </td>
+			    <td>
+			       '.$str.$name.'
+			    </td>
+			    <td class="text-right footable-visible footable-last-column">
+                    <div class="btn-group">
+                        <a href="'.URL::route('admin.post-categories.getUpdate',$id).'" class="btn-white btn btn-xs">
+                            <i class="fa fa-edit "></i> Sửa
+                        </a>
+                        <a href="#" data-toggle="modal" data-target="#confirm-delete" data-href="'.URL::route('admin.post-categories.getDelete',$id).'"  class="btn-white btn btn-xs">
+                            <i class="fa fa-trash "></i> Xoá
+                        </a>
+                    </div>
+			    </td>
+			</tr>';
+			list_post_categories_loop($data, $id, $str."-----| ");
+		}	
+	}
+}
 
+function list_post_categories_loop($data, $parent = 0, $str=""){
+	$i = 0;
+	foreach ($data as $val){
+		$i++;
+		$id = $val['id'];
+		$name = $val['name'];
+		$parent_id = $val['parent_id'];
+		
+		if($val['parent_id'] == $parent) {
+			echo '
+			<tr class="footable-even" style="display: table-row;">
+			    <td class="hasinput"><span class="footable-toggle"></span>
+			      	#
+			    </td>
+			    <td>
+			       '.$str.$name.'
+			    </td>
+			    <td class="text-right footable-visible footable-last-column">
+                    <div class="btn-group">
+                        <a href="'.URL::route('admin.post-categories.getUpdate',$id).'" class="btn-white btn btn-xs">
+                            <i class="fa fa-edit "></i> Sửa
+                        </a>
+                        <a href="#" data-toggle="modal" data-target="#confirm-delete" data-href="'.URL::route('admin.post-categories.getDelete',$id).'"  class="btn-white btn btn-xs">
+                            <i class="fa fa-trash "></i> Xoá
+                        </a>
+                    </div>
+			    </td>
+			</tr>';
+			list_cate($data, $id, $str."-----| ");
+		}	
+	}
+}
 
 function list_permissions_checkbox($data, $parent = 0, $str="",$arr_check=array()){
 	$i = 1;
