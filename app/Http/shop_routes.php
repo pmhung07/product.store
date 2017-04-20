@@ -1,7 +1,7 @@
 <?php
 
 // Shop
-Route::group(['domain' => 'shop.9119.dev', 'namespace' => 'Shop'], function () {
+Route::group(['domain' => 'shop.'.env('APP_DOMAIN'), 'namespace' => 'Shop'], function () {
     Route::get('/', 'HomeController@getIndex');
 
     // Danh mục sản phẩm
