@@ -3,27 +3,28 @@
 @section('breadcrumbs')
 <div class="row wrapper border-bottom white-bg page-heading">
     <div class="col-lg-9">
-        <h2><i class="fa fa-sitemap"></i> Danh sách nhóm sản phẩm</h2>
+        <h2><i class="fa fa-sitemap"></i> Danh sách nhóm tin</h2>
     </div>
     <div class="col-lg-3 btn-add">
-        <a href="system/product-group/create" class="btn btn-primary " ><i class="fa fa-plus"></i>&nbsp;Thêm nhóm sản phẩm</a>
+        <a href="system/shop/post-categories/create" class="btn btn-primary " ><i class="fa fa-plus"></i>&nbsp;Thêm nhóm tin</a>
     </div>
 </div>
 @stop            
 
 @section('content')
 <div class="row">
-    <div class="col-lg-12">
+    @include('layout.admin.sidebar-shop')
+    <div class="col-lg-9">
 
         <div class="ibox" style="margin-bottom:0px;">
             <div class="ibox-content">
                 <div class="table-responsive bg-block table-bordered" style="overflow-x: inherit;">
                     <table class="table shoping-cart-table">
                         <tbody>
-                            <form method="GET" action="{!! route('admin.product-group.index') !!}" accept-charset="UTF-8">
+                            <form method="GET" action="{!! route('admin.post-categories.index') !!}" accept-charset="UTF-8">
                                 <tr>
                                     <td>
-                                        <input type="text" id="product_group_name" name="product_group_name" value="" placeholder="Tìm kiếm nhóm sản phẩm theo tên" class="form-control">
+                                        <input type="text" id="post_categories_name" name="post_categories_name" value="" placeholder="Tìm kiếm nhóm tin theo tên" class="form-control">
                                     </td>
                                     <td>
                                         <input class="btn btn-sm btn-primary" type="submit" value="Tìm kiếm">
@@ -60,7 +61,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                                <?php list_cate($data); ?>
+                                <?php list_post_categories($data); ?>
                             </tbody>
                         </table>
                     </div>
@@ -74,7 +75,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                Xoá dữ liệu Nhóm sản phẩm
+                Xoá dữ liệu Nhóm tin
             </div>
             <div class="modal-body">
                 Bạn có muốn xoá dữ liệu này không?

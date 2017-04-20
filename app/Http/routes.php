@@ -280,6 +280,27 @@ Route::group(['middleware' => 'auth'], function(){
 			Route::get('site/{site_id}', [ 'as' => 'admin.landing-page.site', 'uses' => 'SiteController@getSite']); // Per
 		});
 
+		// Shop
+		Route::group(['prefix' => 'shop'], function(){
+			Route::group(['prefix' => 'post-categories'], function(){
+				Route::get('index', ['as' => 'admin.post-categories.index' , 'uses' => 'ShopPostCategoriesController@getIndex']);
+				Route::get('create', ['as' => 'admin.post-categories.create' , 'uses' => 'ShopPostCategoriesController@getCreate']);
+				Route::post('create', ['as' => 'admin.post-categories.create' , 'uses' => 'ShopPostCategoriesController@postCreate']);
+				Route::get('update/{id}', ['as' => 'admin.post-categories.getUpdate' , 'uses' => 'ShopPostCategoriesController@getUpdate']);
+				Route::post('update/{id}', ['as' => 'admin.post-categories.getUpdate' , 'uses' => 'ShopPostCategoriesController@postUpdate']);
+				Route::get('delete/{id}', ['as' => 'admin.post-categories.getDelete' , 'uses' => 'ShopPostCategoriesController@getDelete']); // Per
+			});
+
+			Route::group(['prefix' => 'post'], function(){
+				Route::get('index', ['as' => 'admin.post.index' , 'uses' => 'ShopPostController@getIndex']);
+				Route::get('create', ['as' => 'admin.post.getCreate' , 'uses' => 'ShopPostController@getCreate']);
+				Route::post('create', ['as' => 'admin.post.getCreate' , 'uses' => 'ShopPostController@postCreate']);
+				Route::get('update/{id}', ['as' => 'admin.post.getUpdate' , 'uses' => 'ShopPostController@getUpdate']);
+				Route::post('update/{id}', ['as' => 'admin.post.getUpdate' , 'uses' => 'ShopPostController@postUpdate']);
+				Route::get('delete/{id}', ['as' => 'admin.post.getDelete' , 'uses' => 'ShopPostController@getDelete']); // Per
+			});
+		});
+
 	});
 });
 

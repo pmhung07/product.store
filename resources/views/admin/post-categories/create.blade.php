@@ -3,7 +3,7 @@
 @section('breadcrumbs')
 <div class="row wrapper border-bottom white-bg page-heading">
     <div class="col-lg-10">
-        <h2><i class="fa fa-sitemap"></i> Tạo mới nhóm sản phẩm</h2>
+        <h2><i class="fa fa-sitemap"></i> Tạo mới nhóm tin</h2>
     </div>
     <div class="col-lg-2">
 
@@ -13,7 +13,8 @@
 
 @section('content')
 <div class="row">
-    <div class="col-lg-12">
+    @include('layout.admin.sidebar-shop')
+    <div class="col-lg-9">
         <div class="row">
         	<div class="col-lg-12">
 
@@ -42,25 +43,19 @@
                 
 
                 <div class="ibox-content">
-                    <form action="{!! route('admin.product-group.getCreate') !!}" method="POST" class="form-horizontal">
+                    <form action="{!! route('admin.post-categories.create') !!}" method="POST" class="form-horizontal">
                         <input type="hidden" name="_token" value="{!! csrf_token() !!}">
-                        <div class="form-group"><label class="col-sm-2 control-label">Tên nhóm</label>
-                            <div class="col-sm-10"><input required name="name_product_group" type="text" class="form-control"></div>
+                        <div class="form-group"><label class="col-sm-2 control-label">Danh mục tin</label>
+                            <div class="col-sm-10"><input required name="post_categories_name" type="text" class="form-control"></div>
                         </div>
-                        <div class="form-group"><label class="col-sm-2 control-label">Chọn danh mục cha</label>
+                        <div class="form-group"><label class="col-sm-2 control-label">Danh mục cha</label>
                             <div class="col-sm-10">
-        	                    <select class="form-control m-b" name="slc_product_group">
+        	                    <select class="form-control m-b" name="slc_post_categories">
         	                    	<option value="0" selected="">-- Chọn danh mục --</option>	   
                                     <? cat_parent($parent);?>        
         	                    </select>
                             </div>
                         </div>
-                        <div class="form-group"><label class="col-sm-2 control-label">Mô tả</label>
-                            <div class="col-sm-10">
-        	                    <textarea name="des_product_group" class="form-control noresize" id="encCss" rows="3"></textarea>
-                            </div>
-                        </div>
-                        <div class="hr-line-dashed"></div>
                         <div class="form-group">
                             <div class="col-sm-8 col-sm-offset-2">
                                 <button class="btn btn-primary" type="submit">Lưu thông tin</button>
