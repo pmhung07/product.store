@@ -39,7 +39,8 @@ return array(
     'thumbs' => [
         'sm_' => ['width' => 320, 'height' => 240],
         'md_' => ['width' => 480, 'height' => 360],
-        'lg_' => ['width' => 640, 'height' => 480]
+        'lg_' => ['width' => 640, 'height' => 480],
+        'xlg_'=> ['width' => 800, 'height' => 640]
     ]
 
 );

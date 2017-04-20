@@ -33,8 +33,8 @@ class AppServiceProvider extends ServiceProvider
         /**
          * Upload ảnh, có resize, crop
          */
-        $this->app->singleton('ImageFactory', function() {
-            $uploader = resolve('Uploader');
+        $this->app->singleton('ImageUploader', function() {
+            $uploader = $this->app->make('Uploader');
             $image = new \Nht\Hocs\Core\Images\Image();
             return new \Nht\Hocs\Core\Images\ImageFactory($uploader, $image);
         });

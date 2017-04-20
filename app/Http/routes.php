@@ -299,6 +299,16 @@ Route::group(['middleware' => 'auth'], function(){
 				Route::post('update/{id}', ['as' => 'admin.post.getUpdate' , 'uses' => 'ShopPostController@postUpdate']);
 				Route::get('delete/{id}', ['as' => 'admin.post.getDelete' , 'uses' => 'ShopPostController@getDelete']); // Per
 			});
+
+			// Trang tĩnh
+			Route::group(['prefix' => 'page'], function(){
+				Route::get('index', ['as' => 'admin.page.index' , 'uses' => 'ShopPageController@getIndex']);
+				Route::get('create', ['as' => 'admin.page.getCreate' , 'uses' => 'ShopPageController@getCreate']);
+				Route::post('create', ['as' => 'admin.page.getCreate' , 'uses' => 'ShopPageController@postCreate']);
+				Route::get('update/{id}', ['as' => 'admin.page.getUpdate' , 'uses' => 'ShopPageController@getUpdate']);
+				Route::post('update/{id}', ['as' => 'admin.page.getUpdate' , 'uses' => 'ShopPageController@postUpdate']);
+				Route::get('delete/{id}', ['as' => 'admin.page.getDelete' , 'uses' => 'ShopPageController@getDelete']); // Per
+			});
 		});
 
 	});
@@ -342,3 +352,9 @@ Route::post('edit-settings', ['uses' => 'SettingController@postSetting','as' => 
 // Get LandingPage
 Route::get('lp{site_id}/{slug}', ['uses' => 'SiteController@getLandingPage','as' => 'viewLandingPage']);
 Route::post('lp{site_id}/{slug}', ['uses' => 'SiteController@createOrderLandingPage','as' => 'viewLandingPage']);
+
+
+// Ajax
+Route::group(['prefix' => 'ajax', 'namespace' => 'Ajax'], function() {
+	Route::post('/upload-image', 'UploadImageController@postUpload');
+});

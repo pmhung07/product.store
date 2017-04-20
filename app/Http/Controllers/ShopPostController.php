@@ -2,23 +2,27 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
+use App;
 use App\Http\Requests;
-
-use App\ShopPostCategories;
+use App\Http\Requests\Core\PostFormRequest;
 use App\ShopPost;
-
+use App\ShopPostCategories;
 use DB;
+use Illuminate\Http\Request;
 
 class ShopPostController extends Controller
 {
+    public function __construct()
+    {
+        $this->imageUploader = App::make('ImageUploader');
+    }
+
     public function getCreate(){
     	$post_categories = ShopPostCategories::select('id','name','parent_id')->get()->toArray();
     	return view('admin.post.create',compact('post_categories'));
     }
 
-    public function postCreate(Request $request){
+    public function postCreate(PostFormRequest $request){
     	$shoppost = new ShopPost();
     	$shoppost->category_id = $request->category_id;;
     	$shoppost->title = $request->title;
@@ -27,6 +31,14 @@ class ShopPostController extends Controller
     	$shoppost->meta_title = $request->meta_title;
         $shoppost->meta_keyword = $request->meta_keyword;
         $shoppost->meta_description = $request->meta_description;
+
+        if($request->hasFile('image')) {
+            $result = $this->imageUploader->upload('image');
+            if($result['status'] > 0) {
+                $shoppost->image = $result['filename'];
+            }
+        }
+
     	$shoppost->save();
     	return redirect()->route('admin.post.getCreate')->with(['flash_message' => 'Thêm tin thành công!']);
     }
@@ -43,7 +55,7 @@ class ShopPostController extends Controller
 
         if ($request->has('title') && $request->GET('title') != ""){
             $rows = $rows->where('shop_posts.title','LIKE','%'.$request->GET("title").'%');
-        }   
+        }
 
         $data = $rows->orderBy($sort,$orderby)->paginate(20);
         $total_row = count($data);
@@ -54,26 +66,18 @@ class ShopPostController extends Controller
     public function getDelete($id){
         $data = ShopPost::find($id);
         $data->delete($id);
-        return redirect()->route('admin.post.index')->with(['flash_message' => 'Xoá tin thành công!']);    
+        return redirect()->route('admin.post.index')->with(['flash_message' => 'Xoá tin thành công!']);
     }
 
     public function getUpdate($id){
 
     	$post_categories = ShopPostCategories::select('id','name','parent_id')->get()->toArray();
 
-        $data = ShopPost::find($id)->toArray();
+        $data = ShopPost::findOrFail($id);
         return view('admin.post.update',compact('post_categories','data'));
     }
 
-    public function postUpdate(Request $request,$id){
-        $this->validate($request,
-            [
-				'title' => 'required'
-	        ],
-            [
-				'title.required' => 'Vui lòng nhập tiêu đề tin!'
-             ]
-        );
+    public function postUpdate(PostFormRequest $request,$id){
         $shoppost = new ShopPost();
         $shoppost = ShopPost::find($id);
     	$shoppost->category_id = $request->category_id;;
@@ -83,6 +87,14 @@ class ShopPostController extends Controller
         $shoppost->meta_title = $request->meta_title;
         $shoppost->meta_keyword = $request->meta_keyword;
         $shoppost->meta_description = $request->meta_description;
+
+        if($request->hasFile('image')) {
+            $result = $this->imageUploader->upload('image');
+            if($result['status'] > 0) {
+                $shoppost->image = $result['filename'];
+            }
+        }
+
     	$shoppost->save();
         return redirect()->route('admin.post.index')->with(['flash_message' => 'Cập nhật tin thành công!']);
     }

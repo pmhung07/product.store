@@ -9,7 +9,7 @@
 
     </div>
 </div>
-@stop            
+@stop
 
 @section('content')
 
@@ -38,14 +38,17 @@
                 </div>
             </div>
         @endif
-    
+
         <div class="ibox-content m-b-sm border-bottom">
             <div class="row">
             	<div class="col-lg-12">
 
-                    <form action="{!! route('admin.product.getCreate') !!}" class="form-horizontal" method="POST">
+                    <form action="{!! route('admin.product.getCreate') !!}" class="form-horizontal" method="POST" enctype="multipart/form-data">
 
                         <input type="hidden" name="_token" value="{!! csrf_token() !!}">
+                        <div class="form-group"><label class="col-sm-3 control-label">Ảnh sản phẩm</label>
+                            <div class="col-sm-9"><input name="image" type="file" class="form-control"></div>
+                        </div>
                         <div class="form-group"><label class="col-sm-3 control-label">Tên sản phẩm</label>
                             <div class="col-sm-9"><input name="product_name" type="text" class="form-control"></div>
                         </div>
@@ -58,8 +61,8 @@
                         <div class="form-group"><label class="col-sm-3 control-label">Nhóm sản phẩm</label>
                             <div class="col-sm-9">
         	                    <select class="form-control m-b" name="product_group">
-        	                    	<option value="" selected="">-- Chọn nhóm sản phẩm --</option>	               
-                                    <? cat_parent($group_product);?>    
+        	                    	<option value="" selected="">-- Chọn nhóm sản phẩm --</option>
+                                    <? cat_parent($group_product);?>
         	                    </select>
                             </div>
                         </div>
@@ -69,18 +72,26 @@
         	                    	<option value="" selected="">-- Chọn đơn vị  --</option>
                                     @foreach($units as $item)
                                         <option value="{!! $item['id'] !!}">{!! $item['name'] !!}</option>
-                                    @endforeach          
+                                    @endforeach
         	                    </select>
                             </div>
                         </div>
         	            <div class="form-group">
                             <label class="col-sm-3 control-label">Giá bán</label>
         	                <div class="col-sm-9">
-        	                    <div class="input-group m-b"><span class="input-group-addon">vnđ</span> 
-                                <input name="product_price" type="text" class="form-control"> 
+        	                    <div class="input-group m-b"><span class="input-group-addon">vnđ</span>
+                                <input name="product_price" type="text" class="form-control">
                                 </div>
         	                </div>
         	            </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">Giá khuyến mãi</label>
+                            <div class="col-sm-9">
+                                <div class="input-group m-b"><span class="input-group-addon">vnđ</span>
+                                <input name="promotion_price" type="text" class="form-control">
+                                </div>
+                            </div>
+                        </div>
                         <div class="form-group"><label class="control-label col-sm-3">Cảnh báo hết hàng</label>
                             <div class="col-sm-9">
                                 <input type="text" name="product_warning_low_in_stock" class="form-control" placeholder="Nhập số lượng cảnh báo sắp hết hàng trong kho">

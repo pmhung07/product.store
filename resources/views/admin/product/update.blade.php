@@ -9,7 +9,7 @@
 
     </div>
 </div>
-@stop            
+@stop
 
 @section('content')
 
@@ -38,14 +38,22 @@
                 </div>
             </div>
         @endif
-    
+
         <div class="ibox-content m-b-sm border-bottom">
             <div class="row">
             	<div class="col-lg-12">
 
-                    <form action="" class="form-horizontal" method="POST">
+                    <form action="" class="form-horizontal" method="POST" enctype="multipart/form-data">
 
                         <input type="hidden" name="_token" value="{!! csrf_token() !!}">
+                        <div class="form-group"><label class="col-sm-3 control-label">Ảnh sản phẩm</label>
+                            <div class="col-sm-9">
+                                @if($data['image'])
+                                    <img src="{{ parse_image_url('sm_'.$data['image']) }}" height="90" style="margin-bottom: 10px;">
+                                @endif
+                                <input name="image" type="file" class="form-control">
+                            </div>
+                        </div>
                         <div class="form-group"><label class="col-sm-3 control-label">Tên sản phẩm</label>
                             <div class="col-sm-9">
                             	<input name="product_name" type="text" class="form-control" value="{!! old('product_name',isset($data) ? $data['name'] : '') !!}">
@@ -64,7 +72,7 @@
                         <div class="form-group"><label class="col-sm-3 control-label">Nhóm sản phẩm</label>
                             <div class="col-sm-9">
         	                    <select class="form-control m-b" name="product_group">
-        	                    	<option value="" selected="">-- Chọn nhóm sản phẩm --</option>	                
+        	                    	<option value="" selected="">-- Chọn nhóm sản phẩm --</option>
                                     <?php cat_parent($group_product,0,"--",$data['product_group_id']); ?>
         	                    </select>
                             </div>
@@ -75,13 +83,13 @@
         	                    	<option value="" selected="">-- Chọn đơn vị  --</option>
                                     @foreach($units as $item)
                                         <option <?=($item['id'] == $data['unit_id'])?"selected":"";?> value="{!! $item['id'] !!}">{!! $item['name'] !!}</option>
-                                    @endforeach          
+                                    @endforeach
         	                    </select>
                             </div>
                         </div>
         	            <div class="form-group"><label class="col-sm-3 control-label">Giá bán</label>
         	                <div class="col-sm-9">
-        	                    <div class="input-group m-b"><span class="input-group-addon">vnđ</span> 
+        	                    <div class="input-group m-b"><span class="input-group-addon">vnđ</span>
                                 <input name="product_price" type="text" class="form-control" value="{!! old('product_price',isset($data) ? $data['price'] : '') !!}"> </div>
         	                </div>
         	            </div>

@@ -156,7 +156,8 @@ return [
         App\Providers\AuthServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-        //gg
+
+        Intervention\Image\ImageServiceProvider::class,
         Barryvdh\Debugbar\ServiceProvider::class,
 
     ],
@@ -208,6 +209,8 @@ return [
         'Html' => Collective\Html\HtmlFacade::class,
 
         'Debugbar' => Barryvdh\Debugbar\Facade::class,
+
+        'ImageIntervention' => Intervention\Image\Facades\Image::class
 
     ],
 

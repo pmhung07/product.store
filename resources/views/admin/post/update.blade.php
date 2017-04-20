@@ -9,43 +9,31 @@
 
     </div>
 </div>
-@stop            
+@stop
 
 @section('content')
 
 <div class="row">
     <div class="col-lg-12">
 
-        @if (count($errors) > 0)
-        <div class="ibox-content">
-            <div class="alert alert-danger" style="margin-bottom:0px;">
-                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{!! $error !!}</li>
-                    @endforeach
-                </ul>
-            </div>
-        </div>
-        @endif
+        @include('includes/flash-message')
 
-
-        @if (Session::has('flash_message'))
-            <div class="ibox-content">
-                <div class="alert alert-success"  style="margin-bottom:0px;">
-                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                    {!! Session::get('flash_message') !!}
-                </div>
-            </div>
-        @endif
-    
         <div class="ibox-content m-b-sm border-bottom">
             <div class="row">
             	<div class="col-lg-12">
 
-                    <form action="" class="form-horizontal" method="POST">
+                    <form action="" class="form-horizontal" method="POST" enctype="multipart/form-data">
 
                         <input type="hidden" name="_token" value="{!! csrf_token() !!}">
+
+                        <div class="form-group"><label class="col-sm-3 control-label">Ảnh minh họa</label>
+                            <div class="col-sm-9">
+                                @if($data->image)
+                                    <img src="{{ parse_image_url('md_'.$data->image) }}" height="90" style="margin-bottom: 10px;">
+                                @endif
+                                <input name="image" type="file" class="form-control">
+                            </div>
+                        </div>
 
                         <div class="form-group"><label class="col-sm-3 control-label">Tiêu đề</label>
                             <div class="col-sm-9"><input name="title" type="text" class="form-control" value="{!! old('title',isset($data) ? $data['title'] : '') !!}"></div>
@@ -61,7 +49,7 @@
                         <div class="form-group"><label class="col-sm-3 control-label">Danh mục bài viết</label>
                             <div class="col-sm-9">
                                 <select class="form-control m-b" name="category_id">
-                                    <option value="" selected="">-- Chọn nhóm tin --</option>                  
+                                    <option value="" selected="">-- Chọn nhóm tin --</option>
                                     <?php cat_parent($post_categories,0,"--",$data['category_id']); ?>
                                 </select>
                             </div>
@@ -92,24 +80,10 @@
 @stop
 
 @section('script')
-<link href="css/plugins/datapicker/datepicker3.css" rel="stylesheet">
-<link href="css/plugins/summernote/summernote.css" rel="stylesheet">
-<link href="css/plugins/summernote/summernote-bs3.css" rel="stylesheet">
 
-<!-- Data picker -->
-<script src="js/plugins/datapicker/bootstrap-datepicker.js"></script>
-
-<!-- FooTable -->
-<script src="js/plugins/footable/footable.all.min.js"></script>
-
-<!-- SUMMERNOTE -->
-<script src="js/inspinia.js"></script>
-<script src="js/plugins/summernote/summernote.min.js"></script>
 
 <script>
     $(document).ready(function(){
-
-        $('.summernote').summernote();
 
    });
 </script>

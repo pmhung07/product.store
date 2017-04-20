@@ -159,10 +159,7 @@
                         <a href="{{ route('admin.post.index') }}">Tin tức</a>
                     </li>
                     <li>
-                        <a href="{{ route('admin.post-categories.index') }}">Danh mục tin tức</a>
-                    </li>
-                    <li>
-                        <a href="{{ route('admin.post.index') }}">Trang tĩnh</a>
+                        <a href="{{ route('admin.page.index') }}">Trang tĩnh</a>
                     </li>
                 </li>
             </li>

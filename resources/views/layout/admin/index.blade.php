@@ -15,6 +15,42 @@
     <link href="css/animate.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
 
+    <link href="css/plugins/datapicker/datepicker3.css" rel="stylesheet">
+    <link href="css/plugins/summernote/summernote.css" rel="stylesheet">
+    <link href="css/plugins/summernote/summernote-bs3.css" rel="stylesheet">
+
+    <!-- Mainly scripts -->
+    <script src="js/jquery-2.1.1.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+    <!-- Custom and plugin javascript -->
+    <script src="js/inspinia.js"></script>
+    <script src="js/plugins/pace/pace.min.js"></script>
+
+    <!-- Data picker -->
+    <script src="js/plugins/datapicker/bootstrap-datepicker.js"></script>
+
+    <!-- FooTable -->
+    <script src="js/plugins/footable/footable.all.min.js"></script>
+
+    <!-- SUMMERNOTE -->
+    <script src="js/plugins/summernote/summernote.min.js"></script>
+
+    <script src="js/plugins/jasny/jasny-bootstrap.min.js"></script>
+
+    <script src="js/functions.js"></script>
+    <script src="js/core/core.js"></script>
+
+    <script type="text/javascript">
+        if(typeof App === 'undefined') {
+            var App = {};
+            App.config = {
+                token: '{{ csrf_token() }}'
+            };
+        }
+    </script>
 </head>
 
 <body>
@@ -37,18 +73,7 @@
         </div>
     </div>
 
-    <!-- Mainly scripts -->
-    <script src="js/jquery-2.1.1.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
-    <script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
-
-    <!-- Custom and plugin javascript -->
-    <script src="js/functions.js"></script>
-    <script src="js/inspinia.js"></script>
-    <script src="js/plugins/pace/pace.min.js"></script>
-
     @yield('script')
-    
+
 </body>
 </html>

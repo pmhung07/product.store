@@ -10,11 +10,16 @@ use App\Http\Requests\ProductRequest;
 use App\Product;
 use App\ProductGroup;
 use App\Units;
-
+use App;
 use DB;
 
 class ProductController extends Controller
 {
+    public function __construct()
+    {
+        $this->imageUploader = App::make('ImageUploader');
+    }
+
     public function getCreate(){
     	$group_product = ProductGroup::select('id','name','parent_id')->get()->toArray();
     	$units = Units::select('id','name')->where('active','=',1)->get()->toArray();
@@ -28,10 +33,19 @@ class ProductController extends Controller
     	$product->name = $request->product_name;
     	$product->sku = $request->product_sku;
     	$product->barcode = $request->product_barcode;
-    	$product->price = $request->product_price;
+    	$product->price = to_numberic($request->product_price);
         $product->warning_out_of_stock = $request->product_warning_low_in_stock;
         $product->weight = $request->product_weight;
         $product->volume = $request->product_volume;
+        $product->promotion_price = to_numberic($request->promotion_price);
+
+        if($request->hasFile('image')) {
+            $resultUpload = $this->imageUploader->upload('image');
+            if($resultUpload['status'] > 0) {
+                $product->image = $resultUpload['filename'];
+            }
+        }
+
     	$product->save();
     	return redirect()->route('admin.product.getCreate')->with(['flash_message' => 'Thêm sản phẩm thành công!']);
     }
@@ -49,11 +63,11 @@ class ProductController extends Controller
 
         if ($request->has('filter-product-sku') && $request->GET('filter-product-sku') != ""){
             $rows = $rows->where('product.sku','LIKE','%'.$request->GET("filter-product-sku").'%');
-        }   
+        }
 
         if ($request->has('filter-product-name') && $request->GET('filter-product-name') != ""){
             $rows = $rows->where('product.name','LIKE','%'.$request->GET("filter-product-name").'%');
-        }   
+        }
 
         if ($request->has('filter-product-groupt-id') && $request->GET('filter-product-groupt-id') != -1){
             $rows = $rows->where('product_group.id',$request->GET("filter-product-groupt-id"));
@@ -68,7 +82,7 @@ class ProductController extends Controller
     public function getDelete($id){
         $data = Product::find($id);
         $data->delete($id);
-        return redirect()->route('admin.product.index')->with(['flash_message' => 'Xoá sản phẩm thành công!']);    
+        return redirect()->route('admin.product.index')->with(['flash_message' => 'Xoá sản phẩm thành công!']);
     }
 
     public function getUpdate($id){
@@ -108,6 +122,14 @@ class ProductController extends Controller
         $product->warning_out_of_stock = $request->product_warning_low_in_stock;
         $product->weight = $request->product_weight;
         $product->volume = $request->product_volume;
+
+        if($request->hasFile('image')) {
+            $resultUpload = $this->imageUploader->upload('image');
+            if($resultUpload['status'] > 0) {
+                $product->image = $resultUpload['filename'];
+            }
+        }
+
     	$product->save();
         return redirect()->route('admin.product.index')->with(['flash_message' => 'Cập nhật sản phẩm thành công!']);
     }
