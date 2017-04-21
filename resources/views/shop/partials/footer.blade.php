@@ -13,7 +13,7 @@
                                 <div class="row">
                                     <ul class="menu_footer">
                                         <?php foreach($GLB_Categories as $item): ?>
-                                            <li class="col-xs-6">
+                                            <li class="col-xs-6 col-sm-3 col-md-3 col-lg-2">
                                                 <a class="link" href="{{ $item->getUrl() }}" title="Giày búp bê">
                                                     <img class="image" src="/shop/assets/file.hstatic.net/1000003969/file/icon_footer_1.svg" alt="Giày búp bê" class="img-responsive" />
                                                     <span class="label_footer">{{ $item->getName() }}</span>
@@ -30,9 +30,9 @@
                     <div class="">
                         <div class="container">
                             <div class="row" style="padding-top:20px;padding-bottom:20px">
-                                <div class="wrap_foo_switchboard col-md-5 col-lg-5 col-sm-10 col-xs-12">
+                                <div class="wrap_foo_switchboard col-md-6 col-lg-6 col-sm-10 col-xs-12">
                                     <div class="row">
-                                        <div class="col-md-5 col-lg-5 col-sm-5 col-xs-12 footer-colsystem">
+                                        <div class="col-md-6 col-lg-6 col-sm-5 col-xs-12 footer-colsystem">
                                             <div class="icon_phone">
                                                 <img src="/shop/assets/hstatic.net/969/1000003969/1000161857/icon_phone_circle.jpg%3Fv=8910" />
                                             </div>
@@ -43,7 +43,7 @@
                                                 <span class="moreinfo">Tất cả các ngày trong tuần</span>
                                             </div>
                                         </div>
-                                        <div class="col-md-5 col-lg-5 col-sm-5 col-xs-12 footer-colsystem">
+                                        <div class="col-md-5 col-lg-6 col-sm-6 col-xs-12 footer-colsystem">
                                             <div class="icon_phone">
                                                 <img src="/shop/assets/hstatic.net/969/1000003969/1000161857/icon_phone_circle.jpg%3Fv=8910" />
                                             </div>
@@ -56,9 +56,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="wrap_foo_social col-md-5 col-lg-5 col-sm-10 col-xs-12">
+                                <div class="wrap_foo_social col-md-6 col-lg-6 col-sm-10 col-xs-12">
                                     <div class="row">
-                                        <div class="wrapper_embed col-sm-5 col-xs-12">
+                                        <div class="wrapper_embed col-sm-6 col-xs-12">
                                             <div class="ttmail">
                                                 <span>
                                                 <strong>đăng ký nhận thông tin mới từ Juno</strong>
@@ -79,7 +79,7 @@
                                                 </form>
                                             </div>
                                         </div>
-                                        <div class="social col-sm-5 col-xs-12">
+                                        <div class="social col-sm-6 col-xs-12">
                                             <p class="title-md-footer">
                                                 <strong>Like Juno trên mạng xã hội</strong>
                                             </p>
@@ -165,9 +165,21 @@
 
         <script type="text/javascript">
             $(function() {
-                $('#quickView, .quick-view').on('show.bs.modal', function() {
+                var productId = 0;
+                $('.quick-view').click(function() {
+                    productId = $(this).data('id');
+                    $('#quickView').modal('show');
+                });
+
+                $('#quickView').on('show.bs.modal', function() {
+                    var $this = $(this);
                     $.ajax({
-                        url: '/ajax/popup-product.php',
+                        url: '/ajax/product/quick-view',
+                        type: 'GET',
+                        dataType: 'html',
+                        data: {
+                            product_id : productId
+                        },
                         success: function(response) {
                             $('#quickView').find('.modal-dialog').html(response);
                         }

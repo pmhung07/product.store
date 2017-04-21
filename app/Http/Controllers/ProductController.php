@@ -2,16 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
+use App;
 use App\Http\Requests;
 use App\Http\Requests\ProductRequest;
-
 use App\Product;
 use App\ProductGroup;
+use App\ProductImage;
 use App\Units;
-use App;
 use DB;
+use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
@@ -46,7 +45,18 @@ class ProductController extends Controller
             }
         }
 
-    	$product->save();
+        $product->save();
+
+        if($request->hasFile('images')) {
+            $resultUpload = $this->imageUploader->uploadMulti('images');
+            foreach($resultUpload['filename'] as $filename) {
+                $productImage = new ProductImage();
+                $productImage->product_id = $product->id;
+                $productImage->image = $filename;
+                $productImage->save();
+            }
+        }
+
     	return redirect()->route('admin.product.getCreate')->with(['flash_message' => 'Thêm sản phẩm thành công!']);
     }
 
@@ -131,6 +141,17 @@ class ProductController extends Controller
         }
 
     	$product->save();
+
+        if($request->hasFile('images')) {
+            $resultUpload = $this->imageUploader->uploadMulti('images');
+            foreach($resultUpload['filename'] as $filename) {
+                $productImage = new ProductImage();
+                $productImage->product_id = $product->id;
+                $productImage->image = $filename;
+                $productImage->save();
+            }
+        }
+
         return redirect()->route('admin.product.index')->with(['flash_message' => 'Cập nhật sản phẩm thành công!']);
     }
 }

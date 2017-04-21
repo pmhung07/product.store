@@ -49,6 +49,11 @@
                         <div class="form-group"><label class="col-sm-3 control-label">Ảnh sản phẩm</label>
                             <div class="col-sm-9"><input name="image" type="file" class="form-control"></div>
                         </div>
+
+                        <div class="form-group"><label class="col-sm-3 control-label">Ảnh mô tả sản phẩm</label>
+                            <div class="col-sm-9"><input name="images[]" type="file" class="form-control"></div>
+                        </div>
+
                         <div class="form-group"><label class="col-sm-3 control-label">Tên sản phẩm</label>
                             <div class="col-sm-9"><input name="product_name" type="text" class="form-control"></div>
                         </div>

@@ -1298,7 +1298,7 @@ select {
     }
 
     .sidebar .sidebar-content .order-summary.order-summary-is-collapsed {
-        height: 0;
+        // height: 0;
         overflow: hidden;
     }
 }

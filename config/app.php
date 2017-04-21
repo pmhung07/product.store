@@ -159,7 +159,8 @@ return [
 
         Intervention\Image\ImageServiceProvider::class,
         Barryvdh\Debugbar\ServiceProvider::class,
-
+        Gloudemans\Shoppingcart\ShoppingcartServiceProvider::class,
+        Mews\Purifier\PurifierServiceProvider::class
     ],
 
     /*
@@ -210,7 +211,9 @@ return [
 
         'Debugbar' => Barryvdh\Debugbar\Facade::class,
 
-        'ImageIntervention' => Intervention\Image\Facades\Image::class
+        'ImageIntervention' => Intervention\Image\Facades\Image::class,
+        'Cart' => Gloudemans\Shoppingcart\Facades\Cart::class,
+        'Xss' => Mews\Purifier\Facades\Purifier::class
 
     ],
 

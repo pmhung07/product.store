@@ -356,5 +356,16 @@ Route::post('lp{site_id}/{slug}', ['uses' => 'SiteController@createOrderLandingP
 
 // Ajax
 Route::group(['prefix' => 'ajax', 'namespace' => 'Ajax'], function() {
+
+	// Upload image
 	Route::post('/upload-image', 'UploadImageController@postUpload');
+
+    Route::group(['prefix' => 'province'], function() {
+        Route::get('/', ['as' => 'ajax.province.index', 'uses' => 'ProvinceController@getIndex']);
+        Route::get('/{id}/districts', ['as' => 'ajax.province.district', 'uses' => 'ProvinceController@getDistricts']);
+    });
+
+    Route::group(['prefix' => 'district'], function() {
+        Route::get('/{id}/wards', ['as' => 'ajax.district.ward', 'uses' => 'DistrictController@getWards']);
+    });
 });

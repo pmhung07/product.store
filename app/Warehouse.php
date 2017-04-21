@@ -15,4 +15,14 @@ class Warehouse extends Model
     public function warehouseph(){
     	return $this->hasMany('App\WarehousePh');
     }
+
+    public function province()
+    {
+        return $this->belongsTo('App\Provinces', 'province_id');
+    }
+
+    public function district()
+    {
+        return $this->belongsTo('App\Districts', 'district_id');
+    }
 }

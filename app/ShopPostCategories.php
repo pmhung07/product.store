@@ -11,4 +11,24 @@ class ShopPostCategories extends Model
     protected $fillable = ['id', 'name', 'parent_id', 'slug'];
 
     public $timestamps = true;
+
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    public function getSlug()
+    {
+        return removeTitle($this->getName());
+    }
+
+    public function getUrl()
+    {
+        return route('shop.post_category.posts', [$this->getId(), $this->getSlug()]);
+    }
 }

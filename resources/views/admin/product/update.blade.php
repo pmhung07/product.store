@@ -54,6 +54,11 @@
                                 <input name="image" type="file" class="form-control">
                             </div>
                         </div>
+
+                        <div class="form-group"><label class="col-sm-3 control-label">Ảnh mô tả sản phẩm</label>
+                            <div class="col-sm-9"><input name="images[]" multiple="true" type="file" class="form-control"></div>
+                        </div>
+
                         <div class="form-group"><label class="col-sm-3 control-label">Tên sản phẩm</label>
                             <div class="col-sm-9">
                             	<input name="product_name" type="text" class="form-control" value="{!! old('product_name',isset($data) ? $data['name'] : '') !!}">

@@ -89,67 +89,40 @@
                     </div>
                 </div>
             </div>
-            <div class="col-xs-12 col-sm-6">
-                <div class="row">
-                    <div id="owl-blog-slider" class="owl-carousel owl-theme">
-                        <?php foreach($posts as $item): ?>
-                            <div class="blog-slider-item 5 item">
-                                <a href="/single-blog.php" target="_blank"><img src="{{ parse_image_url($item->image) }}" alt="{{ $item->title }}"></a>
-                                <div class="blog-slider-info">
-                                    <a href="blogs/meo.1.html" target="_blank" class="blog-category">{{ $item->category->name }}</a>
-                                    <h3>
-                                        <a href="/single-blog.php" target="_blank" class="blog-title">{{ $item->title }}</a>
-                                    </h3>
-                                </div>
+            <div class="col-xs-12 col-sm-8">
+                <div id="owl-blog-slider" class="owl-carousel owl-theme">
+                    <?php foreach($posts as $item): ?>
+                        <div class="blog-slider-item 5 item">
+                            <a href="{{ $item->getUrl() }}" target="_blank"><img src="{{ parse_image_url($item->image) }}" alt="{{ $item->title }}"></a>
+                            <div class="blog-slider-info">
+                                <a href="" target="_blank" class="blog-category">{{ $item->category->name }}</a>
+                                <h3>
+                                    <a href="{{ $item->getUrl() }}" target="_blank" class="blog-title">{{ $item->title }}</a>
+                                </h3>
                             </div>
-                        <?php endforeach; ?>
-                    </div>
+                        </div>
+                    <?php endforeach; ?>
                 </div>
             </div>
-            <script>
-                $("#owl-blog-slider").owlCarousel({
-                    pagination : false,
-                    navigation : true,
-                    navigationText:["<i class=\"insert-left\"><\/i>","<i class=\"insert-right\"><\/i>"],
-                    autoPlay: 8000,
-                    items :1,
-                    transitionStyle : "fade",
-                    itemsDesktop : [1024,1],
-                    itemsDesktopSmall : [967,1],
-                    itemsTablet: [600,1],
-                });
-                $('#owl-insert-slider').owlCarousel({
-                    pagination : false,
-                    navigation : true,
-                    items :4,
-                    navigationText:["<i class=\"insert-left\"><\/i>","<i class=\"insert-right\"><\/i>"],
-                    itemsDesktop : [1024,3],
-                    itemsDesktopSmall : [967,2],
-                    itemsTablet: [600,1],
-                    itemsMobile : [600,1]
-                });
-            </script>
             <div class="col-xs-12 col-sm-4">
-                <div class="row">
-                    <div class="blog-read-viewed">
-                        <h2>
-                            <span>Bài được xem nhiều nhất</span>
-                        </h2>
-                        <?php foreach($posts as $item): ?>
-                            <div class="clearfix blog-read-item">
-                                <a class="post-link" href="/single-blog.php" target="_blank">
-                                    <div class="item-img">
-                                        <img class="lazy image" src="{{ parse_image_url($item->image) }}"/>
-                                    </div>
-                                </a>
-                                <div class="caption" >
-                                    <h3 class="title"><a href="/single-blog.php" target="_blank">{{ $item->title }}</a></h3>
-                                    <span class="date">{{ date('d.m.Y', strtotime($item->updated_at)) }}</span>
-                                    <a href="blogs/meo.1.html" target="_blank" class="title-category">{{ $item->category->name }}</a>
+                <div class="blog-read-viewed">
+                    <h2>
+                        <span>Bài được xem nhiều nhất</span>
+                    </h2>
+                    <?php foreach($posts as $item): ?>
+                        <div class="clearfix blog-read-item">
+                            <a class="post-link" href="{{ $item->getUrl() }}" target="_blank">
+                                <div class="item-img">
+                                    <img class="lazy image" src="{{ parse_image_url($item->image) }}"/>
                                 </div>
+                            </a>
+                            <div class="caption" >
+                                <h3 class="title"><a href="{{ $item->getUrl() }}" target="_blank">{{ $item->title }}</a></h3>
+                                <span class="date">{{ date('d.m.Y', strtotime($item->updated_at)) }}</span>
+                                <a href="" target="_blank" class="title-category">{{ $item->category->name }}</a>
                             </div>
-                        <?php endforeach ?>
-                    </div>
+                        </div>
+                    <?php endforeach ?>
                 </div>
             </div>
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 title-more-bottom">
@@ -158,4 +131,29 @@
         </div>
     </div>
 </div>
+
+
+<script>
+    $("#owl-blog-slider").owlCarousel({
+        pagination : false,
+        navigation : true,
+        navigationText:["<i class=\"insert-left\"><\/i>","<i class=\"insert-right\"><\/i>"],
+        autoPlay: 8000,
+        items :1,
+        transitionStyle : "fade",
+        itemsDesktop : [1024,1],
+        itemsDesktopSmall : [967,1],
+        itemsTablet: [600,1],
+    });
+    $('#owl-insert-slider').owlCarousel({
+        pagination : false,
+        navigation : true,
+        items :4,
+        navigationText:["<i class=\"insert-left\"><\/i>","<i class=\"insert-right\"><\/i>"],
+        itemsDesktop : [1024,3],
+        itemsDesktopSmall : [967,2],
+        itemsTablet: [600,1],
+        itemsMobile : [600,1]
+    });
+</script>
 @stop

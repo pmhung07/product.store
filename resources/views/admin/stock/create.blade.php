@@ -9,7 +9,7 @@
 
     </div>
 </div>
-@stop            
+@stop
 
 @section('content')
 
@@ -39,7 +39,7 @@
                 </div>
             </div>
         @endif
-    
+
         <div class="ibox-content m-b-sm border-bottom">
             <div class="row">
                 <div class="col-lg-12">
@@ -52,6 +52,26 @@
                         </div>
                         <div class="form-group"><label class="col-sm-3 control-label">Mã kho hàng</label>
                             <div class="col-sm-9"><input name="code" type="text" class="form-control"></div>
+                        </div>
+                        <div class="form-group"><label class="col-sm-3 control-label">Tỉnh/Thành phố</label>
+                            <div class="col-sm-9">
+                                <select class="form-control" id="province_id" name="province_id">
+                                    <option value="">Tỉnh/Thành phố</option>
+                                    @foreach($provinces as $item)
+                                        <option value="{{ $item->id }}" {{ $item->id == old('province_id') ? 'selected' : '' }}>{{ $item->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group"><label class="col-sm-3 control-label">Huyện</label>
+                            <div class="col-sm-9">
+                                <select class="form-control" id="district" name="district_id">
+                                    <option value="">Huyện</option>
+                                    @foreach($districts as $item)
+                                        <option value="{{ $item->id }}" {{ $item->id == old('district_id') ? 'selected' : '' }}>{{ $item->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
                         </div>
                         <div class="form-group"><label class="col-sm-3 control-label">Địa chỉ kho hàng</label>
                             <div class="col-sm-9"><input name="address" type="text" class="form-control"></div>
@@ -85,22 +105,8 @@
 <script>
 $(document).ready(function() {
 
-    $('.footable').footable();
-
-    $('#date_added').datepicker({
-        todayBtn: "linked",
-        keyboardNavigation: false,
-        forceParse: false,
-        calendarWeeks: true,
-        autoclose: true
-    });
-
-    $('#date_modified').datepicker({
-        todayBtn: "linked",
-        keyboardNavigation: false,
-        forceParse: false,
-        calendarWeeks: true,
-        autoclose: true
+    $('#province_id').ajaxLoadDistrict({
+        observers: '#district'
     });
 });
 </script>
