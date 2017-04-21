@@ -3,13 +3,13 @@
         <div class="container">
             <div class="row">
                 <!---->
-                <div class="col-md-5 col-sm-10 left no-padding">
-                    <div class="col-md-3 col-sm-10 logoTop">
+                <div class="col-md-6 col-sm-12 left no-padding">
+                    <div class="col-md-4 col-sm-12 logoTop">
                         <div class="logo">
                             <a href="/" title="JUNO" class="logo"><img style="width: 30px;" alt="JUNO" src="/shop/assets/images/logo.png" /></a>
                         </div>
                     </div>
-                    <div class="col-md-7 col-sm-10 no-padding searchTop">
+                    <div class="col-md-8 col-sm-12 no-padding searchTop">
                         <div class="search-collection col-xs-10 no-padding">
                             <form class="search" action="https://juno.vn/search">
                                 <input id="text-product" class="col-xs-10 no-padding" type="text" name="q" placeholder="Bạn cần tìm gì?" />
@@ -21,28 +21,28 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-5 col-sm-10 no-padding rightTop_head">
-                    <div class="col-md-5 col-sm-10 switchboardTop">
+                <div class="col-md-6 col-sm-12 no-padding rightTop_head">
+                    <div class="col-md-6 col-sm-12 switchboardTop">
                         <div class="switchboard_wrapper">
                             <i class="fa fa-phone" aria-hidden="true"></i>
                             <span>BÁN HÀNG: <strong>1800 1162</strong> (miễn phí)</span>
                         </div>
                     </div>
-                    <div class="col-md-4 col-sm-10 no-padding storeTop">
-                        <div class="headStore_wrapper">
+                    <div class="col-md-4 col-sm-12 no-padding storeTop">
+                        <div class="headStore_wrapper hide">
                             <a target="_blank"  href="collections/cua-hang-khu-vuc-tp-ho-chi-minh%3Fview=stores.html">
                             <i class="fa fa-building" aria-hidden="true"></i>
-                            <span>Xem hệ thống <strong>42</strong> cửa hàng</span>
+                                <span>Xem hệ thống <strong>42</strong> cửa hàng</span>
                             </a>
                         </div>
                     </div>
-                    <div class="col-md-1 col-sm-10 no-padding cartTop">
+                    <div class="col-md-2 col-sm-12 no-padding cartTop">
                         <div class="carttop_wrapper">
                             <div class="cart-relative">
-                                <a href="/cart.php">
+                                <a href="{{ route('shop.cart.index') }}">
                                     <div class="cart-total-price">
                                         <i class="fa fa-shopping-bag" aria-hidden="true"></i>
-                                        <span >0₫</span>
+                                        <span>{{ Cart::subtotal(0, '.', '.') }}₫</span>
                                     </div>
                                 </a>
                             </div>

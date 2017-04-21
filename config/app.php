@@ -157,8 +157,10 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        Intervention\Image\ImageServiceProvider::class,
         Barryvdh\Debugbar\ServiceProvider::class,
-
+        Gloudemans\Shoppingcart\ShoppingcartServiceProvider::class,
+        Mews\Purifier\PurifierServiceProvider::class
     ],
 
     /*
@@ -208,6 +210,10 @@ return [
         'Html' => Collective\Html\HtmlFacade::class,
 
         'Debugbar' => Barryvdh\Debugbar\Facade::class,
+
+        'ImageIntervention' => Intervention\Image\Facades\Image::class,
+        'Cart' => Gloudemans\Shoppingcart\Facades\Cart::class,
+        'Xss' => Mews\Purifier\Facades\Purifier::class
 
     ],
 

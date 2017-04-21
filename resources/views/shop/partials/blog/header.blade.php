@@ -38,6 +38,8 @@
         <link href='/shop/assets/hstatic.net/0/0/global/design/theme-default/flexslider.css' rel='stylesheet' type='text/css'  media='all'  />
 
         <script src="/shop/assets/hstatic.net/0/0/global/design/js/smoothscroll.js" type='text/javascript'></script>
+
+        <link rel="stylesheet" type="text/css" href="/shop/assets/css/shop.css">
     </head>
     <body>
         <header>
@@ -89,42 +91,15 @@
                                             <a href="/" title="Về trang chủ" class="logo"><img style="margin-top: -1px;" alt="JUNO" src="/shop/assets/hstatic.net/969/1000003969/10/2016/7-29/ico-home.png" /></a>
                                         </div>
                                     </li>
-                                    <?php for($i = 0; $i < 5; $i ++): ?>
+                                    @foreach($GLB_Categories as $item)
                                         <li  class="menu-li hasChild bup-be-1-click  fix-icon-coll" >
-                                            <a href="/archive-product.php" class="
-                                                bup-be-1-click" >
+                                            <a href="{{ $item->getUrl() }}">
                                                 <div class="coll-icon bup-be-1-click">
-                                                    <span  class="title-main-menu bup-be-1-click ">Giày Búp Bê</span>
+                                                    <span  class="title-main-menu bup-be-1-click ">{{ $item->name }}</span>
                                                 </div>
                                             </a>
-                                            <ul class="dropdown-menu drop-menu" style=";width:500px;border-radius: 0px 0px 5px 5px;">
-                                                <li class="menu-hover-li">
-                                                    <div class="col-lg-10 col-md-10 menu-back-new">
-                                                        <span class="menu-title-new" >Mới nhất hôm nay</span>
-                                                    </div>
-                                                    <div class="col-lg-10 col-md-10" style="padding-right:5px">
-                                                        <div class="col-lg-5 col-md-5" style="padding:0">
-                                                            <a href="/archive-product.php" target="_blank">
-                                                                <div class="field-sale-2"><span>MỚI</span></div>
-                                                                <img width="120%" src="../../product.hstatic.net/1000003969/product/hong_68__medium.jpg"/>
-                                                            </a>
-                                                        </div>
-                                                        <div class="col-lg-5 col-md-5 menu-content-new">
-                                                            <div style="padding-bottom: 10px;">
-                                                                <span class="menu-tilte-pr" >Giày búp bê mũi tròn siêu êm chân BB01067</span><br/>
-                                                            </div>
-                                                            <div class="menu-price-pr">350,000<sup>đ</sup></div>
-                                                            <a href="/archive-product.php">Xem chi tiết</a>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                                <li  style="width:30%;float:left;"><a href="/archive-product.php"><i class="fa fa-caret-right" style="color:#666;padding-right:10px"></i> Giày Mũi Tròn</a></li>
-                                                <li  style="width:30%;float:left;"><a href="/archive-product.php"><i class="fa fa-caret-right" style="color:#666;padding-right:10px"></i> Giày Mũi Nhọn</a></li>
-                                                <li  style="width:30%;float:left;"><a href="/archive-product.php"><i class="fa fa-caret-right" style="color:#666;padding-right:10px"></i> Có Đính Nơ</a></li>
-                                                <li  style="width:30%;float:left;"><a href="/archive-product.php"><i class="fa fa-caret-right" style="color:#666;padding-right:10px"></i> Có Gắn Khóa</a></li>
-                                            </ul>
                                         </li>
-                                    <?php endfor; ?>
+                                    @endforeach
                                 </ul>
                             </div>
                         </div>

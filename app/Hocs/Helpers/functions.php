@@ -783,3 +783,11 @@ if( ! function_exists('get_sort_params') ) {
 		return [];
 	}
 }
+
+if( ! function_exists('to_numberic') ) {
+
+	function to_numberic($value)
+	{
+		return preg_replace('/\D+/', '', $value);
+	}
+}

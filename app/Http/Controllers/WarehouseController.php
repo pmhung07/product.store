@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
+use App\Districts;
 use App\Http\Requests;
 use App\Http\Requests\WarehouseRequest;
-
+use App\Provinces;
 use App\Warehouse;
 use App\WarehouseInventory;
 use DB;
+use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 
 class WarehouseController extends Controller
 {
@@ -39,8 +40,14 @@ class WarehouseController extends Controller
 		return view('admin.stock.index',['rows' => $data,'sum_total_price' => $sum_total_price]);//, ['rows' => $data]);
     }
 
-	public function getCreate(){
-    	return view('admin.stock.create');
+	public function getCreate(Request $request) {
+        $provinces = Provinces::all();
+        $districts = new Collection();
+        if($provinceId = $request->old('province_id')) {
+            $districts = Districts::where('province_id', $provinceId)->get();
+        }
+
+    	return view('admin.stock.create', compact('provinces', 'districts'));
     }
 
     public function postCreate(WarehouseRequest $request){
@@ -48,11 +55,13 @@ class WarehouseController extends Controller
     	$warehouse->name = $request->name;
     	$warehouse->code = $request->code;
     	$warehouse->address = $request->address;
+        $warehouse->province_id = (int) $request->get('province_id');
+        $warehouse->district_id = (int) $request->get('district_id');
     	$warehouse->save();
     	return redirect()->route('admin.stock.getCreate')->with(['flash_message' => 'Thêm kho hàng thành công!']);
     }
 
-    public function getUpdate($id){
+    public function getUpdate($id, Request $request){
         $data = Warehouse::find($id)->toArray();
         //$inventoryProduct = DB::table('warehouse_inventory')
           //                  ->where('warehouse_ph_id','=',$key)->sum('quantity') $total_order[0]->total_sales
@@ -62,7 +71,14 @@ class WarehouseController extends Controller
                 ->groupBy('warehouse_inventory.product_id')
                 ->where('warehouse_id','=',$id)
                 ->get();
-        return view('admin.stock.update',compact('data','inventory_in_stock'));
+
+        $provinces = Provinces::all();
+        $districts = new Collection();
+        if($provinceId = $request->old('province_id', $data['province_id'])) {
+            $districts = Districts::where('province_id', $provinceId)->get();
+        }
+
+        return view('admin.stock.update',compact('data','inventory_in_stock', 'provinces', 'districts'));
     }
 
     public function postUpdate(Request $request,$id){
@@ -83,6 +99,8 @@ class WarehouseController extends Controller
     	$warehouse->name = $request->name;
     	$warehouse->code = $request->code;
     	$warehouse->address = $request->address;
+        $warehouse->province_id = (int) $request->get('province_id');
+        $warehouse->district_id = (int) $request->get('district_id');
     	$warehouse->save();
         return redirect()->route('admin.stock.index')->with(['flash_message' => 'Cập nhật kho hàng thành công!']);
     }
@@ -90,7 +108,7 @@ class WarehouseController extends Controller
     public function getDelete($id){
         $data = Warehouse::find($id);
         $data->delete($id);
-        return redirect()->route('admin.stock.index')->with(['flash_message' => 'Xoá kho hàng thành công!']);    
+        return redirect()->route('admin.stock.index')->with(['flash_message' => 'Xoá kho hàng thành công!']);
     }
 
 }

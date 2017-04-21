@@ -9,7 +9,7 @@
         <a href="system/product/create" class="btn btn-primary " ><i class="fa fa-plus"></i>&nbsp;Thêm sản phẩm</a>
     </div>
 </div>
-@stop            
+@stop
 
 @section('content')
 <div class="row">
@@ -43,7 +43,7 @@
                                             <td>
                                                 <select name="filter-product-groupt-id" class="form-control filter-product-groupt-id" style="width:100%;">
                                                     <option value="-1" selected>-- Nhóm sản phẩm --</option>
-                                                    <? cat_parent($product_group,0,'--',Request::input('filter-product-groupt-id'));?>    
+                                                    <? cat_parent($product_group,0,'--',Request::input('filter-product-groupt-id'));?>
                                                 </select>
                                             </td>
                                             <td>
@@ -75,7 +75,7 @@
                                 <tr>
                                     <th>#</th>
                                     <th>Mã Sản phẩm</th>
-                                    <!--<th>Ảnh</th>-->
+                                    <th>Ảnh</th>
                                     <th>Tên Sản phẩm</th>
                                     <th>Nhóm sản phẩm</th>
                                     <th width="100">Giá bán <sup> - vnđ </sup></th>
@@ -84,20 +84,22 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <?php 
-                                    $i=1; 
+                                <?php
+                                    $i=1;
                                     $total_quantity_inventory = 0;
                                 ?>
                                 @foreach($rows as $row)
 
                                     <?php
-                                    $quantity = DB::table('warehouse_inventory')->where('product_id','=',$row->id)->sum('quantity'); 
+                                    $quantity = DB::table('warehouse_inventory')->where('product_id','=',$row->id)->sum('quantity');
                                     ?>
 
                                     <tr @if($i%2==0) {{'class="gradeA"'}} @else {{'class="gradeX"'}} @endif>
                                         <td>{{$i}}</td>
                                         <td>{{$row->sku}}</td>
-                                        <!--<td></td>-->
+                                        <td>
+                                            <img src="{{ parse_image_url('sm_'.$row['image']) }}" height="35">
+                                        </td>
                                         <td>{{$row->name}}</td>
                                         <td>{{$row->product_group_name}}</td>
                                         <td>{{number_format($row->price)}}</td>
