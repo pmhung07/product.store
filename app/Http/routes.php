@@ -280,6 +280,37 @@ Route::group(['middleware' => 'auth'], function(){
 			Route::get('site/{site_id}', [ 'as' => 'admin.landing-page.site', 'uses' => 'SiteController@getSite']); // Per
 		});
 
+		// Shop
+		Route::group(['prefix' => 'shop'], function(){
+			Route::group(['prefix' => 'post-categories'], function(){
+				Route::get('index', ['as' => 'admin.post-categories.index' , 'uses' => 'ShopPostCategoriesController@getIndex']);
+				Route::get('create', ['as' => 'admin.post-categories.create' , 'uses' => 'ShopPostCategoriesController@getCreate']);
+				Route::post('create', ['as' => 'admin.post-categories.create' , 'uses' => 'ShopPostCategoriesController@postCreate']);
+				Route::get('update/{id}', ['as' => 'admin.post-categories.getUpdate' , 'uses' => 'ShopPostCategoriesController@getUpdate']);
+				Route::post('update/{id}', ['as' => 'admin.post-categories.getUpdate' , 'uses' => 'ShopPostCategoriesController@postUpdate']);
+				Route::get('delete/{id}', ['as' => 'admin.post-categories.getDelete' , 'uses' => 'ShopPostCategoriesController@getDelete']); // Per
+			});
+
+			Route::group(['prefix' => 'post'], function(){
+				Route::get('index', ['as' => 'admin.post.index' , 'uses' => 'ShopPostController@getIndex']);
+				Route::get('create', ['as' => 'admin.post.getCreate' , 'uses' => 'ShopPostController@getCreate']);
+				Route::post('create', ['as' => 'admin.post.getCreate' , 'uses' => 'ShopPostController@postCreate']);
+				Route::get('update/{id}', ['as' => 'admin.post.getUpdate' , 'uses' => 'ShopPostController@getUpdate']);
+				Route::post('update/{id}', ['as' => 'admin.post.getUpdate' , 'uses' => 'ShopPostController@postUpdate']);
+				Route::get('delete/{id}', ['as' => 'admin.post.getDelete' , 'uses' => 'ShopPostController@getDelete']); // Per
+			});
+
+			// Trang tĩnh
+			Route::group(['prefix' => 'page'], function(){
+				Route::get('index', ['as' => 'admin.page.index' , 'uses' => 'ShopPageController@getIndex']);
+				Route::get('create', ['as' => 'admin.page.getCreate' , 'uses' => 'ShopPageController@getCreate']);
+				Route::post('create', ['as' => 'admin.page.getCreate' , 'uses' => 'ShopPageController@postCreate']);
+				Route::get('update/{id}', ['as' => 'admin.page.getUpdate' , 'uses' => 'ShopPageController@getUpdate']);
+				Route::post('update/{id}', ['as' => 'admin.page.getUpdate' , 'uses' => 'ShopPageController@postUpdate']);
+				Route::get('delete/{id}', ['as' => 'admin.page.getDelete' , 'uses' => 'ShopPageController@getDelete']); // Per
+			});
+		});
+
 	});
 });
 
@@ -321,3 +352,20 @@ Route::post('edit-settings', ['uses' => 'SettingController@postSetting','as' => 
 // Get LandingPage
 Route::get('lp{site_id}/{slug}', ['uses' => 'SiteController@getLandingPage','as' => 'viewLandingPage']);
 Route::post('lp{site_id}/{slug}', ['uses' => 'SiteController@createOrderLandingPage','as' => 'viewLandingPage']);
+
+
+// Ajax
+Route::group(['prefix' => 'ajax', 'namespace' => 'Ajax'], function() {
+
+	// Upload image
+	Route::post('/upload-image', 'UploadImageController@postUpload');
+
+    Route::group(['prefix' => 'province'], function() {
+        Route::get('/', ['as' => 'ajax.province.index', 'uses' => 'ProvinceController@getIndex']);
+        Route::get('/{id}/districts', ['as' => 'ajax.province.district', 'uses' => 'ProvinceController@getDistricts']);
+    });
+
+    Route::group(['prefix' => 'district'], function() {
+        Route::get('/{id}/wards', ['as' => 'ajax.district.ward', 'uses' => 'DistrictController@getWards']);
+    });
+});

@@ -49,9 +49,24 @@ class Product extends Model
         return $this->price;
     }
 
+    public function getImage()
+    {
+        return $this->image;
+    }
+
     public function getUrl()
     {
         return route('shop.product.detail', [$this->getId(), $this->getSlug()]);
+    }
+
+    public function category()
+    {
+        return $this->belongsTo('App\ProductGroup', 'product_group_id');
+    }
+
+    public function images()
+    {
+        return $this->hasMany('App\ProductImage', 'product_id');
     }
 
 }

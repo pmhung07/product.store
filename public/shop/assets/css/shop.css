@@ -1,0 +1,110 @@
+.product-item-wrapper .product-information .image {
+  padding-top: 0;
+  height: 250px;
+  object-fit: cover;
+  object-position: center center;
+  width: 100%;
+}
+.blog-read-viewed .post-link {
+  display: block;
+  overflow: hidden;
+}
+@media only screen and (min-width: 769px) {
+  .blog-read-viewed .post-link {
+    float: left;
+    padding-right: 15px;
+  }
+}
+.blog-read-viewed .post-link .image {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+  object-position: center center;
+}
+@media only screen and (min-width: 769px) {
+  .blog-read-viewed .post-link .image {
+    width: 140px;
+    height: 100px;
+  }
+}
+.blog-read-viewed .caption {
+  padding: 10px 0 0 0;
+}
+@media only screen and (min-width: 769px) {
+  .blog-read-viewed .caption {
+    float: left;
+    width: 150px;
+    overflow: hidden;
+  }
+}
+.menu_footer .link {
+  display: block;
+}
+.menu_footer .link .image {
+  height: 100px;
+}
+.footer-colsystem {
+  margin-bottom: 20px;
+}
+.breadcrumb {
+  margin-top: 30px;
+}
+#cartform .link {
+  display: block;
+  width: 90px;
+  height: 90px;
+  overflow: hidden;
+}
+#cartform .link .img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+}
+#cartform .item-row {
+  border-bottom: 1px solid #ccc;
+  padding: 15px 0;
+}
+#cartform .item-row .name {
+  font-size: 12px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 100px;
+  display: block;
+}
+#detail-product .thumbnail {
+  height: 50px;
+  width: 50px;
+  display: block;
+  overflow: hidden;
+  float: left;
+  padding: 0;
+  margin: 5px 5px 5px 0;
+}
+#detail-product .thumbnail img {
+  margin-top: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+}
+#detail-product .image-product-carousel {
+  height: 250px;
+  width: 100%;
+  object-fit: cover;
+  object-position: center center;
+}
+@media only screen and (min-width: 480px) {
+  #detail-product .image-product-carousel {
+    height: 350px;
+  }
+}
+@media only screen and (min-width: 768px) {
+  #detail-product .image-product-carousel {
+    height: 400px;
+  }
+}
+.ClickBlogItem {
+  display: block;
+}

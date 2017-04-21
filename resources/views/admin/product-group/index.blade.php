@@ -15,15 +15,23 @@
 <div class="row">
     <div class="col-lg-12">
 
-        <div class="ibox-content m-b-sm border-bottom">
-            <div class="row">
-                <div class="col-sm-12">
-                    <div class="form-group">
-                        {!! Form::open(array('route'=>'admin.product-group.index','method'=>'get')) !!}
-                        <label class="control-label" for="product_group_name">Nhóm sản phẩm</label>
-                        <input type="text" id="product_group_name" name="product_group_name" value="" placeholder="Tìm kiếm nhóm sản phẩm theo tên" class="form-control">
-                        {!! Form::close() !!}
-                    </div>
+        <div class="ibox" style="margin-bottom:0px;">
+            <div class="ibox-content">
+                <div class="table-responsive bg-block table-bordered" style="overflow-x: inherit;">
+                    <table class="table shoping-cart-table">
+                        <tbody>
+                            <form method="GET" action="{!! route('admin.product-group.index') !!}" accept-charset="UTF-8">
+                                <tr>
+                                    <td>
+                                        <input type="text" id="product_group_name" name="product_group_name" value="" placeholder="Tìm kiếm nhóm sản phẩm theo tên" class="form-control">
+                                    </td>
+                                    <td>
+                                        <input class="btn btn-sm btn-primary" type="submit" value="Tìm kiếm">
+                                    </td>
+                                </tr>
+                            </form>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>

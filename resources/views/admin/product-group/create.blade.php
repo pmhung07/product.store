@@ -42,7 +42,7 @@
                 
 
                 <div class="ibox-content">
-                    <form action="{!! route('admin.product-groupt.getCreate') !!}" method="POST" class="form-horizontal">
+                    <form action="{!! route('admin.product-group.getCreate') !!}" method="POST" class="form-horizontal">
                         <input type="hidden" name="_token" value="{!! csrf_token() !!}">
                         <div class="form-group"><label class="col-sm-2 control-label">Tên nhóm</label>
                             <div class="col-sm-10"><input required name="name_product_group" type="text" class="form-control"></div>
