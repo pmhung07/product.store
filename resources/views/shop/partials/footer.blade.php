@@ -15,7 +15,7 @@
                                         <?php foreach($GLB_Categories as $item): ?>
                                             <li class="col-xs-6 col-sm-3 col-md-3 col-lg-2">
                                                 <a class="link" href="{{ $item->getUrl() }}" title="Giày búp bê">
-                                                    <img class="image" src="/shop/assets/file.hstatic.net/1000003969/file/icon_footer_1.svg" alt="Giày búp bê" class="img-responsive" />
+                                                    <img class="image" src="{{ parse_image_url($item->icon) }}" alt="Giày búp bê" class="img-responsive" />
                                                     <span class="label_footer">{{ $item->getName() }}</span>
                                                 </a>
                                             </li>
@@ -113,13 +113,13 @@
                             <div class="container">
                                 <div class="row">
                                     <ul class="instuction_footer">
-                                        <li><a href="/page.php" title="Hướng dẫn chọn cỡ giày">Tin tức, khuyến mãi JUNO</a></li>
-                                        <li><a href="/page.php" title="Hướng dẫn chọn cỡ giày">Hướng dẫn chọn cỡ giày</a></li>
-                                        <li><a href="/page.php" title="Chính sách khách hàng thân thiết">Chính sách khách hàng thân thiết</a></li>
-                                        <li><a href="/page.php" title="Chính sách đổi trả">Chính sách Đổi/Trả</a></li>
-                                        <li><a href="/page.php" title="Thanh toán giao nhận">Thanh toán giao nhận</a></li>
-                                        <li><a href="/page.php" title="Chính sách bảo mật">Chính sách bảo mật</a></li>
-                                        <li><a href="/page.php" title="Giới thiệu; Liên hệ...">Các thông tin khác</a></li>
+                                        <li><a href="" title="Hướng dẫn chọn cỡ giày">Tin tức, khuyến mãi JUNO</a></li>
+                                        <li><a href="" title="Hướng dẫn chọn cỡ giày">Hướng dẫn chọn cỡ giày</a></li>
+                                        <li><a href="" title="Chính sách khách hàng thân thiết">Chính sách khách hàng thân thiết</a></li>
+                                        <li><a href="" title="Chính sách đổi trả">Chính sách Đổi/Trả</a></li>
+                                        <li><a href="" title="Thanh toán giao nhận">Thanh toán giao nhận</a></li>
+                                        <li><a href="" title="Chính sách bảo mật">Chính sách bảo mật</a></li>
+                                        <li><a href="" title="Giới thiệu; Liên hệ...">Các thông tin khác</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -133,7 +133,7 @@
                                 <div class="row">
                                     <div class=" copy">
                                         <div class="col-xs-12 col-sm-6">
-                                            © 2015 JUNO. Công ty cổ phần sản xuất thương mại dịch vụ JUNO.<br>
+                                            © 2015. Công ty cổ phần sản xuất thương mại dịch vụ.<br>
                                             Văn phòng: 313 Nguyễn Thị Thập, Q.7, TP.HCM. GP số 0310350452-002 do Sở Kế Hoạch và Đầu Tư TP.HCM cấp ngày 29/06/2011
                                         </div>
                                         <div class="col-xs-12 col-sm-2 col-sm-offset-2 gov">

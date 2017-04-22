@@ -63,10 +63,7 @@
                                 <li class="menu-li" >
                                     <a href="{{ $item->getUrl() }}" class="" >
                                         <div class="coll-icon">
-                                            <span class="ico-top" data-position="imgImport_bupbe.svg">
-                                            {{-- <img src="/assets/file.hstatic.net/1000003969/file/imgImport_bupbe_hover.svg"/> --}}
-                                            {{-- <img src="/assets/file.hstatic.net/1000003969/file/imgImport_bupbe.svg"/> --}}
-                                            </span>
+                                            <img class="ico-top" src="{{ parse_image_url($item->icon) }}"/>
                                             <span class="title-main-menu">{{ $item->name }}</span>
                                         </div>
                                     </a>
@@ -75,13 +72,7 @@
                             <li class="menu-li fix-icon-coll">
                                 <a href="blog.php" class="" target="_blank">
                                     <div class="coll-icon">
-                                        <span class="ico-top" data-position="imgImport_tinthoitrang.svg">
-
-                                            <img src="//file.hstatic.net/1000003969/file/imgImport_tinthoitrang_hover.svg">
-
-                                            <img src="//file.hstatic.net/1000003969/file/imgImport_tinthoitrang.svg">
-                                        </span>
-
+                                        <img class="ico-top" src="https://file.hstatic.net/1000003969/file/imgImport_tinthoitrang_hover.svg" data-position="imgImport_tinthoitrang.svg" />
                                         <span class="title-main-menu">Tin Thời Trang</span>
                                     </div>
                                 </a>
