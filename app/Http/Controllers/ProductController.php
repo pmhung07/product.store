@@ -10,6 +10,9 @@ use App\Http\Requests\ProductRequest;
 use App\Product;
 use App\ProductGroup;
 use App\Units;
+use App\ProductProperties;
+use App\Properties;
+use App\PropertiesValue;
 
 use DB;
 
@@ -71,6 +74,12 @@ class ProductController extends Controller
         return redirect()->route('admin.product.index')->with(['flash_message' => 'Xoá sản phẩm thành công!']);    
     }
 
+    public function getDeleteProperties($id){
+        $data = ProductProperties::find($id);
+        $data->delete($id);
+        return redirect()->back()->with(['flash_message' => 'Xoá thuộc tính thành công!']);   
+    }
+
     public function getUpdate($id){
 
     	$group_product = ProductGroup::select('id','name','parent_id')->get()->toArray();
@@ -111,4 +120,111 @@ class ProductController extends Controller
     	$product->save();
         return redirect()->route('admin.product.index')->with(['flash_message' => 'Cập nhật sản phẩm thành công!']);
     }
+
+    public function getPropertiesAutoComplete(Request $request){
+        $dataArray = array();    
+        $data = Properties::select("id","name")
+                ->where("name","LIKE","%{$request->get('search-properties')}%")
+                ->get();
+        
+        foreach($data as $index=>$user ){
+            $dataArray[$index] = [
+                'id' => $user->id,
+                'name' => $user->name,
+            ];
+        }
+        return response()->json($dataArray);
+    }
+
+    public function getProperties($id){
+        $data = Product::find($id)->toArray();
+        $properties = ProductProperties::select('product_properties.id as product_properties_id','product_properties.image as product_properties_image','properties.id as properties_id','properties.name as properties_name','properties_value.id as properties_value_id','properties_value.name as properties_value_name')
+                        ->leftjoin('properties', 'properties.id', '=', 'product_properties.properties_id')
+                        ->leftjoin('properties_value', 'properties_value.id', '=', 'product_properties.properties_value_id')
+                        ->where('product_properties.product_id',$id)
+                        ->get()->toArray();
+
+        /*
+        $arr_properties = array();
+        foreach($properties as $value){
+            if($value['product_properties_image'] == ''){
+                $product_properties_image = 'notfound';
+            }else{
+                $product_properties_image = $value['product_properties_image'];
+            }
+            if( !array_key_exists( $value['properties_id'], $arr_properties ) ){
+                $arr_properties[$value['properties_id']] = array('properties_value_id' => $value['properties_value_id'], 'image' =>  $product_properties_image, 'properties_name' => $value['properties_name'], 'properties_value_name' => $value['properties_value_name']);
+            }else{
+                $arr_properties[$value['properties_id']]['properties_value_id']     =  $arr_properties[$value['properties_id']]['properties_value_id'].','.$value['properties_value_id'];
+                $arr_properties[$value['properties_id']]['image']                   =  $arr_properties[$value['properties_id']]['image'].','.$product_properties_image;
+                $arr_properties[$value['properties_id']]['properties_name']         =  $arr_properties[$value['properties_id']]['properties_name'].','.$value['properties_name'];
+                $arr_properties[$value['properties_id']]['properties_value_name']   =  $arr_properties[$value['properties_id']]['properties_value_name'].','.$value['properties_value_name'];
+            }
+        }
+        */
+
+        return view('admin.product.properties',compact('data','properties'));
+    }
+
+    public function updateProperties(Request $request, $id){
+        //  Kiểm tra xem thuốc tính có tồn tại không
+        $properties = Properties::select('id')->where('name','LIKE', $request->properties_name)->get()->toArray();
+        if (count($properties) <= 0){
+            $properties = new Properties();
+            $properties->name = $request->properties_name;
+            $properties->save();
+            $properties_id = $properties->id;
+            // Update Value
+            $properties_value_update = new PropertiesValue();
+            $properties_value_update->properties_id = $properties_id;
+            $properties_value_update->name = $request->properties_value;
+            $properties_value_update->save();
+            $properties_value_id = $properties_value_update->id;
+            // Update Product_properties
+            $product_properties = new ProductProperties();
+            $product_properties->product_id = $id;
+            $product_properties->properties_id = $properties_id;
+            $product_properties->properties_value_id = $properties_value_id;
+            $product_properties->save();
+            return redirect()->route('admin.product.getProperties',$id)->with(['flash_message' => 'Cập nhật thuộc tính sản phẩm thành công!']);
+        }else{  
+            $properties_value_count = PropertiesValue::select('id')
+                                    ->where('name','LIKE', $request->properties_value)
+                                    ->where('properties_id',$properties[0]['id'])
+                                    ->get()->toArray();
+            // Nếu giá trị thuộc tính này chưa tồn tại
+            if (count($properties_value_count) <= 0){
+                $properties_value_update = new PropertiesValue();
+                $properties_value_update->properties_id = $properties[0]['id'];
+                $properties_value_update->name = $request->properties_value;
+                $properties_value_update->save();
+                $properties_value_id = $properties_value_update->id;
+                // Update Product_properties
+                $product_properties = new ProductProperties();
+                $product_properties->product_id = $id;
+                $product_properties->properties_id = $properties[0]['id'];
+                $product_properties->properties_value_id = $properties_value_id;
+                $product_properties->save();
+                return redirect()->route('admin.product.getProperties',$id)->with(['flash_message' => 'Cập nhật thuộc tính sản phẩm thành công!']);
+            }else{  
+                $product_properties = ProductProperties::select('id')
+                                    ->where('properties_id',$properties[0]['id'])
+                                    ->where('properties_value_id',$properties_value_count[0]['id'])
+                                    ->where('product_id',$id)
+                                    ->get()->toArray();
+
+                if (count($product_properties) <= 0){
+                    $product_properties = new ProductProperties();
+                    $product_properties->product_id = $id;
+                    $product_properties->properties_id = $properties[0]['id'];
+                    $product_properties->properties_value_id = $properties_value_count[0]['id'];
+                    $product_properties->save();
+                    return redirect()->route('admin.product.getProperties',$id)->with(['flash_message' => 'Cập nhật thuộc tính sản phẩm thành công!']);
+                } else{
+                    return redirect()->route('admin.product.getProperties',$id)->with(['flash_error' => 'Thuộc tính này đã tồn tại trên sản phẩm!']);
+                }
+            }
+        }
+    }
+
 }
