@@ -9,7 +9,7 @@
 
     </div>
 </div>
-@stop            
+@stop
 
 @section('content')
 <div class="row">
@@ -40,11 +40,22 @@
                         </div>
                     </div>
                 @endif
-                
+
 
                 <div class="ibox-content">
-                    <form action="" method="POST" class="form-horizontal">
+                    <form action="" method="POST" class="form-horizontal" enctype="multipart/form-data">
                         <input type="hidden" name="_token" value="{!! csrf_token() !!}">
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Icon</label>
+                            <div class="col-sm-10">
+                                @if($data['icon'])
+                                    <img src="{{ parse_image_url('sm_'. $data['icon']) }}" height="35" style="margin-bottom: 10px;">
+                                @endif
+                                <input type="file" name="icon" class="form-control">
+                            </div>
+                        </div>
+
                         <div class="form-group"><label class="col-sm-2 control-label">Tên nhóm</label>
                             <div class="col-sm-10">
                             	<input required name="name_product_group" type="text" class="form-control" value="{!! old('name_product_group',isset($data) ? $data['name'] : '') !!}">
@@ -53,9 +64,9 @@
                         <div class="form-group"><label class="col-sm-2 control-label">Chọn danh mục cha</label>
                             <div class="col-sm-10">
         	                    <select class="form-control m-b" name="slc_product_group">
-        	                    	<option value="0" selected="">-- Chọn danh mục --</option>	   
+        	                    	<option value="0" selected="">-- Chọn danh mục --</option>
                                     <?php cat_parent($parent,0,"--",$data['parent_id']); ?>
-                                        
+
         	                    </select>
                             </div>
                         </div>
