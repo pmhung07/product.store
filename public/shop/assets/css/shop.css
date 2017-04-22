@@ -1,3 +1,7 @@
+.carttop_wrapper span {
+  font-weight: bold;
+  color: #000;
+}
 .product-item-wrapper .product-information .image {
   padding-top: 0;
   height: 250px;
