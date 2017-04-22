@@ -5803,6 +5803,7 @@ ul.instuction_footer,ul.menu_footer {
 	text-align: center;}
 .navbar-social li a{}
 .navbar-social li .fa{margin: 0 4px;
+	color: #3a3838;
 	font-size: 35px;
 	padding: 5px;
 	margin-top: 14px;}
