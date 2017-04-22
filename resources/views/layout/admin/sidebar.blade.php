@@ -148,7 +148,7 @@
                 </a>
             </li>
 
-            <li class="{{ Request::is('system/shop/post/*') || Request::is('system/shop/post-categories/*') ? 'active' : '' }}">
+            <li class="{{ Request::is('system/shop/post/*') || Request::is('system/shop/page/*') ? 'active' : '' }}">
                 <a href="javascript">
                     <i class="fa fa-leaf"></i>
                     <span class="nav-label">Website</span>
