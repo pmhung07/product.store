@@ -23,13 +23,14 @@
         <link rel="shortcut icon" type="image/png" href="/shop/assets/hstatic.net/969/1000003969/1000161857/favicon.png%3Fv=8910" />
 
         <!-- Boostrap,owl.carousel,animated -->
-        <link href='/shop/assets/hstatic.net/969/1000003969/1000161857/bootstrap_juno.min.css%3Fv=8910.css' rel='stylesheet' type='text/css'  media='all'  />
+        {{-- <link href='/shop/assets/hstatic.net/969/1000003969/1000161857/bootstrap_juno.min.css%3Fv=8910.css' rel='stylesheet' type='text/css'  media='all'  /> --}}
+        <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <link href='/shop/assets/hstatic.net/969/1000003969/1000161857/style.full.css%3Fv=8910.css' rel='stylesheet' type='text/css'  media='all'  />
 
         <link rel="stylesheet" type="text/css" href="/shop/assets/css/animate.css">
 
         <link href='/shop/assets/hstatic.net/969/1000003969/1000161857/font-awesome.css%3Fv=8910.css' rel='stylesheet' type='text/css'  media='all'  />
-        <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.js' type='text/javascript'></script>
+        <script src='/shop/assets/js/jquery.js' type='text/javascript'></script>
 
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" type="text/javascript"></script>
 
@@ -53,6 +54,12 @@
 
         <link href='/shop/assets/hstatic.net/969/1000003969/1000161857/picbox.css%3Fv=8910.css' rel='stylesheet' type='text/css'  media='all'  />
         <script src='/shop/assets/hstatic.net/969/1000003969/1000161857/picbox.js%3Fv=8910' type='text/javascript'></script>
+
+        <link rel="stylesheet" type="text/css" href="/shop/assets/css/shop.css">
+
+        <!-- MY PLUGIN -->
+        <script type="text/javascript" src="/shop/assets/js/my-plugin/add-to-cart.js"></script>
+        <script type="text/javascript" src="/shop/assets/js/my-plugin/load-district.js"></script>
 
     </head>
     <body class="cms-index-index">

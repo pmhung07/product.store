@@ -5,13 +5,11 @@
                 <div class='container'>
                     <div class='menu-foot hidden-xs'>
                         <ul>
-                            <li><a href="/archive-blog.php">Mốt</a></li>
-                            <li><a href="/archive-blog.php">Đẹp</a></li>
-                            <li><a href="/archive-blog.php">Khoẻ</a></li>
-                            <li><a href="/archive-blog.php">Mẹo</a></li>
-                            <li><a href="/archive-blog.php">Ngon</a></li>
-                            <li><a href="/archive-blog.php">Em</a></li>
-                            <li><a href="/archive-blog.php">Sống</a></li>
+                            @foreach($GLB_PostCategories as $item)
+                                <li>
+                                    <a href="{{ $item->getUrl() }}">{{ $item->getName() }}</a>
+                                </li>
+                            @endforeach
                         </ul>
                         <a title="Trang shop JUNO" id="home-foot" href="/" target="_blank" ><i class="fa fa-home"></i> Trang shop JUNO</a>
                     </div>
@@ -19,14 +17,14 @@
                         <div class='col-md-5 col-sm-10 col-xs-10'>
                             <div class='files'>
                                 <ul>
-                                    <li><a href="/page.php">Giới thiệu</a></li>
-                                    <li><a href="/page.php">Liên hệ</a></li>
-                                    <li><a href="/page.php">Site map</a></li>
+                                    <li><a href="">Giới thiệu</a></li>
+                                    <li><a href="">Liên hệ</a></li>
+                                    <li><a href="">Site map</a></li>
                                 </ul>
                             </div>
                             <div class='coppyright'>
                                 <p>
-                                    @2015 Công ty cổ phần sản xuất thương mại dịch vụ JUNO
+                                    @2015 Công ty cổ phần sản xuất thương mại dịch vụ 9119
                                 </p>
                                 <p>
                                     Địa chỉ văn phòng chính: 313 Nguyễn Thị Thập, Q.7, TP.HCM
@@ -54,23 +52,17 @@
                 <div class='container'>
                     <div class='link-top'>
                         <ul>
-                            <li class='fa'><a href='khoe.html#'><img src='/assets/hstatic.net/288/1000046288/1000069273/face.jpg%3Fv=72' alt=''  /></a></li>
-                            <li class='tt'><a href='khoe.html#'><img src='/assets/hstatic.net/288/1000046288/1000069273/tt.jpg%3Fv=72' alt=''  /></a></li>
-                            <li class='gg'><a href='khoe.html#'><img src='/assets/hstatic.net/288/1000046288/1000069273/gg.jpg%3Fv=72' alt=''  /></a></li>
-                            <li class='yt'><a href='khoe.html#'><img src='/assets/hstatic.net/288/1000046288/1000069273/yt.jpg%3Fv=72' alt=''  /></a></li>
+                            <li class='fa'><a href=''><img src='https://hstatic.net/288/1000046288/1000069273/face.jpg?v=72' alt=''  /></a></li>
+                            <li class='tt'><a href=''><img src='https://hstatic.net/288/1000046288/1000069273/tt.jpg?v=72' alt=''  /></a></li>
+                            <li class='gg'><a href=''><img src='https://hstatic.net/288/1000046288/1000069273/gg.jpg?v=72' alt=''  /></a></li>
+                            <li class='yt'><a href=''><img src='https://hstatic.net/288/1000046288/1000069273/yt.jpg?v=72' alt=''  /></a></li>
                         </ul>
                     </div>
                     <div class='link-bottom'>
                         <ul>
-                            <li><a href='/archive-product.php'>Giầy Xăng Đan</a></li>
-                            <li><a href='/archive-product.php'>Giày Búp Bê</a></li>
-                            <li><a href='/archive-product.php'>Giày Cao Gót</a></li>
-                            <li><a href='/archive-product.php'>Giày Boots</a></li>
-                            <li><a href='/archive-product.php'>Túi Xách</a></li>
-                            <li><a href='/archive-product.php'>Phụ Kiện</a></li>
-                            <li><a href='/archive-product.php'>Clearstock</a></li>
-                            <li><a href='/archive-product.php'>Sản Phẩm Mới</a></li>
-                            <li><a href='/archive-product.php'>Sản Phẩm Top</a></li>
+                            @foreach($GLB_Categories as $item)
+                                <li><a href="{{ $item->getUrl() }}">{{ $item->getName() }}</a></li>
+                            @endforeach
                         </ul>
                     </div>
                 </div>

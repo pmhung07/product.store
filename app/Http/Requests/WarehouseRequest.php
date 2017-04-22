@@ -27,6 +27,8 @@ class WarehouseRequest extends Request
             'code' => 'required|unique:warehouse,code',
             'name' => 'required|unique:warehouse,name',
             'address' => 'required',
+            'province_id' => 'required',
+            'district_id' => 'required'
         ];
     }
     public function messages()
@@ -37,6 +39,8 @@ class WarehouseRequest extends Request
             'name.required' => 'Vui lòng nhập tên kho hàng!',
             'name.unique' => 'Tên kho hàng này đã tồn tại!',
             'address.required' => 'Vui lòng nhập địa chỉ kho hàng!',
+            'province_id.required' => 'Vui lòng chọn thành phố',
+            'district_id.required' => 'Vui lòng chọn tỉnh thành'
         ];
     }
 }
