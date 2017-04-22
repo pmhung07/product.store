@@ -4,13 +4,13 @@
 <div id="slide-thumb" class="wow fadeIn slide-thumb">
     <section class="photoslider-section no-padding">
         <div id="home-slider" class="owl-carousel owl-theme">
-            <?php for($i = 0; $i < 3; $i ++): ?>
+            @foreach($slideItems as $item)
                 <div class="item">
-                    <a href="/single-product.php">
-                    <img src="/shop/assets/file.hstatic.net/1000003969/file/sd01034-banner-web-fix.jpg" />
+                    <a href="/">
+                        <img src="{{ $item }}" />
                     </a>
                 </div>
-            <?php endfor; ?>
+            @endforeach
         </div>
         <script>
             $("#home-slider").owlCarousel({

@@ -11,6 +11,13 @@ class HomeController extends ShopController {
 
     public function getIndex()
     {
+        // Slider
+        $slideItems = [
+            'https://file.hstatic.net/1000003969/file/banner-web-collection-ngoctrinh-fix2.jpg',
+            'https://file.hstatic.net/1000003969/file/banner-web-876cmt8.jpg',
+            '/shop/assets/file.hstatic.net/1000003969/file/sd01034-banner-web-fix.jpg'
+        ];
+
         // Sản phẩm hot
         $hotProducts = Product::join('order_details', 'product.id', '=', 'order_details.product_id')
                         ->join('orders', 'order_details.order_id', '=', 'orders.id')
@@ -30,6 +37,6 @@ class HomeController extends ShopController {
         // Tin tức
         $posts = ShopPost::take(5)->with('category')->orderByRaw('RAND()')->get();
 
-        return view('shop/home/index', compact('hotProducts', 'newestProductsInWeek', 'posts'));
+        return view('shop/home/index', compact('hotProducts', 'newestProductsInWeek', 'posts', 'slideItems'));
     }
 }
