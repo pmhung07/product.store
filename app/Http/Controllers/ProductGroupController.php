@@ -7,9 +7,15 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Requests\ProductGroupRequest;
 use App\ProductGroup;
+use App;
 
 class ProductGroupController extends Controller
 {
+    public function __construct()
+    {
+        $this->imageUploader = App::make('ImageUploader');
+    }
+
     public function getCreate(){
     	$parent = ProductGroup::select('id','name','parent_id')->get()->toArray();
     	return view('admin.product-group.create',compact('parent'));
@@ -20,6 +26,10 @@ class ProductGroupController extends Controller
     	$product_group->parent_id = $request->slc_product_group;;
     	$product_group->name = $request->name_product_group;
     	$product_group->description = $request->des_product_group;
+        if($request->hasFile('icon')) {
+            $resultUpload = $this->imageUploader->upload('icon');
+            $product_group->icon = $resultUpload['filename'];
+        }
     	$product_group->save();
     	return redirect()->route('admin.product-group.getCreate')->with(['flash_message' => 'Thêm nhóm sản phẩm thành công!']);
     }
@@ -44,7 +54,7 @@ class ProductGroupController extends Controller
         if($countParent == 0){
             $data = ProductGroup::find($id);
             $data->delete($id);
-            return redirect()->route('admin.product-group.index')->with(['flash_message' => 'Xoá nhóm sản phẩm thành công!']);    
+            return redirect()->route('admin.product-group.index')->with(['flash_message' => 'Xoá nhóm sản phẩm thành công!']);
         }else{
             echo "<script>
                     alert('Bạn không thể xoá dữ liệu này! Hiện tại có danh mục cấp thấp hơn còn tồn tại.');
@@ -55,7 +65,7 @@ class ProductGroupController extends Controller
     }
 
     public function getUpdate($id){
-        $data = ProductGroup::find($id)->toArray();
+        $data = ProductGroup::find($id);
         $parent = ProductGroup::select('id','name','parent_id')->get()->toArray();
         return view('admin.product-group.update',compact('parent','data'));
     }
@@ -69,6 +79,12 @@ class ProductGroupController extends Controller
         $product_group->parent_id = $request->slc_product_group;;
         $product_group->name = $request->name_product_group;
         $product_group->description = $request->des_product_group;
+
+        if($request->hasFile('icon')) {
+            $resultUpload = $this->imageUploader->upload('icon');
+            $product_group->icon = $resultUpload['filename'];
+        }
+
         $product_group->save();
         return redirect()->route('admin.product-group.index')->with(['flash_message' => 'Cập nhật nhóm sản phẩm thành công!']);
     }

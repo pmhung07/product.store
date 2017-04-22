@@ -39,4 +39,8 @@ class Orders extends Model
 	public function channel(){
 		return $this->belongsTo('App\Channel');
 	}
+
+    static function generateCode() {
+        return 'MDH/'.date('dmYhis');;
+    }
 }

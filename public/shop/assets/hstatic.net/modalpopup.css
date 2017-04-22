@@ -1,0 +1,61 @@
+h1.titlekm{font-size: 16px;color: #222;margin: 0;margin-bottom: 10px;font-family: 'Roboto-Medium';font-weight: 300;}
+.variant-pricekm
+{
+font-size: 30px;
+color: #e32124;
+margin: 0;
+}
+.variant-compare-pricekm,.variant-couponkm{
+	font-size: 14px;
+   color: #707070;
+   margin: 0;
+   font-family: 'Roboto-Medium';
+}
+.addnowkm,.addkm{
+color: #fff;
+    background-color: #d61c1f;
+    border: none;
+    font-size: 22px;
+    padding: 12px 0;
+    width: 100%;
+    font-family: 'Roboto-Bold';
+}
+.addnowkm div,.addkm div{
+font-family: 'Roboto-Light';
+    font-size: 13px;
+}
+.selector-wrapper-qtykm{
+display: inline-block;
+    position: relative;
+}
+.quantity-customkm{
+height: 35px;
+    width: 55px;
+    border: 1px solid #d7d7d7;
+    text-indent: 15px;
+}
+.plus-qtykm{
+	position: absolute;
+    top: 1px;
+    right: 1px;
+    width: 17px;
+    text-align: center;
+    border-left: 1px solid #d7d7d7;
+    border-bottom: 1px solid #d7d7d7;
+    background-color: #f1f1f1;
+    display: table;
+    cursor: pointer;
+}
+.minus-qtykm{
+	position: absolute;
+    bottom: 1px;
+    right: 1px;
+    width: 17px;
+    text-align: center;
+    height: 10px;
+    background-color: #f1f1f1;
+    vertical-align: middle;
+    border-left: 1px solid #d7d7d7;
+    display: table;
+    cursor: pointer;
+}

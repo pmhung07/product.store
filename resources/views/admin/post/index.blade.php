@@ -9,7 +9,7 @@
         <a href="system/shop/post/create" class="btn btn-primary " ><i class="fa fa-plus"></i>&nbsp;Thêm mới bài viết</a>
     </div>
 </div>
-@stop            
+@stop
 
 @section('content')
 <div class="row">
@@ -68,14 +68,16 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <?php 
-                                    $i=1; 
+                                <?php
+                                    $i=1;
                                 ?>
                                 @foreach($rows as $row)
 
                                     <tr @if($i%2==0) {{'class="gradeA"'}} @else {{'class="gradeX"'}} @endif>
                                         <td>{{$i}}</td>
-                                        <td></td>
+                                        <td>
+                                            <img src="{{ parse_image_url('sm_'.$row->image) }}" height="30">
+                                        </td>
                                         <td>{{$row->title}}</td>
                                         <td>{{$row->shop_post_categories_name}}</td>
                                         <td>{{$row->created_at}}</td>
