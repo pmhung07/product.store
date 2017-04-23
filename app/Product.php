@@ -54,6 +54,11 @@ class Product extends Model
         return $this->image;
     }
 
+    public function getContent()
+    {
+        return $this->content;
+    }
+
     public function getUrl()
     {
         return route('shop.product.detail', [$this->getId(), $this->getSlug()]);
