@@ -25,6 +25,7 @@ class HomeController extends ShopController {
                         // ->where('payment_status', Orders::PAYMENT_STATUS_SUCCESS)
                         ->orderBy('order_details.quantity', 'DESC')
                         ->select('product.*')
+                        ->groupBy('product.id')
                         ->take(8)
                         ->get();
 
