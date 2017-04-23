@@ -3,13 +3,15 @@
 @section('content')
 <div class="container">
     <div class="row">
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 back-top" style="background:#333;padding:10px;text-align:center;">
-            <span style="text-transform:uppercase;color:#fff;font-size:17px">Giỏ hàng của bạn</span>
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 back-top">
+            <div style="background:#333;padding:10px 0;text-align:center;">
+                <span style="text-transform:uppercase;color:#fff;font-size:17px">Giỏ hàng của bạn</span>
+            </div>
         </div>
     </div>
 </div>
 
-<div class="container" style="margin: 10px; 0">
+<div class="container">
     @include('includes/flash-message')
 </div>
 
@@ -31,7 +33,7 @@
                             @foreach($cartItems as $item)
                             <tr>
                                 <td>
-                                    <a href="" class="btn btn-xs btn-danger">x</a>
+                                    <a href="{{ route('shop.cart.delete', $item->rowId) }}" class="btn btn-xs btn-danger">x</a>
                                 </td>
                                 <td>
                                     <img src="http://product.hstatic.net/1000003969/product/xanh-la_20_108__small.jpg" height="50">
