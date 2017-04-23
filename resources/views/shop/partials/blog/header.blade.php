@@ -20,7 +20,7 @@
         <link rel="shortcut icon" type="image/png" href="/shop/assets/hstatic.net/969/1000003969/1000161857/favicon.png%3Fv=8910" />
         <meta name="description" content="Cảnh báo cho bạn những căn bệnh theo mùa, những dịch bệnh bùng phát hay đơn giản là những thông tin y học để bạn tạo thói quen sống lành mạnh và khoa học hơn." />
         <!--CSS-->
-        <link rel="stylesheet" href="/shop/assets/hstatic.net/969/1000003969/1000066399/bootstrap.css%3Fv=43.css" />
+        <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <link href='/shop/assets/hstatic.net/0/global/design/css/font-awesome.min.css' rel='stylesheet' type='text/css'  media='all'  />
         <script src="/shop/assets/hstatic.net/0/0/global/design/js/jquery.min.1.11.0.js"></script>
         <script src='/shop/assets/hstatic.net/969/1000003969/1000161857/owl.carousel.2.js%3Fv=8910' type='text/javascript'></script>
