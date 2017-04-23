@@ -24,6 +24,7 @@ class HomeController extends ShopController {
                         // ->where('order_status', Orders::STATUS_SUCCESS)
                         // ->where('payment_status', Orders::PAYMENT_STATUS_SUCCESS)
                         ->orderBy('order_details.quantity', 'DESC')
+                        ->select('product.*')
                         ->take(8)
                         ->get();
 

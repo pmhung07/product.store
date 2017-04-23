@@ -3,8 +3,8 @@
         <div class="product-detail product-detail-1004310600 height-index-1 background-size newclick">
             <a class="newclick" href="{{ $product->getUrl() }}" title="{{ $product->getName() }}">
                 <div class="product-image" style="position:relative;overflow:hidden;">
-                    <img class="image-default image" src="{{ parse_image_url('md_'.$product->image) }}" />
-                    <img class="image-hover image" src="{{ parse_image_url($product->image) }}" alt="{{ $product->getName() }}" />
+                    <img class="image-default image" src="{{ parse_image_url('md_'.$product->getImage()) }}" />
+                    <img class="image-hover image" src="{{ parse_image_url($product->getImage()) }}" alt="{{ $product->getName() }}" />
                 </div>
             </a>
             {{-- <div class="topdeal-tags"></div> --}}

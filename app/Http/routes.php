@@ -26,11 +26,15 @@ Route::post('update-receiver-order',array('uses'=>'OrdersController@updateReceiv
 Route::post('update-note-order',array('uses'=>'OrdersController@updateNoteOrder'));
 Route::post('load-districts',array('uses'=>'OrdersController@loadDistricts'));
 Route::post('post-return-product',array('uses'=>'WarehouseReturnProductPhController@postReturnProduct'));
+Route::post('update-properties/{id}', ['as'=>'admin.properties.update','uses'=>'ProductController@updateProperties']);
 // Tìm kiếm khách hàng
 Route::get('get-customer-auto-complete', ['as'=>'admin.orders.getCustomer','uses'=>'OrdersController@getCustomerAutoComplete']);
 
 // Tìm kiếm sản phẩm
 Route::get('get-product-auto-complete', ['as'=>'admin.orders.getProduct','uses'=>'OrdersController@getProductAutoComplete']);
+
+// Tìm kiếm thuộc tính
+Route::get('get-properties-auto-complete', ['as'=>'admin.product.getPropertiesProduct','uses'=>'ProductController@getPropertiesAutoComplete']);
 
 // Submit đơn hàng thành công
 Route::post('details-success/{order_id}', ['as' => 'admin.orders.getDetailsSuccess' , 'uses' => 'OrdersController@postDetailsSuccess']);
@@ -115,6 +119,12 @@ Route::group(['middleware' => 'auth'], function(){
 
 			// Xoá sản phẩm
 			Route::get('delete/{id}', ['as' => 'admin.product.getDelete' , 'uses' => 'ProductController@getDelete']); // Per
+
+			// Thuộc tính sản phẩm
+			Route::get('properties/{id}', ['as' => 'admin.product.getProperties' , 'uses' => 'ProductController@getProperties']); // Per
+
+			// Xoá thuộc tính sản phẩm
+			Route::get('properties-delete/{id}', ['as' => 'admin.product.getDeleteProperties' , 'uses' => 'ProductController@getDeleteProperties']); // Per
 		});
 
 		// Quản lý kho hàng

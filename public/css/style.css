@@ -8822,3 +8822,16 @@ fieldset[disabled] .btn-trash.active {
   font-size: 10px;
   font-style: italic;
 }
+.wrap-img-product {
+    min-height: 30px;
+    min-width: 30px;
+    max-width: 30px;
+    max-height: 30px;
+    height: 30px;
+    width: 30px;
+    text-align: center;
+    border: 1px solid rgba(195,207,216,.3);
+    display: table-cell;
+    vertical-align: middle;
+    background: #fafbfc;
+}
