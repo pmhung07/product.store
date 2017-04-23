@@ -19,7 +19,7 @@
                         </div>
                     </div>
                     <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 product popupLayout">
-                        <a class="titlekm" href="/products/tui-xach-nho-txn062#do"><h1>{{ $product->getName() }}</h1></a>
+                        <a class="titlekm" href="{{ $product->getUrl() }}"><h1>{{ $product->getName() }}</h1></a>
                         <h4 class="masp">Mã SP : {{ $product->getSku() }}</h4>
                         <div class="price">
                             <label class="variant-pricekm">{{ formatCurrency($product->getPrice()) }}<sup>đ</sup></label>

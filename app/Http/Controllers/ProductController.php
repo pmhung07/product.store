@@ -9,13 +9,11 @@ use App\Product;
 use App\ProductGroup;
 use App\ProductImage;
 use App\Units;
-<<<<<<< HEAD
+
 use App\ProductProperties;
 use App\Properties;
 use App\PropertiesValue;
 
-=======
->>>>>>> c716c67dc84bf2257e7c9a984900bcd2e7ec3236
 use DB;
 use Illuminate\Http\Request;
 
@@ -105,7 +103,7 @@ class ProductController extends Controller
     public function getDeleteProperties($id){
         $data = ProductProperties::find($id);
         $data->delete($id);
-        return redirect()->back()->with(['flash_message' => 'Xoá thuộc tính thành công!']);   
+        return redirect()->back()->with(['flash_message' => 'Xoá thuộc tính thành công!']);
     }
 
     public function getUpdate($id){
@@ -169,11 +167,11 @@ class ProductController extends Controller
     }
 
     public function getPropertiesAutoComplete(Request $request){
-        $dataArray = array();    
+        $dataArray = array();
         $data = Properties::select("id","name")
                 ->where("name","LIKE","%{$request->get('search-properties')}%")
                 ->get();
-        
+
         foreach($data as $index=>$user ){
             $dataArray[$index] = [
                 'id' => $user->id,
@@ -234,7 +232,7 @@ class ProductController extends Controller
             $product_properties->properties_value_id = $properties_value_id;
             $product_properties->save();
             return redirect()->route('admin.product.getProperties',$id)->with(['flash_message' => 'Cập nhật thuộc tính sản phẩm thành công!']);
-        }else{  
+        }else{
             $properties_value_count = PropertiesValue::select('id')
                                     ->where('name','LIKE', $request->properties_value)
                                     ->where('properties_id',$properties[0]['id'])
@@ -253,7 +251,7 @@ class ProductController extends Controller
                 $product_properties->properties_value_id = $properties_value_id;
                 $product_properties->save();
                 return redirect()->route('admin.product.getProperties',$id)->with(['flash_message' => 'Cập nhật thuộc tính sản phẩm thành công!']);
-            }else{  
+            }else{
                 $product_properties = ProductProperties::select('id')
                                     ->where('properties_id',$properties[0]['id'])
                                     ->where('properties_value_id',$properties_value_count[0]['id'])

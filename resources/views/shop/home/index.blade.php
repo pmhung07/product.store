@@ -46,7 +46,7 @@
 
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 title-more-bottom">
-                <span class="title-more">Mời bạn <a href="collections/san-pham-top.html" class="link">xem thêm các sản phẩm hot</a></span> khác
+                <span class="title-more">Mời bạn <a href="/" class="link">xem thêm các sản phẩm hot</a></span> khác
             </div>
         </div>
     </div>
@@ -70,7 +70,7 @@
         </div>
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 title-more-bottom">
-                <span class="title-more">Mời bạn <a href="pages/new-collection.html" class="link">xem thêm các mẫu mới</a> khác</span>
+                <span class="title-more">Mời bạn <a href="/" class="link">xem thêm các mẫu mới</a> khác</span>
             </div>
         </div>
     </div>
