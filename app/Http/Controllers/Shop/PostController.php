@@ -10,6 +10,23 @@ use Illuminate\Http\Request;
 class PostController extends ShopBlogController
 {
 
+    /**
+     * Tin tức
+     * @return string
+     */
+    public function getIndex()
+    {
+        $posts = ShopPost::orderBy('updated_at', 'DESC')->paginate(20);
+
+        return view('shop/post_category/posts', compact('category', 'posts'));
+    }
+
+    /**
+     * Chi tiết tin tức
+     * @param  integer $id
+     * @param  string $slug
+     * @return string
+     */
     public function getDetail($id, $slug)
     {
         $post = ShopPost::with('category')->findOrFail($id);
