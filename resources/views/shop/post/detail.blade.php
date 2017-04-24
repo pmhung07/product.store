@@ -7,7 +7,7 @@
 
     <div class="post row">
         <!--Chi tiết bài viết-->
-        <div class="col-md-7 col-sm-6 col-xs-10">
+        <div class="col-md-8 col-sm-6 col-xs-10">
             <h2 class="parent">
                 <a href="{{ $post->category->getUrl() }}">{{ $post->category->getName() }}</a>
             </h2>
@@ -31,7 +31,7 @@
             </div>
         </div>
         <!--Chuyên đề-->
-        <div class="col-md-3 col-sm-4 col-xs-10">
+        <div class="col-md-4 col-sm-4 col-xs-10">
             <div class='col-right'>
                 <div class='title-col'>
                     <h3>
@@ -41,7 +41,7 @@
                 <div class='list-r'>
                     <div class='row'>
                         @foreach($relatedPosts as $item)
-                        <div class='one-r col-md-5 col-sm-5 col-xs-10'>
+                        <div class='one-r col-md-6 col-sm-5 col-xs-10'>
                             <a href="{{ $item->getUrl() }}">
                                 <div class='img-one' style="background: url('{{ parse_image_url('md_' . $item->image) }}') no-repeat;background-size: cover;background-position: center;"></div>
                             </a>
