@@ -647,7 +647,8 @@ header .top .logo {padding: 34px 0 10px;text-align: left}
     display: block!important;
     opacity: 1;
     left: 50%;
-    top: 50%;
+    top: 43%;
+    height: 40px;
     transform: translate(-50%, -50%);
 }
 .menu-top>li.activeboots {
@@ -1804,7 +1805,6 @@ a.active .coll-icon.cua-hang:before,a:hover .coll-icon.cua-hang:before {
 }
 .product-buy {
 	text-align: center;
-	margin: 15px 0 5px
 }
 .product-buy a {
 	display: inline-block;

@@ -7,7 +7,13 @@
                     <img class="image-hover image" src="{{ parse_image_url($product->getImage()) }}" alt="{{ $product->getName() }}" />
                 </div>
             </a>
-            {{-- <div class="topdeal-tags"></div> --}}
+
+            @if($type == 'hot')
+                <div class="topdeal-tags"></div>
+            @elseif($type == 'new')
+                <div class="topbst-tags topdeal-tags"></div>
+            @endif
+
             <div class="product-info " >
                 <a class="newclick" href="{{ $product->getUrl() }}" title="{{ $product->getName() }}">
                     <h2>

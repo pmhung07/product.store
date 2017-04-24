@@ -39,7 +39,7 @@
         <div class="row">
             <div class="home-filter-top5 center-product product-item products-resize home-filter-product-new">
                 <?php foreach($hotProducts as $item): ?>
-                    {!! view('shop/partials/product/item', ['product' => $item])->render() !!}
+                    {!! view('shop/partials/product/item', ['product' => $item, 'type' => 'hot'])->render() !!}
                 <?php endforeach; ?>
             </div>
         </div>
@@ -63,7 +63,7 @@
                 </div>
                 <div class="center-product product-item products-resize home-filter-product-new">
                     <?php foreach($newestProductsInWeek as $item): ?>
-                        {!! view('shop/partials/product/item', ['product' => $item])->render() !!}
+                        {!! view('shop/partials/product/item', ['product' => $item, 'type' => 'new'])->render() !!}
                     <?php endforeach; ?>
                 </div>
             </div>
