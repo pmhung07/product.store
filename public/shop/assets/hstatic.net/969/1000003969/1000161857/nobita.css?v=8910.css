@@ -12947,10 +12947,10 @@ footer .bottom {
 	margin-bottom: 22px
 }
 .blog-read-item .item-img {
-	width: 30%;
-	height: 80px;
-	display: flex;
-	align-items: center
+	// width: 30%;
+	// height: 80px;
+	// display: flex;
+	// align-items: center
 }
 .blog-read-item .item-img span {
 	display: block;

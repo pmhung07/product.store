@@ -18,7 +18,7 @@ class PostController extends ShopBlogController
     {
         $posts = ShopPost::orderBy('updated_at', 'DESC')->paginate(20);
 
-        return view('shop/post_category/posts', compact('category', 'posts'));
+        return view('shop/post/index', compact('category', 'posts'));
     }
 
     /**
