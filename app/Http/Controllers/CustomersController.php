@@ -190,7 +190,8 @@ class CustomersController extends Controller
     public function getDelete($id)
     {
         $customer = Customers::findOrFail($id);
-        $customer->delete();
+        $customer->active = 0;
+        $customer->save();
         return redirect()->route('admin.customer.index')->with(['flash_message' => 'Xóa thành công!']);
     }
 

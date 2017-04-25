@@ -40,6 +40,11 @@ class ShopPost extends Model
         return $this->teaser;
     }
 
+    public function getImage()
+    {
+        return $this->image;
+    }
+
     public function getUrl()
     {
         return route('shop.post.detail', [$this->getId(), $this->getSlug()]);
