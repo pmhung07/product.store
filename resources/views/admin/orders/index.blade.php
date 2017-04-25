@@ -11,9 +11,9 @@
         <a href="/system/orders/trash" class="btn btn-sm btn-trash" data-toggle="tooltip" data-placement="bottom" data-original-title="Đơn ảo"><i class="fa fa-trash"></i></a>
     </div>
 </div>
-@stop            
+@stop
 
-<?php 
+<?php
 if(Request::has('filter-order-status')){
     $filterFastOrderStatus = $_GET['filter-order-status'];
 }else{
@@ -28,7 +28,7 @@ if(Request::has('filter-order-time')){
 
 @section('content')
 <div class="row">
-    <div class="col-lg-12">    
+    <div class="col-lg-12">
         <div class="row">
             <div class="col-lg-12">
                 <div class="block-content">
@@ -39,14 +39,14 @@ if(Request::has('filter-order-time')){
                                     <tbody>
                                         <form method="GET" action="{!! route('admin.orders.index') !!}" accept-charset="UTF-8">
                                             <tr>
-                                                <td colspan="5"> 
+                                                <td colspan="5">
                                                     <p>
                                                         <a class="sbm-filter-fast" attr-type="order-status" attr-value="0">
                                                             <small class="label <?=(Request::has('filter-order-status') && $_GET['filter-order-status'] == 0)?'lb-sm-waiting':'lb-sm-refresh';?>"><i class="fa fa-clock-o"></i> Chờ duyệt</small>
-                                                        </a> 
+                                                        </a>
                                                         <a class="sbm-filter-fast" attr-type="order-status" attr-value="2">
                                                             <small class="label <?=(Request::has('filter-order-status') && $_GET['filter-order-status'] == 2)?'lb-sm-delivery':'lb-sm-refresh';?>"><i class="fa fa-truck"></i> Vận chuyển</small>
-                                                        </a>   
+                                                        </a>
                                                         <a class="sbm-filter-fast" attr-type="order-status" attr-value="3">
                                                             <small class="label <?=(Request::has('filter-order-status') && $_GET['filter-order-status'] == 3)?'lb-sm-success':'lb-sm-refresh';?>"><i class="fa fa-check"></i> Thành công</small>
                                                         </a>
@@ -158,7 +158,7 @@ if(Request::has('filter-order-time')){
                                                 <?php } ?>
                                             </td>
                                             <td >
-                                                {!! $row->customers->name !!}
+                                                {!! is_object($row->customers) ? $row->customers->name : '_____' !!}
                                             </td>
                                             <td>
                                                 <?php if($row->lading_code != ""){ ?>
@@ -197,7 +197,7 @@ if(Request::has('filter-order-time')){
                             <div class="row">
                                 <div class="col-lg-6">
                                     <button type="button" class="btn btn-primary">Tổng số đơn hàng: <span class="badge">{!! $order_total !!}</span> đơn</button>
-                                    <button type="button" class="btn btn-success">Doanh số:  <span class="badge">{!! number_format($total_order[0]->total_sales) !!}</span> vnđ</button> 
+                                    <button type="button" class="btn btn-success">Doanh số:  <span class="badge">{!! number_format($total_order[0]->total_sales) !!}</span> vnđ</button>
                                 </div>
                             </div>
                         </div>
@@ -258,19 +258,19 @@ $(document).ready(function() {
         forceParse: false,
         calendarWeeks: true,
         autoclose: true,
-        format: 'yyyy-mm-dd'  
+        format: 'yyyy-mm-dd'
     });
 
     $('#confirm-delete').on('show.bs.modal', function(e) {
         $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
     });
 
-    $('[data-toggle="tooltip"]').tooltip();   
+    $('[data-toggle="tooltip"]').tooltip();
 
     // Filter Fast
     $('.sbm-filter-fast').click(function(){
         var attr_type = $(this).attr('attr-type');
-        var attr_value = $(this).attr('attr-value');  
+        var attr_value = $(this).attr('attr-value');
         if(attr_type == 'order-status'){
             window.location.href = "/system/orders/index?filter-order-status="+attr_value+"&filter-order-time=<?=$filterFastOrderTime?>";
         }

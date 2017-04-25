@@ -39,7 +39,13 @@ class OrderController extends ShopController
         // _debug($resp->isSuccess());die;
         if ($resp->isSuccess()) {
             // Lưu thông tin khách hàng
-            $customer = new Customers;
+            $phone = clean($request->get('customer_phone'));
+            $exist = Customers::where('phone', $phone)->first();
+            if(!$exist) {
+                $customer = new Customers;
+            } else {
+                $customer = $exist;
+            }
             $customer->province_id = (int) $request->get('city_id');
             $customer->district_id = (int) $request->get('district_id');
             $customer->name = clean($request->get('customer_name'));
