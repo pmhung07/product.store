@@ -246,7 +246,7 @@
   padding: 0px 0 0 10px;
   float: left;
 }
-@media only screen and (min-width: 769px) {
+@media only screen and (min-width: 769px) and (max-width: 992px) {
   .blog-read-viewed .caption {
     float: left;
     width: 230px;
@@ -256,6 +256,11 @@
 @media only screen and (min-width: 992px) and (max-width: 1200px) {
   .blog-read-viewed .caption {
     width: 200px;
+  }
+}
+@media only screen and (min-width: 1200px) {
+  .blog-read-viewed .caption {
+    width: 195px;
   }
 }
 .menu_footer .link {

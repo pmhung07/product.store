@@ -1,4 +1,4 @@
-<div class="col-xs-12 col-sm-4 col-md-3 col-lg-4 product-wrapper image1x height-index clickImageUrl product-item-wrapper" >
+<div class="product-wrapper image1x height-index clickImageUrl product-item-wrapper">
     <div class="product-information">
         <div class="product-detail product-detail-1004310600 height-index-1 background-size newclick">
             <a class="newclick" href="{{ $product->getUrl() }}" title="{{ $product->getName() }}" style="display: block;">
@@ -8,10 +8,12 @@
                 </div>
             </a>
 
-            @if($type == 'hot')
-                <div class="topdeal-tags"></div>
-            @elseif($type == 'new')
-                <div class="topbst-tags topdeal-tags"></div>
+            @if(isset($type))
+                @if($type == 'hot')
+                    <div class="topdeal-tags"></div>
+                @elseif($type == 'new')
+                    <div class="topbst-tags topdeal-tags"></div>
+                @endif
             @endif
 
             <div class="product-info " >

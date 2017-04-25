@@ -29,14 +29,14 @@ class HomeController extends ShopController {
                         ->take(8)
                         ->get();
 
-        $hotProducts = $newestProductsInWeek = Product::take(6)
+        $hotProducts = $newestProductsInWeek = Product::take(5)
                                        // ->whereBetween('created_at', [$sevenDayAgo, $today])
                                        ->orderByRaw('RAND()')->get();
 
         // Sản phẩm mới trong tuần
         $sevenDayAgo = date('Y-m-d 00:00:00', strtotime('-7 days'));
         $today = date('Y-m-d 23:59:59');
-        $newestProductsInWeek = Product::take(15)
+        $newestProductsInWeek = Product::take(10)
                                        // ->whereBetween('created_at', [$sevenDayAgo, $today])
                                        ->orderBy('created_at', 'DESC')->get();
 
