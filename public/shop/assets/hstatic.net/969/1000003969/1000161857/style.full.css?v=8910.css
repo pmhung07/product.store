@@ -3259,7 +3259,7 @@ iframe[name=google_conversion_frame] {
 	transform: translate(25%,0)
 }
 header .top#mobile-menu {
-	padding: 26px 0
+	// padding: 26px 0
 }
 #mobile-menu .fixed-nav {
 	position: fixed;
