@@ -68,7 +68,6 @@
                                     if ($item['parent_id'] == $parent_id)
                                     {
                                         $cate_child[] = $item;
-                                        unset($categories[$key]);
                                     }
                                 }
 
@@ -132,42 +131,7 @@
         </div>
     </div>
     <div class="top hidden-lg hidden-md" id="mobile-menu">
-        <div class="fixed-nav">
-            <button id="menu-toggle" class="navbar-toggle pull-left" type="button" data-toggle="modal" data-target="#menu-modal">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            </button>
-            <a href="/" title="JUNO" class="logo"><img alt="JUNO" src="/assets/hstatic.net/969/1000003969/1000161857/logo.png%3Fv=8910" /></a>
-            <a href="/cart.php" class="cart-link">
-            <span ><i class="fa fa-shopping-bag" aria-hidden="true"></i> <strong>0₫</strong></span>
-            </a>
-            <form class="frm-search" action='https://juno.vn/search'>
-                <input  type="text" name='q' value="" id="inputSearch" placeholder="Tìm kiếm...">
-            </form>
-            <script>
-                $(document).ready(function(){
-
-                    $('#wrapper').click(function(e){
-                        if (e.target !== $('.btn-search')){
-                            return;
-                        }else{
-                            $('.btn-search').removeClass('active');
-                            $('.frm-search').find('input').css('width', '1px');
-                            setTimeout(function(){
-                                $('.frm-search').find('input').css('display', 'none');
-                                $('.logo').show();
-                                $('#menu-toggle').show();
-                                $('body').removeClass('searching');
-                            },500);
-                        }
-                    });
-
-                });
-
-            </script>
-        </div>
+        @include('shop/partials/nav-mobile')
     </div>
     <script>
         $(function(){
