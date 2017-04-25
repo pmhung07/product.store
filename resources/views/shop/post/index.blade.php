@@ -13,9 +13,9 @@
     </div>
 
     {{-- Tin trong từng danh mục --}}
-    @for($i = 0; $i < 3; $i ++)
+    @foreach($postCategories as $category)
         @include('shop/post/partials/post-in-category')
-    @endfor
+    @endforeach
 </div>
 
 @stop
