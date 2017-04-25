@@ -216,6 +216,7 @@ Route::group(['middleware' => 'auth'], function(){
 			Route::post('create', ['as' => 'admin.customer.getCreate' , 'uses' => 'CustomersController@postCreate']); // Per
 			Route::get('update/{id}', ['as' => 'admin.customer.getUpdate' , 'uses' => 'CustomersController@getUpdate']); // Per
 			Route::post('update/{id}', ['as' => 'admin.customer.getUpdate' , 'uses' => 'CustomersController@postUpdate']); // Per
+			Route::get('delete/{id}', ['as' => 'admin.customer.delete' , 'uses' => 'CustomersController@getDelete']);
 		});
 
 		// Các kênh bán hàng

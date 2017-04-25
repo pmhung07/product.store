@@ -25,7 +25,7 @@ use Auth;
 use DB;
 
 class OrdersController extends Controller
-{   
+{
 
     // Tạo đơn hàng
     public function getCreate(){
@@ -47,12 +47,12 @@ class OrdersController extends Controller
                 if(($value) > (DB::table('warehouse_inventory')->where('product_id','=',$key)->sum('quantity')) ){
                     return response()->json(['msg' => 'Không đủ sản phẩm trong kho hàng!']);
                 }
-            }        
-            
+            }
+
             foreach($arr_product_id as $key => $value){
                 // Trừ hàng trong kho
                 //update_inventory($key,$value);
-            }     
+            }
         }
 
 
@@ -170,7 +170,7 @@ class OrdersController extends Controller
 
     public function updateOrder(Request $request){
 
-        // Delete all product orders 
+        // Delete all product orders
         $ids_product_to_delete = array();
         $order_details = OrderDetails::select('id')->where('order_id','=',$request->order_id)->get()->toArray();
         foreach($order_details as $value){
@@ -212,7 +212,7 @@ class OrdersController extends Controller
         $orders = new Orders();
         $orders = Orders::find($request->order_id);
 
-        $orders->call_status = $request->call_status;       
+        $orders->call_status = $request->call_status;
         $orders->save();
 
         $user_current_login = Auth::user()->id;
@@ -220,8 +220,8 @@ class OrdersController extends Controller
         $orderProcessing->status = 1;
         $orderProcessing->order_id = $request->order_id;
         $orderProcessing->user_id = $user_current_login;
-        $orderProcessing->call_status = $request->call_status; 
-        $orderProcessing->save();        
+        $orderProcessing->call_status = $request->call_status;
+        $orderProcessing->save();
 
         return response()->json(['msg' => 'Bạn đã cập nhật trạng thái liên lạc với khách hàng, thao tác này sẽ được lưu trong lịch sử xử lý đơn hàng!']);
     }
@@ -249,43 +249,43 @@ class OrdersController extends Controller
                     // Trừ hàng trong kho
                     update_inventory($request->order_id,$value->product_id,$value->order_details_quantity,$request->export_warehouse);
                 }
-            }     
+            }
         }
 
-        $orders->lading_status = $request->lading_status;       
+        $orders->lading_status = $request->lading_status;
         $orders->export_warehouse = $request->export_warehouse;
-        $orders->save(); 
-        
+        $orders->save();
+
         $user_current_login = Auth::user()->id;
         $orderProcessing = new OrderProcessing();
         $orderProcessing->status = 1;
         $orderProcessing->order_id = $request->order_id;
         $orderProcessing->order_status = 2;
         $orderProcessing->user_id = $user_current_login;
-        $orderProcessing->lading_status = $request->lading_status; 
-        $orderProcessing->save();        
+        $orderProcessing->lading_status = $request->lading_status;
+        $orderProcessing->save();
         return response()->json(['msg' => 'Bạn đã cập nhật trạng thái giao hàng, thao tác này sẽ được lưu trong lịch sử xử lý đơn hàng!']);
-    }    
+    }
 
     public function updatePaymentStatus(Request $request){
 
         $orders = new Orders();
         $orders = Orders::find($request->order_id);
 
-        $orders->payment_status = $request->payment_status;       
-        $orders->save(); 
-        
+        $orders->payment_status = $request->payment_status;
+        $orders->save();
+
         return response()->json(['msg' => 'Bạn đã cập nhật trạng thái thanh toán thành công!']);
-    }    
+    }
 
     public function updateReceiverOrder(Request $request){
         $orders = new Orders();
         $orders = Orders::find($request->order_id);
 
-        $orders->receiver_provinces = $request->receiver_provinces;     
-        $orders->receiver_districts = $request->receiver_districts;   
-        $orders->receiver_address = $request->receiver_address;        
-        $orders->save();     
+        $orders->receiver_provinces = $request->receiver_provinces;
+        $orders->receiver_districts = $request->receiver_districts;
+        $orders->receiver_address = $request->receiver_address;
+        $orders->save();
 
         $user_current_login = Auth::user()->id;
         $orderProcessing = new OrderProcessing();
@@ -293,7 +293,7 @@ class OrdersController extends Controller
         $orderProcessing->order_id = $request->order_id;
         $orderProcessing->user_id = $user_current_login;
         $orderProcessing->note = 'Cập nhật lại địa chỉ giao hàng';
-        $orderProcessing->save();        
+        $orderProcessing->save();
 
         return response()->json(['msg' => 'Bạn đã cập nhật địa chỉ giao hàng thành công, thao tác này sẽ được lưu trong lịch sử xử lý đơn hàng!']);
     }
@@ -316,7 +316,7 @@ class OrdersController extends Controller
         if ($request->has('filter-cus-name') && $request->GET('filter-cus-name') != ""){
             $rows = $rows->where('customers.name','LIKE','%'.$request->GET("filter-cus-name").'%');
             $sum_total_price = $sum_total_price->where('customers.name','LIKE','%'.$request->GET("filter-cus-name").'%');
-        }   
+        }
 
         if ($request->has('filter-order-status') && $request->GET('filter-order-status') != -1){
             $rows = $rows->where('orders.order_status',$request->GET("filter-order-status"));
@@ -328,7 +328,7 @@ class OrdersController extends Controller
             $sum_total_price = $sum_total_price->whereDate('orders.created_at','=',date('Y-m-d'));
         }
 
-        $fromDateWeek = Carbon::now()->startOfWeek();//->toDateString(); 
+        $fromDateWeek = Carbon::now()->startOfWeek();//->toDateString();
         $tillDateWeek = date('Y-m-d h-i-s');
 
         if ($request->has('filter-order-time') && $request->GET('filter-order-time') == 'week'){
@@ -346,7 +346,7 @@ class OrdersController extends Controller
                          ->where('orders.created_at','<',(Carbon::createFromFormat('Y-m-d h:i:s',$request->GET('filter-date-end').' 00:00:00')->addDay()));
             $sum_total_price = $sum_total_price->where('orders.created_at','>',($request->GET('filter-date-start')))
                          ->where('orders.created_at','<',(Carbon::createFromFormat('Y-m-d h:i:s',$request->GET('filter-date-end').' 00:00:00')->addDay()));
-            
+
         }else{
             if($request->has('filter-date-start')){
                 $rows = $rows->where('orders.created_at','>',($request->GET('filter-date-start')))
@@ -394,14 +394,14 @@ class OrdersController extends Controller
         $payment_methods = PaymentMethods::select('id','name')->get();
         $channel = Channel::select('id','name')->get();
         $order = Orders::find($id)->toArray();
-        $customer = Customers::find($order['customer_id'])->toArray();
+        $customer = Customers::findOrNew($order['customer_id']);
         $payment_method_name_order = PaymentMethods::select('name')->where('id',$order['payment_method_id'])->first();
         $channel_name_order = Channel::select('name')->where('id',$order['channel_id'])->first();
         $provinces_name_customer = Provinces::select('name','id')->where('id',$customer['province_id'])->first();
         $districts_name_customer = Districts::select('name','id')->where('id',$customer['district_id'])->first();
         $warehouse = Warehouse::select('id','name')->get();
 
-        $districts_customer = Districts::select('id','name')->where('province_id',$provinces_name_customer['id'])->get();  
+        $districts_customer = Districts::select('id','name')->where('province_id',$provinces_name_customer['id'])->get();
 
         $cur_provinces = 0;
         $cur_districts = 0;
@@ -413,7 +413,7 @@ class OrdersController extends Controller
             $cur_districts = $customer['district_id'];
         }
 
-        $districts_receiver_order = Districts::select('id','name')->where('province_id',$cur_provinces)->get();  
+        $districts_receiver_order = Districts::select('id','name')->where('province_id',$cur_provinces)->get();
 
         $provinces_name_receiver = Provinces::select('name')->where('id',$cur_provinces)->first();
         $districts_name_receiver = Districts::select('name')->where('id',$cur_districts)->first();
@@ -441,7 +441,7 @@ class OrdersController extends Controller
         $provinces_name_customer = Provinces::select('name','id')->where('id',$customer['province_id'])->first();
         $districts_name_customer = Districts::select('name','id')->where('id',$customer['district_id'])->first();
 
-        $districts_customer = Districts::select('id','name')->where('province_id',$provinces_name_customer['id'])->get();  
+        $districts_customer = Districts::select('id','name')->where('province_id',$provinces_name_customer['id'])->get();
 
         $cur_provinces = 0;
         $cur_districts = 0;
@@ -453,7 +453,7 @@ class OrdersController extends Controller
             $cur_districts = $customer['district_id'];
         }
 
-        $districts_receiver_order = Districts::select('id','name')->where('province_id',$cur_provinces)->get();  
+        $districts_receiver_order = Districts::select('id','name')->where('province_id',$cur_provinces)->get();
         $provinces_name_receiver = Provinces::select('name')->where('id',$cur_provinces)->first();
         $districts_name_receiver = Districts::select('name')->where('id',$cur_districts)->first();
 
@@ -486,7 +486,7 @@ class OrdersController extends Controller
             foreach($order_details as $key => $value){
                 // Trừ hàng trong kho // Truyền vào order_details_id để Update giá nhập
                 update_inventory($request->order_id, $value->product_id,$value->order_details_quantity,$request->export_warehouse);
-            }     
+            }
 
             $orders->export_warehouse = $request->export_warehouse;
             $orders->order_status = 3;
@@ -499,7 +499,7 @@ class OrdersController extends Controller
             $orderProcessing->order_status = 3;
             $orderProcessing->save();
             return redirect()->route('admin.orders.details',$order_id)->with(['flash_message' => 'Cập nhật trạng thái đơn hàng thành công!']);
-        
+
         }elseif($request->has('lading_status') && $request->lading_status == 3 && $request->has('payment_status') && $request->payment_status == 1){
             $orders->order_status = 3;
             $orders->save();
@@ -510,10 +510,10 @@ class OrdersController extends Controller
             $orderProcessing->order_status = 3;
             $orderProcessing->save();
             return redirect()->route('admin.orders.details',$order_id)->with(['flash_message' => 'Cập nhật trạng thái đơn hàng thành công!']);
-            
+
         }else{
             return redirect()->back()->with(['flash_error' => 'Bạn chưa chọn kho xuất hàng!']);
-        }   
+        }
     }
 
     public function postDetailsCancel(Request $request,$order_id){
@@ -560,17 +560,17 @@ class OrdersController extends Controller
             }
         }else{
             $flash_message = 'Đơn hàng đã chuyển sang hệ thống kho vận!';
-        }        
+        }
         $orders->save();
 
         $user_current_login = Auth::user()->id;
         $orderProcessing = new OrderProcessing();
         $orderProcessing->order_id = $order_id;
         $orderProcessing->user_id = $user_current_login;
-        $orderProcessing->status = 1; 
+        $orderProcessing->status = 1;
         $orderProcessing->order_status = 2;
         $orderProcessing->lading_status = $request->input("radioInlineUpdateDelivery");
-        $orderProcessing->save();        
+        $orderProcessing->save();
 
         return redirect()->route('admin.orders.delivery',$order_id)->with(['flash_message' => $flash_message]);
     }
@@ -598,7 +598,7 @@ class OrdersController extends Controller
     }
 
     public function loadPrice(Request $request){
-        $product_id = $request->get('product_id');          
+        $product_id = $request->get('product_id');
         $product = Product::where('id','=',$product_id)->get();
         $price = $product[0]->price;
         return response()->json(['msg' => $price]);
@@ -606,13 +606,13 @@ class OrdersController extends Controller
 
     public function getCustomerAutoComplete(Request $request)
     {
-        $usersArray = array();    
+        $usersArray = array();
         $data = Customers::select("id","name","email","phone","address","gender","province_id","district_id","birthdate")
                 ->where("name","LIKE","%{$request->get('search-input-customer')}%")
                 ->orWhere("email","LIKE","%{$request->get('search-input-customer')}%")
                 ->orWhere("phone","LIKE","%{$request->get('search-input-customer')}%")
                 ->get();
-        
+
         foreach($data as $index=>$user ){
             $usersArray[$index] = [
                 'id' => $user->id,
@@ -631,13 +631,13 @@ class OrdersController extends Controller
 
     public function getProductAutoComplete(Request $request)
     {
-        $productArray = array();    
+        $productArray = array();
         $data = Product::select("id","name","sku","barcode","price")
                 ->where("name","LIKE","%{$request->get('search-input-product')}%")
                 ->orWhere("sku","LIKE","%{$request->get('search-input-product')}%")
                 ->orWhere("barcode","LIKE","%{$request->get('search-input-product')}%")
                 ->get();
-        
+
         foreach($data as $index=>$product ){
             $productArray[$index] = [
                 'id' => $product->id,
@@ -652,11 +652,11 @@ class OrdersController extends Controller
 
     public function getOrderAutoComplete(Request $request)
     {
-        $orderArray = array();    
+        $orderArray = array();
         $data = Orders::select("id","code")
                 ->where("code","LIKE","%{$request->get('search-order')}%")
                 ->get();
-        
+
         foreach($data as $index=>$order ){
             $orderArray[$index] = [
                 'id' => $order->id,
@@ -703,7 +703,7 @@ class OrdersController extends Controller
         $orderProcessing->order_id = $request->order_id;
         $orderProcessing->user_id = $user_current_login;
         $orderProcessing->note = $request->order_note;
-        $orderProcessing->save();        
+        $orderProcessing->save();
 
         return response()->json(['msg' => 'Bạn đã cập nhật ghi chú thành công, thao tác này sẽ được lưu trong lịch sử xử lý đơn hàng!']);
     }
@@ -726,7 +726,7 @@ class OrdersController extends Controller
         if ($request->has('filter-cus-name') && $request->GET('filter-cus-name') != ""){
             $rows = $rows->where('customers.name','LIKE','%'.$request->GET("filter-cus-name").'%');
             $sum_total_price = $sum_total_price->where('customers.name','LIKE','%'.$request->GET("filter-cus-name").'%');
-        }   
+        }
 
         if ($request->has('filter-order-status') && $request->GET('filter-order-status') != -1){
             $rows = $rows->where('orders.order_status',$request->GET("filter-order-status"));
@@ -738,7 +738,7 @@ class OrdersController extends Controller
             $sum_total_price = $sum_total_price->whereDate('orders.created_at','=',date('Y-m-d'));
         }
 
-        $fromDateWeek = Carbon::now()->startOfWeek();//->toDateString(); 
+        $fromDateWeek = Carbon::now()->startOfWeek();//->toDateString();
         $tillDateWeek = date('Y-m-d H:i:s');
 
         if ($request->has('filter-order-time') && $request->GET('filter-order-time') == 'week'){
@@ -756,7 +756,7 @@ class OrdersController extends Controller
                          ->where('orders.created_at','<',(Carbon::createFromFormat('Y-m-d H:i:s',$request->GET('filter-date-end').' 00:00:00')->addDay()));
             $sum_total_price = $sum_total_price->where('orders.created_at','>',($request->GET('filter-date-start')))
                          ->where('orders.created_at','<',(Carbon::createFromFormat('Y-m-d H:i:s',$request->GET('filter-date-end').' 00:00:00')->addDay()));
-            
+
         }else{
             if($request->has('filter-date-start')){
                 $rows = $rows->where('orders.created_at','>',($request->GET('filter-date-start')))
@@ -771,7 +771,7 @@ class OrdersController extends Controller
                 $sum_total_price = $sum_total_price->where('orders.created_at','>',($request->GET('filter-date-end')))
                              ->where('orders.created_at','<',(Carbon::createFromFormat('Y-m-d h:i:s',$request->GET('filter-date-end').' 00:00:00')->addDay()));
             }
-        }   
+        }
 
         $sum_total_price = $sum_total_price->first();
 
