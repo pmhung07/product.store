@@ -131,13 +131,16 @@
     .caption {
         padding: 0px 0 0 10px;
         float: left;
-        @media only screen and(min-width: 769px) {
+        @media only screen and(min-width: 769px) and (max-width: 992px) {
             float: left;
             width: 230px;
             overflow: hidden;
         }
         @media only screen and(min-width: 992px) and (max-width: 1200px) {
             width: 200px;
+        }
+        @media only screen and (min-width: 1200px) {
+            width: 195px;
         }
     }
 }

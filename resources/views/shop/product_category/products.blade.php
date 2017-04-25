@@ -23,7 +23,9 @@
                 </div>
                 <div class="product-item product-index clearfix active left-border" id="product-lists" style="margin-bottom:20px" >
                     @foreach($products as $item)
-                        {!! view('shop/partials/product/item', ['product' => $item])->render() !!}
+                        <div class="col-xs-12 col-sm-4 col-md-3">
+                            {!! view('shop/partials/product/item', ['product' => $item])->render() !!}
+                        </div>
                     @endforeach
                 </div>
             </div>
