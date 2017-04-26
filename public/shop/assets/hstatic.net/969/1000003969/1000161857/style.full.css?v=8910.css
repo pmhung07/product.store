@@ -627,10 +627,11 @@ header .top .logo {padding: 34px 0 10px;text-align: left}
 	color:#e32124
 }
 .menu-top>li {
-	display: inline-block;float: left;
+	display: inline-block;
+	float: left;
 	position: relative;
 	border-right: 1px dashed #ddd;
-	width: calc(100%/10);
+	width: calc(100%/8);
 }
 .menu-top>li:last-child {
 	border: none
@@ -693,8 +694,8 @@ header .top .logo {padding: 34px 0 10px;text-align: left}
 }
 .menu-top{padding:7px 0px 9px}
 .menu-top>li .coll-icon {
-	padding:0;
-	text-align: center
+	padding: 0;
+	text-align: center;
 }
 .collectionkt img {
 	width: 100%
@@ -707,7 +708,7 @@ header .top .logo {padding: 34px 0 10px;text-align: left}
 	-ms-transform: translateY(2px);
 	transform: translateY(2px);
 	z-index: 9999;
-	position: relative
+	position: relative;
 }
 .back-menu-top .menu-top>li.logo-top:hover {
 	background-color: #fff
@@ -1047,6 +1048,8 @@ footer .bottom h4 {
 	margin: 0 auto;
 	display: block;
 	text-align: center;
+	object-fit: cover;
+	object-position: center center;
 }
 .coll-icon .ico-top img{
 	opacity:1;
