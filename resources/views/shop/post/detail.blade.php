@@ -1,7 +1,7 @@
 @extends('shop/layout/blog')
 
 @section('content')
-<div class="container">
+<div id="post-detail" class="container">
 
     @include('shop/partials/blog/nav')
 
@@ -33,11 +33,10 @@
                         <div class="row">
                             @foreach($relatedPosts as $item)
                                 <div class="col-xs-5 col-md-25" style="margin:10px 0;">
-                                    <a href="{{ $item->getUrl() }}">
-                                        <div class="item-img" style="background: url('{{ parse_image_url('md_' . $item->image) }}') no-repeat;background-size: cover;background-position: center;">
-                                        </div>
+                                    <a class="link" href="{{ $item->getUrl() }}">
+                                        <img class="item-img" src="{{ parse_image_url('md_' . $item->image) }}" alt="{{ $item->getTitle() }}">
                                     </a>
-                                    <h3>
+                                    <h3 class="title">
                                         <a href="txn062-co-ban-than-cua-nang-cong-so.html">{{ $item->getTitle() }}</a>
                                     </h3>
                                     <span class="date">{{ date('d.m.Y', strtotime($item->updated_at)) }}</span>

@@ -279,3 +279,26 @@
         }
     }
 }
+
+#post-detail {
+    #orther-article {
+        .link {
+            display: block;
+            overflow: hidden;
+            height: 125px;
+            .item-img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                object-position: center center;
+            }
+        }
+        .title {
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            overflow: hidden;
+            -webkit-box-orient: vertical;
+            height: 2.5em;
+        }
+    }
+}
