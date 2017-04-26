@@ -400,3 +400,21 @@
   -webkit-box-orient: vertical;
   height: 2.5em;
 }
+#cart-container .btn-update,
+#cart-container .btn-clear {
+  padding: 8px 50px;
+  border-radius: 0;
+  background: #ccc;
+  border: #ccc;
+  color: #000;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+#cart-container .btn-checkout {
+  padding: 8px 50px;
+  background: #e32124;
+  color: #fff;
+  font-weight: bold;
+  text-transform: uppercase;
+  border-radius: 0;
+}

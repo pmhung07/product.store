@@ -19,9 +19,6 @@ class PostController extends ShopBlogController
     {
         $posts = ShopPost::orderBy('updated_at', 'DESC')->paginate(20);
 
-        // 5 bài hot trên top
-        $hotPosts = ShopPost::with('category')->orderByRaw('RAND()')->take(5)->get();
-
         // Tất cả danh mục tin tức
         $postCategories = ShopPostCategories::all();
         foreach($postCategories as $category) {
@@ -37,6 +34,9 @@ class PostController extends ShopBlogController
             }
             $category->newPosts = $newPosts;
         }
+
+        // 5 bài hot trên top
+        $hotPosts = ShopPost::with('category')->orderByRaw('RAND()')->take(5)->get();
 
         return view('shop/post/index', compact('category', 'hotPosts', 'posts', 'postCategories'));
     }
