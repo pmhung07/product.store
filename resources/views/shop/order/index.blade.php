@@ -82,6 +82,7 @@
 
                                             <div class="form-group">
                                                 <input placeholder="Họ và tên" class="form-control input-lg" name="customer_name" value="{{ old('customer_name') }}" />
+                                                <small class="help-inline text-warning">Trường thông tin bắt buộc phải nhập</small>
                                             </div>
 
                                             <div class="form-group">
@@ -90,6 +91,7 @@
 
                                             <div class="form-group">
                                                 <input placeholder="Số điện thoại" class="form-control input-lg" name="customer_phone" value="{{ old('customer_phone') }}" />
+                                                <small class="help-inline text-warning">Trường thông tin bắt buộc phải nhập</small>
                                             </div>
 
                                             <div class="form-group">
