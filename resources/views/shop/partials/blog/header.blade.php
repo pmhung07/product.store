@@ -67,9 +67,9 @@
                                 <span>BÁN HÀNG: <strong>1800 1162</strong> (miễn phí)</span>
                             </div>
                         </div>
-                        <div class="col-lg-header-25 col-sm-5 col-md-10">
+                        <div class="col-lg-header-25 col-sm-5 col-md-10 hide">
                             <div class="head-store">
-                                <a target="_blank"  href="../collections/cua-hang-khu-vuc-tp-ho-chi-minh%3Fview=stores.html"><span>xem hệ thống <strong>42</strong> cửa hàng</span></a>
+                                <a target="_blank"  href="/"><span>xem hệ thống <strong>42</strong> cửa hàng</span></a>
                             </div>
                         </div>
                     </div>
@@ -92,6 +92,7 @@
                                         </div>
                                     </li>
                                     @foreach($GLB_Categories as $item)
+                                        @php if($item->parent_id > 0) continue; @endphp
                                         <li  class="menu-li hasChild bup-be-1-click  fix-icon-coll" >
                                             <a href="{{ $item->getUrl() }}">
                                                 <div class="coll-icon bup-be-1-click">

@@ -268,6 +268,8 @@
 }
 .menu_footer .link .image {
   height: 100px;
+  object-fit: cover;
+  object-position: center center;
 }
 .footer-colsystem {
   margin-bottom: 20px;
