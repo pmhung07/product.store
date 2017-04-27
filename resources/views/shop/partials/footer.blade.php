@@ -13,6 +13,7 @@
                                 <div class="row">
                                     <ul class="menu_footer">
                                         <?php foreach($GLB_Categories as $item): ?>
+                                            <?php if($item->parent_id > 0) continue; ?>
                                             <li class="col-xs-6 col-sm-3 col-md-3 col-lg-2">
                                                 <a class="link" href="{{ $item->getUrl() }}" title="Giày búp bê">
                                                     <img class="image" src="{{ parse_image_url($item->icon) }}" alt="Giày búp bê" class="img-responsive" />
@@ -107,13 +108,13 @@
                         </div>
                     </div>
                 </div>
-                <div class="container-fluid fooMenu wow fadeIns" style="background:#f4f4f4">
+                <div class="container-fluid fooMenu" style="background:#f4f4f4">
                     <div class="">
                         <div class="top">
                             <div class="container">
                                 <div class="row">
                                     <ul class="instuction_footer">
-                                        <li><a href="" title="Hướng dẫn chọn cỡ giày">Tin tức, khuyến mãi JUNO</a></li>
+                                        <li><a href="" title="Hướng dẫn chọn cỡ giày">Tin tức, khuyến mãi</a></li>
                                         <li><a href="" title="Hướng dẫn chọn cỡ giày">Hướng dẫn chọn cỡ giày</a></li>
                                         <li><a href="" title="Chính sách khách hàng thân thiết">Chính sách khách hàng thân thiết</a></li>
                                         <li><a href="" title="Chính sách đổi trả">Chính sách Đổi/Trả</a></li>
@@ -121,28 +122,6 @@
                                         <li><a href="" title="Chính sách bảo mật">Chính sách bảo mật</a></li>
                                         <li><a href="" title="Giới thiệu; Liên hệ...">Các thông tin khác</a></li>
                                     </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="container-fluid wow fadeIn" style="background:#f4f4f4">
-                    <div class="">
-                        <div class="copyright">
-                            <div class="container">
-                                <div class="row">
-                                    <div class=" copy">
-                                        <div class="col-xs-12 col-sm-6">
-                                            © 2015. Công ty cổ phần sản xuất thương mại dịch vụ.<br>
-                                            Văn phòng: 313 Nguyễn Thị Thập, Q.7, TP.HCM. GP số 0310350452-002 do Sở Kế Hoạch và Đầu Tư TP.HCM cấp ngày 29/06/2011
-                                        </div>
-                                        <div class="col-xs-12 col-sm-2 col-sm-offset-2 gov">
-                                            <a href="http://online.gov.vn/CustomWebsiteDisplay.aspx?DocId=13954" target="_blank"><img src="/shop/assets/hstatic.net/969/1000003969/1000161857/icon-dangky.png%3Fv=8910"></a>
-                                            <div class="text-center">
-                                                <span class="pull-left"> Powered by <a target="_blank" href="https://www.haravan.com/?hchan=juno">Haravan Enterprise.</a></span>
-                                            </div>
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
                         </div>

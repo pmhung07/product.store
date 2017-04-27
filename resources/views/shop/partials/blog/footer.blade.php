@@ -11,7 +11,7 @@
                                 </li>
                             @endforeach
                         </ul>
-                        <a title="Trang shop JUNO" id="home-foot" href="/" target="_blank" ><i class="fa fa-home"></i> Trang shop JUNO</a>
+                        <a title="Trang shop JUNO" id="home-foot" href="/" target="_blank" ><i class="fa fa-home"></i> Trang shop</a>
                     </div>
                     <div class='row foot'>
                         <div class='col-md-5 col-sm-10 col-xs-10'>
@@ -61,6 +61,7 @@
                     <div class='link-bottom'>
                         <ul>
                             @foreach($GLB_Categories as $item)
+                                @php if($item->parent_id > 0) continue; @endphp
                                 <li><a href="{{ $item->getUrl() }}">{{ $item->getName() }}</a></li>
                             @endforeach
                         </ul>
