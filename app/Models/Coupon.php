@@ -65,4 +65,10 @@ class Coupon extends Model
             return $types[$type];
         }
     }
+
+
+    public function decodeData()
+    {
+        return unserialize($this->data);
+    }
 }
