@@ -40,6 +40,9 @@
 
     <script src="js/plugins/jasny/jasny-bootstrap.min.js"></script>
 
+    <link rel="stylesheet" type="text/css" href="/js/plugins/toastr/build/toastr.min.css">
+    <script src="/js/plugins/toastr/build/toastr.min.js" type="text/javascript"></script>
+
     <script src="js/functions.js"></script>
     <script src="js/core/core.js"></script>
 
