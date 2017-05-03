@@ -117,6 +117,10 @@
                                             </div>
 
                                             <div class="form-group">
+                                                <input placeholder="Mã giảm giá" class="form-control input-lg" name="coupon" value="{{ old('coupon') }}" />
+                                            </div>
+
+                                            <div class="form-group">
                                                 <div class="g-recaptcha" data-sitekey="6Lc9dBsUAAAAAG3jMxuA9SmX2XrgBwukv4m7XytN"></div>
                                             </div>
                                         </div>
