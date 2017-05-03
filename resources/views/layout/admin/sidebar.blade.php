@@ -34,7 +34,7 @@
                 </a>
             </li>
 
-            <!--<li @if(Request::is('system/product-group/*') ||
+            <li @if(Request::is('system/product-group/*') ||
                     Request::is('system/product/*') ||
                     Request::is('system/purchases/*') ||
                     Request::is('system/stock/*') ||
@@ -42,8 +42,7 @@
                     Request::is('system/inventory/index') ||
                     Request::is('system/inventory/*') ||
                     Request::is('system/return-product/*')
-                    ) {!! 'class="active"' !!} @endif>-->
-            <li class="active">
+                    ) {!! 'class="active"' !!} @endif>
                 <a href="/system/product-group/index">
                     <i class="fa fa-database"></i>
                     <span class="nav-label">Quản lý kho </span>
@@ -148,7 +147,7 @@
                 </a>
             </li>
 
-            <li class="{{ Request::is('system/shop/post/*') || Request::is('system/shop/page/*') ? 'active' : '' }}">
+            <li class="{{ Request::is('system/shop/post/*') || Request::is('system/shop/page/*') || Request::is('system/shop/coupon/*') ? 'active' : '' }}">
                 <a href="javascript">
                     <i class="fa fa-leaf"></i>
                     <span class="nav-label">Website</span>
@@ -160,6 +159,9 @@
                     </li>
                     <li>
                         <a href="{{ route('admin.page.index') }}">Trang tĩnh</a>
+                    </li>
+                    <li>
+                        <a href="/system/shop/coupon/index">Mã coupon</a>
                     </li>
                 </li>
             </li>
