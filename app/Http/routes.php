@@ -163,19 +163,19 @@ Route::group(['middleware' => 'auth'], function(){
 			Route::get('create', ['as' => 'admin.stock-receipt.getCreate' , 'uses' => 'WarehousePhController@getCreate']); // Per
 			Route::post('create', ['as' => 'admin.stock-receipt.getCreate' , 'uses' => 'WarehousePhController@postCreate']); // Per
 
-				// Nhập sản phẩm vào phiếu
-				Route::get('update/{id}', ['as' => 'admin.stock-receipt.getUpdate' , 'uses' => 'WarehousePhController@getUpdate']); // Per
-				Route::post('update/{id}', ['as' => 'admin.stock-receipt.getUpdate' , 'uses' => 'WarehousePhController@postUpdate']); // Per
+			// Nhập sản phẩm vào phiếu
+			Route::get('update/{id}', ['as' => 'admin.stock-receipt.getUpdate' , 'uses' => 'WarehousePhController@getUpdate']); // Per
+			Route::post('update/{id}', ['as' => 'admin.stock-receipt.getUpdate' , 'uses' => 'WarehousePhController@postUpdate']); // Per
 
-					// Sửa xoá phiếu khi chưa nhập kho
-					Route::get('edit/{id}', ['as' => 'admin.stock-receipt.getEdit' , 'uses' => 'WarehousePhController@getEdit']); // Per
-					Route::post('edit/{id}', ['as' => 'admin.stock-receipt.getEdit' , 'uses' => 'WarehousePhController@postEdit']); // Per
+			// Sửa xoá phiếu khi chưa nhập kho
+			Route::get('edit/{id}', ['as' => 'admin.stock-receipt.getEdit' , 'uses' => 'WarehousePhController@getEdit']); // Per
+			Route::post('edit/{id}', ['as' => 'admin.stock-receipt.getEdit' , 'uses' => 'WarehousePhController@postEdit']); // Per
 
-						// Xoá sản phẩm
-						Route::get('delete/{id}', ['as' => 'admin.stock-receipt.getDelete' , 'uses' => 'WarehousePhController@getDelete']); // Per
+			// Xoá sản phẩm
+			Route::get('delete/{id}', ['as' => 'admin.stock-receipt.getDelete' , 'uses' => 'WarehousePhController@getDelete']); // Per
 
-							// Nhập sản phẩm vào kho
-							Route::post('details/{id}', ['as' => 'admin.stock-receipt.getWarehousing' , 'uses' => 'WarehousePhController@postWarehousing']); // Per
+			// Nhập sản phẩm vào kho
+			Route::post('details/{id}', ['as' => 'admin.stock-receipt.getWarehousing' , 'uses' => 'WarehousePhController@postWarehousing']); // Per
 		});
 
 		// Trả hàng
@@ -336,8 +336,12 @@ Route::group(['middleware' => 'auth'], function(){
 				// Ajax search product group
 				Route::get('/ajax/product-group', 'System\CouponController@ajaxSearchProductGroup');
 			});
-		});
 
+			// Ga
+			Route::group(['prefix' => 'ga'], function() {
+				Route::get('index', ['as' => 'system.ga.index', 'uses' => 'System\GaController@getIndex']);
+			});
+		});
 	});
 });
 
@@ -396,3 +400,7 @@ Route::group(['prefix' => 'ajax', 'namespace' => 'Ajax'], function() {
         Route::get('/{id}/wards', ['as' => 'ajax.district.ward', 'uses' => 'DistrictController@getWards']);
     });
 });
+
+// Ga
+Route::get('/ga/analyze', ['as' => 'ga.analyze', 'uses' => 'GaController@analyze']);
+

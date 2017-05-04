@@ -147,7 +147,7 @@
                 </a>
             </li>
 
-            <li class="{{ Request::is('system/shop/post/*') || Request::is('system/shop/page/*') || Request::is('system/shop/coupon/*') ? 'active' : '' }}">
+            <li class="{{ Request::is('system/shop/post/*') || Request::is('system/shop/page/*') || Request::is('system/shop/coupon/*') || Request::is('system/shop/ga/*') ? 'active' : '' }}">
                 <a href="javascript">
                     <i class="fa fa-leaf"></i>
                     <span class="nav-label">Website</span>
@@ -162,6 +162,9 @@
                     </li>
                     <li>
                         <a href="/system/shop/coupon/index">Mã coupon</a>
+                    </li>
+                    <li>
+                        <a href="/system/shop/ga/index">Google analytics</a>
                     </li>
                 </li>
             </li>
