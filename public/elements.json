@@ -20,22 +20,11 @@
     ],
     "Intros":[
         {"url":"elements/26_event_2.html","height":222, "thumbnail":"elements/thumbs/180.jpg"},
-        {"url":"elements/form_1.html","height":569, "thumbnail":"elements/thumbs/199.jpg"},
-        {"url":"elements/form_2.html","height":569, "thumbnail":"elements/thumbs/200.jpg"},
-        {"url":"elements/highlight3.html","height":380, "thumbnail":"elements/thumbs/162.jpg"},
-        {"url":"elements/1_normal_2.html","height":513, "thumbnail":"elements/thumbs/2.png"},
-        {"url":"elements/pix_4.html","height":513, "thumbnail":"elements/thumbs/95.png"},
         {"url":"elements/4_real_estate_2.html","height":521, "thumbnail":"elements/thumbs/26.png"},
         {"url":"elements/5_hotel_2.html","height":508, "thumbnail":"elements/thumbs/34.png"},
-        {"url":"elements/20_construction_2.html","height":488, "thumbnail":"elements/thumbs/105.png"},
         {"url":"elements/elegant_2.html","height":488, "thumbnail":"elements/thumbs/100.png"},
         {"url":"elements/6_university_2.html","height":522, "thumbnail":"elements/thumbs/43.png"},
-        {"url":"elements/7_shop_products_2.html","height":542, "thumbnail":"elements/thumbs/47.png"},
-        {"url":"elements/9_ebook_1.html","height":861, "thumbnail":"elements/thumbs/57.png"},
         {"url":"elements/10_business_2.html","height":458, "thumbnail":"elements/thumbs/61.png"},
-        {"url":"elements/8_ecourse_2.html","height":517, "thumbnail":"elements/thumbs/52.png"},
-        {"url":"elements/medical_2.html","height":488, "thumbnail":"elements/thumbs/85.png"},
-        {"url":"elements/10_business_5.html","height":488, "thumbnail":"elements/thumbs/63.png"},
         {"url":"elements/13_gym_2.html","height":488, "thumbnail":"elements/thumbs/67.png"},
         {"url":"elements/14_agency_1.html","height":488, "thumbnail":"elements/thumbs/71.png"},
         {"url":"elements/15_party_1.html","height":488, "thumbnail":"elements/thumbs/76.png"}
@@ -94,20 +83,6 @@
         {"url":"elements/2_corporate_5.html","height":164, "thumbnail":"elements/thumbs/14.png"},
         {"url":"elements/404_1.html","height":380, "thumbnail":"elements/thumbs/163.jpg"}
     ],
-    "Popups":[
-        {"url":"elements/popup_1.html","height":222, "thumbnail":"elements/thumbs/167.jpg"},
-        {"url":"elements/popup_2.html","height":222, "thumbnail":"elements/thumbs/168.jpg"},
-        {"url":"elements/popup_3.html","height":222, "thumbnail":"elements/thumbs/169.jpg"},
-        {"url":"elements/popup_4.html","height":222, "thumbnail":"elements/thumbs/170.jpg"},
-        {"url":"elements/popup_5.html","height":222, "thumbnail":"elements/thumbs/171.jpg"},
-        {"url":"elements/popup_6.html","height":222, "thumbnail":"elements/thumbs/172.jpg"},
-        {"url":"elements/popup_7.html","height":222, "thumbnail":"elements/thumbs/173.jpg"},
-        {"url":"elements/popup_8.html","height":222, "thumbnail":"elements/thumbs/174.jpg"},
-        {"url":"elements/popup_9.html","height":222, "thumbnail":"elements/thumbs/175.jpg"},
-        {"url":"elements/popup_10.html","height":222, "thumbnail":"elements/thumbs/176.jpg"},
-        {"url":"elements/popup_11.html","height":222, "thumbnail":"elements/thumbs/177.jpg"},
-        {"url":"elements/popup_12.html","height":222, "thumbnail":"elements/thumbs/178.jpg"}
-    ],
     "Titles and&nbsp;Texts":[
         {"url":"elements/26_event_11.html","height":222, "thumbnail":"elements/thumbs/189.jpg"},
         {"url":"elements/title_1.html","height":164, "thumbnail":"elements/thumbs/144.png"},
@@ -164,12 +139,6 @@
         {"url":"elements/9_ebook_5.html","height":306, "thumbnail":"elements/thumbs/60.png"},
         {"url":"elements/1_normal_7.html","height":380, "thumbnail":"elements/thumbs/8.png"}
     ],
-    "PayPal":[
-        {"url":"elements/paypal_1.html","height":222, "thumbnail":"elements/thumbs/191.jpg"},
-        {"url":"elements/paypal_2.html","height":222, "thumbnail":"elements/thumbs/192.jpg"},
-        {"url":"elements/paypal_popup_1.html","height":222, "thumbnail":"elements/thumbs/193.png"},
-        {"url":"elements/paypal_popup_2.html","height":222, "thumbnail":"elements/thumbs/194.png"}
-    ],
      "Clients":[
         {"url":"elements/clients_1.html","height":167, "thumbnail":"elements/thumbs/135.png"},
         {"url":"elements/clients_1_dark.html","height":167, "thumbnail":"elements/thumbs/136.png"},
@@ -203,7 +172,7 @@
     "Slider":[  
         {"url":"elements/slider_1.html","height":99, "thumbnail":"elements/thumbs/80.png"}
     ],
-    "Contact Forms":[
+    "Forms":[
         {"url":"elements/form_1.html","height":569, "thumbnail":"elements/thumbs/199.jpg"},
         {"url":"elements/form_2.html","height":569, "thumbnail":"elements/thumbs/200.jpg"},
         {"url":"elements/2_corporate_9.html","height":569, "thumbnail":"elements/thumbs/18.png"},
@@ -212,14 +181,14 @@
         {"url":"elements/8_ecourse_2.html","height":517, "thumbnail":"elements/thumbs/52.png"},
         {"url":"elements/10_business_5.html","height":488, "thumbnail":"elements/thumbs/63.png"},
         {"url":"elements/13_gym_5.html","height":488, "thumbnail":"elements/thumbs/70.png"},
-        {"url":"elements/15_party_3.html","height":488, "thumbnail":"elements/thumbs/78.png"}
-    ],
-     "Subscription Forms":[
-        {"url":"elements/1_normal_2.html","height":513, "thumbnail":"elements/thumbs/2.png"},
-        {"url":"elements/7_shop_products_2.html","height":542, "thumbnail":"elements/thumbs/47.png"},
-        {"url":"elements/9_ebook_1.html","height":861, "thumbnail":"elements/thumbs/57.png"},
-        {"url":"elements/12-subscribe_2_1.html","height":400, "thumbnail":"elements/thumbs/65.png"},
-        {"url":"elements/19_new_subscribe.html","height":400, "thumbnail":"elements/thumbs/101.png"}
+        {"url":"elements/15_party_3.html","height":488, "thumbnail":"elements/thumbs/78.png"},
+        {"url":"elements/form_1.html","height":569, "thumbnail":"elements/thumbs/199.jpg"},
+        {"url":"elements/form_2.html","height":569, "thumbnail":"elements/thumbs/200.jpg"},
+        {"url":"elements/20_construction_2.html","height":488, "thumbnail":"elements/thumbs/105.png"},
+        {"url":"elements/highlight3.html","height":380, "thumbnail":"elements/thumbs/162.jpg"},
+        {"url":"elements/8_ecourse_2.html","height":517, "thumbnail":"elements/thumbs/52.png"},
+        {"url":"elements/medical_2.html","height":488, "thumbnail":"elements/thumbs/85.png"},
+        {"url":"elements/10_business_5.html","height":488, "thumbnail":"elements/thumbs/63.png"}
     ],
     "Footers":[
         {"url":"elements/26_event_12.html","height":222, "thumbnail":"elements/thumbs/190.png"},

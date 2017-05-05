@@ -138,16 +138,31 @@
                         </table>
 
                         <div class="row">
-                            <div class="col-sm-6 text-left">
+                            <div class="col-lg-6 text-left paging-lst table">
                                 <div class="dataTables_paginate paging_bootstrap_full">
-                                    {{ $rows->appends(array(
-                                        'id' =>Request::input('id'),
-                                        'name' =>Request::input('name'),
-                                        'code' =>Request::input('price'),
-                                        'sort' =>Request::input('sort'),
-                                        'order' =>Request::input('order'),
-                                        ))->links()
-                                    }}
+                                    {!! $rows->appends($_GET)->links() !!}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="ibox">
+                                    <div class="ibox-content bg-block">
+                                        <div class="sp-14-400"><a href="system/statistic/product"><i class="fa fa-bar-chart-o"></i> Thống kê phiếu nhập kho</a></div>
+                                        <table class="table table-stripped m-t-md">
+                                            <tbody>
+                                            <tr>
+                                                <td class="" width="10">
+                                                    <i class="fa fa-circle text-success"></i>
+                                                </td>
+                                                <td class="">
+                                                    Tổng số lượng phiếu: <span class="text-danger">{!! number_format($total_row) !!}</span> phiếu
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                         </div>
