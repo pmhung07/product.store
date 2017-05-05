@@ -31,7 +31,7 @@ class CustomersController extends Controller
 {
     public function getCreate(){
     	$provinces = Provinces::select('id','name','order_number','active')->get()->toArray();
-    	
+
     	return view('admin.customer.create',compact('provinces'));
     }
 
@@ -46,7 +46,7 @@ class CustomersController extends Controller
     	$customer->save();
     	return redirect()->route('admin.customer.index')->with(['flash_message' => 'Thêm khách hàng thành công!']);
     }
-    
+
     public function getIndex(Request $request){
     	$sort='created_at';
 		$order='DESC';
@@ -116,9 +116,9 @@ class CustomersController extends Controller
     }
 
     public function getDetails(Request $request, $uid){
-      
+
         $data_user = Customers::select('customers.*')->where('id','=',$uid)->first();
-        
+
         $sort='created_at';
         $order='desc';
         $rows = Orders::select('orders.*','payment_methods.name as payment_method_name')
@@ -144,7 +144,7 @@ class CustomersController extends Controller
             $sum_total_price = $sum_total_price->whereDate('orders.created_at','=',date('Y-m-d'));
         }
 
-        $fromDateWeek = Carbon::now()->startOfWeek();//->toDateString(); 
+        $fromDateWeek = Carbon::now()->startOfWeek();//->toDateString();
         $tillDateWeek = date('Y-m-d h-i-s');
 
         if ($request->has('filter-order-time') && $request->GET('filter-order-time') == 'week'){
@@ -162,7 +162,7 @@ class CustomersController extends Controller
                          ->where('orders.created_at','<',(Carbon::createFromFormat('Y-m-d h:i:s',$request->GET('filter-date-end').' 00:00:00')->addDay()));
             $sum_total_price = $sum_total_price->where('orders.created_at','>',($request->GET('filter-date-start')))
                          ->where('orders.created_at','<',(Carbon::createFromFormat('Y-m-d h:i:s',$request->GET('filter-date-end').' 00:00:00')->addDay()));
-            
+
         }else{
             if($request->has('filter-date-start')){
                 $rows = $rows->where('orders.created_at','>',($request->GET('filter-date-start')))
@@ -184,6 +184,15 @@ class CustomersController extends Controller
         $total_order = $sum_total_price->get();
         return view('admin.customer.details', ['rows' => $data, 'order_total' => $order_total, 'total_order' => $total_order, 'uid' => $uid, 'data_user' => $data_user]);
 
+    }
+
+
+    public function getDelete($id)
+    {
+        $customer = Customers::findOrFail($id);
+        $customer->active = 0;
+        $customer->save();
+        return redirect()->route('admin.customer.index')->with(['flash_message' => 'Xóa thành công!']);
     }
 
 }

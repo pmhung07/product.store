@@ -7,12 +7,14 @@ use App\Districts;
 use App\Http\Controllers\Controller;
 use App\Http\Requests;
 use App\Http\Requests\Shop\OrderFormRequest;
+use App\Models\Coupon;
 use App\OrderDetails;
 use App\Orders;
+use App\Product;
 use App\Provinces;
+use Cart;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
-use Cart;
 
 class OrderController extends ShopController
 {
@@ -36,10 +38,16 @@ class OrderController extends ShopController
         $secret = config('google-recapcha.secret');
         $recaptcha = new \ReCaptcha\ReCaptcha($secret);
         $resp = $recaptcha->verify($gRecaptchaResponse, $remoteIp);
-        // _debug($resp->isSuccess());die;
+
         if ($resp->isSuccess()) {
             // Lưu thông tin khách hàng
-            $customer = new Customers;
+            $phone = clean($request->get('customer_phone'));
+            $exist = Customers::where('phone', $phone)->first();
+            if(!$exist) {
+                $customer = new Customers;
+            } else {
+                $customer = $exist;
+            }
             $customer->province_id = (int) $request->get('city_id');
             $customer->district_id = (int) $request->get('district_id');
             $customer->name = clean($request->get('customer_name'));
@@ -48,13 +56,73 @@ class OrderController extends ShopController
             $customer->address = clean($request->get('customer_address'));
             $customer->save();
 
+            // Tổng giá trị đơn hàng
+            $totalPrice = to_numberic(Cart::subtotal(0,'.','.'));
+
+            $couponCode = clean($request->get('coupon'));
+            foreach(Cart::content() as $item) {
+                // Kiểm tra mã giảm giá nếu có
+                $coupon = Coupon::where('code', $couponCode)->first();
+                if($coupon) {
+                    switch ($coupon->type) {
+                        case Coupon::TYPE_PRODUCT:
+                            $productIds = $coupon->decodeData();
+                            foreach($productIds as $pid) {
+                                if($item->id == $pid) {
+                                    if($coupon->type_value == Coupon::VALUE_IS_VALUE) {
+                                        $item->price -= $coupon->value;
+                                        if($item->price < 0) $item->price = 0;
+                                    }
+                                    elseif($coupon->type_value == Coupon::VALUE_IS_PERCENT) {
+                                        $item->price -= ($item->price * $coupon->value / 100);
+                                        if($item->price < 0) $item->price = 0;
+                                    }
+                                }
+                            }
+                            break;
+
+                        case Coupon::TYPE_PRODUCT_GROUP:
+                            $productGroupIds = $coupon->decodeData();
+                            $_products = Product::whereIn('product_group_id', $productGroupIds)->get();
+                            foreach($_products as $pItem) {
+                                if($item->id == $pItem->id) {
+                                    if($coupon->type_value == Coupon::VALUE_IS_VALUE) {
+                                        $item->price -= $coupon->value;
+                                        if($item->price < 0) $item->price = 0;
+                                    }
+                                    elseif($coupon->type_value == Coupon::VALUE_IS_PERCENT) {
+                                        $item->price -= ($item->price * $coupon->value / 100);
+                                        if($item->price < 0) $item->price = 0;
+                                    }
+                                }
+                            }
+                            break;
+
+                        case Coupon::TYPE_ORDER_VALUE:
+                            if($coupon->type_value == Coupon::VALUE_IS_VALUE) {
+                                $totalPrice -= $coupon->value;
+                                if($totalPrice < 0) $totalPrice = 0;
+                            }
+                            elseif($coupon->type_value == Coupon::VALUE_IS_PERCENT) {
+                                $totalPrice -= ($totalPrice * $coupon->value / 100);
+                                if($totalPrice < 0) $totalPrice = 0;
+                            }
+                            break;
+
+                        default:
+                            break;
+                    }
+                }
+            }
+
             // Lưu thông tin đơn hàng
             $order = new Orders;
             $order->customer_id = $customer->id;
             $order->order_status = 0;
             $order->status = 1;
-            $order->total_price = to_numberic(Cart::subtotal(0,'.','.'));
+            $order->total_price = $totalPrice;
             $order->code = Orders::generateCode();
+            $order->coupon = $couponCode;
             $order->save();
 
             // Lưu đơn hàng chi tiết

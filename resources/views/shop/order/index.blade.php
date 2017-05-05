@@ -82,6 +82,7 @@
 
                                             <div class="form-group">
                                                 <input placeholder="Họ và tên" class="form-control input-lg" name="customer_name" value="{{ old('customer_name') }}" />
+                                                <small class="help-inline text-warning">Trường thông tin bắt buộc phải nhập</small>
                                             </div>
 
                                             <div class="form-group">
@@ -90,6 +91,7 @@
 
                                             <div class="form-group">
                                                 <input placeholder="Số điện thoại" class="form-control input-lg" name="customer_phone" value="{{ old('customer_phone') }}" />
+                                                <small class="help-inline text-warning">Trường thông tin bắt buộc phải nhập</small>
                                             </div>
 
                                             <div class="form-group">
@@ -112,6 +114,10 @@
                                                         <option class="option" value="{{ $item->id }}" {{ $item->id == old('district_id') ? 'selected' : '' }}>{{ $item->name }}</option>
                                                     @endforeach
                                                 </select>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <input placeholder="Mã giảm giá" class="form-control input-lg" name="coupon" value="{{ old('coupon') }}" />
                                             </div>
 
                                             <div class="form-group">

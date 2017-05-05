@@ -13,16 +13,18 @@
 </div>
 
 <form action="../cart.html" menthod="post" class="product-form" id="product-form">
-    <h3 class="">Chọn màu yêu thích</h3>
-    <ul class="option option1 list-unstyled">
-        <li><label class="color"><input data-productid="1011535102" type="radio" value="Hồng" name="colorkm"><span><img src="//product.hstatic.net/1000003969/product/hong_123_20_icon.jpg">Hồng</span></label></li>
-        <li><label class="color"><input data-productid="1011535102" type="radio" value="Hồng" name="colorkm"><span><img src="//product.hstatic.net/1000003969/product/hong_123_20_icon.jpg">Hồng</span></label></li>
-        <li><label class="color"><input data-productid="1011535102" type="radio" value="Hồng" name="colorkm"><span><img src="//product.hstatic.net/1000003969/product/hong_123_20_icon.jpg">Hồng</span></label></li>
-    </ul>
-    <div class="clearfix"></div>
-    <div class="clearfix"></div>
-    <select id="product-select" name="id" class="varian-select hidden" >
-    </select>
+    <div class="attributes hide">
+        <h3 class="">Chọn màu yêu thích</h3>
+        <ul class="option option1 list-unstyled">
+            <li><label class="color"><input data-productid="1011535102" type="radio" value="Hồng" name="colorkm"><span><img src="//product.hstatic.net/1000003969/product/hong_123_20_icon.jpg">Hồng</span></label></li>
+            <li><label class="color"><input data-productid="1011535102" type="radio" value="Hồng" name="colorkm"><span><img src="//product.hstatic.net/1000003969/product/hong_123_20_icon.jpg">Hồng</span></label></li>
+            <li><label class="color"><input data-productid="1011535102" type="radio" value="Hồng" name="colorkm"><span><img src="//product.hstatic.net/1000003969/product/hong_123_20_icon.jpg">Hồng</span></label></li>
+        </ul>
+        <div class="clearfix"></div>
+        <div class="clearfix"></div>
+        <select id="product-select" name="id" class="varian-select hidden" >
+        </select>
+    </div>
     <span style="font-size: 14px;color: #333;font-family: 'Roboto-Medium';" >Số lượng</span>
     <div class="selector-wrapper-qty">
         <input name="quantity" type="text" min="1" value="1" class="qty" id="quantity-custom" size="3"/>

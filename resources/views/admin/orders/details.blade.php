@@ -8,7 +8,7 @@
             <div style="margin-top: 10px;margin-bottom: 0px;">
                 Trạng thái đơn hàng: {!! getUrlOrderDetails($order['id'],$order['status'],$order['order_status']) !!}
                 <?php if($order['order_status'] == 0 || $order['order_status'] == 2){ ?>
-                    &nbsp  
+                    &nbsp
                     <i class="fa fa-angle-right"></i> Trạng thái thanh toán: {!! getPaymentStatus($order['order_status'],$order['payment_status']) !!}
                     <?php if($order['order_status'] != 3 && $order['order_status'] != 4){ ?>
                     <?php } ?>
@@ -17,11 +17,11 @@
         </div>
     </div>
 </div>
-@stop            
+@stop
 
 @section('content')
 <div class="row">
-    <div class="col-lg-12 animated fadeInRight"> 
+    <div class="col-lg-12 animated fadeInRight">
         @if (count($errors) > 0)
         <div class="ibox-content">
             <div class="alert alert-danger" style="margin-bottom:0px;">
@@ -61,7 +61,7 @@
                         <span>
                             <?php if($order['order_status'] == 0){ ?>
                             <form action="{!! route('admin.orders.getDetailsVirtual',$id) !!}" class="form-horizontal" method="POST" style="float: right;margin-left: 10px;">
-                                <input type="hidden" name="_token" value="{!! csrf_token() !!}">    
+                                <input type="hidden" name="_token" value="{!! csrf_token() !!}">
                                 <button type="submit" class="btn lb-sm-refresh formvirtual"  data-toggle="tooltip" data-placement="bottom" data-original-title="Xác nhận xử lý với các đơn hàng ảo trên hệ thống, spam, đơn hàng này sẽ bị xoá khỏi hệ thống cũng như thông tin khách hàng của đơn hàng này!">
                                     <i class="fa fa-trash"></i> Đơn hàng ảo
                                 </button>
@@ -70,7 +70,7 @@
 
                             <?php if($order['order_status'] == 0 || $order['order_status'] == 2){ ?>
                             <form action="{!! route('admin.orders.getDetailsCancel',$id) !!}" class="form-horizontal" method="POST" style="float: right;margin-left: 10px;">
-                                <input type="hidden" name="_token" value="{!! csrf_token() !!}">    
+                                <input type="hidden" name="_token" value="{!! csrf_token() !!}">
                                 <button type="submit" class="btn lb-sm-refresh formcancel"  data-toggle="tooltip" data-placement="bottom" data-original-title="Xác nhận xử lý huỷ đơn hàng với các đơn hàng không liên hệ được với khách hàng, khách hàng không mua..!">
                                     <i class="fa fa-times"></i> Huỷ đơn hàng
                                 </button>
@@ -88,7 +88,7 @@
                             <?php if($order['order_status'] == 0){ ?>
                                 <form action="{!! route('admin.orders.getDetailsDelivered',$id) !!}" class="form-horizontal" method="POST">
                                 <input type="hidden" name="_token" value="{!! csrf_token() !!}">
-                                <div class="text-right"> 
+                                <div class="text-right">
                                     <div class="text-right">
                                         <button type="submit" class="btn lb-sm-refresh formdelivery"><i class="fa fa-truck"></i> Giao hàng</button>
                                     </div>
@@ -98,13 +98,13 @@
                         </span>
                     </div>
                     <div class="tab-wrap">
-                        <span> 
+                        <span>
                             Thông tin đơn hàng
                             <button type="submit" data-toggle="modal" data-target="#history_order" class="btn btn-xs lb-text-link" style="float:right;">
                                 Xem lịch sử đơn hàng
                             </button>
                             <button type="submit" data-toggle="modal" data-target="#note_order" class="btn btn-xs lb-text-link" style="float:right;">
-                                <i class="fa fa-pencil"></i> Thông tin ghi chú &nbsp&nbsp/&nbsp&nbsp  
+                                <i class="fa fa-pencil"></i> Thông tin ghi chú &nbsp&nbsp/&nbsp&nbsp
                             </button>
                         </span>
                     </div>
@@ -125,7 +125,7 @@
 
                                                     <?php if($order['order_status'] == 0 || $order['order_status'] == 2){ ?>
                                                     <p style="margin-top:5px;">
-                                                        <i class="fa fa-phone"></i> Trạng thái liên lạc: 
+                                                        <i class="fa fa-phone"></i> Trạng thái liên lạc:
                                                         <button class="btn btn-default btn-circle btn-circle-fix btn-called-customer btn-call-customer" attr-value="1" data-toggle="tooltip" data-placement="bottom" type="button" data-original-title="Lần gần nhất đã liên lạc được với khách hàng" <?=($order['call_status'] == 1)?'style="background-color: #e5f2ce!important;color:black;"':'';?>>
                                                             <i class="fa fa-check"></i>
                                                         </button>
@@ -216,8 +216,8 @@
                                                 </tr>
                                                 <tr>
                                                     <td colspan="2">
-                                                        <strong>Địa chỉ giao hàng:</strong> 
-                                                        <?php 
+                                                        <strong>Địa chỉ giao hàng:</strong>
+                                                        <?php
                                                         if($order['receiver_address'] != ''){
                                                             echo $order['receiver_address'];
                                                         }elseif($customer['address'] != ''){
@@ -280,11 +280,20 @@
                                                 <?php $total_price = $total_price + ($value['price'] * $value['quantity']); } ?>
                                             </tbody>
                                         </table>
+
+                                        <table class="table invoice-total" style="padding:0px 30px;">
+                                            <tbody>
+                                                <tr>
+                                                    <td><strong>Mã giảm giá :</strong></td>
+                                                    <td>{{ $order['coupon'] }}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
                                         <table class="table invoice-total" style="padding:0px 30px;">
                                             <tbody>
                                                 <tr>
                                                     <td><strong>Tổng giá trị đơn hàng :</strong></td>
-                                                    <td>{!! number_format($total_price) !!}</td>
+                                                    <td>{!! number_format($order['total_price']) !!}</td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -338,7 +347,7 @@
                                                 }
                                                 ?>
                                                 <?php $total_price = 0;foreach($order_details as $key => $value){ ?>
-                                                
+
                                                 <tr>
                                                     <td>
                                                         <div><strong>{!! $value['name'] !!}</strong></div>
@@ -468,19 +477,19 @@
                                 <td style="width:50%;">
                                     <div class="form-group" style="margin-bottom:0px;">
                                         <input class="form-control fill-cus-name" style="width:100%;" placeholder=" Nhập tên khách hàng" type="text" value="{!! $customer['name'] !!}">
-                                    </div>                  
+                                    </div>
                                 </td>
                                 <td style="width:50%;">
                                     <div class="form-group" style="margin-bottom:0px;">
                                         <input class="form-control fill-cus-email" style="width:100%;" placeholder=" Nhập địa chỉ Email" type="text" value="{!! $customer['email'] !!}">
-                                    </div> 
+                                    </div>
                                 </td>
                             </tr>
                             <tr>
                                 <td style="width:50%;">
                                     <div class="form-group" style="margin-bottom:0px;">
                                         <input readonly class="form-control fill-cus-phone" style="width:100%;" placeholder=" Nhập số điện thoại" type="text" value="{!! $customer['phone'] !!}">
-                                    </div> 
+                                    </div>
                                 </td>
                                 <td style="width:50%;">
                                     <div class="form-group" style="margin-bottom:0px;">
@@ -490,7 +499,7 @@
                                             </span>
                                             <input class="form-control fill-cus-birthdate" style="width:100%;" type="text" placeholder=" Ngày tháng năm sinh" value="<?php if(!is_null($customer['birthdate']) && $customer['birthdate'] != '0000-00-00 00:00:00'){ echo date('Y/m/d', strtotime($customer['birthdate'])); } ?>">
                                         </div>
-                                    </div> 
+                                    </div>
                                 </td>
                             </tr>
                             <tr>
@@ -501,7 +510,7 @@
                                             <option <?=($customer['gender'] == 1)?'selected':'';?> value="1">-- Nam --</option>
                                             <option <?=($customer['gender'] == 0)?'selected':'';?> value="0">-- Nữ --</option>
                                         </select>
-                                    </div> 
+                                    </div>
                                 </td>
                                 <td style="width:50%;">
                                     <div class="form-group" style="margin-bottom:0px;">
@@ -511,14 +520,14 @@
                                                 <option <?=($customer['province_id'] == $item->id)?'selected':'';?> value="<?=$item->id?>">-- <?=$item->name?> --</option>
                                             <?php } ?>
                                         </select>
-                                    </div> 
+                                    </div>
                                 </td>
                             </tr>
                             <tr>
                                 <td style="width:50%;">
                                     <div class="form-group" style="margin-bottom:0px;">
                                         <textarea class="form-control fill-cus-address" style="width:100%;resize: none;" placeholder=" Địa chỉ" type="text">{!! $customer['address'] !!}</textarea>
-                                    </div> 
+                                    </div>
                                 </td>
                                 <td style="width:50%;">
                                     <div class="form-group" style="margin-bottom:0px;">
@@ -528,7 +537,7 @@
                                                 <option <?=($customer['district_id'] == $item->id)?'selected':'';?> value="<?=$item->id?>">-- <?=$item->name?> --</option>
                                             <?php } ?>
                                         </select>
-                                    </div> 
+                                    </div>
                                 </td>
                             </tr>
                         </tbody>
@@ -558,7 +567,7 @@
                                 <div class="timeline-item">
                                     <div class="row">
                                         <div class="col-xs-3 date">
-                                            <?php 
+                                            <?php
                                             if($row->status == 1 && $row->order_status == 0 && $row->call_status == 0 && $row->note == NULL){
                                                 echo '<i style="background:#ffe3c6;" class="fa fa-hand-o-up"></i>';
                                             }
@@ -614,7 +623,7 @@
                                             <p class="m-b-xs"><strong>{!! $row->username !!}</strong></p>
                                             <small>{!! $row->processing_created_at !!}</small>
                                             <p>
-                                            <?php 
+                                            <?php
                                             if($row->status == 1 && $row->order_status == 0 && $row->call_status == 0 && $row->note == NULL){
                                                 echo 'Tạo đơn hàng, cập nhật trạng thái đơn hàng chờ duyệt';
                                             }
@@ -762,7 +771,7 @@
                                         <b style="margin: 5px 0px!important;display: -webkit-inline-box;color: #6d889c;">Tổng giá trị đơn hàng (vnđ)</b>
                                     </td>
                                     <td colspan="2">
-                                        <input readonly class="order_total_price form-control" style="width: 100%;border: none;color: #ed5565;font-weight: 600;background: #fafafb;" type="text" value=" {!! number_format($total_price) !!}"> 
+                                        <input readonly class="order_total_price form-control" style="width: 100%;border: none;color: #ed5565;font-weight: 600;background: #fafafb;" type="text" value=" {!! number_format($total_price) !!}">
                                     </td>
                                 </tr>
                             </tbody>
@@ -787,7 +796,7 @@
                     <h4 class="modal-title">Xác nhận đơn hàng thành công</h4>
                 </div>
                 <form action="{!! route('admin.orders.getDetailsSuccess',$id) !!}" class="form-horizontal" method="POST">
-                    <input type="hidden" name="_token" value="{!! csrf_token() !!}">    
+                    <input type="hidden" name="_token" value="{!! csrf_token() !!}">
                     <div class="modal-body">
                         <select name="export_warehouse" class="form-control" style="width:100%;">
                             <option value="0">-- Chọn kho xuất hàng --</option>
@@ -799,7 +808,7 @@
                     <div class="modal-footer">
                         <button type="submit" class="btn lb-sm-refresh formsuccess" data-toggle="tooltip" data-placement="bottom" data-original-title="Xác nhận xử lý đơn hàng thành công với các đơn hàng đã thu tiền của khách hàng và khách hàng đã nhận được hàng!">
                             <i class="fa fa-check"></i> Chọn kho xuất hàng và xác nhận đơn hàng thành công
-                        </button>  
+                        </button>
                     </div>
                 </form>
             </div>
@@ -837,7 +846,7 @@ jQuery(document).ready(function($) {
         queryTokenizer: Bloodhound.tokenizers.whitespace
     });
 
-    engine.initialize();    
+    engine.initialize();
 
     $(".search-input-customer").typeahead({
         hint: true,
@@ -850,7 +859,7 @@ jQuery(document).ready(function($) {
         templates: {
             empty: [
                 '<div class="empty-message">Không tìm thấy kết quả</div>'
-            ].join('\n'),   
+            ].join('\n'),
 
             suggestion: function (data) {
                 return '<div class="user-search-result"><i class="fa fa-user"></i> '+data.name+' ---- <i class="fa fa-envelope"></i>  '+ data.email +' ---- <i class="fa fa-phone"></i>  '+ data.phone +'</div>'
@@ -892,7 +901,7 @@ jQuery(document).ready(function($) {
         templates: {
             empty: [
                 '<div class="empty-message">Không tìm thấy kết quả</div>'
-            ].join('\n'),   
+            ].join('\n'),
 
             suggestion: function (data) {
                 return '<div class="user-search-result">'+data.name+' <br>  Sku: '+ data.sku +'</div>'
@@ -909,7 +918,7 @@ jQuery(document).ready(function($) {
             $( ".append_product tr .get_line_total_price" ).each(function( index ) {
                 total_price  = parseInt(total_price)      + parseInt($(this).val());
             });
-            $(".order_total_price").val($.number(total_price));    
+            $(".order_total_price").val($.number(total_price));
         }
     });
 
@@ -924,7 +933,7 @@ jQuery(document).ready(function($) {
         $( ".append_product tr .get_line_total_price" ).each(function( index ) {
             total_price  = parseInt(total_price) + parseInt($(this).val());
         });
-        $(".order_total_price").val($.number(total_price));    
+        $(".order_total_price").val($.number(total_price));
     });
 
     // Thay đổi giá trị đơn hàng khi thay đổi số lượng sản phẩm
@@ -934,12 +943,12 @@ jQuery(document).ready(function($) {
         $( ".append_product tr .get_line_total_price" ).each(function( index ) {
             total_price  = parseInt(total_price) + parseInt($(this).val());
         });
-        $(".order_total_price").val($.number(total_price));    
+        $(".order_total_price").val($.number(total_price));
     });
 
 });
 
-$('[data-toggle="tooltip"]').tooltip();   
+$('[data-toggle="tooltip"]').tooltip();
 
 $('.fill-cus-birthdate').datepicker({
     todayBtn: "linked",
@@ -950,7 +959,7 @@ $('.fill-cus-birthdate').datepicker({
     autoclose: true
 });
 
-$('.btn-customer-update').on('click',function(e){            
+$('.btn-customer-update').on('click',function(e){
     var customer_id = $('.fill-cus-id').val();
     var customer_name = $('.fill-cus-name').val();
     var customer_phone = $('.fill-cus-phone').val();
@@ -1018,7 +1027,7 @@ $(".btn-call-customer").click(function(){
     } else {
         return false;
     }
-}); 
+});
 
 $(".update-receiver-address").click(function(){
     token = $('meta[name="csrf-token"]').attr('content');
@@ -1049,26 +1058,26 @@ $(".update-receiver-address").click(function(){
 });
 
 $(".formsuccess").click(function(event) {
-    if( !confirm('Bạn có muốn xác nhận đơn hàng thành công không?') ) 
+    if( !confirm('Bạn có muốn xác nhận đơn hàng thành công không?') )
         event.preventDefault();
 });
 
 $(".formcancel").click(function(event) {
-    if( !confirm('Bạn có muốn huỷ đơn hàng này không?') ) 
+    if( !confirm('Bạn có muốn huỷ đơn hàng này không?') )
         event.preventDefault();
 });
 
 $(".formdelivery").click(function(event) {
-    if( !confirm('Bạn có muốn chuyển sang hệ thống giao vận không?') ) 
+    if( !confirm('Bạn có muốn chuyển sang hệ thống giao vận không?') )
         event.preventDefault();
 });
 
 $(".formvirtual").click(function(event) {
-    if( !confirm('Bạn có muốn xoá đơn hàng này không, thông tin đơn hàng và khách hàng sẽ bị xoá khỏi hệ thống! ?') ) 
+    if( !confirm('Bạn có muốn xoá đơn hàng này không, thông tin đơn hàng và khách hàng sẽ bị xoá khỏi hệ thống! ?') )
         event.preventDefault();
 });
 
-$('.btn-order-update').on('click',function(e){            
+$('.btn-order-update').on('click',function(e){
 
     var exitSubmit = false;
 
@@ -1085,7 +1094,7 @@ $('.btn-order-update').on('click',function(e){
                 arrayProductId[$(this).children(".get_product_id").val()] = $(this).children().children(".product_quantity").val();
             }
         });
-    }    
+    }
 
     if (exitSubmit) {
         alert("Sản phẩm không được để trống hoặc số lượng sản phẩm bằng 0!");
@@ -1099,7 +1108,7 @@ $('.btn-order-update').on('click',function(e){
         url:'update-order',
         data:{
             _token: token,
-            product_id : arrayProductId, 
+            product_id : arrayProductId,
             order_id : <?=$order['id']?>
         },
         success:function(data){

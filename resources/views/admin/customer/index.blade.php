@@ -9,7 +9,7 @@
         <a href="system/customer/create" class="btn btn-primary" ><i class="fa fa-plus"></i>&nbsp;Tạo khách hàng</a>
     </div>
 </div>
-@stop            
+@stop
 
 @section('content')
 <div class="row">
@@ -91,22 +91,22 @@
                                     </td>
                                     <td> {!! $row->provinces_name !!}</td>
                                     <td> {!! $row->districts_name !!}</td>
-                                    <td> 
+                                    <td>
                                         <a href="{!! URL::route('admin.customer.getDetails',$row->id) !!}" class="btn btn-xs">
-                                            <i class="fa fa-bar-chart "></i>    
+                                            <i class="fa fa-bar-chart "></i>
                                             Thống kê, báo cáo
                                         </a>
                                     </td>
                                     <td class="text-right footable-visible footable-last-column">
                                         <div class="btn-group">
                                             <a href="{!! URL::route('admin.customer.getUpdate',$row->id) !!}" class="btn-white btn btn-xs">
-                                                <i class="fa fa-edit "></i>    
+                                                <i class="fa fa-edit "></i>
                                                 Sửa
                                             </a>
                                         </div>
                                         <div class="btn-group">
-                                            <a href="#" data-toggle="modal" data-target="#confirm-delete" data-href="{!! URL::route('admin.product.getDelete',$row->id) !!}" class="btn-white btn btn-xs">
-                                                <i class="fa fa-trash "></i>    
+                                            <a href="#" data-toggle="modal" data-target="#confirm-delete" data-href="{!! URL::route('admin.customer.delete',$row->id) !!}" class="btn-white btn btn-xs">
+                                                <i class="fa fa-trash "></i>
                                                 Xoá
                                             </a>
                                         </div>

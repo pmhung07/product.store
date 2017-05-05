@@ -24,13 +24,19 @@ class HomeController extends ShopController {
                         // ->where('order_status', Orders::STATUS_SUCCESS)
                         // ->where('payment_status', Orders::PAYMENT_STATUS_SUCCESS)
                         ->orderBy('order_details.quantity', 'DESC')
+                        ->select('product.*')
+                        ->groupBy('product.id')
                         ->take(8)
                         ->get();
+
+        $hotProducts = $newestProductsInWeek = Product::take(5)
+                                       // ->whereBetween('created_at', [$sevenDayAgo, $today])
+                                       ->orderByRaw('RAND()')->get();
 
         // Sản phẩm mới trong tuần
         $sevenDayAgo = date('Y-m-d 00:00:00', strtotime('-7 days'));
         $today = date('Y-m-d 23:59:59');
-        $newestProductsInWeek = Product::take(15)
+        $newestProductsInWeek = Product::take(10)
                                        // ->whereBetween('created_at', [$sevenDayAgo, $today])
                                        ->orderBy('created_at', 'DESC')->get();
 

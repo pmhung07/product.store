@@ -26,10 +26,10 @@ class OrderFormRequest extends Request
         return [
             'customer_name' => 'required',
             'customer_phone' => 'required',
-            'customer_address' => 'required',
+            // 'customer_address' => 'required',
             'customer_email' => 'email',
-            'city_id' => 'required',
-            'district_id' => 'required'
+            // 'city_id' => 'required',
+            // 'district_id' => 'required'
         ];
     }
 
@@ -39,9 +39,9 @@ class OrderFormRequest extends Request
             'customer_name.required' => 'Vui lòng nhập tên',
             'customer_phone.required' => 'Vui lòng nhập số điện thoại',
             'customer_email.email' => 'Vui lòng nhập đúng định dạng email',
-            'customer_address.required' => 'Vui lòng nhập địa chỉ',
-            'city_id.required' => 'Vui lòng chọn tỉnh/thành phố',
-            'district_id.required' => 'Vui lòng chọn quận/huyện'
+            // 'customer_address.required' => 'Vui lòng nhập địa chỉ',
+            // 'city_id.required' => 'Vui lòng chọn tỉnh/thành phố',
+            // 'district_id.required' => 'Vui lòng chọn quận/huyện'
         ];
     }
 }

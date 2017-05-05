@@ -28,25 +28,23 @@
 <div id="home-filter-top5" class="wow fadeIn">
     <div class="container">
         <div class="row" style="text-align:center;margin-bottom:20px">
-            <div class="col-xs-12 col-sm-12 col-md-12" >
-                <div class="col-lg-2 col-md-3 col-sm-10 col-xs-10"></div>
-                <div class="col-lg-6 col-md-4 col-sm-10 col-xs-10">
-                    <h3 class="title-top">Top 06 sản phẩm hot nhất tuần</h3>
-                </div>
-                <div class="col-lg-2 col-md-3 col-sm-10 col-xs-10"></div>
+            <div class="col-xs-12 col-sm-12 col-md-12 text-center" >
+                <h3 class="title-top">Top 05 sản phẩm hot nhất tuần</h3>
             </div>
         </div>
         <div class="row">
             <div class="home-filter-top5 center-product product-item products-resize home-filter-product-new">
                 <?php foreach($hotProducts as $item): ?>
-                    {!! view('shop/partials/product/item', ['product' => $item])->render() !!}
+                    <div class="col-xs-12 col-sm-4 col-md-3 col-lg-24">
+                        {!! view('shop/partials/product/item', ['product' => $item, 'type' => 'hot'])->render() !!}
+                    </div>
                 <?php endforeach; ?>
             </div>
         </div>
 
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 title-more-bottom">
-                <span class="title-more">Mời bạn <a href="collections/san-pham-top.html" class="link">xem thêm các sản phẩm hot</a></span> khác
+                <span class="title-more">Mời bạn <a href="/" class="link">xem thêm các sản phẩm hot</a></span> khác
             </div>
         </div>
     </div>
@@ -63,14 +61,16 @@
                 </div>
                 <div class="center-product product-item products-resize home-filter-product-new">
                     <?php foreach($newestProductsInWeek as $item): ?>
-                        {!! view('shop/partials/product/item', ['product' => $item])->render() !!}
+                        <div class="col-xs-12 col-sm-4 col-md-3 col-lg-24">
+                            {!! view('shop/partials/product/item', ['product' => $item, 'type' => 'new'])->render() !!}
+                        </div>
                     <?php endforeach; ?>
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 title-more-bottom">
-                <span class="title-more">Mời bạn <a href="pages/new-collection.html" class="link">xem thêm các mẫu mới</a> khác</span>
+                <span class="title-more">Mời bạn <a href="/" class="link">xem thêm các mẫu mới</a> khác</span>
             </div>
         </div>
     </div>

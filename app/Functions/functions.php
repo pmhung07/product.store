@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 // ------------------------------------------------------------------------
 
@@ -118,7 +118,7 @@ function list_cate($data, $parent = 0, $str=""){
 		$id = $val['id'];
 		$name = $val['name'];
 		$parent_id = $val['parent_id'];
-		
+
 		if($val['parent_id'] == $parent) {
 			echo '
 			<tr class="footable-even" style="display: table-row;">
@@ -140,7 +140,7 @@ function list_cate($data, $parent = 0, $str=""){
 			    </td>
 			</tr>';
 			list_cate($data, $id, $str."-----| ");
-		}	
+		}
 	}
 }
 
@@ -153,7 +153,7 @@ function list_permissions($data, $parent = 0, $str=""){
 		$slug = $val['slug'];
 		$order = $val['order'];
 		$parent_id = $val['parent_id'];
-		
+
 		if($val['parent_id'] == $parent) {
 			echo '
 			<tr class="footable-even" style="display: table-row;">
@@ -169,20 +169,20 @@ function list_permissions($data, $parent = 0, $str=""){
 			    <td class="text-right footable-visible footable-last-column">
 			        <div class="btn-group">
 			            <a href="'.URL::route('admin.permissions.getUpdate',$id).'" class="btn-warning btn btn-xs">
-			                <i class="fa fa-edit "></i>    
+			                <i class="fa fa-edit "></i>
 			                Sửa
 			            </a>
 			        </div>
 			        <div class="btn-group">
 			            <a href="#" data-toggle="modal" data-target="#confirm-delete" data-href="'.URL::route('admin.permissions.getDelete',$id).'" class="btn-danger btn btn-xs btn-delete">
-			                <i class="fa fa-trash "></i>    
+			                <i class="fa fa-trash "></i>
 			                Xoá
 			            </a>
 			        </div>
 			    </td>
 			</tr>';
 			list_permissions($data, $id, $str."-----| ");
-		}	
+		}
 	}
 }
 
@@ -193,7 +193,7 @@ function list_post_categories($data, $parent = 0, $str=""){
 		$id = $val['id'];
 		$name = $val['name'];
 		$parent_id = $val['parent_id'];
-		
+
 		if($val['parent_id'] == $parent) {
 			echo '
 			<tr class="footable-even" style="display: table-row;">
@@ -215,7 +215,7 @@ function list_post_categories($data, $parent = 0, $str=""){
 			    </td>
 			</tr>';
 			list_post_categories_loop($data, $id, $str."-----| ");
-		}	
+		}
 	}
 }
 
@@ -226,7 +226,7 @@ function list_post_categories_loop($data, $parent = 0, $str=""){
 		$id = $val['id'];
 		$name = $val['name'];
 		$parent_id = $val['parent_id'];
-		
+
 		if($val['parent_id'] == $parent) {
 			echo '
 			<tr class="footable-even" style="display: table-row;">
@@ -248,7 +248,7 @@ function list_post_categories_loop($data, $parent = 0, $str=""){
 			    </td>
 			</tr>';
 			list_cate($data, $id, $str."-----| ");
-		}	
+		}
 	}
 }
 
@@ -269,7 +269,7 @@ function list_permissions_checkbox($data, $parent = 0, $str="",$arr_check=array(
 				$checked = 'checked';
 			}
 		}
-		
+
 		if($val['parent_id'] == $parent) {
 			if($val['parent_id'] == 0){
 				$colortext = "style='font-weight:600;'";
@@ -279,12 +279,12 @@ function list_permissions_checkbox($data, $parent = 0, $str="",$arr_check=array(
 			}
 			echo '<div class="form-group" '.$style.'>
                     <div class="col-sm-12">
-                        <label class="checkbox-inline" '.$colortext.'> 
-                        <input style="margin-top: 2px;" '.$checked.' name="permissions_check[]" type="checkbox" value="'.$id.'" id="inlineCheckbox"> '.$str.$name.' </label> 
+                        <label class="checkbox-inline" '.$colortext.'>
+                        <input style="margin-top: 2px;" '.$checked.' name="permissions_check[]" type="checkbox" value="'.$id.'" id="inlineCheckbox"> '.$str.$name.' </label>
                     </div>
                 </div>';
 			list_permissions_checkbox($data, $id, $str."-----| ",$arr_check);
-		}	
+		}
 	$i++;}
 }
 
@@ -317,7 +317,7 @@ function getUrlOrderDetails($order_id ,$status = 0, $order_status = 0, $lading_s
                 </a>';
 	}
 	if($status == 1 && $order_status == 0){
-		
+
 		return '<small class="label lb-sm-waiting"><i class="fa fa-clock-o"></i> Chờ duyệt</small> '.$status_call;
 	}
 	if($status == 1 && $order_status == 1){
@@ -427,14 +427,14 @@ function countOrderByStatus($order_status){
 
 function update_inventory($order_id, $product_id, $quantity, $warehouse){
 
-	// Lấy sản phẩm trong kho 
+	// Lấy sản phẩm trong kho
 	$warehouse_inventory = App\WarehouseInventory::where('product_id','=',$product_id)->where('warehouse_id','=',$warehouse)->get();
 	if($warehouse_inventory[0]->quantity > $quantity){
 		$quantity_sub = $quantity;
 		$data = new App\WarehouseInventory();
         $data = App\WarehouseInventory::findOrFail($warehouse_inventory[0]->id);
     	$data->quantity = ($warehouse_inventory[0]->quantity) - $quantity;
-    	$data->save();	
+    	$data->save();
 	}elseif($warehouse_inventory[0]->quantity == $quantity){
 		$quantity_sub = $quantity;
 		$data = App\WarehouseInventory::findOrFail($warehouse_inventory[0]->id);
@@ -453,7 +453,7 @@ function update_inventory($order_id, $product_id, $quantity, $warehouse){
     $temporary->product_id = $product_id;
     $temporary->quantity_sub = $quantity_sub;
     $temporary->price_in = $warehouse_inventory[0]->price;
-    $temporary->save();        
+    $temporary->save();
 }
 
 function update_inventory_return_product($arr_product_id,$order_id,$warehouse_id){
@@ -467,13 +467,13 @@ function update_inventory_return_product($arr_product_id,$order_id,$warehouse_id
 
         	// Sản phẩm và số lượng trả về (Update số lượng này vào kho)
         	$product_return = $key;
-        	$quantity_return_product = $value; 
+        	$quantity_return_product = $value;
         	$price_in = $order_details_product_in_stock[0]->price_in;
         	// Update lại bảng product_in_stock và lấy giá gốc để nhập lại vào kho
 			$temporary = new App\OrderDetailsProductInStock();
 	        $temporary = App\OrderDetailsProductInStock::findOrFail($order_details_product_in_stock[0]->id);
 	    	$temporary->quantity_sub = ($order_details_product_in_stock[0]->quantity_sub) - $quantity_return_product;
-	    	$temporary->save();	
+	    	$temporary->save();
 	    	// Insert data vào kho hàng
 	    	$data = new App\WarehouseInventory();
 	    	$data->warehouse_id = $warehouse_id;
@@ -483,10 +483,10 @@ function update_inventory_return_product($arr_product_id,$order_id,$warehouse_id
 	    	$data->save();
 
 		}elseif($order_details_product_in_stock[0]->quantity_sub == $value){
-			
+
 			// Sản phẩm và số lượng trả về (Update số lượng này vào kho)
         	$product_return = $key;
-        	$quantity_return_product = $value; 
+        	$quantity_return_product = $value;
         	$price_in = $order_details_product_in_stock[0]->price_in;
         	// Update lại bảng product_in_stock và lấy giá gốc để nhập lại vào kho
 			$temporary = new App\OrderDetailsProductInStock();
@@ -505,7 +505,7 @@ function update_inventory_return_product($arr_product_id,$order_id,$warehouse_id
 			$arr_product_id_sub = array();
 			// Sản phẩm và số lượng trả về (Update số lượng này vào kho)
         	$product_return = $key;
-        	$quantity_return_product = $value; 
+        	$quantity_return_product = $value;
         	$price_in = $order_details_product_in_stock[0]->price_in;
 
         	// Insert data vào kho hàng
@@ -521,7 +521,7 @@ function update_inventory_return_product($arr_product_id,$order_id,$warehouse_id
 			$temporary = new App\OrderDetailsProductInStock();
 	        $temporary = App\OrderDetailsProductInStock::findOrFail($order_details_product_in_stock[0]->id);
 	    	$temporary->delete($order_details_product_in_stock[0]->id);
-	    	
+
 	    	// Trừ tiêp các rows tiếp theo
 	    	$arr_product_id_sub[$key] = $balances;
 	    	update_inventory_return_product_sub($arr_product_id_sub,$order_id,$warehouse_id);
@@ -539,13 +539,13 @@ function update_inventory_return_product_sub($arr_product_id,$order_id,$warehous
 
         	// Sản phẩm và số lượng trả về (Update số lượng này vào kho)
         	$product_return = $key;
-        	$quantity_return_product = $value; 
+        	$quantity_return_product = $value;
         	$price_in = $order_details_product_in_stock[0]->price_in;
         	// Update lại bảng product_in_stock và lấy giá gốc để nhập lại vào kho
 			$temporary = new App\OrderDetailsProductInStock();
 	        $temporary = App\OrderDetailsProductInStock::findOrFail($order_details_product_in_stock[0]->id);
 	    	$temporary->quantity_sub = ($order_details_product_in_stock[0]->quantity_sub) - $quantity_return_product;
-	    	$temporary->save();	
+	    	$temporary->save();
 	    	// Insert data vào kho hàng
 	    	$data = new App\WarehouseInventory();
 	    	$data->warehouse_id = $warehouse_id;
@@ -555,10 +555,10 @@ function update_inventory_return_product_sub($arr_product_id,$order_id,$warehous
 	    	$data->save();
 
 		}elseif($order_details_product_in_stock[0]->quantity_sub == $value){
-			
+
 			// Sản phẩm và số lượng trả về (Update số lượng này vào kho)
         	$product_return = $key;
-        	$quantity_return_product = $value; 
+        	$quantity_return_product = $value;
         	$price_in = $order_details_product_in_stock[0]->price_in;
         	// Update lại bảng product_in_stock và lấy giá gốc để nhập lại vào kho
 			$temporary = new App\OrderDetailsProductInStock();
@@ -577,7 +577,7 @@ function update_inventory_return_product_sub($arr_product_id,$order_id,$warehous
 			$arr_product_id_sub = array();
 			// Sản phẩm và số lượng trả về (Update số lượng này vào kho)
         	$product_return = $key;
-        	$quantity_return_product = $value; 
+        	$quantity_return_product = $value;
         	$price_in = $order_details_product_in_stock[0]->price_in;
 
         	// Insert data vào kho hàng
@@ -596,7 +596,7 @@ function update_inventory_return_product_sub($arr_product_id,$order_id,$warehous
 
 	    	// Trừ tiêp các rows tiếp theo
 	    	$arr_product_id_sub[$key] = $balances;
-	    	
+
 	    	update_inventory_return_product_sub($arr_product_id_sub,$order_id,$warehouse_id);
 
 		}
@@ -612,5 +612,7 @@ function get_user_name_position($user_id){
 		echo $rows['name'].'<br><span class="font-small-user-position-primary">'.$rows_pos['name'].'</span>';
 	}
 }
+
+
 
 ?>

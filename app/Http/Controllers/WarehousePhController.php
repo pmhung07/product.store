@@ -40,7 +40,8 @@ class WarehousePhController extends Controller
 		}
 
 		$data = $rows->orderBy($sort,$order)->with('warehouse')->paginate(10);
-		return view('admin.stock-receipt.index', ['rows' => $data, 'warehouse' => $warehouse]);
+        $total_row = count($data);
+		return view('admin.stock-receipt.index', ['rows' => $data, 'total_row' => $total_row, 'warehouse' => $warehouse]);
 
     }
 

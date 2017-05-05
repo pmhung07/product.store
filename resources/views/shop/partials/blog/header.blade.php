@@ -20,7 +20,7 @@
         <link rel="shortcut icon" type="image/png" href="/shop/assets/hstatic.net/969/1000003969/1000161857/favicon.png%3Fv=8910" />
         <meta name="description" content="Cảnh báo cho bạn những căn bệnh theo mùa, những dịch bệnh bùng phát hay đơn giản là những thông tin y học để bạn tạo thói quen sống lành mạnh và khoa học hơn." />
         <!--CSS-->
-        <link rel="stylesheet" href="/shop/assets/hstatic.net/969/1000003969/1000066399/bootstrap.css%3Fv=43.css" />
+        <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <link href='/shop/assets/hstatic.net/0/global/design/css/font-awesome.min.css' rel='stylesheet' type='text/css'  media='all'  />
         <script src="/shop/assets/hstatic.net/0/0/global/design/js/jquery.min.1.11.0.js"></script>
         <script src='/shop/assets/hstatic.net/969/1000003969/1000161857/owl.carousel.2.js%3Fv=8910' type='text/javascript'></script>
@@ -67,9 +67,9 @@
                                 <span>BÁN HÀNG: <strong>1800 1162</strong> (miễn phí)</span>
                             </div>
                         </div>
-                        <div class="col-lg-header-25 col-sm-5 col-md-10">
+                        <div class="col-lg-header-25 col-sm-5 col-md-10 hide">
                             <div class="head-store">
-                                <a target="_blank"  href="../collections/cua-hang-khu-vuc-tp-ho-chi-minh%3Fview=stores.html"><span>xem hệ thống <strong>42</strong> cửa hàng</span></a>
+                                <a target="_blank"  href="/"><span>xem hệ thống <strong>42</strong> cửa hàng</span></a>
                             </div>
                         </div>
                     </div>
@@ -92,6 +92,7 @@
                                         </div>
                                     </li>
                                     @foreach($GLB_Categories as $item)
+                                        @php if($item->parent_id > 0) continue; @endphp
                                         <li  class="menu-li hasChild bup-be-1-click  fix-icon-coll" >
                                             <a href="{{ $item->getUrl() }}">
                                                 <div class="coll-icon bup-be-1-click">
