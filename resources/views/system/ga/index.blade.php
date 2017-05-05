@@ -3,7 +3,7 @@
 @section('breadcrumbs')
 <div class="row wrapper border-bottom white-bg page-heading">
     <div class="col-lg-9">
-        <h2><i class="fa fa-list"></i> Google analytics </h2>
+        <h2>Google analytics </h2>
     </div>
 </div>
 @stop

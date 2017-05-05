@@ -596,6 +596,13 @@ function uploadFileToGoogleBucket($filePath, $pathBucket) {
 }
 
 if ( ! function_exists('combinations') ) {
+	/**
+	 * Kết hợp các mảng với nhau tạo ra 1 mảng lớn bao gồm các biến thể
+	 * do các phần tử của mảng con tạo ra
+	 * @param  array  $arrays
+	 * @param  integer $i
+	 * @return array
+	 */
 	function combinations($arrays, $i = 0) {
 	    if (!isset($arrays[$i])) {
 	        return array();

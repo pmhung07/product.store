@@ -40,10 +40,18 @@
 
     <script src="js/plugins/jasny/jasny-bootstrap.min.js"></script>
 
+    <!-- Toastr -->
     <link rel="stylesheet" type="text/css" href="/js/plugins/toastr/build/toastr.min.css">
     <script src="/js/plugins/toastr/build/toastr.min.js" type="text/javascript"></script>
 
+    <!-- Xoxo jquery tagsinput -->
+    <link rel="stylesheet" type="text/css" href="/js/plugins/jQuery-Tags-Input/dist/jquery.tagsinput.min.css">
+    <script type="text/javascript" src="/js/plugins/jQuery-Tags-Input/dist/jquery.tagsinput.min.js"></script>
+
+    <script src="/bundle/bundle.js" type="text/javascript"></script>
+
     <script src="js/functions.js"></script>
+    <script src="/js/core/helper.js" type="text/javascript"></script>
     <script src="js/core/core.js"></script>
 
     <script type="text/javascript">

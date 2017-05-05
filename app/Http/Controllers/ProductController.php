@@ -30,7 +30,7 @@ class ProductController extends Controller
     	return view('admin.product.create',compact('group_product','units'));
     }
 
-    public function postCreate(ProductRequest $request){
+    public function postCreate(ProductRequest $request) {
     	$product = new Product();
     	$product->product_group_id = $request->product_group;;
     	$product->unit_id = $request->product_unit;
