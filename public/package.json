@@ -1,0 +1,20 @@
+{
+  "name": "webpack-setup",
+  "email": "cong.itsoft@gmail.com",
+  "license": "MIT",
+  "version": "1.0.0",
+  "description": "Quick setup a project",
+  "private": true,
+  "devDependencies": {
+    "css-loader": "^0.28.0",
+    "extract-text-webpack-plugin": "^2.1.0",
+    "less": "^2.7.2",
+    "less-loader": "^4.0.3",
+    "node-sass": "^4.5.2",
+    "sass-loader": "^6.0.3",
+    "style-loader": "^0.16.1",
+    "webpack": "^2.4.1",
+    "webpack-dev-server": "^2.4.4",
+    "webpack-stream": "^3.2.0"
+  }
+}

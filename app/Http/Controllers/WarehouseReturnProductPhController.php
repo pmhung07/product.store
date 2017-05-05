@@ -38,7 +38,8 @@ class WarehouseReturnProductPhController extends Controller
 		}
 
 		$data = $rows->orderBy($sort,$order)->with('warehouse')->paginate(10);
-		return view('admin.return-product.index', ['rows' => $data, 'warehouse' => $warehouse]);
+        $total_row = count($data);
+		return view('admin.return-product.index', ['rows' => $data, 'total_row' => $total_row, 'warehouse' => $warehouse]);
     }   
 
     public function getProcessing(Request $request){

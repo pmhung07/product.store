@@ -74,7 +74,7 @@
                                                 <th class="text-center" width="10">#</th>
                                                 <th width="220">Tên sản phẩm</th>
                                                 <th width="130">Số lượng mua ban đầu</th>
-                                                <th width="140">Nhập số lượng trả lại</th>
+                                                <th width="140">Số lượng trả lại</th>
                                             </tr>
                                         </thead>
                                         <tbody class="append_product">
@@ -89,7 +89,7 @@
                                                         <input id="quantity_suggest" class="product_quantity form-control" readonly style="width:100%;" type="text" min="1" max="999" value="<?=$value['quantity']?>">
                                                     </td>
                                                     <td>
-                                                        <input id="quantity_return" class="product_quantity_return form-control" style="border:solid 1px #c75554;width:100%;" type="text" min="1" max="999" value="1">
+                                                        <input readonly id="quantity_return" class="product_quantity_return form-control" style="border:solid 1px #c75554;width:100%;" type="text" min="1" max="999" value="<?=$value['quantity']?>">
                                                     </td>
                                                 </tr>
                                             <?php $total_price = $total_price + ($value['price'] * $value['quantity']); $count++; } ?>
