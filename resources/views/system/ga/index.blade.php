@@ -29,6 +29,7 @@
                                 <thead>
                                     <tr>
                                         <th>Date</th>
+                                        <th>Visit</th>
                                         <th>Bounce rate</th>
                                         <th>Page view</th>
                                         <th>Unique page view</th>
@@ -39,6 +40,7 @@
                                     @foreach($rows as $item)
                                         <tr>
                                             <td>{{ $item->date }}</td>
+                                            <td>{{ formatCurrency($item->visit) }}</td>
                                             <td>{{ number_format($item->bounce_rate, 2, '.', '.') }}%</td>
                                             <td>{{ $item->page_view }}</td>
                                             <td>{{ $item->unique_page_view }}</td>
