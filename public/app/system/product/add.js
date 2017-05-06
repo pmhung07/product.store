@@ -1,11 +1,13 @@
 import Helper from '../helper/helper';
 
 $(function() {
+    // Biến xác nhận có tạo variant hay ko?
+    var _fillAttr = false;
 
     function initTagsInput() {
         // Input tags input
         $('.attribute-value-input').tagsInput({
-            defaultText : 'Nhập giá trị cách nhau bằng dấu phẩy. Kết thúc nhấn Enter',
+            defaultText : 'Nhập giá trị cách nhau bằng dấu phẩy hoặc nhấn Enter',
             width: '100%',
             height: 100
         });
@@ -16,12 +18,24 @@ $(function() {
     // Show form add variant
     $('#add-variant').click(function(e) {
         e.preventDefault();
-        $('#variant-container').toggleClass('hide');
+        $('#variant-container').removeClass('hide');
+
+        //  Ẩn hiện nút đóng
+        if(!$('#variant-container').hasClass('hide')) {
+            $('#cancel-variant').removeClass('hide');
+        } else {
+            $('#cancel-variant').addClass('hide');
+        }
+
+        _fillAttr = true;
     });
 
     // Cancel variant
     $('#cancel-variant').click(function() {
         $('#variant-container').addClass('hide');
+        $(this).addClass('hide');
+
+        _fillAttr = false;
     });
 
     // Append control to create variant
@@ -78,6 +92,11 @@ $(function() {
             }
         }
 
+        if(_fillAttr == false) {
+            formData.delete('option[]');
+            formData.delete('value[]');
+        }
+
         $.ajax({
             url: $form.attr('action'),
             type: "POST",
@@ -91,7 +110,9 @@ $(function() {
             },
 
             success : function(response) {
-
+                if(response.code == 1) {
+                    Helper.showMessageAndRedirect(response.message, 'success', response.redirect);
+                }
             }
         });
     });
