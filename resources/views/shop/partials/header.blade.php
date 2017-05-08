@@ -57,6 +57,8 @@
 
         <link rel="stylesheet" type="text/css" href="/shop/assets/css/shop.css">
 
+        <link rel="stylesheet" type="text/css" href="/bundle/style.css">
+
         <!-- MY PLUGIN -->
         <script type="text/javascript" src="/shop/assets/js/my-plugin/add-to-cart.js"></script>
         <script type="text/javascript" src="/shop/assets/js/my-plugin/load-district.js"></script>

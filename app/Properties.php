@@ -12,4 +12,9 @@ class Properties extends Model
 
     public $timestamps = true;
 
+    public function values()
+    {
+        return $this->hasMany('App\PropertiesValue', 'properties_id');
+    }
+
 }

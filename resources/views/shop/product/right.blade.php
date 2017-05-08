@@ -7,24 +7,30 @@
 <div class="thongtingia">
     <h1>{{ $product->getName() }}</h1>
     <h4>Mã SP : <span class="maspd">{{ $product->getSku() }}</span></h4>
+    <!-- Variant -->
+    <div class="sec-properties">
+        @foreach($properties as $property)
+            <div class="properties-item">
+                <h5 class="name">{{ $property->name }}</h5>
+                @if($property->values->count())
+                    <ul class="list-unstyled property-values-list" id="property-values-list-{{ $property->id }}">
+                        @foreach($property->values->all() as $k => $valueItem)
+                            <li class="property-values-item {{ $k == 0 ? ' active' : '' }}" data-value_id="{{ $valueItem->id }}" data-property_id="{{ $property->id }}">
+                                {{ $valueItem->name }}
+                                <i class="bg-bottom-property"></i>
+                            </li>
+                        @endforeach
+                    </ul>
+                @endif
+            </div>
+        @endforeach
+    </div>
     <div class="price">
         <label class="variant-price red">{{ formatCurrency($product->getPrice()) }}<sup>đ</sup></label>
     </div>
 </div>
 
 <form action="../cart.html" menthod="post" class="product-form" id="product-form">
-    <div class="attributes hide">
-        <h3 class="">Chọn màu yêu thích</h3>
-        <ul class="option option1 list-unstyled">
-            <li><label class="color"><input data-productid="1011535102" type="radio" value="Hồng" name="colorkm"><span><img src="//product.hstatic.net/1000003969/product/hong_123_20_icon.jpg">Hồng</span></label></li>
-            <li><label class="color"><input data-productid="1011535102" type="radio" value="Hồng" name="colorkm"><span><img src="//product.hstatic.net/1000003969/product/hong_123_20_icon.jpg">Hồng</span></label></li>
-            <li><label class="color"><input data-productid="1011535102" type="radio" value="Hồng" name="colorkm"><span><img src="//product.hstatic.net/1000003969/product/hong_123_20_icon.jpg">Hồng</span></label></li>
-        </ul>
-        <div class="clearfix"></div>
-        <div class="clearfix"></div>
-        <select id="product-select" name="id" class="varian-select hidden" >
-        </select>
-    </div>
     <span style="font-size: 14px;color: #333;font-family: 'Roboto-Medium';" >Số lượng</span>
     <div class="selector-wrapper-qty">
         <input name="quantity" type="text" min="1" value="1" class="qty" id="quantity-custom" size="3"/>
@@ -50,10 +56,56 @@
 
 <script type="text/javascript">
     $(function() {
+
+        var _urlAddToCart = '{{ route('shop.cart.add') }}?product_id={{ $product->getId() }}&qty=' + $('#quantity-custom').val();
+
+        get_variant();
+
         $('.action-add-to-cart').on('click', function() {
-            var url = '{{ route('shop.cart.add') }}?product_id={{ $product->getId() }}&qty=' + $('#quantity-custom').val();
+            var url = _urlAddToCart;
             window.location.href = url;
             return false;
         });
+
+        $('.property-values-item').on('click', function() {
+            var $this = $(this);
+
+            $('#property-values-list-' + $this.data('property_id')).find('.property-values-item').removeClass('active');
+            $this.addClass('active');
+
+            get_variant();
+        });
+
+
+        function get_variant() {
+            var combination = [];
+            $('.property-values-item.active').each(function(ind, el) {
+                combination.push($(el).data('value_id'));
+            });
+
+            $.ajax({
+                url : '/ajax/product/get-variant',
+                type : 'GET',
+                dataType : 'json',
+                data : {
+                    _token : "{{ csrf_token() }}",
+                    product_id : '{{ $product->id }}',
+                    value_ids : combination.join(',')
+                },
+                success: function(response) {
+                    $('.maspd').text(response.sku);
+                    $('.variant-price').text(response.price);
+                    $('#main-product-image').attr('data-original', response.image.large);
+                    $('#main-product-image > a').attr('href', response.image.large);
+                    $('#main-product-image > a').attr('data-image', response.image.large);
+                    $('#main-product-image > a').attr('data-zoom-image', response.image.large);
+                    $('#main-product-image .image-product-carousel').attr('src', response.image.medium);
+                    $('#main-product-image .click-p').attr('data-zoom-image', response.image.large);
+
+                    _urlAddToCart += '&variant_sku=' + response.sku;
+                    console.log(response);
+                }
+            });
+        }
     });
 </script>

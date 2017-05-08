@@ -219,6 +219,8 @@ $(document).ready(function() {
         calendarWeeks: true,
         autoclose: true
     });
+
+    ProductAddController.init();
 });
 </script>
 @stop
