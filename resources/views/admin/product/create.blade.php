@@ -126,7 +126,7 @@
                             </label>
                             <div class="col-sm-9">
                                 <button id="add-variant" class="form-control-static btn btn-xs btn-info">Thêm phiên bản</button>
-                                <small id="cancel-variant" class="text text-info" style="cursor: pointer;">Bỏ qua</small>
+                                <small id="cancel-variant" class="text text-info hide" style="cursor: pointer;">Bỏ qua</small>
                                 <div id="variant-container" class="hide" style="margin-top: 10px; padding: 10px;  background-color: #f5f6f7">
                                     <header class="row">
                                         <div class="col-sm-4">
@@ -219,6 +219,8 @@ $(document).ready(function() {
         calendarWeeks: true,
         autoclose: true
     });
+
+    ProductAddController.init();
 });
 </script>
 @stop

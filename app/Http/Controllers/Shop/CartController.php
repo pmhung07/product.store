@@ -14,6 +14,7 @@ class CartController extends ShopController
     public function getIndex()
     {
         $cartItems = Cart::content();
+        // _debug($cartItems->toArray());die;
         return view('shop/cart/index', compact('cartItems'));
     }
 
@@ -21,14 +22,23 @@ class CartController extends ShopController
     {
         $id = (int) $request->get('product_id');
         $qty = (int) $request->get('qty');
+        $sku = $request->get('variant_sku');
 
-        $product = Product::findOrFail($id);
+        if(!$sku) {
+            $product = Product::findOrFail($id);
+        } else {
+            $product = Product::where('sku', $sku)->first();
+        }
+
         Cart::add([
-            'id' => $id,
+            'id' => $product->id,
             'name' => $product->getName(),
             'price' => $product->getPrice(),
             'qty' => $qty,
-            'options' => ['product' => $product]
+            'options' => [
+                'product' => $product,
+                'is_variant' => $sku ? true : false
+            ]
         ]);
 
         return redirect()->route('shop.cart.index')->with('success', 'Thêm sản phẩm vào giỏ hàng thành công');

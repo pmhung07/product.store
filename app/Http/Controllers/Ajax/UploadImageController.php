@@ -20,6 +20,7 @@ class UploadImageController extends Controller
         if($resultUpload['status'] > 0) {
             return response()->json([
                 'code' => 1,
+                'filename' => $resultUpload['filename'],
                 'url' => parse_image_url($resultUpload['filename'])
             ]);
         }

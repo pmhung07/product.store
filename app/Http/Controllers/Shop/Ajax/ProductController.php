@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Shop\Ajax;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests;
+use App\Models\VariantCombination;
 use App\Product;
 use Illuminate\Http\Request;
 
@@ -16,5 +17,37 @@ class ProductController extends Controller
         $product = Product::findOrFail($productId);
 
         return view('shop/product/quickview', compact('product'));
+    }
+
+    public function getVariant(Request $request)
+    {
+        $variantIdsString = $request->get('value_ids');
+        $variantIds = explode(',', $variantIdsString);
+        foreach($variantIds as $k => &$value) {
+            if(!$value) unset($variantIds[$k]);
+            $value = (int) $value;
+        }
+        $productId = (int) $request->get('product_id');
+
+        // Find all childs
+        $childs = Product::where('parent_id', $productId)->get();
+
+        foreach($childs as $item) {
+            $variant = VariantCombination::where('product_id', $item->id)->lists('value_id')->toArray();
+            asort($variant);
+            asort($variantIds);
+            if(implode(',', $variant) == implode(',', $variantIds)) {
+                return response()->json([
+                    'id' => $item->id,
+                    'price' => $item->price,
+                    'sku' => $item->sku,
+                    'image' => [
+                        'large' => parse_image_url('lg_' . $item->image),
+                        'medium' => parse_image_url('md_' . $item->image),
+                        'small' => parse_image_url('sm_' . $item->image)
+                    ]
+                ]);
+            }
+        }
     }
 }

@@ -48,12 +48,6 @@
     <link rel="stylesheet" type="text/css" href="/js/plugins/jQuery-Tags-Input/dist/jquery.tagsinput.min.css">
     <script type="text/javascript" src="/js/plugins/jQuery-Tags-Input/dist/jquery.tagsinput.min.js"></script>
 
-    <script src="/bundle/bundle.js" type="text/javascript"></script>
-
-    <script src="js/functions.js"></script>
-    <script src="/js/core/helper.js" type="text/javascript"></script>
-    <script src="js/core/core.js"></script>
-
     <script type="text/javascript">
         if(typeof App === 'undefined') {
             var App = {};
@@ -62,6 +56,12 @@
             };
         }
     </script>
+
+    <script src="/bundle/bundle.js" type="text/javascript"></script>
+
+    <script src="js/functions.js"></script>
+    <script src="/js/core/helper.js" type="text/javascript"></script>
+    <script src="js/core/core.js"></script>
 </head>
 
 <body>
