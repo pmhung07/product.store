@@ -117,7 +117,7 @@ class ProductController extends Controller
         return response()->json([
             'code' => 1,
             'message' => 'Thêm sản phẩm thành công!',
-            'redirect' => route('admin.product.index')
+            'redirect' => route('admin.product.getUpdate', $product->id)
         ]);
     }
 
@@ -180,6 +180,7 @@ class ProductController extends Controller
         $childProducts = Product::where('product.parent_id', $id)
                                 ->select('product.*')
                                 ->get();
+
         foreach($childProducts as $item) {
             $values = PropertiesValue::join('variant_combination', 'properties_value.id', '=', 'variant_combination.value_id')
                                     ->where('variant_combination.product_id', $item->id)
@@ -249,16 +250,10 @@ class ProductController extends Controller
         }
 
         // Clear old data
-        $oldProperties = Properties::where('product_id', $id)->get();
-        foreach($oldProperties as $item) {
-            PropertiesValue::where('properties_id', $item->id)->delete();
-        }
-        Properties::where('product_id', $id)->delete();
         $oldChilds = Product::where('parent_id', $id)->get();
         foreach($oldChilds as $item) {
             VariantCombination::where('product_id', $item->id)->delete();
         }
-        Product::where('parent_id', $id)->delete();
 
         // Tạo variant
         $properties = (array) $request->get('option');
@@ -267,7 +262,13 @@ class ProductController extends Controller
         $arrayAllValueIds = array();
 
         foreach($properties as $key => $property) {
-            $propertyModel = new Properties;
+            $propertyExist = Properties::where('product_id', $product->id)->where('name', $property)->first();
+            if(!$propertyExist) {
+                $propertyModel = new Properties;
+            } else {
+                $propertyModel = $propertyExist;
+            }
+
             $propertyModel->product_id = $product->id;
             $propertyModel->admin_id = $request->user()->id;
             $propertyModel->name = clean($property);
@@ -276,9 +277,16 @@ class ProductController extends Controller
                 $arrayValues = explode(',', $values[$key]);
                 $_valueIds = [];
                 foreach($arrayValues as $value) {
-                    $propertyValueModel = new PropertiesValue;
+                    $value = clean(trim($value));
+                    $propertyValueModelExits = PropertiesValue::where('properties_id', $propertyModel->id)->where('name', $value)->first();
+                    if(!$propertyValueModelExits) {
+                        $propertyValueModel = new PropertiesValue;
+                    } else {
+                        $propertyValueModel = $propertyValueModelExits;
+                    }
+
                     $propertyValueModel->properties_id = $propertyModel->id;
-                    $propertyValueModel->name = clean($value);
+                    $propertyValueModel->name = $value;
                     $propertyValueModel->save();
                     $_valueIds[] = $propertyValueModel->id;
                 }
@@ -291,13 +299,40 @@ class ProductController extends Controller
         $valueCombinationArray = combinations($arrayAllValueIds);
         $childProductDataFormRequest = (array) $request->get('child_product');
 
+        // Validate sku của sản phẩm con, tránh trùng lặp
+        foreach($childProductDataFormRequest as $k => $arrayData) {
+            $sku = array_get($arrayData, 'sku');
+            $pid = (int) array_get($arrayData, 'id');
+            if($sku) {
+                $skuExist = Product::where('sku', $sku)->whereNotIn('id', [$pid])->first();
+                if($skuExist) {
+                    return response()->json([
+                        'code' => 422,
+                        'message' => 'Sku: ' . $sku . ' đã tồn tại, vui lòng chọn một mã khác'
+                    ]);
+                }
+            }
+        }
+
+        // Đưa về cùng 1 định dạng
+        foreach($valueCombinationArray as &$value) {
+            if(!is_array($value)) $value = [$value];
+        }
+
         foreach($valueCombinationArray as $key => $valueIdArray) {
             // Tạo sản phẩm con
-            $childProduct = new Product;
+            $childProductData = isset($childProductDataFormRequest[$key]) ? $childProductDataFormRequest[$key] : array();
+            $childProductId = (int) array_get($childProductData, 'id');
+
+            $childProductExist = Product::where('id', $childProductId)->first();
+            if(!$childProductExist) {
+                $childProduct = new Product;
+            } else {
+                $childProduct = $childProductExist;
+            }
+
             $childProduct->name = $product->name;
             $childProduct->parent_id = $product->id;
-
-            $childProductData = isset($childProductDataFormRequest[$key]) ? $childProductDataFormRequest[$key] : array();
 
             $childProduct->sku = clean(array_get($childProductData, 'sku'));
             $childProduct->barcode = clean(array_get($childProductData, 'barcode'));
@@ -306,18 +341,10 @@ class ProductController extends Controller
             $childProduct->save();
 
             // Tạo biến thể
-            // Nếu có nhiều hơn 1 thuộc tính thì giá trị sẽ là mảng
-            if(is_array($valueIdArray)) {
-                foreach($valueIdArray as $k => $valueId) {
-                    $variantModel = new VariantCombination();
-                    $variantModel->product_id = $childProduct->id;
-                    $variantModel->value_id = $valueId;
-                    $variantModel->save();
-                }
-            } else {
+            foreach($valueIdArray as $k => $valueId) {
                 $variantModel = new VariantCombination();
                 $variantModel->product_id = $childProduct->id;
-                $variantModel->value_id = (int) $valueIdArray;
+                $variantModel->value_id = $valueId;
                 $variantModel->save();
             }
         }

@@ -220,7 +220,7 @@ $(document).ready(function() {
         autoclose: true
     });
 
-    ProductAddController.init();
+    new app.ProductAddController().init();
 });
 </script>
 @stop

@@ -24,6 +24,7 @@ class CartController extends ShopController
         $qty = (int) $request->get('qty');
         $sku = $request->get('variant_sku');
 
+        // Nếu là sản phẩm con thì phải xác định ngay
         if(!$sku) {
             $product = Product::findOrFail($id);
         } else {
