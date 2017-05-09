@@ -1,14 +1,16 @@
 import Helper from '../helper/helper';
+import app from '../app';
 
-window.ProductAddController = function() {
+app.ProductUpdateController = function() {
+
     function init() {
         // Biến xác nhận có tạo variant hay ko?
-        var _fillAttr = false;
+        var _fillAttr = true;
 
         function initTagsInput() {
             // Input tags input
             $('.attribute-value-input').tagsInput({
-                defaultText : 'Nhập giá trị cách nhau bằng dấu phẩy hoặc nhấn Enter',
+                defaultText : '',
                 width: '100%',
                 height: 100
             });
@@ -113,14 +115,48 @@ window.ProductAddController = function() {
 
                 success : function(response) {
                     if(response.code == 1) {
-                        // Helper.showMessageAndRedirect(response.message, 'success', response.redirect);
+                        Helper.showMessageAndRedirect(response.message, 'success', response.redirect);
+                    } else if(response.code == 422) {
+                        Helper.showMessage(response.message, 'error');
                     }
                 }
             });
         });
+
+        // Upload image variant
+        var _tempIndexVariantImage = -1;
+        $('.variant-upload-image').click(function() {
+            $('#input-file-hidden').trigger('click');
+            _tempIndexVariantImage = $(this).data('key');
+        });
+
+        $('#input-file-hidden').on('change', function(e) {
+            var $this = $(this);
+            var _file = this.files[0];
+            var formdata = new FormData();
+            formdata.append('file', _file);
+            formdata.append('_token', App.config.token);
+
+            $.ajax({
+                url : "/ajax/upload-image",
+                type : "POST",
+                dataType: 'json',
+                data : formdata,
+                contentType: false,
+                processData: false,
+                beforeSend : function() {
+                    $('#variant-upload-image-' + _tempIndexVariantImage).attr('src', '/img/ajax-loader.gif');
+                },
+                success : function(response) {
+                    $('#variant-upload-image-' + _tempIndexVariantImage).attr('src', response.url);
+                    $('#variant-image-' + _tempIndexVariantImage).attr('value', response.filename);
+                }
+            })
+        });
+
     }
 
     return {
         init: init
     }
-};
+}

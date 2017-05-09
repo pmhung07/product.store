@@ -63,16 +63,21 @@
                             	<input name="product_name" type="text" class="form-control" value="{!! old('product_name',isset($data) ? $data['name'] : '') !!}">
                             </div>
                         </div>
-                        <div class="form-group"><label class="col-sm-3 control-label">Mã sản phẩm (SKU)</label>
-                            <div class="col-sm-9">
-                            	<input name="product_sku" type="text" class="form-control" value="{!! old('product_sku',isset($data) ? $data['sku'] : '') !!}">
+
+                        @if(!$data->hasChild())
+                            <div class="form-group"><label class="col-sm-3 control-label">Mã sản phẩm (SKU)</label>
+                                <div class="col-sm-9">
+                                	<input name="product_sku" type="text" class="form-control" value="{!! old('product_sku',isset($data) ? $data['sku'] : '') !!}">
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group"><label class="col-sm-3 control-label">Barcode</label>
-                            <div class="col-sm-9">
-                            	<input name="product_barcode" type="text" class="form-control" value="{!! old('product_barcode',isset($data) ? $data['barcode'] : '') !!}">
+
+                            <div class="form-group"><label class="col-sm-3 control-label">Barcode</label>
+                                <div class="col-sm-9">
+                                	<input name="product_barcode" type="text" class="form-control" value="{!! old('product_barcode',isset($data) ? $data['barcode'] : '') !!}">
+                                </div>
                             </div>
-                        </div>
+                        @endif
+
                         <div class="form-group"><label class="col-sm-3 control-label">Nhóm sản phẩm</label>
                             <div class="col-sm-9">
         	                    <select class="form-control m-b" name="product_group">
@@ -179,7 +184,10 @@
                             <tbody>
                                 @foreach($childProducts as $k => $item)
                                     <tr data-id="{{ $item->id }}">
-                                        <td>#{{ $k+1 }}</td>
+                                        <td>
+                                            #{{ $k+1 }}
+                                            <input type="hidden" name="child_product[{{ $k }}][id]" value="{{ $item->id }}">
+                                        </td>
                                         <td>
                                             <img src="{{ $item->image ? parse_image_url('sm_'.$item->image) : '/img/default_picture.png' }}" id="variant-upload-image-{{ $k }}" class="variant-upload-image" data-key="{{ $k }}" style="cursor: pointer; max-height: 35px;">
                                             <input type="hidden" id="variant-image-{{ $k }}" name="child_product[{{ $k }}][image]" value="{{ $item->image }}">

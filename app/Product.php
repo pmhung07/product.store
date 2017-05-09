@@ -64,6 +64,11 @@ class Product extends Model
         return route('shop.product.detail', [$this->getId(), $this->getSlug()]);
     }
 
+    public function hasChild()
+    {
+        return $this->where('parent_id', $this->id)->count() ? true : false;
+    }
+
     public function category()
     {
         return $this->belongsTo('App\ProductGroup', 'product_group_id');

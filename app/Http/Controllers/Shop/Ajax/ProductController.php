@@ -19,6 +19,11 @@ class ProductController extends Controller
         return view('shop/product/quickview', compact('product'));
     }
 
+    /**
+     * Thông tin biến thể
+     * @param  Request $request
+     * @return json
+     */
     public function getVariant(Request $request)
     {
         $variantIdsString = $request->get('value_ids');
