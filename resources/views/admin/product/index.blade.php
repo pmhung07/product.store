@@ -80,7 +80,7 @@
                                     <th>Nhóm sản phẩm</th>
                                     <th width="100">Giá bán <sup> - vnđ </sup></th>
                                     <th width="70">Tồn kho</th>
-                                    <th class="text-right" width="200">Chức năng</th>
+                                    <th class="text-right" width="110">Chức năng</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -108,9 +108,6 @@
                                         </td>
                                         <td class="text-right footable-visible footable-last-column">
                                             <div class="btn-group">
-                                                <a href="{!! URL::route('admin.product.getProperties',$row->id) !!}" class="btn-white btn btn-xs">
-                                                    <i class="fa fa-magic"></i> Thuộc tính
-                                                </a>
                                                 <a href="{!! URL::route('admin.product.getUpdate',$row->id) !!}" class="btn-white btn btn-xs">
                                                     <i class="fa fa-edit "></i> Sửa
                                                 </a>

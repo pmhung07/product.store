@@ -45,7 +45,7 @@
                                                     <td class="product-description">
                                                         <span class="product-description-name order-summary-emphasis">{{ $item->name }}</span>
                                                         <span class="product-description-variant order-summary-small-text">
-                                                        34 / Xanh lá
+
                                                         </span>
                                                     </td>
                                                     <td class="product-price">

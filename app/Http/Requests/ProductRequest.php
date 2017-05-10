@@ -23,10 +23,11 @@ class ProductRequest extends Request
      */
     public function rules()
     {
+        // _debug($this->all());die;
         return [
             'product_name' => 'required|unique:product,name',
             'product_sku' => 'required|unique:product,sku',
-            'product_barcode' => 'unique:product,barcode', 
+            'product_barcode' => 'unique:product,barcode',
             'product_group' => 'required',
             'product_unit' => 'required',
             'product_price' => 'required'

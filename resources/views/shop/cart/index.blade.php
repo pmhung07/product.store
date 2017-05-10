@@ -37,13 +37,36 @@
                                         <a href="{{ route('shop.cart.delete', $item->rowId) }}" class="btn btn-xs btn-danger">x</a>
                                     </td>
                                     <td>
-                                        <img src="http://product.hstatic.net/1000003969/product/xanh-la_20_108__small.jpg" height="50">
+                                        <img src="{{ parse_image_url('sm_'.$item->options->product->image) }}" height="50">
                                     </td>
                                     <td>
                                         <ul class="list-unstyled">
                                             <li><b>{{ $item->name }}</b></li>
-                                            <li>Màu: Xanh</li>
-                                            <li>Size: L</li>
+                                            <?php
+                                                if($item->options->is_variant) {
+
+                                                    $properties = App\Properties::where('product_id', $item->options->product->parent_id)
+                                                                            ->get();
+
+                                                    $productPropertyValues = App\PropertiesValue::join('variant_combination', 'properties_value.id', '=', 'variant_combination.value_id')
+                                                                                ->where('product_id', $item->id)
+                                                                                ->select('properties_value.*', 'variant_combination.product_id as product_id')
+                                                                                ->groupBy('properties_value.properties_id')
+                                                                                ->get();
+
+                                                    foreach($properties as $property) {
+                                                        echo '<li>';
+                                                        echo $property->name . ': ';
+
+                                                        foreach($productPropertyValues as $pvItem) {
+                                                            if($property->id == $pvItem->properties_id) {
+                                                                echo $pvItem->name;
+                                                            }
+                                                        }
+                                                        echo '</li>';
+                                                    }
+                                                }
+                                            ?>
                                         </ul>
                                     </td>
                                     <td>{{ formatCurrency($item->price) }}<sup>đ</sup></td>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Shop;
 use App\Http\Controllers\Controller;
 use App\Http\Requests;
 use App\Product;
+use App\Properties;
 use App\Provinces;
 use App\Warehouse;
 use App\WarehouseInventory;
@@ -30,11 +31,14 @@ class ProductController extends ShopController
                             ->select('warehouse.*')
                             ->get();
 
-                            // _debug($warehouses);die;
+
         // Thành phố
         $provinces = Provinces::with('districts')->whereIn('id', $warehouses->pluck('province_id')->toArray())->get();
 
-        return view('shop/product/detail', compact('product', 'warehouses', 'provinces'));
+        // Variant
+        $properties = Properties::with('values')->where('product_id', $id)->get();
+
+        return view('shop/product/detail', compact('product', 'warehouses', 'provinces', 'properties'));
     }
 
 

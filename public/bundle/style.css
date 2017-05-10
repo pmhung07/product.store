@@ -1,0 +1,39 @@
+#detail-product .sec-properties {
+  padding: 5px 0;
+}
+#detail-product .sec-properties .properties-item .name {
+  font-weight: bold;
+  font-size: 13px;
+}
+#detail-product .sec-properties .properties-item .property-values-list {
+  overflow: hidden;
+}
+#detail-product .sec-properties .properties-item .property-values-list .property-values-item {
+  float: left;
+  margin: 0 5px 5px 0;
+  padding: 5px 10px;
+  cursor: pointer;
+  border: 1px solid transparent;
+  border: 1px solid #e42127;
+  position: relative;
+}
+#detail-product .sec-properties .properties-item .property-values-list .property-values-item.active .bg-bottom-property {
+  background-image: url(/img/bg-property.png);
+  background-repeat: no-repeat;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 14px;
+  height: 14px;
+}
+#detail-product .sec-properties .properties-item .property-values-list .property-values-item:hover .bg-bottom-property {
+  background-image: url(/img/bg-property.png);
+  background-repeat: no-repeat;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 14px;
+  height: 14px;
+}
+
+/*# sourceMappingURL=style.css.map*/

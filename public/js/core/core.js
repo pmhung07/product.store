@@ -1,5 +1,7 @@
 ///// PLUGIN
 (function( $ ) {
+
+    // Ajax load district
     $.fn.ajaxLoadDistrict = function(options) {
 
         var _default = {};

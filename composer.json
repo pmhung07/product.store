@@ -15,7 +15,9 @@
         "gloudemans/shoppingcart": "^2.3",
         "google/recaptcha": "^1.1",
         "mews/purifier": "^2.0",
-        "google/apiclient": "^2.0"
+        "google/apiclient": "^2.0",
+        "trendylabs/shortener": "dev-master",
+        "mbarwick83/shorty": "^1.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

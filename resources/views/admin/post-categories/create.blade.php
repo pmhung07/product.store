@@ -13,8 +13,7 @@
 
 @section('content')
 <div class="row">
-    @include('layout.admin.sidebar-shop')
-    <div class="col-lg-9">
+    <div class="col-lg-12">
         <div class="row">
         	<div class="col-lg-12">
 

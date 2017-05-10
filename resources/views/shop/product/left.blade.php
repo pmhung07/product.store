@@ -1,5 +1,5 @@
 <div class="owl-carousel owl-theme" id="slide-image">
-    <div class="item itemdelete lazy"
+    <div id="main-product-image" class="item itemdelete lazy"
         data-original="{{ parse_image_url($product->image) }}"
         data-option="do">
         <a href="{{ parse_image_url($product->image) }}"
@@ -9,7 +9,7 @@
             data-zoom-image="{{ parse_image_url($product->image) }}"
             rel="lightbox-do">
             <img class="image-product-carousel"  src="{{ parse_image_url('md_'.$product->image) }}"/>
-            <p class="click-p" href="{{ parse_image_url($product->image) }}"
+            <p class="click-p"
                 data-zoom-image="{{ parse_image_url($product->image) }}"
                 rel="lightbox-do" >
             </p>
@@ -26,7 +26,7 @@
             data-zoom-image="{{ parse_image_url($item->image) }}"
             rel="lightbox-do">
             <img  class="image-product-carousel" src="{{ parse_image_url('md_'.$item->image) }}"/>
-            <p class="click-p" href="{{ parse_image_url($item->image) }}"
+            <p class="click-p"
                 data-zoom-image="{{ parse_image_url($item->image) }}"
                 rel="lightbox-do" >
             </p>

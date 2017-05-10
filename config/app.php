@@ -160,7 +160,10 @@ return [
         Intervention\Image\ImageServiceProvider::class,
         Barryvdh\Debugbar\ServiceProvider::class,
         Gloudemans\Shoppingcart\ShoppingcartServiceProvider::class,
-        Mews\Purifier\PurifierServiceProvider::class
+        Mews\Purifier\PurifierServiceProvider::class,
+        Mbarwick83\Shorty\ShortyServiceProvider::class
+
+        //TrendyLabs\Shortener\ShortenerServiceProvider::class
     ],
 
     /*
@@ -213,7 +216,10 @@ return [
 
         'ImageIntervention' => Intervention\Image\Facades\Image::class,
         'Cart' => Gloudemans\Shoppingcart\Facades\Cart::class,
-        'Xss' => Mews\Purifier\Facades\Purifier::class
+        'Xss' => Mews\Purifier\Facades\Purifier::class,
+        'Shorty'    => Mbarwick83\Shorty\Facades\Shorty::class
+
+        //'Shortener' => TrendyLabs\Shortener\Facade::class
 
     ],
 

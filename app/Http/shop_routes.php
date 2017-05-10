@@ -43,5 +43,6 @@ Route::group(['domain' => 'shop.'.env('APP_DOMAIN'), 'namespace' => 'Shop'], fun
     // Ajax
     Route::group(['prefix' => 'ajax', 'namespace' => 'Ajax'], function() {
         Route::get('/product/quick-view', 'ProductController@getQuickView');
+        Route::get('/product/get-variant', 'ProductController@getVariant');
     });
 });

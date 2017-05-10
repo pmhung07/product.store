@@ -5,15 +5,14 @@ namespace App\Http\Controllers;
 use App;
 use App\Http\Requests;
 use App\Http\Requests\ProductRequest;
+use App\Models\VariantCombination;
 use App\Product;
 use App\ProductGroup;
 use App\ProductImage;
-use App\Units;
-
 use App\ProductProperties;
 use App\Properties;
 use App\PropertiesValue;
-
+use App\Units;
 use DB;
 use Illuminate\Http\Request;
 
@@ -30,7 +29,7 @@ class ProductController extends Controller
     	return view('admin.product.create',compact('group_product','units'));
     }
 
-    public function postCreate(ProductRequest $request){
+    public function postCreate(ProductRequest $request) {
     	$product = new Product();
     	$product->product_group_id = $request->product_group;;
     	$product->unit_id = $request->product_unit;
@@ -62,17 +61,74 @@ class ProductController extends Controller
             }
         }
 
-    	return redirect()->route('admin.product.getCreate')->with(['flash_message' => 'Thêm sản phẩm thành công!']);
+        // Tạo variant
+        $properties = (array) $request->get('option');
+        $values = (array) $request->get('value');
+
+        $arrayAllValueIds = array();
+
+        foreach($properties as $key => $property) {
+            $propertyModel = new Properties;
+            $propertyModel->product_id = $product->id;
+            $propertyModel->admin_id = $request->user()->id;
+            $propertyModel->name = clean($property);
+            $propertyModel->save();
+            if(isset($values[$key]) && $values[$key]) {
+                $arrayValues = explode(',', $values[$key]);
+                $_valueIds = [];
+                foreach($arrayValues as $value) {
+                    $propertyValueModel = new PropertiesValue;
+                    $propertyValueModel->properties_id = $propertyModel->id;
+                    $propertyValueModel->name = clean($value);
+                    $propertyValueModel->save();
+                    $_valueIds[] = $propertyValueModel->id;
+                }
+
+                $arrayAllValueIds[] = $_valueIds;
+            }
+        }
+
+        // Tạo biến thể
+        $valueCombinationArray = combinations($arrayAllValueIds);
+        foreach($valueCombinationArray as $key => $valueIdArray) {
+            // Tạo sản phẩm con
+            $childProduct = new Product;
+            $childProduct->name = $product->name;
+            $childProduct->parent_id = $product->id;
+            $childProduct->save();
+
+            // Tạo biến thể
+            // Nếu có nhiều hơn 1 thuộc tính thì giá trị sẽ là mảng
+            if(is_array($valueIdArray)) {
+                foreach($valueIdArray as $k => $valueId) {
+                    $variantModel = new VariantCombination();
+                    $variantModel->product_id = $childProduct->id;
+                    $variantModel->value_id = $valueId;
+                    $variantModel->save();
+                }
+            } else {
+                $variantModel = new VariantCombination();
+                $variantModel->product_id = $childProduct->id;
+                $variantModel->value_id = (int) $valueIdArray;
+                $variantModel->save();
+            }
+        }
+
+        return response()->json([
+            'code' => 1,
+            'message' => 'Thêm sản phẩm thành công!',
+            'redirect' => route('admin.product.getUpdate', $product->id)
+        ]);
     }
 
     public function getIndex(Request $request){
-
-        $sort='quantity_inventory';
-        $orderby='asc';
+        $sort = 'updated_at';
+        $orderby = 'desc';
 
         $product_group = ProductGroup::select('id','name','parent_id')->get()->toArray();
 
         $rows = Product::select('product.*','product_group.id as product_group_id','product_group.name as product_group_name',DB::raw('SUM(warehouse_inventory.quantity) as quantity_inventory'))
+                        ->where('product.parent_id', '=', 0)
                         ->leftjoin('product_group', 'product.product_group_id', '=', 'product_group.id')
                         ->leftjoin('warehouse_inventory', 'warehouse_inventory.product_id', '=', 'product.id');
 
@@ -111,11 +167,41 @@ class ProductController extends Controller
     	$group_product = ProductGroup::select('id','name','parent_id')->get()->toArray();
     	$units = Units::select('id','name')->where('active','=',1)->get()->toArray();
 
-        $data = Product::find($id)->toArray();
-        return view('admin.product.update',compact('group_product','data', 'units'));
+        $data = Product::find($id);
+
+        $hasVariant = Product::where('parent_id', $id)->count();
+
+        $properties = Properties::where('product_id', $id)->get();
+        foreach($properties as $property) {
+            $values = PropertiesValue::where('properties_id', $property->id)->get();
+            $property->values = $values;
+        }
+
+        $childProducts = Product::where('product.parent_id', $id)
+                                ->select('product.*')
+                                ->get();
+
+        foreach($childProducts as $item) {
+            $values = PropertiesValue::join('variant_combination', 'properties_value.id', '=', 'variant_combination.value_id')
+                                    ->where('variant_combination.product_id', $item->id)
+                                    ->select('properties_value.*', 'variant_combination.product_id as product_id')
+                                    ->get();
+
+            $_properties = [];
+            foreach($values as $vItem) {
+                $_properties[$vItem->properties_id][] = $vItem->name;
+            }
+
+            $item->property = $_properties;
+        }
+
+        // _debug($childProducts->toArray());die;
+
+        return view('admin.product.update',compact('group_product','data', 'units', 'hasVariant', 'properties', 'childProducts'));
     }
 
-    public function postUpdate(Request $request,$id){
+    public function postUpdate(Request $request,$id) {
+        // _debug($request->all());die;
         $this->validate($request,
             [
 				'product_name' => 'required',
@@ -132,7 +218,7 @@ class ProductController extends Controller
 				'product_price.required' => 'Vui lòng nhập giá bán sản phẩm!'
              ]
         );
-        $product = new Product();
+
         $product = Product::find($id);
     	$product->product_group_id = $request->product_group;;
     	$product->unit_id = $request->product_unit;
@@ -163,7 +249,111 @@ class ProductController extends Controller
             }
         }
 
-        return redirect()->route('admin.product.index')->with(['flash_message' => 'Cập nhật sản phẩm thành công!']);
+        // Clear old data
+        $oldChilds = Product::where('parent_id', $id)->get();
+        foreach($oldChilds as $item) {
+            VariantCombination::where('product_id', $item->id)->delete();
+        }
+
+        // Tạo variant
+        $properties = (array) $request->get('option');
+        $values = (array) $request->get('value');
+
+        $arrayAllValueIds = array();
+
+        foreach($properties as $key => $property) {
+            $propertyExist = Properties::where('product_id', $product->id)->where('name', $property)->first();
+            if(!$propertyExist) {
+                $propertyModel = new Properties;
+            } else {
+                $propertyModel = $propertyExist;
+            }
+
+            $propertyModel->product_id = $product->id;
+            $propertyModel->admin_id = $request->user()->id;
+            $propertyModel->name = clean($property);
+            $propertyModel->save();
+            if(isset($values[$key]) && $values[$key]) {
+                $arrayValues = explode(',', $values[$key]);
+                $_valueIds = [];
+                foreach($arrayValues as $value) {
+                    $value = clean(trim($value));
+                    $propertyValueModelExits = PropertiesValue::where('properties_id', $propertyModel->id)->where('name', $value)->first();
+                    if(!$propertyValueModelExits) {
+                        $propertyValueModel = new PropertiesValue;
+                    } else {
+                        $propertyValueModel = $propertyValueModelExits;
+                    }
+
+                    $propertyValueModel->properties_id = $propertyModel->id;
+                    $propertyValueModel->name = $value;
+                    $propertyValueModel->save();
+                    $_valueIds[] = $propertyValueModel->id;
+                }
+
+                $arrayAllValueIds[] = $_valueIds;
+            }
+        }
+
+        // Tạo, chỉnh sửa biến thể
+        $valueCombinationArray = combinations($arrayAllValueIds);
+        $childProductDataFormRequest = (array) $request->get('child_product');
+
+        // Validate sku của sản phẩm con, tránh trùng lặp
+        foreach($childProductDataFormRequest as $k => $arrayData) {
+            $sku = array_get($arrayData, 'sku');
+            $pid = (int) array_get($arrayData, 'id');
+            if($sku) {
+                $skuExist = Product::where('sku', $sku)->whereNotIn('id', [$pid])->first();
+                if($skuExist) {
+                    return response()->json([
+                        'code' => 422,
+                        'message' => 'Sku: ' . $sku . ' đã tồn tại, vui lòng chọn một mã khác'
+                    ]);
+                }
+            }
+        }
+
+        // Đưa về cùng 1 định dạng
+        foreach($valueCombinationArray as &$value) {
+            if(!is_array($value)) $value = [$value];
+        }
+
+        foreach($valueCombinationArray as $key => $valueIdArray) {
+            // Tạo sản phẩm con
+            $childProductData = isset($childProductDataFormRequest[$key]) ? $childProductDataFormRequest[$key] : array();
+            $childProductId = (int) array_get($childProductData, 'id');
+
+            $childProductExist = Product::where('id', $childProductId)->first();
+            if(!$childProductExist) {
+                $childProduct = new Product;
+            } else {
+                $childProduct = $childProductExist;
+            }
+
+            $childProduct->name = $product->name;
+            $childProduct->parent_id = $product->id;
+
+            $childProduct->sku = clean(array_get($childProductData, 'sku'));
+            $childProduct->barcode = clean(array_get($childProductData, 'barcode'));
+            $childProduct->price = (int) array_get($childProductData, 'price');
+            $childProduct->image = clean(array_get($childProductData, 'image'));
+            $childProduct->save();
+
+            // Tạo biến thể
+            foreach($valueIdArray as $k => $valueId) {
+                $variantModel = new VariantCombination();
+                $variantModel->product_id = $childProduct->id;
+                $variantModel->value_id = $valueId;
+                $variantModel->save();
+            }
+        }
+
+        return response()->json([
+            'code' => 1,
+            'message' => 'Cập nhật thành công!',
+            'redirect' => route('admin.product.getUpdate', $id)
+        ]);
     }
 
     public function getPropertiesAutoComplete(Request $request){

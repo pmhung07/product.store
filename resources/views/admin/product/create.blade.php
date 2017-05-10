@@ -43,15 +43,16 @@
             <div class="row">
             	<div class="col-lg-12">
 
-                    <form action="{!! route('admin.product.getCreate') !!}" class="form-horizontal" method="POST" enctype="multipart/form-data">
+                    <form id="form-data" action="{!! route('admin.product.getCreate') !!}" class="form-horizontal" method="POST" enctype="multipart/form-data">
 
                         <input type="hidden" name="_token" value="{!! csrf_token() !!}">
+
                         <div class="form-group"><label class="col-sm-3 control-label">Ảnh sản phẩm</label>
                             <div class="col-sm-9"><input name="image" type="file" class="form-control"></div>
                         </div>
 
                         <div class="form-group"><label class="col-sm-3 control-label">Ảnh mô tả sản phẩm</label>
-                            <div class="col-sm-9"><input name="images[]" type="file" class="form-control"></div>
+                            <div class="col-sm-9"><input name="images[]" type="file" multiple="true" class="form-control input-upload-file"></div>
                         </div>
 
                         <div class="form-group"><label class="col-sm-3 control-label">Tên sản phẩm</label>
@@ -117,15 +118,37 @@
                                 </div>
                             </div>
                         </div>
-                        <!--<div class="form-group">
-                            <label class="control-label col-sm-3">Ảnh sản phẩm</label>
-                            <div class="col-sm-6">
-                                <div class="addCollection" ng-file-select="" ng-file-change="upload($files)" ng-multiple="true" accept="image/*">
-                                    <i class="fa fa-plus fa-2x"></i>
-                                    <span>Thêm ảnh</span>
+
+                        <div class="form-group">
+                            <label class="control-label col-sm-3">
+                                Sản phẩm có nhiều phiên bản
+                                <p class="help-block text-info" style="font-size: 10px;">Sản phẩm có nhiều phiên bản dựa theo các thuộc tính màu sắc, kích thước</p>
+                            </label>
+                            <div class="col-sm-9">
+                                <button id="add-variant" class="form-control-static btn btn-xs btn-info">Thêm phiên bản</button>
+                                <small id="cancel-variant" class="text text-info hide" style="cursor: pointer;">Bỏ qua</small>
+                                <div id="variant-container" class="hide" style="margin-top: 10px; padding: 10px;  background-color: #f5f6f7">
+                                    <header class="row">
+                                        <div class="col-sm-4">
+                                            <h5>Tên thuộc tính</h5>
+                                        </div>
+                                        <div class="col-sm-8">
+                                            <h5>Giá trị thuộc tính</h5>
+                                        </div>
+                                    </header>
+                                    <section class="row attribute-row first-attribute" style="margin-bottom: 10px;">
+                                        <div class="col-sm-4">
+                                            <input type="text" name="option[]" class="form-control" placeholder="Tên thuộc tính" style="margin-bottom: 10px;">
+                                        </div>
+                                        <div class="col-sm-7">
+                                            <textarea class="form-control attribute-value-input" name="value[]" placeholder="Giá trị thuộc tính cách nhau bằng dấu phẩy. Ví dụ: Xanh,Đỏ,Vàng"></textarea>
+                                        </div>
+                                    </section>
+                                    <button id="btn-add-new-attribute" class="btn btn-xs btn-danger">Tạo mới thuộc tính</button>
                                 </div>
                             </div>
-                        </div>-->
+                        </div>
+
                         <div class="hr-line-dashed"></div>
                         <div class="form-group">
                             <div class="col-sm-8 col-sm-offset-3">
@@ -152,6 +175,29 @@
 <script src="js/plugins/footable/footable.all.min.js"></script>
 <script src="js/plugins/jasny/jasny-bootstrap.min.js"></script>
 
+<script type="text/template" id="template-new-attribute">
+    <section class="row attribute-row append" style="margin-bottom: 10px;">
+        <div class="col-sm-4">
+            <input type="text" name="option[]" class="form-control" placeholder="Tên thuộc tính" style="margin-bottom: 10px;">
+        </div>
+        <div class="col-sm-7">
+            <textarea class="form-control attribute-value-input" name="value[]" placeholder="Giá trị thuộc tính cách nhau bằng dấu phẩy. Ví dụ: Xanh,Đỏ,Vàng"></textarea>
+        </div>
+        <div class="col-sm-1">
+            <button class="btn btn-xs btn-danger btn-delete-attribute"><i class="fa fa-trash"></i></button>
+        </div>
+    </section>
+</script>
+
+<style type="text/css">
+    div.tagsinput div {
+        float: none;
+    }
+    div.tagsinput input {
+        width: 100% !important;
+    }
+</style>
+
 <!-- Page-Level Scripts -->
 <script>
 $(document).ready(function() {
@@ -173,6 +219,8 @@ $(document).ready(function() {
         calendarWeeks: true,
         autoclose: true
     });
+
+    new app.ProductAddController().init();
 });
 </script>
 @stop

@@ -83,7 +83,7 @@ input[type="tel"]:focus,
 input[type="color"]:focus,
 textarea:focus,
 select:focus,
-.uneditable-input:focus {   
+.uneditable-input:focus {
   border-color: #e5e6e7!important;
   outline: 0 none!important;
 }
@@ -6943,10 +6943,10 @@ body.landing-page {
   padding: 20px 10px;
 }
 .landing-page .navbar-scroll .navbar-nav > li > .congif_btn_signin{
-  margin-top:17px; 
+  margin-top:17px;
 }
 .landing-page .navbar-scroll .navbar-nav > li > .congif_btn_regis{
-  margin-top:17px; 
+  margin-top:17px;
 }
 .landing-page .navbar-default .navbar-nav > .active > a,
 .landing-page .navbar-default .navbar-nav > .active > a:hover {
@@ -8575,7 +8575,7 @@ body.md-skin {
 .btn-not-called-customer:hover{
   background-color: #ffced3;
   color: #565454;
-  cursor:pointer; 
+  cursor:pointer;
 }
 .timeline-item .timeline-date-fix{
   width: 15%!important;
@@ -8608,10 +8608,10 @@ body.md-skin {
 .twitter-typeahead{
   height: 34px;
   width: 100%;
-}    
+}
 .user-search-result:hover{
   background: #fafafb;
-  cursor:pointer;   
+  cursor:pointer;
 }
 .tt-cursor{
   background: #fafafb;
@@ -8834,4 +8834,7 @@ fieldset[disabled] .btn-trash.active {
     display: table-cell;
     vertical-align: middle;
     background: #fafbfc;
+}
+.border-red {
+  border: 1px solid red;
 }
