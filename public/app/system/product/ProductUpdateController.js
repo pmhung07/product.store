@@ -122,7 +122,7 @@ app.ProductUpdateController = function(params) {
 
                 success : function(response) {
                     if(response.code == 1) {
-                        // Helper.showMessageAndRedirect(response.message, 'success', response.redirect);
+                        Helper.showMessageAndRedirect(response.message, 'success', response.redirect);
                     } else if(response.code == 422) {
                         Helper.showMessage(response.message, 'error');
                     }
