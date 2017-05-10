@@ -94,11 +94,20 @@
                         </a>
                     </li>
                     <li>
+                        <a href="/system/transfer-product/index"
+                        @if(
+                            Request::is('system/transfer-product/*')
+                        )  {!! 'style="color: #a8d3ec;"' !!} @endif>
+                            <i class="fa fa-retweet"></i>
+                            Chuyển kho
+                        </a>
+                    </li>
+                    <li>
                         <a href="/system/return-product/index"
                         @if(
                             Request::is('system/return-product/*')
                         )  {!! 'style="color: #a8d3ec;"' !!} @endif>
-                            <i class="fa fa-retweet"></i>
+                            <i class="fa fa-reply-all"></i>
                             Trả hàng
                         </a>
                     </li>
@@ -147,7 +156,7 @@
                 </a>
             </li>
 
-            <li class="{{ Request::is('system/shop/post/*') || Request::is('system/shop/page/*') || Request::is('system/shop/coupon/*') || Request::is('system/shop/ga/*') ? 'active' : '' }}">
+            <li class="{{ Request::is('system/shop/post-categories/*') || Request::is('system/shop/post/*') || Request::is('system/shop/page/*') || Request::is('system/shop/coupon/*') || Request::is('system/shop/ga/*') ? 'active' : '' }}">
                 <a href="javascript">
                     <i class="fa fa-leaf"></i>
                     <span class="nav-label">Website</span>
@@ -155,18 +164,59 @@
                 </a>
                 <ul class="nav nav-second-level collapse">
                     <li>
-                        <a href="{{ route('admin.post.index') }}">Tin tức</a>
+                        <a href="/system/shop/post-categories/index"
+                        @if(
+                            Request::is('system/shop/post-categories/*')
+                        )  {!! 'style="color: #a8d3ec;"' !!} @endif>
+                            <i class="fa fa-sitemap"></i>
+                            Danh mục tin
+                        </a>
                     </li>
                     <li>
-                        <a href="{{ route('admin.page.index') }}">Trang tĩnh</a>
+                        <a href="/system/shop/post/index"
+                        @if(
+                            Request::is('system/shop/post/*')
+                        )  {!! 'style="color: #a8d3ec;"' !!} @endif>
+                            <i class="fa fa-indent"></i>
+                            Tin tức
+                        </a>
                     </li>
                     <li>
-                        <a href="/system/shop/coupon/index">Mã coupon</a>
+                        <a href="/system/shop/page/index"
+                        @if(
+                            Request::is('system/shop/page/*')
+                        )  {!! 'style="color: #a8d3ec;"' !!} @endif>
+                            <i class="fa fa-files-o"></i>
+                            Trang tĩnh
+                        </a>
                     </li>
                     <li>
-                        <a href="/system/shop/ga/index">Google analytics</a>
+                        <a href="/system/shop/coupon/index"
+                        @if(
+                            Request::is('system/shop/coupon/*')
+                        )  {!! 'style="color: #a8d3ec;"' !!} @endif>
+                            <i class="fa fa-lastfm"></i>
+                            Mã coupon
+                        </a>
                     </li>
-                </li>
+                    <li>
+                        <a href="/system/shop/ga/index"
+                        @if(
+                            Request::is('system/shop/ga/*')
+                        )  {!! 'style="color: #a8d3ec;"' !!} @endif>
+                            <i class="fa fa-line-chart"></i>
+                            Google analytics
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="{{ Request::is('system/affiliate/*') ? 'active' : '' }}">
+                <a href="/system/affiliate/manager/dashboard">
+                    <i class="fa fa-globe"></i>
+                    <span class="nav-label">Affiliate management</span>
+                    <span class="fa arrow"></span>
+                </a>
             </li>
 
         </ul>

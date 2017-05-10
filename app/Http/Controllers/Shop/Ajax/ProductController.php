@@ -35,6 +35,8 @@ class ProductController extends Controller
         $productId = (int) $request->get('product_id');
 
         // Find all childs
+        // Tìm trong tất cả sản phẩm con, tìm tiếp sp con đó có những giá trị gì.
+        // So sánh giá trị đó với giá trị truyền vào nếu khớp thì lấy sản phẩm đó ra
         $childs = Product::where('parent_id', $productId)->get();
 
         foreach($childs as $item) {

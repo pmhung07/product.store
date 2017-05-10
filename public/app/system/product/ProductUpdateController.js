@@ -1,11 +1,13 @@
 import Helper from '../helper/helper';
 import app from '../app';
 
-app.ProductUpdateController = function() {
+app.ProductUpdateController = function(params) {
+
+    this.hasChild = params.has_child | 0;
 
     function init() {
         // Biến xác nhận có tạo variant hay ko?
-        var _fillAttr = true;
+        var _fillAttr = this.hasChild ? true : false;
 
         function initTagsInput() {
             // Input tags input
@@ -59,6 +61,11 @@ app.ProductUpdateController = function() {
         $(document).on('click', '.btn-delete-attribute', function(e) {
             e.preventDefault();
             $(this).parents('.attribute-row').remove();
+
+            // Nếu xóa hết, cập nhật lại trạng thái _fillAttr
+            if($('.attribute-row').length == 0) {
+                _fillAttr = false;
+            }
         });
 
         // Get file data when i click choose file from computer
@@ -115,7 +122,7 @@ app.ProductUpdateController = function() {
 
                 success : function(response) {
                     if(response.code == 1) {
-                        Helper.showMessageAndRedirect(response.message, 'success', response.redirect);
+                        // Helper.showMessageAndRedirect(response.message, 'success', response.redirect);
                     } else if(response.code == 422) {
                         Helper.showMessage(response.message, 'error');
                     }

@@ -13,8 +13,7 @@
 
 @section('content')
 <div class="row">
-    @include('layout.admin.sidebar-shop')
-    <div class="col-lg-9">
+    <div class="col-lg-12">
 
         <div class="ibox" style="margin-bottom:0px;">
             <div class="ibox-content">
