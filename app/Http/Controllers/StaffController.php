@@ -59,7 +59,7 @@ class StaffController extends Controller
 
     public function getCreate(){
     	//$staff = Staff::select('id','name','order_number','active')->get()->toArray();
-    	$users_position = UsersPosition::select('id','name')->get()->toArray();
+    	$users_position = UsersPosition::select('id','name')->where('fixed',1)->get()->toArray();
     	return view('admin.staff.create',compact('users_position'));
     }
 
@@ -251,4 +251,26 @@ class StaffController extends Controller
         return view('admin.staff.orders', ['rows' => $data, 'order_total' => $order_total, 'total_order' => $total_order, 'uid' => $uid, 'data_user' => $data_user]);
 
     }
+
+    public function getUserAutoComplete(Request $request){
+        $usersArray = array();
+        $data = User::select("id","name","email","phone","address")
+                ->where("name","LIKE","%{$request->get('search-input-user')}%")
+                ->orWhere("email","LIKE","%{$request->get('search-input-user')}%")
+                ->orWhere("phone","LIKE","%{$request->get('search-input-user')}%")
+                ->where("user_position_id","=",4)
+                ->get();
+
+        foreach($data as $index=>$user ){
+            $usersArray[$index] = [
+                'id' => $user->id,
+                'name' => $user->name,
+                'email' => $user->email,
+                'phone' => $user->phone,
+                'address' => $user->address,
+            ];
+        }
+        return response()->json($usersArray);
+    }
+
 }

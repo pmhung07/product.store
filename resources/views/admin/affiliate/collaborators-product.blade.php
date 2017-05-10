@@ -3,16 +3,14 @@
 @section('breadcrumbs')
 <div class="row wrapper border-bottom white-bg page-heading">
     <div class="col-lg-9">
-        <h2><i class="fa fa-list"></i> Danh sách bài </h2>
-    </div>
-    <div class="col-lg-3 btn-add">
-        <a href="system/shop/post/create" class="btn btn-primary " ><i class="fa fa-plus"></i>&nbsp;Thêm mới bài viết</a>
+        <h2><i class="fa fa-list"></i> Danh sách sản phẩm đã chọn</h2>
     </div>
 </div>
 @stop
 
 @section('content')
 <div class="row">
+
     <div class="col-lg-12">
         <div class="row">
             <div class="col-lg-12">
@@ -28,8 +26,22 @@
                                                     <span class="input-group-addon">
                                                         <i class="fa fa-search"></i>
                                                     </span>
-                                                    <input value="{!! Request::input('title') !!}" name="title" class="form-control filter-product-sku" style="width:100%;" type="text" placeholder="Tiêu đề bài viết">
+                                                    <input value="{!! Request::input('filter-product-sku') !!}" name="filter-product-sku" class="form-control filter-product-sku" style="width:100%;" type="text" placeholder="Mã sản phẩm">
                                                 </div>
+                                            </td>
+                                            <td>
+                                                <div class="input-group date">
+                                                    <span class="input-group-addon">
+                                                        <i class="fa fa-search"></i>
+                                                    </span>
+                                                    <input value="{!! Request::input('filter-product-name') !!}" name="filter-product-name" class="form-control filter-product-name" style="width:100%;" type="text" placeholder="Tên sản phẩm">
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <select name="filter-product-groupt-id" class="form-control filter-product-groupt-id" style="width:100%;">
+                                                    <option value="-1" selected>-- Nhóm sản phẩm --</option>
+                                                    <? cat_parent($product_group,0,'--',Request::input('filter-product-groupt-id'));?>
+                                                </select>
                                             </td>
                                             <td>
                                                 <input class="btn btn-sm btn-primary" type="submit" value="Tìm kiếm">
@@ -55,42 +67,43 @@
 
                     <div class="ibox-content">
                         <div class="table-responsive" style="overflow-x: inherit;">
-                            <table class="table table-striped table-bordered table-hover table-zip" id="editable" >
+                            <table class="table table-striped table-bordered table-hover table-zip" id="editable" style="font-size:11px;">
                                 <thead>
                                 <tr>
-                                    <th>#</th>
+                                    <th width="10">#</th>
+                                    <th width="100">Mã Sản phẩm</th>
                                     <th width="50">Ảnh</th>
-                                    <th width="">Tiêu đề</th>
-                                    <th width="200">Nhóm tin</th>
-                                    <th width="150">Ngày tạo</th>
-                                    <th class="text-right" width="120">Chức năng</th>
+                                    <th width="100">Tên Sản phẩm</th>
+                                    <th width="100">Nhóm sản phẩm</th>
+                                    <th style="color: #484848;border-color: #7bbf20;" width="250">Số sản phẩm bán được - <sup>Sản phẩm</sup></th>
+                                    <th style="color: #484848;border-color: #7bbf20;" width="170">Số tiền bán được - <sup>vnđ</sup></th>
+                                    <th style="color: #484848;border-color: #7bbf20;" width="80">Hoa hồng - <sup>vnđ</sup></th>
+                                    <th width="80">Hoạt động</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <?php
                                     $i=1;
+                                    $total_quantity_inventory = 0;
                                 ?>
                                 @foreach($rows as $row)
 
                                     <tr @if($i%2==0) {{'class="gradeA"'}} @else {{'class="gradeX"'}} @endif>
                                         <td>{{$i}}</td>
+                                        <td><a>{{$row->product_sku}}</a></td>
                                         <td>
-                                            <img src="{{ parse_image_url('sm_'.$row->image) }}" height="30">
+                                            <img src="{{ parse_image_url('sm_'.$row['image']) }}" height="35">
                                         </td>
-                                        <td>{{$row->title}}</td>
-                                        <td>{{$row->shop_post_categories_name}}</td>
-                                        <td>{{$row->created_at}}</td>
-                                        <td class="text-right footable-visible footable-last-column">
-                                            <div class="btn-group">
-                                                <a href="{!! URL::route('admin.post.getUpdate',$row->id) !!}" class="btn-white btn btn-xs">
-                                                    <i class="fa fa-edit "></i> Sửa
-                                                </a>
-                                                <a href="#" data-toggle="modal" data-target="#confirm-delete" data-href="{!! URL::route('admin.post.getDelete',$row->id) !!}"  class="btn-white btn btn-xs">
-                                                    <i class="fa fa-trash "></i> Xoá
-                                                </a>
-                                            </div>
+                                        <td><a>{{$row->product_name}}</a></td>
+                                        <td>{{$row->product_group_name}}</td>
+                                        <th style="color: #484848;border-color: #7bbf20;">{{$row->total_quantity}}</th>
+                                        <th style="color: #484848;border-color: #7bbf20;">{{$row->total_price}}</th>
+                                        <th style="color: #484848;border-color: #7bbf20;" width="150"></th>
+                                        <td class="text-center">
+                                            <?=($row->active == 1)?'<small class="label lb-sm-success">On</small>':'<small class="label lb-sm-cancel">Off</small>';?>
                                         </td>
                                     </tr>
+                                    <?php $i++;$total_quantity_inventory = $total_quantity_inventory + $row->quantity_inventory; ?>
                                 @endforeach
                                 </tbody>
                             </table>
@@ -99,6 +112,27 @@
                             <div class="col-lg-6 text-left paging-lst table">
                                 <div class="dataTables_paginate paging_bootstrap_full">
                                     {!! $rows->appends($_GET)->links() !!}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="ibox">
+                                    <div class="ibox-content bg-block">
+                                        <div class="sp-14-400"><a href="system/statistic/product"><i class="fa fa-bar-chart-o"></i> Thống kê sản phẩm</a></div>
+                                        <table class="table table-stripped m-t-md">
+                                            <tbody>
+                                            <tr>
+                                                <td class="" width="10">
+                                                    <i class="fa fa-circle text-success"></i>
+                                                </td>
+                                                <td class="">
+                                                    Tổng số lượng sản phẩm: <span class="text-danger">{!! number_format($total_row) !!}</span> sản phẩm
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                         </div>

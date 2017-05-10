@@ -14,8 +14,7 @@
 @section('content')
 
 <div class="row">
-    @include('layout.admin.sidebar-shop')
-    <div class="col-lg-9 animated">
+    <div class="col-lg-12 animated">
 
         @include('includes/flash-message')
 
