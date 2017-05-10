@@ -170,7 +170,7 @@
                     </div>
 
                     <div class="col-sm-12">
-                        <table class="table" style="margin-top: 20px;">
+                        <table class="table {{ !$hasVariant ? 'hide' : '' }}" style="margin-top: 20px;">
                             <thead>
                                 <th>#</th>
                                 <th>Ảnh</th>
@@ -280,7 +280,9 @@ $(document).ready(function() {
         autoclose: true
     });
 
-    new app.ProductUpdateController().init();
+    new app.ProductUpdateController({
+        has_child : {{ $data->has_child }}
+    }).init();
 });
 </script>
 @stop

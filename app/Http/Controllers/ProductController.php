@@ -114,6 +114,12 @@ class ProductController extends Controller
             }
         }
 
+        // Cập nhật has_child
+        if(count($valueCombinationArray)) {
+            $product->has_child = 1;
+            $product->save();
+        }
+
         return response()->json([
             'code' => 1,
             'message' => 'Thêm sản phẩm thành công!',
@@ -201,25 +207,29 @@ class ProductController extends Controller
     }
 
     public function postUpdate(Request $request,$id) {
-        // _debug($request->all());die;
-        $this->validate($request,
-            [
-				'product_name' => 'required',
-				'product_sku' => 'required',
-				'product_group' => 'required',
-				'product_unit' => 'required',
-				'product_price' => 'required'
-	        ],
-            [
-				'product_name.required' => 'Vui lòng nhập tên sản phẩm!',
-				'product_sku.required' => 'Vui lòng nhập mã sản phẩm!',
-				'product_group.required' => 'Vui lòng chọn nhóm sản phẩm!',
-				'product_unit.required' => 'Vui lòng chọn đơn vị đo sản phẩm!',
-				'product_price.required' => 'Vui lòng nhập giá bán sản phẩm!'
-             ]
-        );
-
         $product = Product::find($id);
+
+        // _debug($request->all());die;
+        $rules = [
+            'product_name' => 'required',
+            'product_sku' => 'required',
+            'product_group' => 'required',
+            'product_unit' => 'required',
+            'product_price' => 'required'
+        ];
+
+        $messages = [
+            'product_name.required' => 'Vui lòng nhập tên sản phẩm!',
+            'product_sku.required' => 'Vui lòng nhập mã sản phẩm!',
+            'product_group.required' => 'Vui lòng chọn nhóm sản phẩm!',
+            'product_unit.required' => 'Vui lòng chọn đơn vị đo sản phẩm!',
+            'product_price.required' => 'Vui lòng nhập giá bán sản phẩm!'
+        ];
+
+        if($product->hasChild()) unset($rules['product_sku']);
+
+        $this->validate($request,$rules,$messages);
+
     	$product->product_group_id = $request->product_group;;
     	$product->unit_id = $request->product_unit;
     	$product->name = $request->product_name;
@@ -258,6 +268,11 @@ class ProductController extends Controller
         // Tạo variant
         $properties = (array) $request->get('option');
         $values = (array) $request->get('value');
+
+        // Xóa sp con nếu ko có thuộc tính, hoặc giá trị. Người dùng xóa hoặc ko nhập
+        if(count($properties) == 0 && count($values) == 0) {
+            Product::where('parent_id', $product->id)->delete();
+        }
 
         $arrayAllValueIds = array();
 
@@ -347,6 +362,15 @@ class ProductController extends Controller
                 $variantModel->value_id = $valueId;
                 $variantModel->save();
             }
+        }
+
+        // Cập nhật has_child
+        if(count($valueCombinationArray)) {
+            $product->has_child = 1;
+            $product->save();
+        } else {
+            $product->has_child = 0;
+            $product->save();
         }
 
         return response()->json([
