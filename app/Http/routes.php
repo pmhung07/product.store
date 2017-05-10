@@ -26,12 +26,16 @@ Route::post('update-receiver-order',array('uses'=>'OrdersController@updateReceiv
 Route::post('update-note-order',array('uses'=>'OrdersController@updateNoteOrder'));
 Route::post('load-districts',array('uses'=>'OrdersController@loadDistricts'));
 Route::post('post-return-product',array('uses'=>'WarehouseReturnProductPhController@postReturnProduct'));
+Route::post('update-profit',array('uses'=>'AffiliateController@updateProfit'));
 Route::post('update-properties/{id}', ['as'=>'admin.properties.update','uses'=>'ProductController@updateProperties']);
 // Tìm kiếm khách hàng
 Route::get('get-customer-auto-complete', ['as'=>'admin.orders.getCustomer','uses'=>'OrdersController@getCustomerAutoComplete']);
 
 // Tìm kiếm sản phẩm
 Route::get('get-product-auto-complete', ['as'=>'admin.orders.getProduct','uses'=>'OrdersController@getProductAutoComplete']);
+
+// Tìm kiếm nhân viên
+Route::get('get-user-auto-complete', ['as'=>'admin.staff.getUser','uses'=>'StaffController@getUserAutoComplete']);
 
 // Tìm kiếm thuộc tính
 Route::get('get-properties-auto-complete', ['as'=>'admin.product.getPropertiesProduct','uses'=>'ProductController@getPropertiesAutoComplete']);
@@ -176,6 +180,32 @@ Route::group(['middleware' => 'auth'], function(){
 
 			// Nhập sản phẩm vào kho
 			Route::post('details/{id}', ['as' => 'admin.stock-receipt.getWarehousing' , 'uses' => 'WarehousePhController@postWarehousing']); // Per
+		});
+
+		// Quản lý chuyển kho
+		Route::group(['prefix' => 'transfer-product'], function(){
+
+			// Chi tiết sản phẩm đã nhập vào kho
+			Route::get('index', ['as' => 'admin.transfer-product.index' , 'uses' => 'WarehouseTransferPhController@getIndex']); // Per
+			Route::get('details/{id}', ['as' => 'admin.transfer-product.details' , 'uses' => 'WarehouseTransferPhController@getDetails']); // Per
+
+			// Tạo Phiếu chuyển kho
+			Route::get('create', ['as' => 'admin.transfer-product.getCreate' , 'uses' => 'WarehouseTransferPhController@getCreate']); // Per
+			Route::post('create', ['as' => 'admin.transfer-product.getCreate' , 'uses' => 'WarehouseTransferPhController@postCreate']); // Per
+
+			// Nhập sản phẩm vào phiếu
+			Route::get('update/{id}', ['as' => 'admin.transfer-product.getUpdate' , 'uses' => 'WarehouseTransferPhController@getUpdate']); // Per
+			Route::post('update/{id}', ['as' => 'admin.transfer-product.getUpdate' , 'uses' => 'WarehouseTransferPhController@postUpdate']); // Per
+
+			// Sửa xoá phiếu khi chưa nhập kho
+			Route::get('edit/{id}', ['as' => 'admin.transfer-product.getEdit' , 'uses' => 'WarehouseTransferPhController@getEdit']); // Per
+			Route::post('edit/{id}', ['as' => 'admin.transfer-product.getEdit' , 'uses' => 'WarehouseTransferPhController@postEdit']); // Per
+
+			// Xoá sản phẩm
+			Route::get('delete/{id}', ['as' => 'admin.transfer-product.getDelete' , 'uses' => 'WarehouseTransferPhController@getDelete']); // Per
+
+			// Nhập sản phẩm vào kho
+			Route::post('details/{id}', ['as' => 'admin.transfer-product.getWarehousing' , 'uses' => 'WarehouseTransferPhController@postWarehousing']); // Per
 		});
 
 		// Trả hàng
@@ -341,7 +371,31 @@ Route::group(['middleware' => 'auth'], function(){
 			Route::group(['prefix' => 'ga'], function() {
 				Route::get('index', ['as' => 'system.ga.index', 'uses' => 'System\GaController@getIndex']);
 			});
+
 		});
+
+		// Affiliate
+		Route::group(['prefix' => 'affiliate'], function(){
+			// Dành cho Admin & Quản lý
+			Route::group(['prefix' => 'manager'], function(){
+				Route::get('dashboard', ['as' => 'admin.affiliate.manager-dashboard' , function () { return view('admin.affiliate.manager-dashboard'); }]);
+				Route::get('product', ['as' => 'admin.affiliate.manager-product' , 'uses' => 'AffiliateController@getManagerProduct']);
+				Route::post('product', ['as' => 'admin.affiliate.manager-product' , 'uses' => 'AffiliateController@addManagerProduct']);
+				Route::get('collaborators-group', ['as' => 'admin.affiliate.collaborators-group' , 'uses' => 'AffiliateController@getCollaboratorsGroup']);
+				Route::post('collaborators-group', ['as' => 'admin.affiliate.collaborators-group' , 'uses' => 'AffiliateController@addCollaboratorsGroup']);
+				Route::get('users-collaborators-group/{group_id}', ['as' => 'admin.affiliate.users-collaborators-group' , 'uses' => 'AffiliateController@getUsersCollaboratorsGroup']);
+				Route::post('users-collaborators-group/{group_id}', ['as' => 'admin.affiliate.users-collaborators-group' , 'uses' => 'AffiliateController@addUsersCollaboratorsGroup']);
+				Route::get('users', ['as' => 'admin.affiliate.users' , 'uses' => 'AffiliateController@getUsers']);
+				Route::get('users-product/{user_id}', ['as' => 'admin.affiliate.users-product' , 'uses' => 'AffiliateController@getUsersProduct']);
+			});
+
+			// Dành cho cộng tác viên
+			Route::group(['prefix' => 'collaborators'], function(){
+				Route::get('product-listing', ['as' => 'admin.affiliate.manage-product.index' , 'uses' => 'AffiliateController@getManagerProduct']);
+				Route::get('product-manage', ['as' => 'admin.affiliate.manage-myproduct' , 'uses' => 'AffiliateController@getMyProduct']);
+			});
+		});
+
 	});
 });
 
