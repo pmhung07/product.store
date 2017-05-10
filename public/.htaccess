@@ -6,7 +6,10 @@
     RewriteEngine On
 
     RewriteRule ^site/getframe/([a-zA-Z0-9]*)/(.*) elements/$1/$2
-    RewriteRule ^site/live/([a-zA-Z0-9]*)/(.*) elements/$1/$2
+    #RewriteRule ^site/live/([a-zA-Z0-9]*)/(.*) elements/$1/$2
+
+    RewriteRule ^site/live/([a-zA-Z0-9]*)/(.*) test_htaccess.php?a=$1&b=$2
+
     RewriteRule ^site/rpreview/([a-zA-Z0-9]*)/([a-zA-Z0-9]*)/([a-zA-Z0-9]*)(.*) elements/$3/$4
     RewriteRule ^temple/index/([a-zA-Z0-9]*)/(.*) elements/$1/$2
     RewriteRule ^lp([a-zA-Z0-9]*)/([a-zA-Z0-9]*)/(.*) elements/$2/$3
