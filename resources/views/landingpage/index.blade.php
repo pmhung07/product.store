@@ -1,17 +1,93 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<!--<![endif]-->
+<head>
+    <!-- Basic Page Needs
+    ================================================== -->
+    <meta charset="utf-8">
+    <title>Logistics System</title>
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- Mobile Specific Metas
+    ================================================== -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"> 
+    <!-- Font Awesome -->
+    <link href="{{ URL::asset('elements/stylesheets/font-awesome.css') }}" rel="stylesheet">
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements. All other JS at the end of file. -->
+    <!--[if lt IE 9]>
+      <script src="js/html5shiv.js"></script>
+      <script src="js/respond.min.js"></script>
+    <![endif]-->
+    <!--headerIncludes-->
+    <!-- CSS
+    ================================================== -->
+    <link rel="stylesheet" href="{{ URL::asset('elements/stylesheets/menu.css') }}">
+    <link rel="stylesheet" href="{{ URL::asset('elements/stylesheets/flat-ui-slider.css') }}">
+    <link rel="stylesheet" href="{{ URL::asset('elements/stylesheets/base.css') }}">
+    <link rel="stylesheet" href="{{ URL::asset('elements/stylesheets/skeleton.css') }}">
+    <link rel="stylesheet" href="{{ URL::asset('elements/stylesheets/landings.css') }}">
+    <link rel="stylesheet" href="{{ URL::asset('elements/stylesheets/main.css') }}">
+    <link rel="stylesheet" href="{{ URL::asset('elements/stylesheets/landings_layouts.css') }}">
+    <link rel="stylesheet" href="{{ URL::asset('elements/stylesheets/box.css') }}">
+    <link rel="stylesheet" href="{{ URL::asset('elements/stylesheets/pixicon.css') }}">
+
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <!-- Favicons
+    ================================================== -->
+    <link rel="shortcut icon" href="{{ URL::asset('elements/images/main/favicon.ico') }}">
+    <link rel="apple-touch-icon" href="{{ URL::asset('elements/images/apple-touch-icon.png') }}">
+    <link rel="apple-touch-icon" sizes="72x72" href="{{ URL::asset('elements/images/apple-touch-icon-72x72.png') }}">
+    <link rel="apple-touch-icon" sizes="114x114" href="{{ URL::asset('elements/images/apple-touch-icon-114x114.png') }}">
+    
+</head>
+<body>
+
+<div id="page" class="page">
+    <?php echo $page;?>
+</div>
+
+<!-- JavaScript
+================================================== -->
+<script src="{{ URL::asset('elements/jsfiles/jquery-1.8.3.min.js') }}" type="text/javascript"></script>
+<script src="{{ URL::asset('elements/jsfiles/jquery.easing.1.3.js') }}" type="text/javascript"></script>
+<script type="text/javascript" src="{{ URL::asset('elements/jsfiles/jquery.common.min.js') }}"></script>
+<script src="{{ URL::asset('elements/jsfiles/ticker.js') }}" type="text/javascript"></script>
+<script src="{{ URL::asset('elements/jsfiles/custom1.js') }}" type="text/javascript"></script>
+<script src="{{ URL::asset('elements/assets/js/smoothscroll.min.js') }}" type="text/javascript"></script>
+<script src="{{ URL::asset('elements/assets/js/appear.min.js') }}" type="text/javascript"></script>
+<script src="{{ URL::asset('elements/jsfiles/jquery.ui.touch-punch.min.js') }}"></script>
+<script src="{{ URL::asset('elements/jsfiles/bootstrap.min.js') }}"></script>
+<script src="{{ URL::asset('elements/jsfiles/bootstrap-switch.js') }}"></script>
+<script src="{{ URL::asset('elements/jsfiles/custom3.js') }}" type="text/javascript"></script>
+</body>
+</html>
+
+
+
+
+
 <?php
-echo $skeleton;
+//echo $skeleton;
 ?>
 
 <?php
+/*
 $input_site_id = '<input type="hidden" name="site_id" value="'.$site_id.'">';
 $input_product_id = '<input type="hidden" name="product_id" value="'.$product_id.'">';
+*/
 ?>
 
-<script>
-	$('.hd-appent').append('<?=$input_site_id?>');
-	$('.hd-appent').append('<?=$input_product_id?>');
-    $('head').append('<title><?=$page_title?></title>')
-</script>
+<!--<script>
+	$('.hd-appent').append('<?//=$input_site_id?>');
+	$('.hd-appent').append('<?//=$input_product_id?>');
+    $('head').append('<title><?//=$page_title?></title>')
+</script>-->
 
 <!--<div class="landing_page_order">
 	<form action="" method="POST" class="form-horizontal">
@@ -55,7 +131,7 @@ $input_product_id = '<input type="hidden" name="product_id" value="'.$product_id
     </form>
 </div>-->
 
-<script>
+<!--<script>
     $('.landing_page_order_title').click(function(){
         if($(this).hasClass('landing_page_order_title_active')){
             $('.landing_page_order_content').hide();
@@ -133,4 +209,4 @@ $input_product_id = '<input type="hidden" name="product_id" value="'.$product_id
     border-radius: 3px;
     margin-top:5px;
 }
-</style>
+</style>-->
