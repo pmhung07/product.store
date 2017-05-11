@@ -1186,7 +1186,7 @@ class SiteController extends Controller
 		$ret->innertext = $page;
 		// Print it!
 		//echo $skeleton;
-		return view('landingpage.index',compact('page_title','skeleton','site_id','product_id','payment_methods','channel_id','product_price'));
+		return view('landingpage.index',compact('page_title','skeleton','site_id','product_id','payment_methods','channel_id','product_price','page'));
 
 		//$revisionOutput = $this->revisionmodel->buildRevision($siteID, $revisionStamp, $page);
 

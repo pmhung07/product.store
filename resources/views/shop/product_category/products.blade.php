@@ -9,9 +9,25 @@
                     <div class="catalog_filters_module tags">
                         <ul class="main_item_left list-unstyled">
                             @foreach($GLB_Categories as $item)
-                                <li class="item">
-                                    <a href="{{ $item->getUrl() }}">{{ $item->getName() }}</a>
-                                </li>
+                                @if($item->parent_id == 0)
+                                    <li class="item {{ $item->id == $category->id || $item->id == $category->parent_id ? 'active' : '' }}">
+                                        <a href="{{ $item->getUrl() }}">{{ $item->getName() }}</a>
+                                        <?php
+                                            $_categoryChilds = App\ProductGroup::where('parent_id', $item->id)->get();
+                                        ?>
+                                        @if($_categoryChilds->count() > 0)
+                                            <div class="catalog_filters filter-tag bupbe">
+                                                <ul class="check-box-list list-unstyled">
+                                                    @foreach($_categoryChilds as $childItem)
+                                                    <li class="advanced-filter {{ $childItem->id == $category->id ? 'check' : '' }}">
+                                                        <a class="tag-choise" href="{{ $childItem->getUrl() }}">{{ $childItem->name }}</a>
+                                                    </li>
+                                                    @endforeach
+                                                </ul>
+                                            </div>
+                                        @endif
+                                    </li>
+                                @endif
                             @endforeach
                         </ul>
                     </div>

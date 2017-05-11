@@ -63,8 +63,8 @@ return [
             'collation' => 'utf8_unicode_ci',
             'prefix' => '',
             'strict' => false,
-            'engine' => null,
-            'unix_socket'   => '/Applications/MAMP/tmp/mysql/mysql.sock'
+            'engine' => null
+            // 'unix_socket'   => '/Applications/MAMP/tmp/mysql/mysql.sock'
         ],
 
         'pgsql' => [
