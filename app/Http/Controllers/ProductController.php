@@ -207,9 +207,8 @@ class ProductController extends Controller
     }
 
     public function postUpdate(Request $request,$id) {
-        $product = Product::find($id);
-
         // _debug($request->all());die;
+        $product = Product::find($id);
         $rules = [
             'product_name' => 'required',
             'product_sku' => 'required',
@@ -326,6 +325,11 @@ class ProductController extends Controller
                         'message' => 'Sku: ' . $sku . ' đã tồn tại, vui lòng chọn một mã khác'
                     ]);
                 }
+            } else {
+                return response()->json([
+                    'code' => 422,
+                    'message' => 'Vui lòng nhập mã sản phẩm'
+                ]);
             }
         }
 
@@ -363,6 +367,8 @@ class ProductController extends Controller
                 $variantModel->save();
             }
         }
+
+        // _debug($valueCombinationArray);die;
 
         // Cập nhật has_child
         if(count($valueCombinationArray)) {

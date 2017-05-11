@@ -458,3 +458,10 @@ Route::group(['prefix' => 'ajax', 'namespace' => 'Ajax'], function() {
 // Ga
 Route::get('/ga/analyze', ['as' => 'ga.analyze', 'uses' => 'GaController@analyze']);
 
+// Landing page resource
+// Route::get('site/getframe/{p1}/{p2}', 'LandingResourceController@getIndex');
+// Route::get('site/live/{p1}/{p2}', 'LandingResourceController@getIndex');
+// Route::get('site/rpreview/{p1}/{p2}/{p3}{p4}', 'LandingResourceController@getIndex');
+// Route::get('temple/index/{p1}/{p2}', 'LandingResourceController@getIndex');
+// Route::get('lp{p1}/{p2}/{p3}', 'LandingResourceController@getIndex');
+
