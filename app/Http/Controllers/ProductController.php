@@ -273,6 +273,11 @@ class ProductController extends Controller
         if(count($properties) == 0 && count($values) == 0) {
             // Delete all child if exist
             Product::where('parent_id', $id)->delete();
+            $tempProperties = Properties::where('product_id', $id)->get();
+            foreach($tempProperties as $item) {
+                $item->values()->delete();
+                $item->delete();
+            }
         }
 
         // Xóa sp con nếu ko có thuộc tính, hoặc giá trị. Người dùng xóa hoặc ko nhập
