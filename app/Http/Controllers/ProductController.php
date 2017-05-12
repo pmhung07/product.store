@@ -270,6 +270,7 @@ class ProductController extends Controller
         $properties = (array) $request->get('option');
         $values = (array) $request->get('value');
 
+        // Xóa sp con nếu ko có thuộc tính, hoặc giá trị. Người dùng xóa hoặc ko nhập
         if(count($properties) == 0 && count($values) == 0) {
             // Delete all child if exist
             Product::where('parent_id', $id)->delete();
@@ -278,11 +279,6 @@ class ProductController extends Controller
                 $item->values()->delete();
                 $item->delete();
             }
-        }
-
-        // Xóa sp con nếu ko có thuộc tính, hoặc giá trị. Người dùng xóa hoặc ko nhập
-        if(count($properties) == 0 && count($values) == 0) {
-            Product::where('parent_id', $product->id)->delete();
         }
 
         $arrayAllValueIds = array();
