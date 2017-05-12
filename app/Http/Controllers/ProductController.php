@@ -41,6 +41,7 @@ class ProductController extends Controller
         $product->weight = $request->product_weight;
         $product->volume = $request->product_volume;
         $product->promotion_price = to_numberic($request->promotion_price);
+        $product->content = clean($request->get('content'));
 
         if($request->hasFile('image')) {
             $resultUpload = $this->imageUploader->upload('image');
@@ -238,6 +239,7 @@ class ProductController extends Controller
         $product->warning_out_of_stock = $request->product_warning_low_in_stock;
         $product->weight = $request->product_weight;
         $product->volume = $request->product_volume;
+        $product->content = clean($request->get('content'));
 
         if($request->hasFile('image')) {
             $resultUpload = $this->imageUploader->upload('image');

@@ -13,7 +13,7 @@
         return this.each(function() {
             $(this).on('click', function(e) {
                 e.preventDefault();
-                var url = '/cart/add-to-cart?product_id='+ options.product_id +'&qty=' + options.qty;
+                var url = '/cart/add-to-cart?product_id='+ options.product_id +'&qty=' + options.qty + '&variant_sku='+options.variant_sku;
                 window.location.href = url;
             });
         });

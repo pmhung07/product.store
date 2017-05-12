@@ -119,6 +119,12 @@
                             </div>
                         </div>
 
+                        <div class="form-group"><label class="col-sm-3 control-label">Mô tả sản phẩm</label>
+                            <div class="col-sm-9">
+                                <textarea name="content" class="form-control summernote"></textarea>
+                            </div>
+                        </div>
+
                         <div class="form-group">
                             <label class="control-label col-sm-3">
                                 Sản phẩm có nhiều phiên bản
