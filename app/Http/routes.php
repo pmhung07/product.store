@@ -458,3 +458,4 @@ Route::group(['prefix' => 'ajax', 'namespace' => 'Ajax'], function() {
 // Ga
 Route::get('/ga/analyze', ['as' => 'ga.analyze', 'uses' => 'GaController@analyze']);
 
+Route::get('/test', 'TestController@index');

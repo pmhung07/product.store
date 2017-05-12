@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests;
 use App\Models\VariantCombination;
 use App\Product;
+use App\Properties;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -16,7 +17,10 @@ class ProductController extends Controller
         $productId = (int) $request->get('product_id');
         $product = Product::findOrFail($productId);
 
-        return view('shop/product/quickview', compact('product'));
+        // Variant
+        $properties = Properties::with('values')->where('product_id', $product->id)->get();
+
+        return view('shop/product/quickview', compact('product', 'properties'));
     }
 
     /**

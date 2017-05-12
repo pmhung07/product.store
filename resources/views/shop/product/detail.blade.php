@@ -33,25 +33,26 @@
                             @include('shop/product/right')
                         </div>
 
-                        <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12 no-padding">
-                            <div class="deliver-top withStore">
-                                <div class="countstocks">Có {{ $warehouses->count() }} cửa hàng</div>
-                                <div class="descrip">còn sản phẩm này</div>
-                                <div class="hidden"><a class="storemulticlick clickmultistock" data-toggle="modal" data-target="#myModalmultistock" href="#">bấm để xem danh sách</a></div>
-                                <div class="chontinhthanh">
-                                    <select id="tinhthanh">
-                                        <option value="">Tỉnh/Thành phố</option>
-                                        @foreach($provinces as $item)
-                                            <option value="{{ $item->id }}">{{ $item->name }}</option>
+                        @if($warehouses->count() > 0)
+                            <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12 no-padding">
+                                <div class="deliver-top withStore">
+                                    <div class="countstocks">Hệ thống {{ $warehouses->count() }} cửa hàng</div>
+                                    <div class="hidden"><a class="storemulticlick clickmultistock" data-toggle="modal" data-target="#myModalmultistock" href="#">bấm để xem danh sách</a></div>
+                                    <div class="chontinhthanh">
+                                        <select id="tinhthanh">
+                                            <option value="">Tỉnh/Thành phố</option>
+                                            @foreach($provinces as $item)
+                                                <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div id="stock-box" class="">
+                                        @foreach($warehouses as $item)
+                                            {!! view('shop/product/stock_item', ['stock' => $item])->render() !!}
                                         @endforeach
-                                    </select>
                                 </div>
-                                <div id="stock-box" class="">
-                                    @foreach($warehouses as $item)
-                                        {!! view('shop/product/stock_item', ['stock' => $item])->render() !!}
-                                    @endforeach
                             </div>
-                        </div>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -60,32 +61,6 @@
     <div id="descriptionproduct" class="container wow fadeIn" style="margin-top:20px">
         <div class="row clearfix">
             <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
-                <div class="thongso hide" role="tabpanel" id="tab-product">
-                    <ul class="nav nav-tabs" role="tablist">
-                        <li role="presentation" ><a href="balo-day-rut-bl020.html#home" aria-controls="home1" role="tab" data-toggle="tab">Thông số kỹ thuật</a></li>
-                    </ul>
-                    <div class="tab-content">
-                        <div role="tabpanel" class="tab-pane active" id="home1">
-                            <!--DESCRIPTION-->
-                            <div class="">
-                                <div class="row">
-                                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                        <img class="img-responsive" src="{{ parse_image_url('md_'. $product->getImage()) }}" alt="{{ $product->getName() }}" title="{{ $product->getName() }}"/>
-                                    </div>
-                                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                        <div class="backsys" >
-                                            <div><span class="infobe">Mã SP</span><span class="infoaf">BL020</span></div>
-                                            <div><span class="infobe">Kiểu dáng</span><span class="infoaf"> Ba lô thời trang</span></div>
-                                            <div><span class="infobe">Chất liệu</span><span class="infoaf"> Da tổng hợp</span></div>
-                                            <div><span class="infobe">Màu sắc</span><span class="infoaf"> Đen - Đỏ</span></div>
-                                            <div><span class="infobe">Kích cỡ</span><span class="infoaf"> 25cm x 30cm x 11cm</span></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
 
                 @if($product->getContent())
                     <div class="description" role="tabpanel" id="tab-product">
@@ -94,8 +69,8 @@
                             <li role="presentation" class="active"><a href="javascript;" aria-controls="home" role="tab" data-toggle="tab">Chi tiết sản phẩm</a></li>
                         </ul>
                         <div class="tab-content">
-                            <div role="tabpanel" class="tab-pane active" id="home">
-
+                            <div role="tabpanel" class="tab-pane active" id="home" style="padding-top: 15px;">
+                                {!! $product->getContent() !!}
                             </div>
                         </div>
                     </div>

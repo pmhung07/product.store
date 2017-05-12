@@ -2,12 +2,12 @@ import Helper from '../helper/helper';
 import app from '../app';
 
 app.ProductUpdateController = function(params) {
-
-    this.hasChild = params.has_child | 0;
+    var _that = this;
+    this.hasChild = params.has_child ? params.has_child : 0;
 
     function init() {
         // Biến xác nhận có tạo variant hay ko?
-        var _fillAttr = this.hasChild ? true : false;
+        var _fillAttr = _that.hasChild ? true : false;
 
         function initTagsInput() {
             // Input tags input
