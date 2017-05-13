@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 4);
+/******/ 	return __webpack_require__(__webpack_require__.s = 7);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -149,50 +149,145 @@ module.exports = Helper;
 
 /***/ }),
 /* 2 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports) {
 
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__less_custom_style_less__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__less_custom_style_less___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__less_custom_style_less__);
+///// PLUGIN
+(function( $ ) {
 
+    // Tag input
+    $.fn.inficaTagsInput = function(options) {
+        var _default = {
+            width: '100%',
+            height: 'auto',
+            placeHolder: "Add a tag",
+            maxTags : 10,
+            items: [],
+            onAddTag : function(tag) {},
+            onRemoveTag: function(element) {}
+        };
+
+        options = $.extend(_default, options);
+
+        return this.each(function() {
+            var $this = $(this);
+
+            // Ẩn control thật
+            $this.hide();
+
+            var tagItemsId = [];
+
+            containerId = Math.round(Math.random(111111111,99999999)*100000000 + Math.floor(Date.now() / 1000));
+            var $container = $('<div>').attr({
+                id: 'infica-tags-input-container-'+containerId,
+                class : 'infica-tags-input-container'
+            }).css({
+                width: options.width,
+                height: options.height
+            });
+
+            var $input = $('<input />').attr({
+                type: 'text',
+                class: 'infica-tags-input-input',
+                placeHolder: options.placeHolder
+            });
+
+            var items = options.items;
+
+            function add_tag(tag) {
+                items.push(tag);
+
+                options.onAddTag(tag);
+            }
+
+            function handle_remove_tag(e) {
+                console.log(e);
+            }
+
+            function generate_tag() {
+                // Reset
+                $container.empty();
+                // Append
+
+                var length = items.length;
+                if(length > options.maxTags) length = options.maxTags;
+
+                for(var i = 0; i < length; i ++) {
+                    var item = items[i];
+
+                    var $item = $('<span>').attr({
+                        class: 'infica-tag-item',
+                        'data-id' : item.id,
+                        'data-label': item.label
+                    }).html('<span>'+$.trim(item.label)+'</span>');
+
+                    var $close = $('<i>').attr({
+                        class : 'infica-tag-close',
+                        'data-id' : item.id,
+                        'data-label': $.trim(item.label)
+                    }).text('x');
+
+                    $item.append($close);
+
+                    $container.append($item);
+                }
+
+                $container.append($input);
+                $container.insertAfter($this);
+
+                $this.val(get_tag_values().join(','));
+            }
+
+            function get_tag_ids() {
+                var ids = [];
+                for(var i = 0; i < items.length; i ++) {
+                    ids.push(items[i].id);
+                }
+
+                return ids;
+            }
+
+            function get_tag_values() {
+                var values = [];
+                for(var i = 0; i < items.length; i ++) {
+                    values.push(items[i].label);
+                }
+
+                return values;
+            }
+
+            generate_tag();
+
+            // Keypress add tag
+            $(document).on('keypress', '#infica-tags-input-container-'+containerId+' .infica-tags-input-input', function(e) {
+                var keyCode = e.keyCode | e.which;
+
+                if(keyCode == 44 || keyCode == 13) {
+                    add_tag({
+                        id: 0,
+                        label: $(e.currentTarget).val()
+                    });
+
+                    generate_tag();
+
+                    $(this).focus();
+
+                    $(this).val('');
+
+                    return false;
+                }
+            });
+
+            // Remove tag
+            $(document).on('click', '#infica-tags-input-container-'+containerId+' .infica-tag-close', function(e) {
+                $(this).parents('.infica-tag-item').remove();
+                options.onRemoveTag(this);
+            });
+        });
+    }
+})( jQuery );
 
 /***/ }),
 /* 3 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__plugins_infica_tags_input_infica_tags_input_js__ = __webpack_require__(13);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__plugins_infica_tags_input_infica_tags_input_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__plugins_infica_tags_input_infica_tags_input_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__plugins_infica_tags_input_infica_tags_input_scss__ = __webpack_require__(14);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__plugins_infica_tags_input_infica_tags_input_scss___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__plugins_infica_tags_input_infica_tags_input_scss__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__product_ProductAddController__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__product_ProductUpdateController__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ga_GaController_js__ = __webpack_require__(5);
-// Plugins
-
-
-
-// System Product
-
-
-
-// Ga
-
-
-/***/ }),
-/* 4 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__system_entry_js__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__shop_entry_js__ = __webpack_require__(2);
-
-
-
-
-/***/ }),
-/* 5 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -404,7 +499,7 @@ __WEBPACK_IMPORTED_MODULE_1__app___default.a.GaController = function(params) {
 }
 
 /***/ }),
-/* 6 */
+/* 4 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -542,7 +637,7 @@ __WEBPACK_IMPORTED_MODULE_1__app___default.a.ProductAddController = function() {
 };
 
 /***/ }),
-/* 7 */
+/* 5 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -752,77 +847,34 @@ __WEBPACK_IMPORTED_MODULE_1__app___default.a.ProductUpdateController = function(
 }
 
 /***/ }),
-/* 8 */
+/* 6 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
-/* 9 */,
-/* 10 */,
-/* 11 */,
-/* 12 */,
-/* 13 */
-/***/ (function(module, exports) {
+/* 7 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-///// PLUGIN
-(function( $ ) {
-
-    // Tag input
-    $.fn.inficaTagsInput = function(options) {
-        var _default = {
-            width: '100%',
-            height: 90,
-            placeHolder: "Add a tag",
-            items: []
-        };
-        options = $.extend(_default, options);
-        return this.each(function() {
-            var $this = $(this);
-
-            var tagItemsId = [];
-
-            var $container = $('<div>').attr({
-                class : 'infica-tags-input-container'
-            }).css({
-                width: options.width,
-                height: options.height
-            });
-
-            var $input = $('<input />').attr({
-                type: 'text',
-                class: 'infica-tags-input-input',
-                placeHolder: options.placeHolder
-            });
-
-            var items = options.items;
-
-            for(var i = 0; i < items.length; i ++) {
-                var item = items[i];
-
-                var $item = $('<span>').attr({
-                    class: 'infica-tag-item',
-                    'data-id' : item.id,
-                    'data-label': item.label
-                });
-
-                $container.append($item);
-
-                tagItemsId.push(item.id);
-            }
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__plugins_infica_tags_input_infica_tags_input_js__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__plugins_infica_tags_input_infica_tags_input_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__plugins_infica_tags_input_infica_tags_input_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__plugins_infica_tags_input_infica_tags_input_scss__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__plugins_infica_tags_input_infica_tags_input_scss___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__plugins_infica_tags_input_infica_tags_input_scss__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__product_ProductAddController__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__product_ProductUpdateController__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ga_GaController_js__ = __webpack_require__(3);
+// Plugins
 
 
-            $container.append($input);
-            $container.insertAfter($(this));
-        });
-    }
-})( jQuery );
 
-/***/ }),
-/* 14 */
-/***/ (function(module, exports) {
+// System Product
 
-// removed by extract-text-webpack-plugin
+
+
+// Ga
+
 
 /***/ })
 /******/ ]);
