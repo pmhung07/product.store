@@ -189,15 +189,17 @@ class ProductController extends Controller
         foreach($childProducts as $item) {
             // Lọc từng sp con, lấy ra value_id của nó
             $variantValue = VariantValue::where('variant_id', $item->id)->first();
-            $valueIds = explode(',', $variantValue->values_str);
-            $values = PropertiesValue::whereIn('id', $valueIds)->get();
+            if($variantValue) {
+                $valueIds = explode(',', $variantValue->values_str);
+                $values = PropertiesValue::whereIn('id', $valueIds)->get();
 
-            $_properties = [];
-            foreach($values as $vItem) {
-                $_properties[$vItem->properties_id][] = $vItem->name;
+                $_properties = [];
+                foreach($values as $vItem) {
+                    $_properties[$vItem->properties_id][] = $vItem->name;
+                }
+
+                $item->property = $_properties;
             }
-
-            $item->property = $_properties;
         }
 
         return view('admin.product.update',compact('group_product','data', 'units', 'hasVariant', 'properties', 'childProducts'));
@@ -346,13 +348,7 @@ class ProductController extends Controller
     public function postUpdateOption(Request $request)
     {
         $product = Product::findOrFail($request->get('product_id'));
-        // Clear old data
         $oldChilds = Product::where('parent_id', $product->id)->get();
-        foreach($oldChilds as $item) {
-            VariantCombination::where('product_id', $item->id)->delete();
-        }
-
-        // VariantValue::where('product_id', $product->id)->delete();
 
         $properties = (array) $request->get('option');
         $values = (array) $request->get('value');
@@ -406,8 +402,6 @@ class ProductController extends Controller
             $childProductsArray[] = $item->toArray();
         }
 
-        // Nếu số lượng biến thể nhiều hơn sl sp
-
         foreach($valueCombinationArray as $key => $valueIdArray) {
             asort($valueIdArray);
 
@@ -449,7 +443,7 @@ class ProductController extends Controller
             $product->save();
         }
 
-        return response()->json(['code' => 1, 'type' => 'success', 'message' => 'Cập nhật thành công']);
+        return response()->json(['code' => 1, 'type' => 'success', 'message' => 'Cập nhật thành công', 'redirect' => route('admin.product.getUpdate', $product->id)]);
     }
 
 
@@ -478,12 +472,14 @@ class ProductController extends Controller
     {
         $id = $request->get('id');
         $value = PropertiesValue::findOrFail($id);
-
-        // Xóa luôn sp liên quan
-        $productIds = VariantCombination::where('value_id', $id)->lists('product_id')->toArray();
-        Product::whereIn('id', $productIds)->delete();
-
         $value->delete();
+
+        // Xóa tất cả variant liên quan đến cái giá trị này
+        $variantValues = VariantValue::where('values_str', 'LIKE', '%'. $id .'%')->get();
+        foreach($variantValues as $item) {
+            Product::where('id', $item->variant_id)->delete();
+            $item->delete();
+        }
 
         return response()->json(['id' => $id, 'code' => 1, 'type' => 'success', 'message' => 'Xóa không thành công']);
     }

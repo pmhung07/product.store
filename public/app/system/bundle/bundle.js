@@ -830,7 +830,7 @@ __WEBPACK_IMPORTED_MODULE_1__app___default.a.ProductUpdateController = function(
                 data: $this.serialize(),
                 dataType: "json",
                 success: function(response) {
-                    __WEBPACK_IMPORTED_MODULE_0__helper_helper___default.a.showMessage(response.message, response.type);
+                    __WEBPACK_IMPORTED_MODULE_0__helper_helper___default.a.showMessageAndRedirect(response.message, response.type, response.redirect);
                     $('#modal-show-change-option').modal('hide');
                 }
             })

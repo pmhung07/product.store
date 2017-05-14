@@ -169,7 +169,7 @@ app.ProductUpdateController = function(params) {
                 data: $this.serialize(),
                 dataType: "json",
                 success: function(response) {
-                    Helper.showMessage(response.message, response.type);
+                    Helper.showMessageAndRedirect(response.message, response.type, response.redirect);
                     $('#modal-show-change-option').modal('hide');
                 }
             })
