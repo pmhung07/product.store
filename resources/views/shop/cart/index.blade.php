@@ -48,17 +48,16 @@
                                                     $properties = App\Properties::where('product_id', $item->options->product->parent_id)
                                                                             ->get();
 
-                                                    $productPropertyValues = App\PropertiesValue::join('variant_combination', 'properties_value.id', '=', 'variant_combination.value_id')
-                                                                                ->where('product_id', $item->id)
-                                                                                ->select('properties_value.*', 'variant_combination.product_id as product_id')
-                                                                                ->groupBy('properties_value.properties_id')
-                                                                                ->get();
+
+                                                    $variantValue = App\Models\VariantValue::where('variant_id', $item->options->product->id)->first();
+                                                    $valuesIds = explode(',', $variantValue->values_str);
+                                                    $valueCollection = App\PropertiesValue::whereIn('id', $valuesIds)->get();
 
                                                     foreach($properties as $property) {
                                                         echo '<li>';
                                                         echo $property->name . ': ';
 
-                                                        foreach($productPropertyValues as $pvItem) {
+                                                        foreach($valueCollection as $pvItem) {
                                                             if($property->id == $pvItem->properties_id) {
                                                                 echo $pvItem->name;
                                                             }

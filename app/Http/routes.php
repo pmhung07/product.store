@@ -108,7 +108,7 @@ Route::group(['middleware' => 'auth'], function(){
 		});
 
 		// Quản lý Sản phẩm
-		Route::group(['prefix' => 'product'], function(){
+		Route::group(['prefix' => 'product'], function() {
 
 			// Danh sách sản phẩm
 			Route::get('index', ['as' => 'admin.product.index' , 'uses' => 'ProductController@getIndex']); // Per
@@ -124,11 +124,15 @@ Route::group(['middleware' => 'auth'], function(){
 			// Xoá sản phẩm
 			Route::get('delete/{id}', ['as' => 'admin.product.getDelete' , 'uses' => 'ProductController@getDelete']); // Per
 
-			// Thuộc tính sản phẩm
-			Route::get('properties/{id}', ['as' => 'admin.product.getProperties' , 'uses' => 'ProductController@getProperties']); // Per
+			// Variant
+			Route::get('variant/{id}/delete', ['as' => 'admin.product.deleteVariant', 'uses' => 'ProductController@getDeleteVariant']);
 
-			// Xoá thuộc tính sản phẩm
-			Route::get('properties-delete/{id}', ['as' => 'admin.product.getDeleteProperties' , 'uses' => 'ProductController@getDeleteProperties']); // Per
+			// Option
+			Route::post('option/update', ['as' => 'admin.product.variant.create', 'uses' => 'ProductController@postUpdateOption']);
+			Route::get('option/{id}/delete', ['as' => 'admin.product.deleteOption', 'uses' => 'ProductController@getDeleteOption']);
+
+			// Xóa option value
+			Route::post('ajax/delete-option-value', ['as' => 'admin.product.ajax.deleteOptionValue', 'uses' => 'ProductController@getDeleteOptionValue']);
 		});
 
 		// Quản lý kho hàng

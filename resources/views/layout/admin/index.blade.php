@@ -46,7 +46,7 @@
 
     <!-- Xoxo jquery tagsinput -->
     <link rel="stylesheet" type="text/css" href="/js/plugins/jQuery-Tags-Input/dist/jquery.tagsinput.min.css">
-    <script type="text/javascript" src="/js/plugins/jQuery-Tags-Input/dist/jquery.tagsinput.min.js"></script>
+    <script type="text/javascript" src="/js/plugins/jQuery-Tags-Input/src/jquery.tagsinput.js"></script>
 
     <script type="text/javascript">
         if(typeof App === 'undefined') {
@@ -57,11 +57,12 @@
         }
     </script>
 
-    <script src="/bundle/bundle.js" type="text/javascript"></script>
-
     <script src="js/functions.js"></script>
     <script src="/js/core/helper.js" type="text/javascript"></script>
     <script src="js/core/core.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="/app/system/bundle/style.css">
+    <script src="/app/system/bundle/bundle.js" type="text/javascript"></script>
 </head>
 
 <body>

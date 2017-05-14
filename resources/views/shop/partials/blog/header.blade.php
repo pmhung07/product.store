@@ -93,13 +93,49 @@
                                     </li>
                                     @foreach($GLB_Categories as $item)
                                         @php if($item->parent_id > 0) continue; @endphp
-                                        <li  class="menu-li hasChild bup-be-1-click  fix-icon-coll" >
-                                            <a href="{{ $item->getUrl() }}">
-                                                <div class="coll-icon bup-be-1-click">
-                                                    <span  class="title-main-menu bup-be-1-click ">{{ $item->name }}</span>
-                                                </div>
-                                            </a>
-                                        </li>
+                                            <?php
+                                                $childs = App\ProductGroup::where('parent_id', $item->id)->get();
+                                            ?>
+                                            <li  class="menu-li {{ $childs->count() > 0 ? 'hasChild' : 0 }} bup-be-1-click  fix-icon-coll" >
+                                                <a href="{{ $item->getUrl() }}">
+                                                    <div class="coll-icon bup-be-1-click">
+                                                        <span  class="title-main-menu bup-be-1-click ">{{ $item->name }}</span>
+                                                    </div>
+                                                </a>
+
+                                                @if($childs->count())
+                                                    <ul class="dropdown-menu drop-menu" style="left: 0%; width: 500px; border-radius: 0px 0px 5px 5px; display: none; height: 221px; padding-top: 15px; margin-top: 0px; padding-bottom: 15px; margin-bottom: 0px;">
+                                                        <?php
+                                                            $newestProduct = App\Product::where('product_group_id', $item->id)->orderBy('created_at', 'DESC')->first();
+                                                        ?>
+                                                        @if($newestProduct)
+                                                            <li class="menu-hover-li">
+                                                                <div class="col-lg-12 col-md-12 menu-back-new">
+                                                                    <span class="menu-title-new">Mới nhất hôm nay</span>
+                                                                </div>
+                                                                <div class="col-lg-12 col-md-12" style="padding-right:5px">
+                                                                    <div class="col-lg-6 col-md-6" style="padding:0">
+                                                                        <a href="{{ $newestProduct->getUrl() }}" target="_blank">
+                                                                            <div class="field-sale-2"><span>MỚI</span></div>
+                                                                            <img src="{{ parse_image_url('md_' . $newestProduct->image) }}" style="object-fit: cover; object-position: center center; width: 100%; height: 90px;">
+                                                                        </a>
+                                                                    </div>
+                                                                    <div class="col-lg-6 col-md-6 menu-content-new">
+                                                                        <div style="padding-bottom: 10px;">
+                                                                            <span class="menu-tilte-pr">{{ $newestProduct->name }}</span><br>
+                                                                        </div>
+                                                                        <div class="menu-price-pr">{{ formatCurrency($newestProduct->price) }}<sup>đ</sup></div>
+                                                                        <a href="{{ $newestProduct->getUrl() }}">Xem chi tiết</a>
+                                                                    </div>
+                                                                </div>
+                                                            </li>
+                                                        @endif
+                                                        @foreach($childs as $childItem)
+                                                            <li style="width:30%;float:left;"><a href="{{ $childItem->getUrl() }}"><i class="fa fa-caret-right" style="color:#666;padding-right:10px"></i> {{ $childItem->name }}</a></li>
+                                                        @endforeach
+                                                    </ul>
+                                                @endif
+                                            </li>
                                     @endforeach
                                 </ul>
                             </div>

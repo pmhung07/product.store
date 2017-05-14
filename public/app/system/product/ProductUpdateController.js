@@ -5,43 +5,24 @@ app.ProductUpdateController = function(params) {
     var _that = this;
     this.hasChild = params.has_child ? params.has_child : 0;
 
+    /**
+     * Request delete option value
+     */
+    function requestDeleteOptionvalue(variantId, valueId) {
+        // console.log(e);
+        $.ajax({
+            url: "/ajax/delete-option-value",
+            type: "POST",
+            data: {
+                variant_id : variantId,
+                valueId: valueId
+            }
+        });
+    }
+
     function init() {
         // Biến xác nhận có tạo variant hay ko?
         var _fillAttr = _that.hasChild ? true : false;
-
-        function initTagsInput() {
-            // Input tags input
-            $('.attribute-value-input').tagsInput({
-                defaultText : '',
-                width: '100%',
-                height: 100
-            });
-        }
-
-        initTagsInput();
-
-        // Show form add variant
-        $('#add-variant').click(function(e) {
-            e.preventDefault();
-            $('#variant-container').removeClass('hide');
-
-            //  Ẩn hiện nút đóng
-            if(!$('#variant-container').hasClass('hide')) {
-                $('#cancel-variant').removeClass('hide');
-            } else {
-                $('#cancel-variant').addClass('hide');
-            }
-
-            _fillAttr = true;
-        });
-
-        // Cancel variant
-        $('#cancel-variant').click(function() {
-            $('#variant-container').addClass('hide');
-            $(this).addClass('hide');
-
-            _fillAttr = false;
-        });
 
         // Append control to create variant
         $('#btn-add-new-attribute').click(function(e) {
@@ -50,7 +31,9 @@ app.ProductUpdateController = function(params) {
             // $(document.getElementById('template-new-attribute').innerHTML).insertAfter('.first-attribute');
             $('#placement-new-attribute').append($(document.getElementById('template-new-attribute').innerHTML));
 
-            initTagsInput();
+            $('#placement-new-attribute .attribute-value-input:last').inficaTagsInput({
+                placeHolder: "VD: Xanh,Đỏ,Vàng"
+            });
 
             if($('.attribute-row').length == 3) {
                 $(this).addClass('hide');
@@ -103,11 +86,6 @@ app.ProductUpdateController = function(params) {
                 }
             }
 
-            if(_fillAttr == false) {
-                formData.delete('option[]');
-                formData.delete('value[]');
-            }
-
             $.ajax({
                 url: $form.attr('action'),
                 type: "POST",
@@ -157,6 +135,42 @@ app.ProductUpdateController = function(params) {
                 success : function(response) {
                     $('#variant-upload-image-' + _tempIndexVariantImage).attr('src', response.url);
                     $('#variant-image-' + _tempIndexVariantImage).attr('value', response.filename);
+                }
+            })
+        });
+
+
+        // Xóa variant
+        $('.action-delete-variant').click(function(e) {
+            e.preventDefault();
+            var $this = $(this);
+            if(confirm("Bạn có chắc chắn muốn xóa sản phẩm này?")) {
+                $.ajax({
+                    url: "/system/product/variant/"+$this.data('variant_id')+"/delete",
+                    type: "GET",
+                    data: {},
+                    dataType: "json",
+                    success: function(response) {
+                        Helper.showMessage(response.message, response.type);
+                        window.location.reload();
+                    }
+                });
+            }
+        });
+
+        // Update option
+        $('#form-create-option').on('submit', function(e) {
+            e.preventDefault();
+            var $this = $(this);
+            var $this = $(this);
+            $.ajax({
+                url: "/system/product/option/update",
+                type: "POST",
+                data: $this.serialize(),
+                dataType: "json",
+                success: function(response) {
+                    Helper.showMessageAndRedirect(response.message, response.type, response.redirect);
+                    $('#modal-show-change-option').modal('hide');
                 }
             })
         });
