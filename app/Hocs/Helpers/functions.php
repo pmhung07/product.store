@@ -625,6 +625,10 @@ if ( ! function_exists('combinations') ) {
 	        }
 	    }
 
+	    foreach($result as &$value) {
+            if(!is_array($value)) $value = [$value];
+        }
+
 	    return $result;
 	}
 }

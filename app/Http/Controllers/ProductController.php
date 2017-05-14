@@ -6,6 +6,7 @@ use App;
 use App\Http\Requests;
 use App\Http\Requests\ProductRequest;
 use App\Models\VariantCombination;
+use App\Models\VariantValue;
 use App\Product;
 use App\ProductGroup;
 use App\ProductImage;
@@ -91,6 +92,11 @@ class ProductController extends Controller
 
         // Tạo biến thể
         $valueCombinationArray = combinations($arrayAllValueIds);
+        foreach($valueCombinationArray as &$value) {
+            if(!is_array($value)) $value = [$value];
+        }
+        unset($value);
+
         foreach($valueCombinationArray as $key => $valueIdArray) {
             // Tạo sản phẩm con
             $childProduct = new Product;
@@ -100,23 +106,15 @@ class ProductController extends Controller
 
             // Tạo biến thể
             // Nếu có nhiều hơn 1 thuộc tính thì giá trị sẽ là mảng
-            if(is_array($valueIdArray)) {
-                foreach($valueIdArray as $k => $valueId) {
-                    $variantModel = new VariantCombination();
-                    $variantModel->product_id = $childProduct->id;
-                    $variantModel->value_id = $valueId;
-                    $variantModel->save();
-                }
-            } else {
-                $variantModel = new VariantCombination();
-                $variantModel->product_id = $childProduct->id;
-                $variantModel->value_id = (int) $valueIdArray;
-                $variantModel->save();
+            foreach($valueIdArray as $k => $valueId) {
+                $variantValueModel = new VariantValue;
+                $variantValueModel->product_id = $product->id;
+                $variantValueModel->variant_id = $childProduct->id;
+                $variantValueModel->values_str = implode(',', $valueIdArray);
+                $variantValueModel->values_int = implode('', $valueIdArray);
+                $variantValueModel->save();
             }
-        }
 
-        // Cập nhật has_child
-        if(count($valueCombinationArray)) {
             $product->has_child = 1;
             $product->save();
         }
@@ -189,10 +187,10 @@ class ProductController extends Controller
                                 ->get();
 
         foreach($childProducts as $item) {
-            $values = PropertiesValue::join('variant_combination', 'properties_value.id', '=', 'variant_combination.value_id')
-                                    ->where('variant_combination.product_id', $item->id)
-                                    ->select('properties_value.*', 'variant_combination.product_id as product_id')
-                                    ->get();
+            // Lọc từng sp con, lấy ra value_id của nó
+            $variantValue = VariantValue::where('variant_id', $item->id)->first();
+            $valueIds = explode(',', $variantValue->values_str);
+            $values = PropertiesValue::whereIn('id', $valueIds)->get();
 
             $_properties = [];
             foreach($values as $vItem) {
@@ -201,8 +199,6 @@ class ProductController extends Controller
 
             $item->property = $_properties;
         }
-
-        // _debug($childProducts->toArray());die;
 
         return view('admin.product.update',compact('group_product','data', 'units', 'hasVariant', 'properties', 'childProducts'));
     }
@@ -260,65 +256,7 @@ class ProductController extends Controller
             }
         }
 
-        // Clear old data
-        $oldChilds = Product::where('parent_id', $id)->get();
-        foreach($oldChilds as $item) {
-            VariantCombination::where('product_id', $item->id)->delete();
-        }
-
-        // Tạo variant
-        $properties = (array) $request->get('option');
-        $values = (array) $request->get('value');
-
-        // Xóa sp con nếu ko có thuộc tính, hoặc giá trị. Người dùng xóa hoặc ko nhập
-        if(count($properties) == 0 && count($values) == 0) {
-            // Delete all child if exist
-            Product::where('parent_id', $id)->delete();
-            $tempProperties = Properties::where('product_id', $id)->get();
-            foreach($tempProperties as $item) {
-                $item->values()->delete();
-                $item->delete();
-            }
-        }
-
-        $arrayAllValueIds = array();
-
-        foreach($properties as $key => $property) {
-            $propertyExist = Properties::where('product_id', $product->id)->where('name', $property)->first();
-            if(!$propertyExist) {
-                $propertyModel = new Properties;
-            } else {
-                $propertyModel = $propertyExist;
-            }
-
-            $propertyModel->product_id = $product->id;
-            $propertyModel->admin_id = $request->user()->id;
-            $propertyModel->name = clean($property);
-            $propertyModel->save();
-            if(isset($values[$key]) && $values[$key]) {
-                $arrayValues = explode(',', $values[$key]);
-                $_valueIds = [];
-                foreach($arrayValues as $value) {
-                    $value = clean(trim($value));
-                    $propertyValueModelExits = PropertiesValue::where('properties_id', $propertyModel->id)->where('name', $value)->first();
-                    if(!$propertyValueModelExits) {
-                        $propertyValueModel = new PropertiesValue;
-                    } else {
-                        $propertyValueModel = $propertyValueModelExits;
-                    }
-
-                    $propertyValueModel->properties_id = $propertyModel->id;
-                    $propertyValueModel->name = $value;
-                    $propertyValueModel->save();
-                    $_valueIds[] = $propertyValueModel->id;
-                }
-
-                $arrayAllValueIds[] = $_valueIds;
-            }
-        }
-
         // Tạo, chỉnh sửa biến thể
-        $valueCombinationArray = combinations($arrayAllValueIds);
         $childProductDataFormRequest = (array) $request->get('child_product');
 
         // Validate sku của sản phẩm con, tránh trùng lặp
@@ -339,19 +277,8 @@ class ProductController extends Controller
                     'child_product['.$k.'][sku]' => ['Vui lòng nhập mã sản phẩm']
                 ], 422);
             }
-        }
 
-        // Đưa về cùng 1 định dạng
-        foreach($valueCombinationArray as &$value) {
-            if(!is_array($value)) $value = [$value];
-        }
-
-        foreach($valueCombinationArray as $key => $valueIdArray) {
-            // Tạo sản phẩm con
-            $childProductData = isset($childProductDataFormRequest[$key]) ? $childProductDataFormRequest[$key] : array();
-            $childProductId = (int) array_get($childProductData, 'id');
-
-            $childProductExist = Product::where('id', $childProductId)->first();
+            $childProductExist = Product::where('id', $pid)->first();
             if(!$childProductExist) {
                 $childProduct = new Product;
             } else {
@@ -361,29 +288,13 @@ class ProductController extends Controller
             $childProduct->name = $product->name;
             $childProduct->parent_id = $product->id;
 
-            $childProduct->sku = clean(array_get($childProductData, 'sku'));
-            $childProduct->barcode = clean(array_get($childProductData, 'barcode'));
-            $childProduct->price = (int) array_get($childProductData, 'price');
-            $childProduct->image = clean(array_get($childProductData, 'image'));
+            $childProduct->sku = clean(array_get($arrayData, 'sku'));
+            $childProduct->barcode = clean(array_get($arrayData, 'barcode'));
+            $childProduct->price = (int) array_get($arrayData, 'price');
+            $childProduct->image = clean(array_get($arrayData, 'image'));
             $childProduct->save();
 
-            // Tạo biến thể
-            foreach($valueIdArray as $k => $valueId) {
-                $variantModel = new VariantCombination();
-                $variantModel->product_id = $childProduct->id;
-                $variantModel->value_id = $valueId;
-                $variantModel->save();
-            }
-        }
-
-        // _debug($valueCombinationArray);die;
-
-        // Cập nhật has_child
-        if(count($valueCombinationArray)) {
             $product->has_child = 1;
-            $product->save();
-        } else {
-            $product->has_child = 0;
             $product->save();
         }
 
@@ -416,8 +327,13 @@ class ProductController extends Controller
      */
     public function getDeleteVariant($id)
     {
+        // Xóa variant
         $product = Product::findOrFail($id);
         $product->delete();
+
+        // Cập nhật bảng variant_values
+        VariantValue::where('variant_id', $id)->update(['status' => 0]);
+
         return response()->json(['id' => $id, 'code' => 1, 'type' => 'success', 'message' => 'Xóa thành công']);
     }
 
@@ -427,7 +343,7 @@ class ProductController extends Controller
      * @param  Request $request
      * @return json
      */
-    public function postCreateOption(Request $request)
+    public function postUpdateOption(Request $request)
     {
         $product = Product::findOrFail($request->get('product_id'));
         // Clear old data
@@ -436,9 +352,12 @@ class ProductController extends Controller
             VariantCombination::where('product_id', $item->id)->delete();
         }
 
+        // VariantValue::where('product_id', $product->id)->delete();
+
         $properties = (array) $request->get('option');
         $values = (array) $request->get('value');
 
+        // Tạo option và value
         foreach($properties as $key => $property) {
             $propertyExist = Properties::where('product_id', $product->id)->where('name', $property)->first();
             if(!$propertyExist) {
@@ -475,10 +394,12 @@ class ProductController extends Controller
 
         // Tạo, chỉnh sửa biến thể
         $valueCombinationArray = combinations($arrayAllValueIds);
+
         // Đưa về cùng 1 định dạng
         foreach($valueCombinationArray as &$value) {
             if(!is_array($value)) $value = [$value];
         }
+        unset($value);
 
         $childProductsArray = [];
         foreach($oldChilds as $item) {
@@ -488,32 +409,32 @@ class ProductController extends Controller
         // Nếu số lượng biến thể nhiều hơn sl sp
 
         foreach($valueCombinationArray as $key => $valueIdArray) {
+            asort($valueIdArray);
+
             // Tạo sản phẩm con
             $childProductData = isset($childProductsArray[$key]) ? $childProductsArray[$key] : array();
             $childProductId = (int) array_get($childProductData, 'id');
 
-            $childProductExist = Product::where('id', $childProductId)->first();
-            if(!$childProductExist) {
+            // Nếu chưa có thì mới tạo, có rồi mà đã xóa thì kệ nó
+            $variantExist = VariantValue::where('product_id', $product->id)->where('values_int', implode('', $valueIdArray))->first();
+            if(!$variantExist) {
                 $childProduct = new Product;
-            } else {
-                $childProduct = $childProductExist;
-            }
+                $childProduct->name = $product->name;
+                $childProduct->parent_id = $product->id;
 
-            $childProduct->name = $product->name;
-            $childProduct->parent_id = $product->id;
+                $childProduct->sku = clean(array_get($childProductData, 'sku'));
+                $childProduct->barcode = clean(array_get($childProductData, 'barcode'));
+                $childProduct->price = (int) array_get($childProductData, 'price');
+                $childProduct->image = clean(array_get($childProductData, 'image'));
+                $childProduct->save();
 
-            $childProduct->sku = clean(array_get($childProductData, 'sku'));
-            $childProduct->barcode = clean(array_get($childProductData, 'barcode'));
-            $childProduct->price = (int) array_get($childProductData, 'price');
-            $childProduct->image = clean(array_get($childProductData, 'image'));
-            $childProduct->save();
-
-            // Tạo biến thể
-            foreach($valueIdArray as $k => $valueId) {
-                $variantModel = new VariantCombination();
-                $variantModel->product_id = $childProduct->id;
-                $variantModel->value_id = $valueId;
-                $variantModel->save();
+                // Tạo biến thể
+                $variantValueModel = new VariantValue;
+                $variantValueModel->product_id = $product->id;
+                $variantValueModel->variant_id = $childProduct->id;
+                $variantValueModel->values_str = implode(',', $valueIdArray);
+                $variantValueModel->values_int = implode('', $valueIdArray);
+                $variantValueModel->save();
             }
         }
 

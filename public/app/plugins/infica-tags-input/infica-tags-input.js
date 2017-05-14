@@ -43,6 +43,8 @@
             function add_tag(tag) {
                 items.push(tag);
 
+                generate_tag();
+
                 options.onAddTag(tag);
             }
 
@@ -81,7 +83,9 @@
                 $container.append($input);
                 $container.insertAfter($this);
 
-                $this.val(get_tag_values().join(','));
+                // Gắn giá trị vào control thật
+                $this.attr('data-value', get_tag_values().join(','))
+                     .val(get_tag_values().join(','));
             }
 
             function get_tag_ids() {
@@ -126,7 +130,17 @@
 
             // Remove tag
             $(document).on('click', '#infica-tags-input-container-'+containerId+' .infica-tag-close', function(e) {
+                var _that = $(this);
                 $(this).parents('.infica-tag-item').remove();
+
+                for(var i = 0; i < items.length; i ++) {
+                    if(_that.data('id') == items[i].id) {
+                        items.splice(i, 1);
+                    }
+                }
+
+                generate_tag();
+
                 options.onRemoveTag(this);
             });
         });

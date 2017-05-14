@@ -249,6 +249,7 @@
                                         $(function() {
                                             $('#property-{{ $property->id }}').inficaTagsInput({
                                                 items: {!! json_encode($valueJson) !!},
+                                                placeHolder: "VD: Xanh,Đỏ,Vàng",
                                                 onRemoveTag: function(el) {
                                                     $.ajax({
                                                         url: '/system/product/ajax/delete-option-value',
@@ -258,7 +259,9 @@
                                                             _token: "{{ csrf_token() }}"
                                                         },
                                                         success: function(response) {
-                                                            console.log(response);
+                                                            toastr.message(response.message, response.type, {
+                                                                timeOut: 800
+                                                            });
                                                         }
                                                     });
                                                 }

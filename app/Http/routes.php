@@ -128,7 +128,7 @@ Route::group(['middleware' => 'auth'], function(){
 			Route::get('variant/{id}/delete', ['as' => 'admin.product.deleteVariant', 'uses' => 'ProductController@getDeleteVariant']);
 
 			// Option
-			Route::post('option/update', ['as' => 'admin.product.variant.create', 'uses' => 'ProductController@postCreateOption']);
+			Route::post('option/update', ['as' => 'admin.product.variant.create', 'uses' => 'ProductController@postUpdateOption']);
 			Route::get('option/{id}/delete', ['as' => 'admin.product.deleteOption', 'uses' => 'ProductController@getDeleteOption']);
 
 			// Xóa option value

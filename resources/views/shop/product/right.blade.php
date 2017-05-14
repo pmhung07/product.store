@@ -93,17 +93,19 @@
                     value_ids : combination.join(',')
                 },
                 success: function(response) {
-                    $('.maspd').text(response.sku);
-                    $('.variant-price').text(response.price);
-                    $('#main-product-image').attr('data-original', response.image.large);
-                    $('#main-product-image > a').attr('href', response.image.large);
-                    $('#main-product-image > a').attr('data-image', response.image.large);
-                    $('#main-product-image > a').attr('data-zoom-image', response.image.large);
-                    $('#main-product-image .image-product-carousel').attr('src', response.image.medium);
-                    $('#main-product-image .click-p').attr('data-zoom-image', response.image.large);
+                    if(response.code == 200) {
+                        var variant = response.variant;
+                        $('.maspd').text(variant.sku);
+                        $('.variant-price').text(variant.price);
+                        $('#main-product-image').attr('data-original', variant.image.large);
+                        $('#main-product-image > a').attr('href', variant.image.large);
+                        $('#main-product-image > a').attr('data-image', variant.image.large);
+                        $('#main-product-image > a').attr('data-zoom-image', variant.image.large);
+                        $('#main-product-image .image-product-carousel').attr('src', variant.image.medium);
+                        $('#main-product-image .click-p').attr('data-zoom-image', variant.image.large);
+                    }
 
-                    _urlAddToCart += '&variant_sku=' + response.sku;
-                    console.log(response);
+                    _urlAddToCart += '&variant_sku=' + variant.sku;
                 }
             });
         }

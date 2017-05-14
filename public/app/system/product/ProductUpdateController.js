@@ -24,21 +24,6 @@ app.ProductUpdateController = function(params) {
         // Biến xác nhận có tạo variant hay ko?
         var _fillAttr = _that.hasChild ? true : false;
 
-        function initTagsInput() {
-            // Input tags input
-            // $('.attribute-value-input').tagsInput({
-            //     defaultText : '',
-            //     width: '100%',
-            //     height: 100,
-            //     onRemoveTag: function(value, elementSelector) {
-            //         console.log(elementSelector);
-            //         requestDeleteOptionvalue(value);
-            //     }
-            // });
-        }
-
-        initTagsInput();
-
         // Append control to create variant
         $('#btn-add-new-attribute').click(function(e) {
             e.preventDefault();
@@ -46,7 +31,9 @@ app.ProductUpdateController = function(params) {
             // $(document.getElementById('template-new-attribute').innerHTML).insertAfter('.first-attribute');
             $('#placement-new-attribute').append($(document.getElementById('template-new-attribute').innerHTML));
 
-            initTagsInput();
+            $('#placement-new-attribute .attribute-value-input:last').inficaTagsInput({
+                placeHolder: "VD: Xanh,Đỏ,Vàng"
+            });
 
             if($('.attribute-row').length == 3) {
                 $(this).addClass('hide');
@@ -97,11 +84,6 @@ app.ProductUpdateController = function(params) {
                 for( var i in _images ) {
                     formData.append('images[]', _images[i]);
                 }
-            }
-
-            if(_fillAttr == false) {
-                formData.delete('option[]');
-                formData.delete('value[]');
             }
 
             $.ajax({
@@ -188,6 +170,7 @@ app.ProductUpdateController = function(params) {
                 dataType: "json",
                 success: function(response) {
                     Helper.showMessage(response.message, response.type);
+                    $('#modal-show-change-option').modal('hide');
                 }
             })
         });

@@ -196,6 +196,8 @@ module.exports = Helper;
             function add_tag(tag) {
                 items.push(tag);
 
+                generate_tag();
+
                 options.onAddTag(tag);
             }
 
@@ -234,7 +236,9 @@ module.exports = Helper;
                 $container.append($input);
                 $container.insertAfter($this);
 
-                $this.val(get_tag_values().join(','));
+                // Gắn giá trị vào control thật
+                $this.attr('data-value', get_tag_values().join(','))
+                     .val(get_tag_values().join(','));
             }
 
             function get_tag_ids() {
@@ -279,7 +283,17 @@ module.exports = Helper;
 
             // Remove tag
             $(document).on('click', '#infica-tags-input-container-'+containerId+' .infica-tag-close', function(e) {
+                var _that = $(this);
                 $(this).parents('.infica-tag-item').remove();
+
+                for(var i = 0; i < items.length; i ++) {
+                    if(_that.data('id') == items[i].id) {
+                        items.splice(i, 1);
+                    }
+                }
+
+                generate_tag();
+
                 options.onRemoveTag(this);
             });
         });
@@ -671,21 +685,6 @@ __WEBPACK_IMPORTED_MODULE_1__app___default.a.ProductUpdateController = function(
         // Biến xác nhận có tạo variant hay ko?
         var _fillAttr = _that.hasChild ? true : false;
 
-        function initTagsInput() {
-            // Input tags input
-            // $('.attribute-value-input').tagsInput({
-            //     defaultText : '',
-            //     width: '100%',
-            //     height: 100,
-            //     onRemoveTag: function(value, elementSelector) {
-            //         console.log(elementSelector);
-            //         requestDeleteOptionvalue(value);
-            //     }
-            // });
-        }
-
-        initTagsInput();
-
         // Append control to create variant
         $('#btn-add-new-attribute').click(function(e) {
             e.preventDefault();
@@ -693,7 +692,9 @@ __WEBPACK_IMPORTED_MODULE_1__app___default.a.ProductUpdateController = function(
             // $(document.getElementById('template-new-attribute').innerHTML).insertAfter('.first-attribute');
             $('#placement-new-attribute').append($(document.getElementById('template-new-attribute').innerHTML));
 
-            initTagsInput();
+            $('#placement-new-attribute .attribute-value-input:last').inficaTagsInput({
+                placeHolder: "VD: Xanh,Đỏ,Vàng"
+            });
 
             if($('.attribute-row').length == 3) {
                 $(this).addClass('hide');
@@ -744,11 +745,6 @@ __WEBPACK_IMPORTED_MODULE_1__app___default.a.ProductUpdateController = function(
                 for( var i in _images ) {
                     formData.append('images[]', _images[i]);
                 }
-            }
-
-            if(_fillAttr == false) {
-                formData.delete('option[]');
-                formData.delete('value[]');
             }
 
             $.ajax({
@@ -835,6 +831,7 @@ __WEBPACK_IMPORTED_MODULE_1__app___default.a.ProductUpdateController = function(
                 dataType: "json",
                 success: function(response) {
                     __WEBPACK_IMPORTED_MODULE_0__helper_helper___default.a.showMessage(response.message, response.type);
+                    $('#modal-show-change-option').modal('hide');
                 }
             })
         });
