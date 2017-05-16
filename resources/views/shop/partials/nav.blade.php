@@ -11,7 +11,7 @@
                     </div>
                     <div class="col-md-8 col-sm-12 no-padding searchTop">
                         <div class="search-collection col-xs-10 no-padding">
-                            <form class="search" action="https://juno.vn/search">
+                            <form class="search" action="/search">
                                 <input id="text-product" class="col-xs-10 no-padding" type="text" name="q" placeholder="Bạn cần tìm gì?" />
                                 <input type="hidden" value="product" name="type" />
                                 <button id="submit-search">

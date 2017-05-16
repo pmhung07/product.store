@@ -477,3 +477,7 @@
   text-overflow: ellipsis;
   overflow: hidden;
 }
+#search-container h1 {
+  font-size: 18px;
+  text-transform: uppercase;
+}
