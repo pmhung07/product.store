@@ -79,4 +79,9 @@ class Product extends Model
         return $this->hasMany('App\ProductImage', 'product_id');
     }
 
+    public function variants()
+    {
+        return $this->hasMany('App\Product', 'parent_id');
+    }
+
 }
