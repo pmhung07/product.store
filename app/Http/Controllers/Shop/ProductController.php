@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Shop;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests;
+use App\Models\Store;
 use App\Product;
 use App\Properties;
 use App\Provinces;
@@ -25,12 +26,13 @@ class ProductController extends ShopController
         $product = Product::with('category', 'images')->findOrFail($id);
 
         // Cửa hàng bán sản phẩm
-        $warehouses = Warehouse::join('warehouse_inventory', 'warehouse.id', '=', 'warehouse_id')
-                            ->with('province', 'district')
-                            ->where('warehouse_inventory.product_id', $id)
-                            ->select('warehouse.*')
-                            ->get();
+        // $warehouses = Warehouse::join('warehouse_inventory', 'warehouse.id', '=', 'warehouse_id')
+        //                     ->with('province', 'district')
+        //                     ->where('warehouse_inventory.product_id', $id)
+        //                     ->select('warehouse.*')
+        //                     ->get();
 
+        $warehouses = Store::with('province', 'district')->orderBy('name', 'ASC')->get();
 
         // Thành phố
         $provinces = Provinces::with('districts')->whereIn('id', $warehouses->pluck('province_id')->toArray())->get();

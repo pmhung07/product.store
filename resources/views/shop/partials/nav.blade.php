@@ -29,10 +29,10 @@
                         </div>
                     </div>
                     <div class="col-md-4 col-sm-12 no-padding storeTop">
-                        <div class="headStore_wrapper hide">
-                            <a target="_blank"  href="collections/cua-hang-khu-vuc-tp-ho-chi-minh%3Fview=stores.html">
+                        <div class="headStore_wrapper">
+                            <a target="_blank"  href="/store.html" style="color: #444">
                             <i class="fa fa-building" aria-hidden="true"></i>
-                                <span>Xem hệ thống <strong>42</strong> cửa hàng</span>
+                                <span>Xem hệ thống <strong>{{ App\Models\Store::count() }}</strong> cửa hàng</span>
                             </a>
                         </div>
                     </div>

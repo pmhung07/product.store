@@ -15,6 +15,10 @@ Route::group(['domain' => 'shop.'.env('APP_DOMAIN'), 'namespace' => 'Shop'], fun
     // Trang tĩnh
     Route::get('page/{id}-{slug}', ['as' => 'shop.page.detail', 'uses' => 'PageController@getDetail']);
 
+    // Hệ thống cửa hàng
+    Route::get('store.html', ['as' => 'shop.store.index', 'uses' => 'StoreController@getIndex']);
+    Route::get('store/1', ['as' => 'shop.store.detail', 'uses' => 'StoreController@getDetail']);
+
     // Tin tức
     Route::get('/tin-tuc', ['as' => 'shop.post.index', 'uses' => 'PostController@getIndex']);
 

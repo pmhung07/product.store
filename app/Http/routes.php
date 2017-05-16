@@ -400,6 +400,16 @@ Route::group(['middleware' => 'auth'], function(){
 			});
 		});
 
+
+		// Store
+		Route::group(['prefix' => 'store', 'namespace' => 'System'], function() {
+			Route::get('/index', ['as' => 'system.store.index', 'uses' => 'StoreController@getIndex']);
+			Route::get('/create', ['as' => 'system.store.create', 'uses' => 'StoreController@getCreate']);
+			Route::post('/create', ['as' => 'system.store.create', 'uses' => 'StoreController@postCreate']);
+			Route::get('/{id}/edit', ['as' => 'system.store.update', 'uses' => 'StoreController@getUpdate']);
+			Route::post('/{id}/edit', ['as' => 'system.store.update', 'uses' => 'StoreController@postUpdate']);
+			Route::get('/{id}/delete', ['as' => 'system.store.delete', 'uses' => 'StoreController@getDelete']);
+		});
 	});
 });
 

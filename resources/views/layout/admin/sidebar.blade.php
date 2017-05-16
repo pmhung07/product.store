@@ -34,6 +34,13 @@
                 </a>
             </li>
 
+            <li @if(Request::is('system/store/*')) {!! 'class="active"' !!} @endif>
+                <a href="/system/store/index">
+                    <i class="fa fa-home"></i>
+                    <span class="nav-label">Cửa hàng</span>
+                </a>
+            </li>
+
             <li @if(Request::is('system/product-group/*') ||
                     Request::is('system/product/*') ||
                     Request::is('system/purchases/*') ||
