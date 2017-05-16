@@ -37,7 +37,7 @@ class ProductController extends ShopController
         // Thành phố
         $provinces = Provinces::with('districts')->whereIn('id', $warehouses->pluck('province_id')->toArray())->get();
 
-        // Variant
+        // Options
         $properties = Properties::with('values')->where('product_id', $id)->get();
 
         return view('shop/product/detail', compact('product', 'warehouses', 'provinces', 'properties'));

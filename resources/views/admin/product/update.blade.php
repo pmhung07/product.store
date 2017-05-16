@@ -45,6 +45,8 @@
                 <div class="row">
                 	<div class="col-lg-12">
                         <input type="hidden" name="_token" value="{!! csrf_token() !!}">
+
+                        @if(!$product->hasChild())
                         <div class="form-group"><label class="col-sm-3 control-label">Ảnh sản phẩm</label>
                             <div class="col-sm-9">
                                 @if($data['image'])
@@ -53,10 +55,13 @@
                                 <input name="image" type="file" class="form-control">
                             </div>
                         </div>
+                        @endif
 
+                        @if(!$product->hasChild())
                         <div class="form-group"><label class="col-sm-3 control-label">Ảnh mô tả sản phẩm</label>
                             <div class="col-sm-9"><input name="images[]" multiple="true" type="file" class="form-control"></div>
                         </div>
+                        @endif
 
                         <div class="form-group"><label class="col-sm-3 control-label">Tên sản phẩm</label>
                             <div class="col-sm-9">
