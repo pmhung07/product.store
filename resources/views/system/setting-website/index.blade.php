@@ -58,7 +58,7 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label>Địa chỉ</label>
+                                    <label>Trụ sở chính</label>
                                     <input type="text" name="address" value="{{ $setting->address }}" class="form-control input-sm">
                                 </div>
                             </div>

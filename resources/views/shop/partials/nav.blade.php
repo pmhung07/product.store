@@ -21,30 +21,32 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6 col-sm-12 no-padding rightTop_head">
-                    <div class="col-md-6 col-sm-12 switchboardTop">
-                        <div class="switchboard_wrapper">
-                            <i class="fa fa-phone" aria-hidden="true"></i>
-                            <span>BÁN HÀNG: <strong>{{ $GLB_Setting->phone }}</strong> (miễn phí)</span>
+                <div class="col-md-6 col-sm-12 rightTop_head">
+                    <div class="row">
+                        <div class="col-md-6 col-sm-12 switchboardTop">
+                            <div class="switchboard_wrapper">
+                                <i class="fa fa-phone" aria-hidden="true"></i>
+                                <span><strong>{{ $GLB_Setting->phone }}</strong> (miễn phí)</span>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-md-4 col-sm-12 no-padding storeTop">
-                        <div class="headStore_wrapper">
-                            <a target="_blank"  href="/store.html" style="color: #444">
-                            <i class="fa fa-building" aria-hidden="true"></i>
-                                <span>Xem hệ thống <strong>{{ App\Models\Store::count() }}</strong> cửa hàng</span>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-md-2 col-sm-12 no-padding cartTop">
-                        <div class="carttop_wrapper">
-                            <div class="cart-relative">
-                                <a href="{{ route('shop.cart.index') }}">
-                                    <div class="cart-total-price">
-                                        <i class="fa fa-shopping-bag" aria-hidden="true"></i>
-                                        <span>{{ Cart::subtotal(0, '.', '.') }}₫</span>
-                                    </div>
+                        <div class="col-md-4 col-sm-12 no-padding storeTop">
+                            <div class="headStore_wrapper">
+                                <a target="_blank"  href="/store.html" style="color: #444">
+                                <i class="fa fa-building" aria-hidden="true"></i>
+                                    <span>Xem hệ thống <strong>{{ App\Models\Store::count() }}</strong> cửa hàng</span>
                                 </a>
+                            </div>
+                        </div>
+                        <div class="col-md-2 col-sm-12 no-padding cartTop">
+                            <div class="carttop_wrapper">
+                                <div class="cart-relative">
+                                    <a href="{{ route('shop.cart.index') }}">
+                                        <div class="cart-total-price">
+                                            <i class="fa fa-shopping-bag" aria-hidden="true"></i>
+                                            <span>{{ Cart::subtotal(0, '.', '.') }}₫</span>
+                                        </div>
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
