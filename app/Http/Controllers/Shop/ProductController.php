@@ -50,19 +50,26 @@ class ProductController extends ShopController
         $provinceId = (int) $request->get('province_id');
 
         // Cửa hàng bán sản phẩm
-        $queryWarehouses = Warehouse::join('warehouse_inventory', 'warehouse.id', '=', 'warehouse_id')
-                            ->with('province', 'district')
-                            ->where('warehouse_inventory.product_id', $productId)
-                            ->select('warehouse.*');
+        // $queryWarehouses = Warehouse::join('warehouse_inventory', 'warehouse.id', '=', 'warehouse_id')
+        //                     ->with('province', 'district')
+        //                     ->where('warehouse_inventory.product_id', $productId)
+        //                     ->select('warehouse.*');
 
-        if($provinceId > 0) {
-            $queryWarehouses->where('warehouse.province_id', $provinceId);
+        // if($provinceId > 0) {
+        //     $queryWarehouses->where('warehouse.province_id', $provinceId);
+        // }
+
+        // $warehouses = $queryWarehouses->get();
+
+        $query = Store::with('district');
+        if($provinceId) {
+            $query->where('province_id', $provinceId)->get();
         }
 
-        $warehouses = $queryWarehouses->get();
+        $stores = $query->get();
 
         $responseHTML = '';
-        foreach($warehouses as $item) {
+        foreach($stores as $item) {
             $responseHTML .= view('shop/product/stock_item', ['stock' => $item])->render();
         }
 

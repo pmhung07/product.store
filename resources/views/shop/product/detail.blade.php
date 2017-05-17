@@ -53,37 +53,39 @@
                                 </div>
                             </div>
                             @endif
-                            <div class="deliver-top info ">
-                                <div class="tit-color">Sẽ có tại nhà bạn</div>
-                                <div class="descrip">từ 1-5 ngày làm việc</div>
-                            </div>
-                            <div class="deliver-top-no deliver-dt">
-                                <a href="#">
-                                    <div class="tit">Giao hàng miễn phí</div>
-                                    <div class="descrip">sản phẩm trên 300,000đ</div>
-                                </a>
-                            </div>
-                            <div class="deliver-top-no deliver-ch" style="background:none !important">
-                                <div style="position:absolute;margin-left:-37px;">
-                                    <img src="//hstatic.net/969/1000003969/10/2016/6-15/icon-day90.png"/>
+                            <div class="sec-policies-feature">
+                                <div class="deliver-top info ">
+                                    <div class="tit-color">Sẽ có tại nhà bạn</div>
+                                    <div class="descrip">từ 1-5 ngày làm việc</div>
                                 </div>
-                                <a href="#">
-                                    <div class="tit">Đổi trả miễn phí</div>
-                                    <div class="descrip">Đổi trả miễn phí
-                                        90 ngày
+                                <div class="deliver-top-no deliver-dt">
+                                    <a href="#">
+                                        <div class="tit">Giao hàng miễn phí</div>
+                                        <div class="descrip">sản phẩm trên 300,000đ</div>
+                                    </a>
+                                </div>
+                                <div class="deliver-top-no deliver-ch" style="background:none !important">
+                                    <div style="position:absolute;margin-left:-37px;">
+                                        <img src="//hstatic.net/969/1000003969/10/2016/6-15/icon-day90.png"/>
                                     </div>
-                                </a>
-                            </div>
-                            <div class="deliver-top-no deliver-pay">
-                                <a href="#">
-                                    <div class="tit">thanh toán</div>
-                                    <div class="descrip">Thanh toán khi nhận hàng</div>
-                                </a>
-                            </div>
-                            <div class="deliver-top-no deliver-phone">
-                                <div class="tit">Hỗ trợ mua nhanh</div>
-                                <div class="tit-color">1800 1162</div>
-                                <div class="descrip">từ 8:30 - 21:30 mỗi ngày</div>
+                                    <a href="#">
+                                        <div class="tit">Đổi trả miễn phí</div>
+                                        <div class="descrip">Đổi trả miễn phí
+                                            90 ngày
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="deliver-top-no deliver-pay">
+                                    <a href="#">
+                                        <div class="tit">thanh toán</div>
+                                        <div class="descrip">Thanh toán khi nhận hàng</div>
+                                    </a>
+                                </div>
+                                <div class="deliver-top-no deliver-phone">
+                                    <div class="tit">Hỗ trợ mua nhanh</div>
+                                    <div class="tit-color">1800 1162</div>
+                                    <div class="descrip">từ 8:30 - 21:30 mỗi ngày</div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -157,6 +159,36 @@
                     $('#stock-box').html(responseHTML);
                 }
             });
+        });
+
+
+        $(window).on('scroll', function() {
+            console.log($(window).scrollTop());
+            if($(window).scrollTop() >= 628) {
+                $('.sec-policies-feature').addClass('fixed');
+                $('#product').css({
+                    marginBottom: $('.sec-policies-feature').height()
+                });
+            } else {
+                $('.sec-policies-feature').removeClass('fixed');
+                $('#product').css({
+                    marginBottom: 0
+                });
+            }
+
+            // if($(window).scrollTop() >= 900) {
+            //     $('.sec-policies-feature').removeClass('fixed');
+            //     $('#product').css({
+            //         marginBottom: 0
+            //     });
+            // }
+
+            // if($(window).scrollTop() < 508) {
+            //     $('.sec-policies-feature').removeClass('fixed').removeClass('hide');
+            //     $('#product').css({
+            //         marginBottom: 0
+            //     });
+            // }
         });
     });
 

@@ -17,7 +17,7 @@ Route::group(['domain' => 'shop.'.env('APP_DOMAIN'), 'namespace' => 'Shop'], fun
 
     // Hệ thống cửa hàng
     Route::get('store.html', ['as' => 'shop.store.index', 'uses' => 'StoreController@getIndex']);
-    Route::get('store/1', ['as' => 'shop.store.detail', 'uses' => 'StoreController@getDetail']);
+    Route::get('store/{id}', ['as' => 'shop.store.detail', 'uses' => 'StoreController@getDetail']);
 
     // Tìm kiếm
     Route::get('search', ['as' => 'shop.search', 'uses' => 'SearchController@getIndex']);
