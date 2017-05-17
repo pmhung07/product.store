@@ -86,7 +86,7 @@
                         <div class="form-group"><label class="col-sm-3 control-label">Nhóm sản phẩm</label>
                             <div class="col-sm-9">
         	                    <select class="form-control m-b" name="product_group">
-        	                    	<option value="" selected="">-- Chọn nhóm sản phẩm --</option>
+        	                    	<option value="">-- Chọn nhóm sản phẩm --</option>
                                     <?php cat_parent($group_product,0,"--",$data['product_group_id']); ?>
         	                    </select>
                             </div>
