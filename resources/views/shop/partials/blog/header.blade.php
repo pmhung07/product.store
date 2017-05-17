@@ -64,7 +64,7 @@
                         </div>
                         <div class="col-lg-header-25 col-sm-5 col-md-10">
                             <div class="head-call">
-                                <span>BÁN HÀNG: <strong>{{ $GLB_Setting->phone }}</strong> (miễn phí)</span>
+                                <span><strong>{{ $GLB_Setting->phone }}</strong> (miễn phí)</span>
                             </div>
                         </div>
                         <div class="col-lg-header-25 col-sm-5 col-md-10 hide">
