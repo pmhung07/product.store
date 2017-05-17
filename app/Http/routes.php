@@ -326,7 +326,7 @@ Route::group(['middleware' => 'auth'], function(){
 		});
 
 		// Shop
-		Route::group(['prefix' => 'shop'], function(){
+		Route::group(['prefix' => 'online-store'], function(){
 			Route::group(['prefix' => 'post-categories'], function(){
 				Route::get('index', ['as' => 'admin.post-categories.index' , 'uses' => 'ShopPostCategoriesController@getIndex']);
 				Route::get('create', ['as' => 'admin.post-categories.create' , 'uses' => 'ShopPostCategoriesController@getCreate']);
@@ -375,6 +375,12 @@ Route::group(['middleware' => 'auth'], function(){
 			Route::group(['prefix' => 'ga'], function() {
 				Route::get('index', ['as' => 'system.ga.index', 'uses' => 'System\GaController@getIndex']);
 			});
+
+			Route::group(['prefix' => 'setting'], function() {
+				Route::get('index', ['as' => 'system.setting_website.index', 'uses' => 'System\SettingWebsiteController@getIndex']);
+				Route::post('index', ['as' => 'system.setting_website.index', 'uses' => 'System\SettingWebsiteController@postIndex']);
+			});
+
 
 		});
 

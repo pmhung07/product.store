@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Shop;
 
 use App\Http\Controllers\Controller;
+use App\Models\SettingWebsite;
 use App\ProductGroup;
 use App\ShopPostCategories;
 
@@ -16,5 +17,9 @@ class ShopBlogController extends Controller {
 
         // Menu blog
         view()->share('GLB_PostCategories', ShopPostCategories::all());
+
+        // Cấu hình chung website
+        $setting = SettingWebsite::where('merchant_id', 1)->firstOrNew([]);
+        view()->share('GLB_Setting', $setting);
     }
 }

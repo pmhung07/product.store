@@ -24,10 +24,10 @@
                             </div>
                             <div class='coppyright'>
                                 <p>
-                                    @2015 Công ty cổ phần sản xuất thương mại dịch vụ 9119
+                                    {{ '@'.date('Y') }} {{ $GLB_Setting->company_name }}
                                 </p>
                                 <p>
-                                    Địa chỉ văn phòng chính: 313 Nguyễn Thị Thập, Q.7, TP.HCM
+                                    Địa chỉ văn phòng chính: {{ $GLB_Setting->address }}
                                 </p>
                             </div>
                         </div>
@@ -36,7 +36,7 @@
                                 <p>
                                     Hãy đăng ký mail của bạn để chúng tôi gửi những thông tin cập nhật mới nhất
                                 </p>
-                                <form accept-charset='UTF-8' action='https://juno.vn/account/contact' class='contact-form' method='post'>
+                                <form accept-charset='UTF-8' action='/' class='contact-form' method='post'>
                                     <input name='form_type' type='hidden' value='customer'>
                                     <input name='utf8' type='hidden' value='✓'>
                                     <input type="hidden" id="contact_tags" name="contact[tags]" value="khách hàng tiềm năng, bản tin" />
@@ -52,10 +52,10 @@
                 <div class='container'>
                     <div class='link-top'>
                         <ul>
-                            <li class='fa'><a href=''><img src='https://hstatic.net/288/1000046288/1000069273/face.jpg?v=72' alt=''  /></a></li>
-                            <li class='tt'><a href=''><img src='https://hstatic.net/288/1000046288/1000069273/tt.jpg?v=72' alt=''  /></a></li>
-                            <li class='gg'><a href=''><img src='https://hstatic.net/288/1000046288/1000069273/gg.jpg?v=72' alt=''  /></a></li>
-                            <li class='yt'><a href=''><img src='https://hstatic.net/288/1000046288/1000069273/yt.jpg?v=72' alt=''  /></a></li>
+                            <li class='fa'><a href='{{ $GLB_Setting->facebook }}'><img src='https://hstatic.net/288/1000046288/1000069273/face.jpg?v=72' alt=''  /></a></li>
+                            <li class='tt'><a href='{{ $GLB_Setting->twitter }}'><img src='https://hstatic.net/288/1000046288/1000069273/tt.jpg?v=72' alt=''  /></a></li>
+                            <li class='gg'><a href='{{ $GLB_Setting->google }}'><img src='https://hstatic.net/288/1000046288/1000069273/gg.jpg?v=72' alt=''  /></a></li>
+                            <li class='yt'><a href='{{ $GLB_Setting->youtube }}'><img src='https://hstatic.net/288/1000046288/1000069273/yt.jpg?v=72' alt=''  /></a></li>
                         </ul>
                     </div>
                     <div class='link-bottom'>
