@@ -229,7 +229,7 @@ class ProductController extends Controller
 
         $this->validate($request,$rules,$messages);
 
-    	$product->product_group_id = $request->product_group;;
+    	$product->product_group_id = (int) $request->get('product_group');
     	$product->unit_id = $request->product_unit;
     	$product->name = $request->product_name;
     	$product->sku = $request->product_sku;
