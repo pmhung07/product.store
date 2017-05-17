@@ -41,11 +41,17 @@
                                         <div class="col-sm-6">
                                             <select name="province_id" id="province_id" class="form-control input-sm">
                                                 <option value="">Chọn tỉnh/Thành phố</option>
+                                                @foreach($provinces as $item)
+                                                    <option value="{{ $item->id }}" {{ $item->id == $setting->province_id ? 'selected' : '' }}>{{ $item->name }}</option>
+                                                @endforeach
                                             </select>
                                         </div>
                                         <div class="col-sm-6">
-                                            <select name="province_id" id="province_id" class="form-control input-sm">
+                                            <select name="district_id" id="district_id" class="form-control input-sm">
                                                 <option value="">Chọn Quận/Huyện</option>
+                                                @foreach($districts as $item)
+                                                    <option value="{{ $item->id }}" {{ $item->id == $setting->district_id ? 'selected' : '' }}>{{ $item->name }}</option>
+                                                @endforeach
                                             </select>
                                         </div>
                                     </div>
@@ -144,7 +150,11 @@
 
 @section('script')
 <script type="text/javascript">
-
+$(function() {
+    $('#province_id').ajaxLoadDistrict({
+        observers: '#district_id'
+    });
+});
 </script>
 
 @stop

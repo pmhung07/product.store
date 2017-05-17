@@ -48,7 +48,7 @@
                     <div class="row">
                         <div class="col-lg-header-15 col-md-2 col-sm-10">
                             <div class="logo">
-                                <a href="/" title="JUNO" class="logo"><img alt="JUNO" src="{{ parse_image_url('sm_'.$GLB_Setting->logo) }}" onerror="this.src='/img/default_picture.png'" /></a>
+                                <a href="/" title="JUNO" class="logo"><img alt="JUNO" src="{{ parse_image_url('sm_'.$GLB_Setting->logo) }}" onerror="this.src='/img/default_picture.png'" style="height: 30px;" /></a>
                             </div>
                         </div>
                         <div class="col-lg-header-35 col-sm-5 col-md-8">

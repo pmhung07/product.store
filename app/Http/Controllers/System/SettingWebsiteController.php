@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers\System;
 
+use App\Districts;
 use App\Http\Controllers\Controller;
 use App\Http\Requests;
 use App\Models\SettingWebsite;
+use App\Provinces;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 
 class SettingWebsiteController extends Controller
 {
@@ -18,7 +21,11 @@ class SettingWebsiteController extends Controller
     {
         $merchantId = 1;
         $setting = SettingWebsite::where('merchant_id', $merchantId)->firstOrNew([]);
-        return view('system/setting-website/index', compact('setting'));
+
+        $provinces = Provinces::all();
+        $districts = Districts::where('province_id', $setting->province_id)->get();
+
+        return view('system/setting-website/index', compact('setting', 'provinces', 'districts'));
     }
 
     public function postIndex(Request $request)
