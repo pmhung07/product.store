@@ -106,7 +106,7 @@ function cat_parent($data,$parent = 0,$str="--",$select=0){
 			}else{
 				echo "<option value='$id'>$str $name</option>";
 			}
-			cat_parent($data,$id,$str."--");
+			cat_parent($data,$id,$str."--",$select);
 		}
 	}
 }

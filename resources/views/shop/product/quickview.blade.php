@@ -125,10 +125,13 @@
                     value_ids : combination.join(',')
                 },
                 success: function(response) {
-                    $('#my-product-quickview .masp .text').text(response.sku);
-                    $('#my-product-quickview .variant-pricekm').html(response.price + '<span>đ</span>');
-                    $('#my-product-quickview').find('.image1').find('img').attr('src', response.image.medium);
-                    $('#_variant_sku').val(response.sku);
+                    if(response.code == 200) {
+                        var variant = response.variant;
+                        $('#my-product-quickview .masp .text').text(variant.sku);
+                        $('#my-product-quickview .variant-pricekm').html(variant.price + '<span>đ</span>');
+                        $('#my-product-quickview').find('.image1').find('img').attr('src', variant.image.medium);
+                        $('#_variant_sku').val(variant.sku);
+                    }
                 }
             });
         }

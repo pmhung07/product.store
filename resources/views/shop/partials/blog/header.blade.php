@@ -48,7 +48,7 @@
                     <div class="row">
                         <div class="col-lg-header-15 col-md-2 col-sm-10">
                             <div class="logo">
-                                <a href="/" title="JUNO" class="logo"><img alt="JUNO" src="/shop/assets/hstatic.net/969/1000003969/1000161857/logo.png%3Fv=8910" /></a>
+                                <a href="/" title="JUNO" class="logo"><img alt="JUNO" src="{{ parse_image_url('sm_'.$GLB_Setting->logo) }}" onerror="this.src='/img/default_picture.png'" style="height: 30px;" /></a>
                             </div>
                         </div>
                         <div class="col-lg-header-35 col-sm-5 col-md-8">
@@ -64,7 +64,7 @@
                         </div>
                         <div class="col-lg-header-25 col-sm-5 col-md-10">
                             <div class="head-call">
-                                <span>BÁN HÀNG: <strong>1800 1162</strong> (miễn phí)</span>
+                                <span><strong>{{ $GLB_Setting->phone }}</strong> (miễn phí)</span>
                             </div>
                         </div>
                         <div class="col-lg-header-25 col-sm-5 col-md-10 hide">

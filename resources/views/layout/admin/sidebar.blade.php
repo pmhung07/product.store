@@ -34,6 +34,13 @@
                 </a>
             </li>
 
+            <li @if(Request::is('system/store/*')) {!! 'class="active"' !!} @endif>
+                <a href="/system/store/index">
+                    <i class="fa fa-home"></i>
+                    <span class="nav-label">Cửa hàng</span>
+                </a>
+            </li>
+
             <li @if(Request::is('system/product-group/*') ||
                     Request::is('system/product/*') ||
                     Request::is('system/purchases/*') ||
@@ -156,7 +163,7 @@
                 </a>
             </li>
 
-            <li class="{{ Request::is('system/shop/post-categories/*') || Request::is('system/shop/post/*') || Request::is('system/shop/page/*') || Request::is('system/shop/coupon/*') || Request::is('system/shop/ga/*') ? 'active' : '' }}">
+            <li class="{{ Request::is('system/online-store/post-categories/*') || Request::is('system/online-store/post/*') || Request::is('system/online-store/page/*') || Request::is('system/online-store/coupon/*') || Request::is('system/online-store/ga/*') ? 'active' : '' }}">
                 <a href="javascript">
                     <i class="fa fa-leaf"></i>
                     <span class="nav-label">Website</span>
@@ -164,45 +171,54 @@
                 </a>
                 <ul class="nav nav-second-level collapse">
                     <li>
-                        <a href="/system/shop/post-categories/index"
+                        <a href="/system/online-store/setting/index"
                         @if(
-                            Request::is('system/shop/post-categories/*')
+                            Request::is('system/online-store/setting/*')
+                        )  {!! 'style="color: #a8d3ec;"' !!} @endif>
+                            <i class="fa fa-cogs"></i>
+                            Cài đặt
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/system/online-store/post-categories/index"
+                        @if(
+                            Request::is('system/online-store/post-categories/*')
                         )  {!! 'style="color: #a8d3ec;"' !!} @endif>
                             <i class="fa fa-sitemap"></i>
                             Danh mục tin
                         </a>
                     </li>
                     <li>
-                        <a href="/system/shop/post/index"
+                        <a href="/system/online-store/post/index"
                         @if(
-                            Request::is('system/shop/post/*')
+                            Request::is('system/online-store/post/*')
                         )  {!! 'style="color: #a8d3ec;"' !!} @endif>
                             <i class="fa fa-indent"></i>
                             Tin tức
                         </a>
                     </li>
                     <li>
-                        <a href="/system/shop/page/index"
+                        <a href="/system/online-store/page/index"
                         @if(
-                            Request::is('system/shop/page/*')
+                            Request::is('system/online-store/page/*')
                         )  {!! 'style="color: #a8d3ec;"' !!} @endif>
                             <i class="fa fa-files-o"></i>
                             Trang tĩnh
                         </a>
                     </li>
                     <li>
-                        <a href="/system/shop/coupon/index"
+                        <a href="/system/online-store/coupon/index"
                         @if(
-                            Request::is('system/shop/coupon/*')
+                            Request::is('system/online-store/coupon/*')
                         )  {!! 'style="color: #a8d3ec;"' !!} @endif>
                             <i class="fa fa-lastfm"></i>
                             Mã coupon
                         </a>
                     </li>
                     <li>
-                        <a href="/system/shop/ga/index"
+                        <a href="/system/online-store/ga/index"
                         @if(
-                            Request::is('system/shop/ga/*')
+                            Request::is('system/online-store/ga/*')
                         )  {!! 'style="color: #a8d3ec;"' !!} @endif>
                             <i class="fa fa-line-chart"></i>
                             Google analytics

@@ -326,7 +326,7 @@ Route::group(['middleware' => 'auth'], function(){
 		});
 
 		// Shop
-		Route::group(['prefix' => 'shop'], function(){
+		Route::group(['prefix' => 'online-store'], function(){
 			Route::group(['prefix' => 'post-categories'], function(){
 				Route::get('index', ['as' => 'admin.post-categories.index' , 'uses' => 'ShopPostCategoriesController@getIndex']);
 				Route::get('create', ['as' => 'admin.post-categories.create' , 'uses' => 'ShopPostCategoriesController@getCreate']);
@@ -376,6 +376,12 @@ Route::group(['middleware' => 'auth'], function(){
 				Route::get('index', ['as' => 'system.ga.index', 'uses' => 'System\GaController@getIndex']);
 			});
 
+			Route::group(['prefix' => 'setting'], function() {
+				Route::get('index', ['as' => 'system.setting_website.index', 'uses' => 'System\SettingWebsiteController@getIndex']);
+				Route::post('index', ['as' => 'system.setting_website.index', 'uses' => 'System\SettingWebsiteController@postIndex']);
+			});
+
+
 		});
 
 		// Affiliate
@@ -400,6 +406,16 @@ Route::group(['middleware' => 'auth'], function(){
 			});
 		});
 
+
+		// Store
+		Route::group(['prefix' => 'store', 'namespace' => 'System'], function() {
+			Route::get('/index', ['as' => 'system.store.index', 'uses' => 'StoreController@getIndex']);
+			Route::get('/create', ['as' => 'system.store.create', 'uses' => 'StoreController@getCreate']);
+			Route::post('/create', ['as' => 'system.store.create', 'uses' => 'StoreController@postCreate']);
+			Route::get('/{id}/edit', ['as' => 'system.store.update', 'uses' => 'StoreController@getUpdate']);
+			Route::post('/{id}/edit', ['as' => 'system.store.update', 'uses' => 'StoreController@postUpdate']);
+			Route::get('/{id}/delete', ['as' => 'system.store.delete', 'uses' => 'StoreController@getDelete']);
+		});
 	});
 });
 
