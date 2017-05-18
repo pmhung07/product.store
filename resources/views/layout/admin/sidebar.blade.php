@@ -19,6 +19,8 @@
                     Ls
                 </div>
             </li>
+
+            <?php if(active_sidebar(2) == 1 ){ ?>
             <li @if(Request::is('system/dashboard')) {!! 'class="active"' !!} @endif>
                 <a href="/system/dashboard">
                     <i class="fa fa-th-large"></i>
@@ -26,6 +28,9 @@
                     <span class="fa arrow"></span>
                 </a>
             </li>
+            <?php } ?>
+
+            <?php if(active_sidebar(1) == 1 ){ ?>
             <li @if(Request::is('system/orders/*')) {!! 'class="active"' !!} @endif>
                 <a href="/system/orders/index?filter-order-status=0">
                     <i class="fa fa-shopping-cart"></i>
@@ -33,13 +38,16 @@
                     <span class="fa arrow"></span>
                 </a>
             </li>
+            <?php } ?>
 
+            <?php if(active_sidebar(0) == 1 ){ ?>
             <li @if(Request::is('system/store/*')) {!! 'class="active"' !!} @endif>
                 <a href="/system/store/index">
                     <i class="fa fa-home"></i>
                     <span class="nav-label">Cửa hàng</span>
                 </a>
             </li>
+            <?php } ?>
 
             <li @if(Request::is('system/product-group/*') ||
                     Request::is('system/product/*') ||
@@ -56,6 +64,8 @@
                     <span class="fa arrow"></span>
                 </a>
                 <ul class="nav nav-second-level collapse">
+
+                    <?php if(active_sidebar(3) == 1 ){ ?>
                     <li>
                         <a href="/system/product-group/index"
                         @if(
@@ -65,6 +75,9 @@
                             Nhóm sản phẩm
                         </a>
                     </li>
+                    <?php } ?>
+
+                    <?php if(active_sidebar(21) == 1 ){ ?>
                     <li>
                         <a href="/system/product/index"
                         @if(
@@ -74,6 +87,9 @@
                             Sản phẩm
                         </a>
                     </li>
+                    <?php } ?>
+
+                    <?php if(active_sidebar(25) == 1 ){ ?>
                     <li>
                         <a href="/system/stock/index"
                         @if(
@@ -83,6 +99,9 @@
                             Kho hàng
                         </a>
                     </li>
+                    <?php } ?>
+
+                    <?php if(active_sidebar(29) == 1 ){ ?>
                     <li>
                         <a href="/system/inventory/index"
                         @if(
@@ -91,6 +110,9 @@
                             <i class="fa fa-cubes"></i>Hàng tồn kho
                         </a>
                     </li>
+                    <?php } ?>
+
+                    <?php if(active_sidebar(30) == 1 ){ ?>
                     <li>
                         <a href="/system/stock-receipt/index"
                         @if(
@@ -100,6 +122,9 @@
                             Nhập kho
                         </a>
                     </li>
+                    <?php } ?>
+
+                    <?php if(active_sidebar(0) == 1 ){ ?>
                     <li>
                         <a href="/system/transfer-product/index"
                         @if(
@@ -109,6 +134,8 @@
                             Chuyển kho
                         </a>
                     </li>
+                    <?php } ?>
+
                     <li>
                         <a href="/system/return-product/index"
                         @if(
@@ -121,6 +148,7 @@
                 </ul>
             </li>
 
+            <?php if(active_sidebar(62) == 1 ){ ?>
             <li @if(Request::is('system/statistic/channel') ||
                     Request::is('system/statistic/product-group') ||
                     Request::is('system/statistic/product') ||
@@ -135,7 +163,9 @@
                     <span class="fa arrow"></span>
                 </a>
             </li>
+            <?php } ?>
 
+            <?php if(active_sidebar(52) == 1 ){ ?>
             <li @if(Request::is('system/staff/*')) {!! 'class="active"' !!} @endif>
                 <a href="/system/staff/index">
                     <i class="fa fa-sitemap"></i>
@@ -143,7 +173,9 @@
                     <span class="fa arrow"></span>
                 </a>
             </li>
+            <?php } ?>
 
+            <?php if(active_sidebar(43) == 1 ){ ?>
             <li @if(Request::is('system/customer/*')) {!! 'class="active"' !!} @endif>
                 <a href="/system/customer/index">
                     <i class="fa fa-user"></i>
@@ -151,7 +183,9 @@
                     <span class="fa arrow"></span>
                 </a>
             </li>
+            <?php } ?>
 
+            <?php if(active_sidebar(78) == 1 ){ ?>
             <li @if(Request::is('system/landing-page/index') ||
                     Request::is('system/landing-page/create') ||
                     Request::is('system/landing-page/builder')
@@ -162,6 +196,7 @@
                     <span class="fa arrow"></span>
                 </a>
             </li>
+            <?php } ?>
 
             <li class="{{ Request::is('system/online-store/post-categories/*') || Request::is('system/online-store/post/*') || Request::is('system/online-store/page/*') || Request::is('system/online-store/coupon/*') || Request::is('system/online-store/ga/*') ? 'active' : '' }}">
                 <a href="javascript">
@@ -170,6 +205,8 @@
                     <span class="fa arrow"></span>
                 </a>
                 <ul class="nav nav-second-level collapse">
+
+                    <?php if(active_sidebar(0) == 1 ){ ?>
                     <li>
                         <a href="/system/online-store/setting/index"
                         @if(
@@ -179,6 +216,9 @@
                             Cài đặt
                         </a>
                     </li>
+                    <?php } ?>
+
+                    <?php if(active_sidebar(0) == 1 ){ ?>
                     <li>
                         <a href="/system/online-store/post-categories/index"
                         @if(
@@ -188,6 +228,9 @@
                             Danh mục tin
                         </a>
                     </li>
+                    <?php } ?>
+
+                    <?php if(active_sidebar(0) == 1 ){ ?>
                     <li>
                         <a href="/system/online-store/post/index"
                         @if(
@@ -197,6 +240,9 @@
                             Tin tức
                         </a>
                     </li>
+                    <?php } ?>
+
+                    <?php if(active_sidebar(0) == 1 ){ ?>
                     <li>
                         <a href="/system/online-store/page/index"
                         @if(
@@ -206,6 +252,9 @@
                             Trang tĩnh
                         </a>
                     </li>
+                    <?php } ?>
+
+                    <?php if(active_sidebar(0) == 1 ){ ?>
                     <li>
                         <a href="/system/online-store/coupon/index"
                         @if(
@@ -215,6 +264,9 @@
                             Mã coupon
                         </a>
                     </li>
+                    <?php } ?>
+
+                    <?php if(active_sidebar(0) == 1 ){ ?>
                     <li>
                         <a href="/system/online-store/ga/index"
                         @if(
@@ -224,9 +276,11 @@
                             Google analytics
                         </a>
                     </li>
+                    <?php } ?>
                 </ul>
             </li>
 
+            <?php if(active_sidebar(81) == 1 ){ ?>
             <li class="{{ Request::is('system/affiliate/*') ? 'active' : '' }}">
                 <a href="/system/affiliate/manager/dashboard">
                     <i class="fa fa-globe"></i>
@@ -234,6 +288,7 @@
                     <span class="fa arrow"></span>
                 </a>
             </li>
+            <?php } ?>
 
         </ul>
 
