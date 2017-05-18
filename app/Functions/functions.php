@@ -157,6 +157,9 @@ function list_permissions($data, $parent = 0, $str=""){
 		if($val['parent_id'] == $parent) {
 			echo '
 			<tr class="footable-even" style="display: table-row;">
+				<td class="text-center text-danger" style="font-weight:bold;">
+			       '.$id.'
+			    </td>
 			    <td>
 			       '.$str.$name.'
 			    </td>
@@ -613,6 +616,12 @@ function get_user_name_position($user_id){
 	}
 }
 
-
+function active_sidebar($module_permissions_id){
+	if(Auth::user()->id == 1 || in_array($module_permissions_id, json_decode(Auth::user()->permissions))){
+		return 1;
+	}else{
+		return 0;
+	}
+}
 
 ?>
