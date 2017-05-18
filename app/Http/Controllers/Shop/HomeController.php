@@ -21,6 +21,7 @@ class HomeController extends ShopController {
         // Sản phẩm hot
         $hotProducts = Product::join('order_details', 'product.id', '=', 'order_details.product_id')
                         ->join('orders', 'order_details.order_id', '=', 'orders.id')
+                        ->where('parent_id', 0)
                         // ->where('order_status', Orders::STATUS_SUCCESS)
                         // ->where('payment_status', Orders::PAYMENT_STATUS_SUCCESS)
                         ->orderBy('order_details.quantity', 'DESC')
@@ -29,14 +30,14 @@ class HomeController extends ShopController {
                         ->take(8)
                         ->get();
 
-        $hotProducts = $newestProductsInWeek = Product::take(5)
+        $hotProducts = $newestProductsInWeek = Product::take(5)->where('parent_id', 0)
                                        // ->whereBetween('created_at', [$sevenDayAgo, $today])
                                        ->orderByRaw('RAND()')->get();
 
         // Sản phẩm mới trong tuần
         $sevenDayAgo = date('Y-m-d 00:00:00', strtotime('-7 days'));
         $today = date('Y-m-d 23:59:59');
-        $newestProductsInWeek = Product::take(10)
+        $newestProductsInWeek = Product::take(10)->where('parent_id', 0)
                                        // ->whereBetween('created_at', [$sevenDayAgo, $today])
                                        ->orderBy('created_at', 'DESC')->get();
 

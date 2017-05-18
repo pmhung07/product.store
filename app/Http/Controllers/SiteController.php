@@ -457,6 +457,7 @@ class SiteController extends Controller
 					$frames->page_id = $pageID;
 					$frames->site_id = $siteData['id'];
 					$frames->content = $block['frameContent'];
+
 					$frames->height = $block['frameHeight'];
 					//$frames->original_url = $block['originalUrl'];
 					$frames->loaderfunction = $block['loaderFunction'];

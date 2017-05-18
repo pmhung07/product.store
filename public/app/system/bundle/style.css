@@ -1,0 +1,35 @@
+.infica-tags-input-container {
+  border: 1px solid #ccc;
+  padding: 10px;
+  overflow: hidden; }
+  .infica-tags-input-container .infica-tags-input-input {
+    border: none;
+    padding: 5px;
+    display: inline-block;
+    float: left; }
+  .infica-tags-input-container .infica-tag-item {
+    display: inline-block;
+    margin: 2px 2px 0 0;
+    border-radius: 2px;
+    background-color: #cde69c;
+    padding: 5px 10px;
+    overflow: hidden;
+    float: left; }
+    .infica-tags-input-container .infica-tag-item span {
+      color: #638421;
+      font-family: helvetica;
+      font-size: 13px;
+      display: block;
+      float: left;
+      margin-right: 5px; }
+    .infica-tags-input-container .infica-tag-item .infica-tag-close {
+      float: left;
+      display: block;
+      cursor: pointer;
+      font-weight: bold;
+      color: #82ad2b;
+      text-decoration: none;
+      font-size: 11px;
+      font-style: normal; }
+
+/*# sourceMappingURL=style.css.map*/

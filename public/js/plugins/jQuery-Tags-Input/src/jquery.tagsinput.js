@@ -154,7 +154,7 @@
 
 				if (tags_callbacks[id] && tags_callbacks[id]['onRemoveTag']) {
 					var f = tags_callbacks[id]['onRemoveTag'];
-					f.call(this, value);
+					f.call(this, value, '#'+id+'_tagsinput .tag');
 				}
 			});
 

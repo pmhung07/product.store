@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -64,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 4);
+/******/ 	return __webpack_require__(__webpack_require__.s = 7);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -150,50 +149,159 @@ module.exports = Helper;
 
 /***/ }),
 /* 2 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports) {
 
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__less_custom_style_less__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__less_custom_style_less___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__less_custom_style_less__);
+///// PLUGIN
+(function( $ ) {
 
+    // Tag input
+    $.fn.inficaTagsInput = function(options) {
+        var _default = {
+            width: '100%',
+            height: 'auto',
+            placeHolder: "Add a tag",
+            maxTags : 10,
+            items: [],
+            onAddTag : function(tag) {},
+            onRemoveTag: function(element) {}
+        };
+
+        options = $.extend(_default, options);
+
+        return this.each(function() {
+            var $this = $(this);
+
+            // Ẩn control thật
+            $this.hide();
+
+            var tagItemsId = [];
+
+            containerId = Math.round(Math.random(111111111,99999999)*100000000 + Math.floor(Date.now() / 1000));
+            var $container = $('<div>').attr({
+                id: 'infica-tags-input-container-'+containerId,
+                class : 'infica-tags-input-container'
+            }).css({
+                width: options.width,
+                height: options.height
+            });
+
+            var $input = $('<input />').attr({
+                type: 'text',
+                class: 'infica-tags-input-input',
+                placeHolder: options.placeHolder
+            });
+
+            var items = options.items;
+
+            function add_tag(tag) {
+                items.push(tag);
+
+                generate_tag();
+
+                options.onAddTag(tag);
+            }
+
+            function handle_remove_tag(e) {
+                console.log(e);
+            }
+
+            function generate_tag() {
+                // Reset
+                $container.empty();
+                // Append
+
+                var length = items.length;
+                if(length > options.maxTags) length = options.maxTags;
+
+                for(var i = 0; i < length; i ++) {
+                    var item = items[i];
+
+                    var $item = $('<span>').attr({
+                        class: 'infica-tag-item',
+                        'data-id' : item.id,
+                        'data-label': item.label
+                    }).html('<span>'+$.trim(item.label)+'</span>');
+
+                    var $close = $('<i>').attr({
+                        class : 'infica-tag-close',
+                        'data-id' : item.id,
+                        'data-label': $.trim(item.label)
+                    }).text('x');
+
+                    $item.append($close);
+
+                    $container.append($item);
+                }
+
+                $container.append($input);
+                $container.insertAfter($this);
+
+                // Gắn giá trị vào control thật
+                $this.attr('data-value', get_tag_values().join(','))
+                     .val(get_tag_values().join(','));
+            }
+
+            function get_tag_ids() {
+                var ids = [];
+                for(var i = 0; i < items.length; i ++) {
+                    ids.push(items[i].id);
+                }
+
+                return ids;
+            }
+
+            function get_tag_values() {
+                var values = [];
+                for(var i = 0; i < items.length; i ++) {
+                    values.push(items[i].label);
+                }
+
+                return values;
+            }
+
+            generate_tag();
+
+            // Keypress add tag
+            $(document).on('keypress', '#infica-tags-input-container-'+containerId+' .infica-tags-input-input', function(e) {
+                var keyCode = e.keyCode | e.which;
+
+                if(keyCode == 44 || keyCode == 13) {
+                    add_tag({
+                        id: 0,
+                        label: $(e.currentTarget).val()
+                    });
+
+                    generate_tag();
+
+                    $(this).focus();
+
+                    $(this).val('');
+
+                    return false;
+                }
+            });
+
+            // Remove tag
+            $(document).on('click', '#infica-tags-input-container-'+containerId+' .infica-tag-close', function(e) {
+                var _that = $(this);
+                $(this).parents('.infica-tag-item').remove();
+
+                for(var i = 0; i < items.length; i ++) {
+                    if(_that.data('id') == items[i].id) {
+                        items.splice(i, 1);
+                    }
+                }
+
+                generate_tag();
+
+                options.onRemoveTag(this);
+            });
+        });
+    }
+})( jQuery );
 
 /***/ }),
 /* 3 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__plugins_infica_tags_input_infica_tags_input_js__ = __webpack_require__(13);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__plugins_infica_tags_input_infica_tags_input_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__plugins_infica_tags_input_infica_tags_input_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__plugins_infica_tags_input_infica_tags_input_scss__ = __webpack_require__(14);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__plugins_infica_tags_input_infica_tags_input_scss___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__plugins_infica_tags_input_infica_tags_input_scss__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__product_ProductAddController__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__product_ProductUpdateController__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ga_GaController_js__ = __webpack_require__(5);
-// Plugins
-
-
-
-// System Product
-
-
-
-// Ga
-
-
-/***/ }),
-/* 4 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__system_entry_js__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__shop_entry_js__ = __webpack_require__(2);
-
-
-
-
-/***/ }),
-/* 5 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -405,7 +513,7 @@ __WEBPACK_IMPORTED_MODULE_1__app___default.a.GaController = function(params) {
 }
 
 /***/ }),
-/* 6 */
+/* 4 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -543,7 +651,7 @@ __WEBPACK_IMPORTED_MODULE_1__app___default.a.ProductAddController = function() {
 };
 
 /***/ }),
-/* 7 */
+/* 5 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -577,21 +685,6 @@ __WEBPACK_IMPORTED_MODULE_1__app___default.a.ProductUpdateController = function(
         // Biến xác nhận có tạo variant hay ko?
         var _fillAttr = _that.hasChild ? true : false;
 
-        function initTagsInput() {
-            // Input tags input
-            // $('.attribute-value-input').tagsInput({
-            //     defaultText : '',
-            //     width: '100%',
-            //     height: 100,
-            //     onRemoveTag: function(value, elementSelector) {
-            //         console.log(elementSelector);
-            //         requestDeleteOptionvalue(value);
-            //     }
-            // });
-        }
-
-        initTagsInput();
-
         // Append control to create variant
         $('#btn-add-new-attribute').click(function(e) {
             e.preventDefault();
@@ -599,7 +692,9 @@ __WEBPACK_IMPORTED_MODULE_1__app___default.a.ProductUpdateController = function(
             // $(document.getElementById('template-new-attribute').innerHTML).insertAfter('.first-attribute');
             $('#placement-new-attribute').append($(document.getElementById('template-new-attribute').innerHTML));
 
-            initTagsInput();
+            $('#placement-new-attribute .attribute-value-input:last').inficaTagsInput({
+                placeHolder: "VD: Xanh,Đỏ,Vàng"
+            });
 
             if($('.attribute-row').length == 3) {
                 $(this).addClass('hide');
@@ -650,11 +745,6 @@ __WEBPACK_IMPORTED_MODULE_1__app___default.a.ProductUpdateController = function(
                 for( var i in _images ) {
                     formData.append('images[]', _images[i]);
                 }
-            }
-
-            if(_fillAttr == false) {
-                formData.delete('option[]');
-                formData.delete('value[]');
             }
 
             $.ajax({
@@ -740,7 +830,8 @@ __WEBPACK_IMPORTED_MODULE_1__app___default.a.ProductUpdateController = function(
                 data: $this.serialize(),
                 dataType: "json",
                 success: function(response) {
-                    __WEBPACK_IMPORTED_MODULE_0__helper_helper___default.a.showMessage(response.message, response.type);
+                    __WEBPACK_IMPORTED_MODULE_0__helper_helper___default.a.showMessageAndRedirect(response.message, response.type, response.redirect);
+                    $('#modal-show-change-option').modal('hide');
                 }
             })
         });
@@ -753,81 +844,35 @@ __WEBPACK_IMPORTED_MODULE_1__app___default.a.ProductUpdateController = function(
 }
 
 /***/ }),
-/* 8 */
+/* 6 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
-/* 9 */,
-/* 10 */,
-/* 11 */,
-/* 12 */,
-/* 13 */
-/***/ (function(module, exports) {
+/* 7 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-///// PLUGIN
-(function( $ ) {
-
-    // Tag input
-    $.fn.inficaTagsInput = function(options) {
-        var _default = {
-            width: '100%',
-            height: 90,
-            placeHolder: "Add a tag",
-            items: []
-        };
-        options = $.extend(_default, options);
-        return this.each(function() {
-            var $this = $(this);
-
-            var tagItemsId = [];
-
-            var $container = $('<div>').attr({
-                class : 'infica-tags-input-container'
-            }).css({
-                width: options.width,
-                height: options.height
-            });
-
-            var $input = $('<input />').attr({
-                type: 'text',
-                class: 'infica-tags-input-input',
-                placeHolder: options.placeHolder
-            });
-
-            var items = options.items;
-
-            for(var i = 0; i < items.length; i ++) {
-                var item = items[i];
-
-                var $item = $('<span>').attr({
-                    class: 'infica-tag-item',
-                    'data-id' : item.id,
-                    'data-label': item.label
-                });
-
-                $container.append($item);
-
-                tagItemsId.push(item.id);
-            }
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__plugins_infica_tags_input_infica_tags_input_js__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__plugins_infica_tags_input_infica_tags_input_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__plugins_infica_tags_input_infica_tags_input_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__plugins_infica_tags_input_infica_tags_input_scss__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__plugins_infica_tags_input_infica_tags_input_scss___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__plugins_infica_tags_input_infica_tags_input_scss__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__product_ProductAddController__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__product_ProductUpdateController__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ga_GaController_js__ = __webpack_require__(3);
+// Plugins
 
 
-            $container.append($input);
-            $container.insertAfter($(this));
-        });
-    }
-})( jQuery );
 
-/***/ }),
-/* 14 */
-/***/ (function(module, exports) {
+// System Product
 
-// removed by extract-text-webpack-plugin
+
+
+// Ga
+
 
 /***/ })
 /******/ ]);
-=======
-!function(e){function t(n){if(a[n])return a[n].exports;var r=a[n]={i:n,l:!1,exports:{}};return e[n].call(r.exports,r,r.exports,t),r.l=!0,r.exports}var a={};t.m=e,t.c=a,t.i=function(e){return e},t.d=function(e,a,n){t.o(e,a)||Object.defineProperty(e,a,{configurable:!1,enumerable:!0,get:n})},t.n=function(e){var a=e&&e.__esModule?function(){return e.default}:function(){return e};return t.d(a,"a",a),a},t.o=function(e,t){return Object.prototype.hasOwnProperty.call(e,t)},t.p="",t(t.s=4)}([function(e,t){window.app={},e.exports=app},function(e,t){var a={number_format:function(e,t,a,n){e=(e+"").replace(/[^0-9+\-Ee.]/g,"");var r=isFinite(+e)?+e:0,i=isFinite(+t)?Math.abs(t):0,o=void 0===n?",":n,s=void 0===a?".":a,d="";return d=(i?function(e,t){var a=Math.pow(10,t);return""+(Math.round(e*a)/a).toFixed(t)}(r,i):""+Math.round(r)).split("."),d[0].length>3&&(d[0]=d[0].replace(/\B(?=(?:\d{3})+(?!\d))/g,o)),(d[1]||"").length<i&&(d[1]=d[1]||"",d[1]+=new Array(i-d[1].length+1).join("0")),d.join(s)},formatCurrency:function(e){return this.number_format(e,0,".",".")},showValidateError:function(e){var t=e.responseJSON;for(var a in t){var n=t[a];$('[name="'+a+'"]').addClass("in-valid-error").addClass("border-red");for(var r in n)toastr.error(n[r],"")}$(".in-valid-error").on("change",function(){$(this).removeClass("border-red")})},showMessage:function(e,t){toastr[t](e)},showMessageAndRedirect:function(e,t,a){toastr[t](e,"",{timeOut:800,onHidden:function(){window.location.href=a}})}};e.exports=a},function(e,t,a){"use strict";var n=a(8);a.n(n)},function(e,t,a){"use strict";a(6),a(7),a(5)},function(e,t,a){"use strict";Object.defineProperty(t,"__esModule",{value:!0});a(3),a(2)},function(e,t,a){"use strict";var n=a(1),r=a.n(n),i=a(0);a.n(i).a.GaController=function(e){function t(){var e={labels:s.labels,datasets:[{label:"Page view",fill:!1,lineTension:.1,backgroundColor:"rgba(85,255,10,0.4)",borderColor:"rgba(85,192,10,1)",borderCapStyle:"butt",borderDash:[],borderDashOffset:0,borderJoinStyle:"miter",pointBorderColor:"rgba(85,255,10,1)",pointBackgroundColor:"#fff",pointBorderWidth:1,pointHoverRadius:5,pointHoverBackgroundColor:"rgba(85,255,10,1)",pointHoverBorderColor:"rgba(85,255,10,1)",pointHoverBorderWidth:2,pointRadius:1,pointHitRadius:10,data:s.page_view.data,spanGaps:!1}]},t=document.getElementById("chart");new Chart(t,{type:"line",data:e,options:{tooltips:{enabled:!0,mode:"single",callbacks:{label:function(e,t){return r.a.formatCurrency(e.yLabel)}}},scales:{yAxes:[{ticks:{callback:function(e,t,a){return r.a.formatCurrency(e)}}}]}}})}function a(){var e={labels:s.labels,datasets:[{label:"Visit",fill:!1,lineTension:.1,backgroundColor:"rgba(75,192,192,0.4)",borderColor:"rgba(75,192,192,1)",borderCapStyle:"butt",borderDash:[],borderDashOffset:0,borderJoinStyle:"miter",pointBorderColor:"rgba(75,192,192,1)",pointBackgroundColor:"#fff",pointBorderWidth:1,pointHoverRadius:5,pointHoverBackgroundColor:"rgba(75,192,192,1)",pointHoverBorderColor:"rgba(220,220,220,1)",pointHoverBorderWidth:2,pointRadius:1,pointHitRadius:10,data:s.visit.data,spanGaps:!1}]},t=document.getElementById("chart-visit");new Chart(t,{type:"line",data:e,options:{tooltips:{enabled:!0,mode:"single",callbacks:{label:function(e,t){return r.a.formatCurrency(e.yLabel)}}},scales:{yAxes:[{ticks:{callback:function(e,t,a){return r.a.formatCurrency(e)}}}]}}})}function n(){var e={labels:s.labels,datasets:[{label:"Session duration",fill:!1,lineTension:.1,backgroundColor:"rgba(25,11,10,0.4)",borderColor:"rgba(25,11,10,1)",borderCapStyle:"butt",borderDash:[],borderDashOffset:0,borderJoinStyle:"miter",pointBorderColor:"rgba(25,11,10,1)",pointBackgroundColor:"#fff",pointBorderWidth:1,pointHoverRadius:5,pointHoverBackgroundColor:"rgba(25,11,10,1)",pointHoverBorderColor:"rgba(25,11,10,1)",pointHoverBorderWidth:2,pointRadius:1,pointHitRadius:10,data:s.session_duration.data,spanGaps:!1}]},t=document.getElementById("chart-session-duration");new Chart(t,{type:"line",data:e,options:{tooltips:{enabled:!0,mode:"single",callbacks:{label:function(e,t){return r.a.formatCurrency(e.yLabel)}}},scales:{yAxes:[{ticks:{callback:function(e,t,a){return r.a.formatCurrency(e)}}}]}}})}function i(){$(".datepicker").datepicker({todayHighlight:!0,todayBtn:"linked",keyboardNavigation:!1,forceParse:!1,calendarWeeks:!0,autoclose:!0,format:"yyyy-mm-dd"})}function o(){i(),t(),a(),n()}var s=e.chart_data;return{init:o}}},function(e,t,a){"use strict";var n=a(1),r=a.n(n),i=a(0);a.n(i).a.ProductAddController=function(){function e(){function e(){$(".attribute-value-input").tagsInput({defaultText:"Nhập giá trị cách nhau bằng dấu phẩy hoặc nhấn Enter",width:"100%",height:100})}var t=!1;e(),$("#add-variant").click(function(e){e.preventDefault(),$("#variant-container").removeClass("hide"),$("#variant-container").hasClass("hide")?$("#cancel-variant").addClass("hide"):$("#cancel-variant").removeClass("hide"),t=!0}),$("#cancel-variant").click(function(){$("#variant-container").addClass("hide"),$(this).addClass("hide"),t=!1}),$("#btn-add-new-attribute").click(function(t){t.preventDefault(),$("#placement-new-attribute").append($(document.getElementById("template-new-attribute").innerHTML)),e(),3==$(".attribute-row").length&&$(this).addClass("hide")}),$(document).on("click",".btn-delete-attribute",function(e){e.preventDefault(),$(this).parents(".attribute-row").remove()});var a,n=[];$('[name="image"]').change(function(){a=this.files[0]}),$('[name="images[]"]').change(function(){for(var e=0;e<this.files.length;e++)n.push(this.files[e])}),$("#form-data").on("submit",function(e){e.preventDefault();var i=$(this),o=new FormData,s=i.serializeArray();for(var d in s){var c=s[d];o.append(c.name,c.value)}if(a&&o.append("image",a),n)for(var d in n)o.append("images[]",n[d]);0==t&&(o.delete("option[]"),o.delete("value[]")),$.ajax({url:i.attr("action"),type:"POST",dataType:"json",data:o,cache:!1,processData:!1,contentType:!1,error:function(e){r.a.showValidateError(e)},success:function(e){1==e.code&&r.a.showMessageAndRedirect(e.message,"success",e.redirect)}})})}return{init:e}}},function(e,t,a){"use strict";var n=a(1),r=a.n(n),i=a(0);a.n(i).a.ProductUpdateController=function(e){function t(){function e(){$(".attribute-value-input").tagsInput({defaultText:"",width:"100%",height:100})}var t=!!a.hasChild;e(),$("#add-variant").click(function(e){e.preventDefault(),$("#variant-container").removeClass("hide"),$("#variant-container").hasClass("hide")?$("#cancel-variant").addClass("hide"):$("#cancel-variant").removeClass("hide"),t=!0}),$("#cancel-variant").click(function(){$("#variant-container").addClass("hide"),$(this).addClass("hide"),t=!1}),$("#btn-add-new-attribute").click(function(t){t.preventDefault(),$("#placement-new-attribute").append($(document.getElementById("template-new-attribute").innerHTML)),e(),3==$(".attribute-row").length&&$(this).addClass("hide")}),$(document).on("click",".btn-delete-attribute",function(e){e.preventDefault(),$(this).parents(".attribute-row").remove(),0==$(".attribute-row").length&&(t=!1)});var n,i=[];$('[name="image"]').change(function(){n=this.files[0]}),$('[name="images[]"]').change(function(){for(var e=0;e<this.files.length;e++)i.push(this.files[e])}),$("#form-data").on("submit",function(e){e.preventDefault();var a=$(this),o=new FormData,s=a.serializeArray();for(var d in s){var c=s[d];o.append(c.name,c.value)}if(n&&o.append("image",n),i)for(var d in i)o.append("images[]",i[d]);0==t&&(o.delete("option[]"),o.delete("value[]")),$.ajax({url:a.attr("action"),type:"POST",dataType:"json",data:o,cache:!1,processData:!1,contentType:!1,error:function(e){r.a.showValidateError(e)},success:function(e){1==e.code?r.a.showMessageAndRedirect(e.message,"success",e.redirect):422==e.code&&r.a.showMessage(e.message,"error")}})});var o=-1;$(".variant-upload-image").click(function(){$("#input-file-hidden").trigger("click"),o=$(this).data("key")}),$("#input-file-hidden").on("change",function(e){var t=($(this),this.files[0]),a=new FormData;a.append("file",t),a.append("_token",App.config.token),$.ajax({url:"/ajax/upload-image",type:"POST",dataType:"json",data:a,contentType:!1,processData:!1,beforeSend:function(){$("#variant-upload-image-"+o).attr("src","/img/ajax-loader.gif")},success:function(e){$("#variant-upload-image-"+o).attr("src",e.url),$("#variant-image-"+o).attr("value",e.filename)}})})}var a=this;return this.hasChild=e.has_child?e.has_child:0,{init:t}}},function(e,t){}]);
->>>>>>> 965ff8ae2882fdc2a91448756fc251cc772d6d39
 //# sourceMappingURL=bundle.js.map

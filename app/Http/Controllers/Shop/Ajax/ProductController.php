@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Shop\Ajax;
 use App\Http\Controllers\Controller;
 use App\Http\Requests;
 use App\Models\VariantCombination;
+use App\Models\VariantValue;
 use App\Product;
+use App\Properties;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -16,7 +18,10 @@ class ProductController extends Controller
         $productId = (int) $request->get('product_id');
         $product = Product::findOrFail($productId);
 
-        return view('shop/product/quickview', compact('product'));
+        // Variant
+        $properties = Properties::with('values')->where('product_id', $product->id)->get();
+
+        return view('shop/product/quickview', compact('product', 'properties'));
     }
 
     /**
@@ -32,29 +37,34 @@ class ProductController extends Controller
             if(!$value) unset($variantIds[$k]);
             $value = (int) $value;
         }
+        unset($value);
+        asort($variantIds);
+
         $productId = (int) $request->get('product_id');
 
-        // Find all childs
-        // Tìm trong tất cả sản phẩm con, tìm tiếp sp con đó có những giá trị gì.
-        // So sánh giá trị đó với giá trị truyền vào nếu khớp thì lấy sản phẩm đó ra
-        $childs = Product::where('parent_id', $productId)->get();
+        $variant = Product::join('variant_values', 'product.id', '=', 'variant_values.variant_id')
+                           ->where('variant_values.values_int', implode('', $variantIds))
+                           ->select('product.*')
+                           ->first();
 
-        foreach($childs as $item) {
-            $variant = VariantCombination::where('product_id', $item->id)->lists('value_id')->toArray();
-            asort($variant);
-            asort($variantIds);
-            if(implode(',', $variant) == implode(',', $variantIds)) {
-                return response()->json([
-                    'id' => $item->id,
-                    'price' => $item->price,
-                    'sku' => $item->sku,
+        if($variant) {
+            return response()->json([
+                'code' => 200,
+                'variant' => [
+                    'id' => $variant->id,
+                    'price' => $variant->price,
+                    'sku' => $variant->sku,
                     'image' => [
-                        'large' => parse_image_url('lg_' . $item->image),
-                        'medium' => parse_image_url('md_' . $item->image),
-                        'small' => parse_image_url('sm_' . $item->image)
+                        'large' => parse_image_url('lg_' . $variant->image),
+                        'medium' => parse_image_url('md_' . $variant->image),
+                        'small' => parse_image_url('sm_' . $variant->image)
                     ]
-                ]);
-            }
+                ]
+            ]);
+        } else {
+            return response()->json([
+                'code' => 404
+            ]);
         }
     }
 }

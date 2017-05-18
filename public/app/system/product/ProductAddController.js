@@ -2,6 +2,7 @@ import Helper from '../helper/helper';
 import app from '../app';
 
 app.ProductAddController = function() {
+
     function init() {
         // Biến xác nhận có tạo variant hay ko?
         var _fillAttr = false;

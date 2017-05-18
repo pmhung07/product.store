@@ -122,6 +122,11 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="form-group"><label class="col-sm-3 control-label">Mô tả sản phẩm</label>
+                            <div class="col-sm-9">
+                                <textarea name="content" class="form-control summernote">{{ $data['content'] }}</textarea>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -133,40 +138,7 @@
                         <p class="help-block text-info" style="font-size: 10px;">Sản phẩm có nhiều phiên bản dựa theo các thuộc tính màu sắc, kích thước</p>
                     </label>
                     <div class="col-sm-9">
-                        <button id="add-variant" class="form-control-static btn btn-xs btn-info">Thêm phiên bản</button>
-                        <small id="cancel-variant" class="text text-info hide" style="cursor: pointer;">Bỏ qua</small>
-                        <div id="variant-container" class="{{ !$hasVariant ? 'hide' : '' }}" style="margin-top: 10px; padding: 10px;  background-color: #f5f6f7">
-                            <header class="row">
-                                <div class="col-sm-4">
-                                    <h5>Tên thuộc tính</h5>
-                                </div>
-                                <div class="col-sm-8">
-                                    <h5>Giá trị thuộc tính</h5>
-                                </div>
-                            </header>
-                            @foreach($properties as $property)
-                                <section class="row attribute-row" style="margin-bottom: 10px;">
-                                    <div class="col-sm-4">
-                                        <input type="text" name="option[]" value="{{ $property->name }}" class="form-control" placeholder="Tên thuộc tính" style="margin-bottom: 10px;">
-                                    </div>
-                                    <div class="col-sm-7">
-                                        <textarea id="property-{{ $property->id }}" class="form-control attribute-value-input" name="value[]" placeholder="Giá trị thuộc tính cách nhau bằng dấu phẩy. Ví dụ: Xanh,Đỏ,Vàng"></textarea>
-                                        <script type="text/javascript">
-                                            $(function() {
-                                                @foreach($property->values as $valueItem)
-                                                    $('#property-{{ $property->id }}').addTag('{{ $valueItem->name }}');
-                                                @endforeach
-                                            });
-                                        </script>
-                                    </div>
-                                    <div class="col-sm-1">
-                                        <button class="btn btn-xs btn-danger btn-delete-attribute"><i class="fa fa-trash"></i></button>
-                                    </div>
-                                </section>
-                            @endforeach
-                            <div id="placement-new-attribute"></div>
-                            <button id="btn-add-new-attribute" class="btn btn-xs btn-danger">Tạo mới thuộc tính</button>
-                        </div>
+                        <a href="javascript:;" id="show-change-option" data-toggle="modal" data-target="#modal-show-change-option" class="btn btn-xs btn-default">Tùy chỉnh</a>
                     </div>
 
                     <div class="col-sm-12">
@@ -180,6 +152,7 @@
                                 <th>Sku</th>
                                 <th>Barcode</th>
                                 <th>Giá</th>
+                                <th></th>
                             </thead>
                             <tbody>
                                 @foreach($childProducts as $k => $item)
@@ -211,6 +184,9 @@
                                         <td>
                                             <input type="text" name="child_product[{{ $k }}][price]" value="{{ $item->price }}" class="form-control">
                                         </td>
+                                        <td>
+                                            <a href="javascript:;" data-variant_id="{{ $item->id }}" class="action-delete-variant"><i class="fa fa-trash fa-2x text-danger"></i></a>
+                                        </td>
                                     </tr>
                                 @endforeach
                                 <input type="file" id="input-file-hidden" class="hide" name="file">
@@ -232,6 +208,87 @@
         </form>
     </div>
 </div>
+
+
+ <div id="modal-show-change-option" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form id="form-create-option" method="POST" action="">
+                <div class="modal-header">
+                    <h3>Tùy chỉnh</h3>
+                </div>
+                <div class="modal-body">
+                    <div id="variant-container">
+                        <header class="row">
+                            <div class="col-sm-4">
+                                <h5>Tên thuộc tính</h5>
+                            </div>
+                            <div class="col-sm-8">
+                                <h5>Giá trị thuộc tính</h5>
+                            </div>
+                        </header>
+                        @foreach($properties as $property)
+                            <section class="row attribute-row" style="margin-bottom: 10px;">
+                                <div class="col-sm-4">
+                                    <input type="text" name="option[]" value="{{ $property->name }}" class="form-control" placeholder="Tên thuộc tính" style="margin-bottom: 10px;">
+                                </div>
+                                <div class="col-sm-7">
+                                    <textarea id="property-{{ $property->id }}" class="form-control attribute-value-input" name="value[]" placeholder="Giá trị thuộc tính cách nhau bằng dấu phẩy. Ví dụ: Xanh,Đỏ,Vàng"></textarea>
+                                    <?php
+                                        $valueJson = [];
+                                    ?>
+                                    @foreach($property->values as $valueItem)
+                                        <?php
+                                            $valueJson[] = [
+                                                'id' => $valueItem->id,
+                                                'label' => $valueItem->name
+                                            ];
+                                        ?>
+                                    @endforeach
+                                    <script type="text/javascript">
+                                        $(function() {
+                                            $('#property-{{ $property->id }}').inficaTagsInput({
+                                                items: {!! json_encode($valueJson) !!},
+                                                placeHolder: "VD: Xanh,Đỏ,Vàng",
+                                                onRemoveTag: function(el) {
+                                                    $.ajax({
+                                                        url: '/system/product/ajax/delete-option-value',
+                                                        type : "POST",
+                                                        data: {
+                                                            id: $(el).data('id'),
+                                                            _token: "{{ csrf_token() }}"
+                                                        },
+                                                        success: function(response) {
+                                                            toastr.message(response.message, response.type, {
+                                                                timeOut: 800
+                                                            });
+                                                        }
+                                                    });
+                                                }
+                                             });
+                                        });
+                                    </script>
+                                </div>
+                                <div class="col-sm-1">
+                                    <button class="btn btn-xs btn-danger btn-delete-attribute"><i class="fa fa-trash"></i></button>
+                                </div>
+                            </section>
+                        @endforeach
+                        <div id="placement-new-attribute"></div>
+                        <input type="hidden" name="product_id" value="{{ $data['id'] }}">
+                        {!! csrf_field() !!}
+                        <button id="btn-add-new-attribute" class="btn btn-xs btn-danger">Tạo mới thuộc tính</button>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <a href="javascript:;" data-dismiss="modal" class="btn btn-sm btn-default">Đóng</a>
+                    <button class="btn btn-sm btn-primary">Cập nhật</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 
 @stop
 
