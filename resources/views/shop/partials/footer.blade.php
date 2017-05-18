@@ -40,7 +40,7 @@
                                             <div class="phone_footer">
                                                 <strong>Gọi mua hàng(8:30-21:30)</strong>
                                                 <br>
-                                                <span class="number_phone">1800 1162</span>
+                                                <span class="number_phone">{{ $GLB_Setting->phone }}</span>
                                                 <span class="moreinfo">Tất cả các ngày trong tuần</span>
                                             </div>
                                         </div>
@@ -51,7 +51,7 @@
                                             <div class="phone_footer">
                                                 <strong>Góp ý, khiếu nại(8:30-21:30)</strong>
                                                 <br>
-                                                <span class="number_phone">1800 1160</span>
+                                                <span class="number_phone">{{ $GLB_Setting->phone }}</span>
                                                 <span class="moreinfo">Nghỉ chiều thứ 7, Chủ nhật, ngày lễ</span>
                                             </div>
                                         </div>
@@ -62,7 +62,7 @@
                                         <div class="wrapper_embed col-sm-6 col-xs-12">
                                             <div class="ttmail">
                                                 <span>
-                                                <strong>đăng ký nhận thông tin mới từ Juno</strong>
+                                                <strong>đăng ký nhận thông tin mới</strong>
                                                 </span>
                                             </div>
                                             <div id="mc_embed_signup" style="margin-bottom: 10px;">
@@ -82,21 +82,21 @@
                                         </div>
                                         <div class="social col-sm-6 col-xs-12">
                                             <p class="title-md-footer">
-                                                <strong>Like Juno trên mạng xã hội</strong>
+                                                <strong>Mạng xã hội</strong>
                                             </p>
                                             <ul class="navbar-social">
                                                 <li class="social-face">
-                                                    <a href="https://www.facebook.com/giayjuno" target="_blank" rel="nofollow">
+                                                    <a href="{{ $GLB_Setting->facebook }}" target="_blank" rel="nofollow">
                                                     <i class="fa fa-facebook-official" aria-hidden="true"></i>
                                                     </a>
                                                 </li>
                                                 <li>
-                                                    <a href="https://www.instagram.com/juno.vn/" target="_blank" rel="nofollow">
+                                                    <a href="{{ $GLB_Setting->instagram }}" target="_blank" rel="nofollow">
                                                     <i class="fa fa-instagram" aria-hidden="true"></i>
                                                     </a>
                                                 </li>
                                                 <li>
-                                                    <a href="https://www.youtube.com/user/JunoShoesVn" target="_blank" rel="nofollow">
+                                                    <a href="{{ $GLB_Setting->youtube }}" target="_blank" rel="nofollow">
                                                     <i class="fa fa-youtube" aria-hidden="true"></i>
                                                     </a>
                                                 </li>

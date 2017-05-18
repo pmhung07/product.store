@@ -173,6 +173,7 @@ class ProductController extends Controller
     	$units = Units::select('id','name')->where('active','=',1)->get()->toArray();
 
         $data = Product::find($id);
+        $product = $data;
 
         $hasVariant = Product::where('parent_id', $id)->count();
 
@@ -202,7 +203,7 @@ class ProductController extends Controller
             }
         }
 
-        return view('admin.product.update',compact('group_product','data', 'units', 'hasVariant', 'properties', 'childProducts'));
+        return view('admin.product.update',compact('group_product','data', 'product', 'units', 'hasVariant', 'properties', 'childProducts'));
     }
 
     public function postUpdate(Request $request,$id) {
@@ -228,7 +229,7 @@ class ProductController extends Controller
 
         $this->validate($request,$rules,$messages);
 
-    	$product->product_group_id = $request->product_group;;
+    	$product->product_group_id = (int) $request->get('product_group');
     	$product->unit_id = $request->product_unit;
     	$product->name = $request->product_name;
     	$product->sku = $request->product_sku;

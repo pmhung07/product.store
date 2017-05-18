@@ -103,9 +103,8 @@
                         $('#main-product-image > a').attr('data-zoom-image', variant.image.large);
                         $('#main-product-image .image-product-carousel').attr('src', variant.image.medium);
                         $('#main-product-image .click-p').attr('data-zoom-image', variant.image.large);
+                        _urlAddToCart += '&variant_sku=' + variant.sku;
                     }
-
-                    _urlAddToCart += '&variant_sku=' + variant.sku;
                 }
             });
         }
