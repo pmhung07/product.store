@@ -164,16 +164,13 @@
 
         $(window).on('scroll', function() {
             console.log($(window).scrollTop());
-            if($(window).scrollTop() >= 628) {
+            if($(window).scrollTop() >= 628 && $(window).scrollTop() <= 900) {
                 $('.sec-policies-feature').addClass('fixed');
-                $('#product').css({
-                    marginBottom: $('.sec-policies-feature').height()
-                });
             } else {
                 $('.sec-policies-feature').removeClass('fixed');
-                $('#product').css({
-                    marginBottom: 0
-                });
+                // $('#product').css({
+                //     marginBottom: 0
+                // });
             }
 
             // if($(window).scrollTop() >= 900) {

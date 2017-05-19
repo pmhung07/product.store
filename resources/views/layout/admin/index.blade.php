@@ -48,6 +48,9 @@
     <link rel="stylesheet" type="text/css" href="/js/plugins/jQuery-Tags-Input/dist/jquery.tagsinput.min.css">
     <script type="text/javascript" src="/js/plugins/jQuery-Tags-Input/src/jquery.tagsinput.js"></script>
 
+    <!-- Tiny mce -->
+    <script src="/js/plugins/tinymce_4.4.3/tinymce.min.js"></script>
+
     <script type="text/javascript">
         if(typeof App === 'undefined') {
             var App = {};

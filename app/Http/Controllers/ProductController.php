@@ -42,7 +42,8 @@ class ProductController extends Controller
         $product->weight = $request->product_weight;
         $product->volume = $request->product_volume;
         $product->promotion_price = to_numberic($request->promotion_price);
-        $product->content = clean($request->get('content'));
+        $product->spec = clean($request->get('spec'), 'youtube');
+        $product->content = clean($request->get('content', 'youtube'));
 
         if($request->hasFile('image')) {
             $resultUpload = $this->imageUploader->upload('image');
@@ -207,7 +208,6 @@ class ProductController extends Controller
     }
 
     public function postUpdate(Request $request,$id) {
-        // _debug($request->all());die;
         $product = Product::find($id);
         $rules = [
             'product_name' => 'required',
@@ -238,7 +238,8 @@ class ProductController extends Controller
         $product->warning_out_of_stock = $request->product_warning_low_in_stock;
         $product->weight = $request->product_weight;
         $product->volume = $request->product_volume;
-        $product->content = clean($request->get('content'));
+        $product->spec = clean($request->get('spec'), 'youtube');
+        $product->content = clean($request->get('content'), 'youtube');
 
         if($request->hasFile('image')) {
             $resultUpload = $this->imageUploader->upload('image');

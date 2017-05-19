@@ -76,6 +76,12 @@
 .pd-r-30 {padding-right: 30px !important;}
 .pd-r-40 {padding-right: 40px !important;}
 
+body {
+    @media only screen and(max-width: 768px) {
+        padding-top: 55px;
+    }
+}
+
 // Menu
 #fix-top-menu {
     .menu-hover-li {
@@ -223,10 +229,31 @@
         &.fixed {
             position: fixed;
             right: 75px;
-            z-index: -1;
+            // z-index: -1;
             background: #fff;
             width: 290px;
             top: 10px;
+        }
+    }
+    #spec {
+        overflow: hidden;
+        padding: 20px 0 20px 0;
+        .heading {
+            text-transform: uppercase;
+            font-size: 14px;
+            border-bottom: 1px solid #ccc;
+            position: relative;
+            margin: 0 0 20px 0;
+            span {
+                border-bottom: 2px solid #d61c1f;
+                display: inline-block;
+                margin-bottom: -1px;
+                font-weight: bold;
+                padding: 5px 0;
+            }
+        }
+        img {
+            max-width: 100%;
         }
     }
 }
