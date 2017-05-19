@@ -12,7 +12,7 @@
  */
 
 tinymce.PluginManager.add('jbimages', function(editor, url) {
-
+	
 	function jbBox() {
 		editor.windowManager.open({
 			title: 'Upload an image',
@@ -31,7 +31,7 @@ tinymce.PluginManager.add('jbimages', function(editor, url) {
 			}]
 		});
 	}
-
+	
 	// Add a button that opens a window
 	editor.addButton('jbimages', {
 		tooltip: 'Upload an image',

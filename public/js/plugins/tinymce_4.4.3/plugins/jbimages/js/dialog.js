@@ -14,11 +14,11 @@
  tinyMCEPopup.requireLangPack();
 
 var jbImagesDialog = {
-
+	
 	resized : false,
 	iframeOpened : false,
 	timeoutStore : false,
-
+	
 	init : function() {
 		document.getElementById("upload_target").src += '/' + tinyMCEPopup.getLang('jbimages_dlg.lang_id', 'english');
 		if (navigator.userAgent.indexOf('Opera') > -1)
@@ -26,7 +26,7 @@ var jbImagesDialog = {
 			document.getElementById("close_link").style.display = 'block';
 		}
 	},
-
+	
 	inProgress : function() {
 		document.getElementById("upload_infobar").style.display = 'none';
 		document.getElementById("upload_additional_info").innerHTML = '';
@@ -37,7 +37,7 @@ var jbImagesDialog = {
 			tinyMCEPopup.editor.windowManager.resizeBy(0, 30, tinyMCEPopup.id);
 		}, 20000);
 	},
-
+	
 	showIframe : function() {
 		if (this.iframeOpened == false)
 		{
@@ -46,7 +46,7 @@ var jbImagesDialog = {
 			this.iframeOpened = true;
 		}
 	},
-
+	
 	uploadFinish : function(result) {
 		if (result.resultCode == 'failed')
 		{
@@ -55,7 +55,7 @@ var jbImagesDialog = {
 			document.getElementById("upload_infobar").style.display = 'block';
 			document.getElementById("upload_infobar").innerHTML = result.result;
 			document.getElementById("upload_form_container").style.display = 'block';
-
+			
 			if (this.resized == false)
 			{
 				tinyMCEPopup.editor.windowManager.resizeBy(0, 30, tinyMCEPopup.id);
