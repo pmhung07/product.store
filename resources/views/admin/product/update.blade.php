@@ -127,6 +127,11 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="form-group"><label class="col-sm-3 control-label">Thông số kỹ thuật</label>
+                            <div class="col-sm-9">
+                                <textarea name="spec" class="form-control summernote">{{ $data['spec'] }}</textarea>
+                            </div>
+                        </div>
                         <div class="form-group"><label class="col-sm-3 control-label">Mô tả sản phẩm</label>
                             <div class="col-sm-9">
                                 <textarea name="content" class="form-control summernote">{{ $data['content'] }}</textarea>

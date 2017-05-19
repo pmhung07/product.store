@@ -60,9 +60,10 @@ class OrderController extends ShopController
             $totalPrice = to_numberic(Cart::subtotal(0,'.','.'));
 
             $couponCode = clean($request->get('coupon'));
+            // Kiểm tra mã giảm giá nếu có
+            $coupon = Coupon::where('code', $couponCode)->first();
+
             foreach(Cart::content() as $item) {
-                // Kiểm tra mã giảm giá nếu có
-                $coupon = Coupon::where('code', $couponCode)->first();
                 if($coupon) {
                     switch ($coupon->type) {
                         case Coupon::TYPE_PRODUCT:
