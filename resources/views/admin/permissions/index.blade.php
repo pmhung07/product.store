@@ -52,6 +52,7 @@
                         <table class="table table-striped table-bordered table-hover">
                             <thead>
                             <tr>
+                                <th class="text-center" width="10">ID</th>
                                 <th class="footable-visible footable-first-column footable-sortable">Danh mục quản lý<span class="footable-sort-indicator"></span></th>
                                 <th class="footable-visible footable-first-column footable-sortable">Alias<span class="footable-sort-indicator"></span></th>
                                 <th width="150">Thứ tự</th>
