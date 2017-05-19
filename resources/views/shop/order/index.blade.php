@@ -14,6 +14,14 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2, user-scalable=no">
         <script src='https://www.google.com/recaptcha/api.js'></script>
         <script type="text/javascript" src="/shop/assets/js/my-plugin/load-district.js"></script>
+        <style type="text/css">
+            .btn-check-coupon {
+                padding: 12px 12px;
+                background: #d61c1f;
+                border-radius: 0;
+                box-shadow: none;
+            }
+        </style>
     </head>
     <body>
         <input id="reloadValue" type="hidden" name="reloadValue" value="" />
@@ -24,7 +32,7 @@
                         <div class="order-summary order-summary-is-collapsed">
                             <h2 class="visually-hidden">Thông tin đơn hàng</h2>
                             <div class="order-summary-sections">
-                                <div class="order-summary-section order-summary-section-product-list" data-order-summary-section="line-items">
+                                <div id="section-cart-items" class="order-summary-section order-summary-section-product-list" data-order-summary-section="line-items">
                                     <table class="table">
                                         <thead>
                                             <th scope="col">Hình ảnh</th>
@@ -117,7 +125,14 @@
                                             </div>
 
                                             <div class="form-group">
-                                                <input placeholder="Mã giảm giá" class="form-control input-lg" name="coupon" value="{{ old('coupon') }}" />
+                                                <div class="row">
+                                                    <div class="col-sm-8">
+                                                        <input placeholder="Mã giảm giá" class="form-control input-lg" name="coupon" value="{{ old('coupon') }}" />
+                                                    </div>
+                                                    <div class="col-sm-4">
+                                                        <button id="btn-check-coupon" class="btn btn-sm btn-danger btn-check-coupon">Kiểm tra</button>
+                                                    </div>
+                                                </div>
                                             </div>
 
                                             <div class="form-group">
@@ -149,6 +164,52 @@
             $(function() {
                 $('#province').loadDistricts({
                     observers: '#district'
+                });
+
+                $('#btn-check-coupon').click(function(e) {
+                    e.preventDefault();
+                    var coupon = $('[name="coupon"]').val();
+
+                    if(!coupon) {
+                        alert("Vui lòng nhập mã coupon để kiểm tra");
+                        $('[name="coupon"]').focus();
+                        return;
+                    }
+
+                    $.ajax({
+                        url: '/ajax/check-coupon/'+coupon,
+                        type: 'POST',
+                        dataType: 'json',
+                        data : {
+                            _token: '{{ csrf_token() }}'
+                        },
+                        success: function(response) {
+                            if(response.code == 200) {
+                                $('body').trigger('coupon_is_ok');
+                            } else {
+                                alert(response.message);
+                            }
+                        }
+                    });
+                });
+
+                $('body').bind('coupon_is_ok', function() {
+                    $.ajax({
+                        url: "/ajax/html-cart-in-order-page",
+                        type: "GET",
+                        dataType: 'html',
+                        data : {
+                            coupon: $('[name="coupon"]').val()
+                        },
+                        success: function(response) {
+                            $('#section-cart-items').css('border', '1px solid green');
+                            $('#section-cart-items').html(response);
+
+                            setTimeout(function() {
+                                $('#section-cart-items').css('border', 'none');
+                            }, 300);
+                        }
+                    });
                 });
             });
         </script>

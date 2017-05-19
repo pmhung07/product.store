@@ -35,10 +35,19 @@
     <?php endforeach; ?>
 </div>
 
-<div class="thumbnails-hidden">
+<div class="thumbnails-hidden" style="overflow: hidden;">
     @foreach($product->variants()->get() as $item)
     <a rel="gallery-1" class="swipebox thumbnail thumdelete" href="{{ parse_image_url($item->image) }}">
         <img src="{{ parse_image_url('sm_'.$item->image) }}">
     </a>
     @endforeach
 </div>
+
+@if($product->spec)
+<div id="spec">
+    <h5 class="heading">
+        <span>Thông số kỹ thuật</span>
+    </h5>
+    <div class="spec-info">{!! $product->spec !!}</div>
+</div>
+@endif
