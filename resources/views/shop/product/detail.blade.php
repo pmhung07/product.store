@@ -1,7 +1,7 @@
 @extends('shop/layout/default')
 
 @section('content')
-<section id="product">
+<section id="product" class="product-detail-container">
     <div class="container wow fadeIn">
         <style>
             .breadcrumb > li + li::before
