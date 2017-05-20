@@ -163,7 +163,6 @@
 
 
         $(window).on('scroll', function() {
-            console.log($(window).scrollTop());
             if($(window).scrollTop() >= 628 && $(window).scrollTop() <= 900) {
                 $('.sec-policies-feature').addClass('fixed');
             } else {
