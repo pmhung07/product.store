@@ -164,9 +164,9 @@
 
         $(window).on('scroll', function() {
             if($(window).scrollTop() >= 628 && $(window).scrollTop() <= 900) {
-                $('.sec-policies-feature').addClass('fixed');
+                $('.sec-policies-feature').addClass('policy-fixed');
             } else {
-                $('.sec-policies-feature').removeClass('fixed');
+                $('.sec-policies-feature').removeClass('policy-fixed');
                 // $('#product').css({
                 //     marginBottom: 0
                 // });
