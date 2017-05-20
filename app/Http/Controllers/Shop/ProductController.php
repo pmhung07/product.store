@@ -40,7 +40,10 @@ class ProductController extends ShopController
         // Options
         $properties = Properties::with('values')->where('product_id', $id)->get();
 
-        return view('shop/product/detail', compact('product', 'warehouses', 'provinces', 'properties'));
+        // Sản phẩm có thể bạn quan tâm
+        $relatedProducts = Product::where('product_group_id', $product->product_group_id)->whereNotIn('id',[$product->id])->orderBy('updated_at', 'DESC')->take(10)->get();
+
+        return view('shop/product/detail', compact('product', 'warehouses', 'provinces', 'properties', 'relatedProducts'));
     }
 
 

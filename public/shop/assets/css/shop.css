@@ -351,25 +351,25 @@
   overflow: hidden;
   padding: 20px 0 20px 0;
 }
-#product.product-detail-container #spec .heading {
+#product.product-detail-container #spec img {
+  max-width: 100%;
+}
+#product.product-detail-container .description img {
+  max-width: 100%;
+}
+#product.product-detail-container .sec-heading {
   text-transform: uppercase;
   font-size: 14px;
   border-bottom: 1px solid #ccc;
   position: relative;
   margin: 0 0 20px 0;
 }
-#product.product-detail-container #spec .heading span {
+#product.product-detail-container .sec-heading span {
   border-bottom: 2px solid #d61c1f;
   display: inline-block;
   margin-bottom: -1px;
   font-weight: bold;
   padding: 5px 0;
-}
-#product.product-detail-container #spec img {
-  max-width: 100%;
-}
-#product.product-detail-container .description img {
-  max-width: 100%;
 }
 .ClickBlogItem {
   display: block;
