@@ -20,6 +20,6 @@
 	longer_than_usual : 'C\'est plus long que pr\u00E9vu.',
 	maybe_an_error : 'Une erreur est probablement survenue.',
 	view_output : 'Voir la sortie du script',
-
+	
 	lang_id : 'french' /* php-side language files are in: ci/application/language/{lang_id}; and in ci/system/language/{lang_id} */
 });

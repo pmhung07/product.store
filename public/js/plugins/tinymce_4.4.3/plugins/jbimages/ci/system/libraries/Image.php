@@ -142,7 +142,7 @@ class Image {
 
 		foreach ($_FILES[$fileControl]["error"] as $key => $error) {
 		   if ($error == UPLOAD_ERR_OK
-			&& in_array($this->getExtension($_FILES[$fileControl]["tmp_name"][$key]), $this->extensions)) {
+		   	&& in_array($this->getExtension($_FILES[$fileControl]["tmp_name"][$key]), $this->extensions)) {
 
 				$tmp_name = $_FILES[$fileControl]["tmp_name"][$key];
 				$name     = $this->createFilename($_FILES[$fileControl]["tmp_name"][$key]);
@@ -231,7 +231,7 @@ class Image {
 
 			$thumb = imagecreatetruecolor($newWidth, $newHeight);
 			imagealphablending($thumb, false);
-			imagesavealpha($thumb,true);
+ 			imagesavealpha($thumb,true);
 
 			if($this->removeHaivlWaterMask) {
 				$offSetYWaterMask = -20;
@@ -557,7 +557,7 @@ class Image {
          default:
              $message = "Unknown upload error";
              break;
-	}
+     	}
         return $message;
    }
 
@@ -567,6 +567,6 @@ class Image {
     * @return [type] [description]
     */
    public function getErrors() {
-	return $this->errors;
+   	return $this->errors;
    }
 }

@@ -227,12 +227,14 @@ body {
     }
     .sec-policies-feature {
         &.fixed {
-            position: fixed;
-            right: 75px;
-            // z-index: -1;
-            background: #fff;
-            width: 290px;
-            top: 10px;
+            @media only screen and (min-width: 1220px) {
+                position: fixed;
+                right: 75px;
+                // z-index: -1;
+                background: #fff;
+                width: 290px;
+                top: 10px;
+            }
         }
     }
     #spec {

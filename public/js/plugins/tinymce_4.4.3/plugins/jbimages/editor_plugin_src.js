@@ -10,7 +10,7 @@
  *
  * Version: 2.3 released 23/06/2013
  */
-
+ 
 (function() {
 	// Load plugin specific language pack
 	tinymce.PluginManager.requireLangPack('jbimages');

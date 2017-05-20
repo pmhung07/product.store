@@ -338,12 +338,14 @@
     height: 400px;
   }
 }
-#detail-product .sec-policies-feature.fixed {
-  position: fixed;
-  right: 75px;
-  background: #fff;
-  width: 290px;
-  top: 10px;
+@media only screen and (min-width: 1220px) {
+  #detail-product .sec-policies-feature.fixed {
+    position: fixed;
+    right: 75px;
+    background: #fff;
+    width: 290px;
+    top: 10px;
+  }
 }
 #detail-product #spec {
   overflow: hidden;
