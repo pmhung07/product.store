@@ -114,6 +114,14 @@
         </div>
     </div>
 
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-9">
+                <div class="fb-comments" data-href="{{ url('shop.product.detail', [$product->id, $product->slug]) }}" data-width="100%" data-numposts="5"></div>
+            </div>
+        </div>
+    </div>
+
     @if($relatedProducts->count() > 0)
         <div class="sec-related-product container">
             <h5 class="sec-heading">
@@ -131,7 +139,17 @@
 </section>
 <!--popup content-->
 
+<!-- Go to www.addthis.com/dashboard to customize your tools -->
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5674cf635e4c5b26"></script>
 
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v2.9&appId=552091071613449";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
 
 <script type="text/javascript">
     $("#slide-image").owlCarousel({
@@ -178,7 +196,7 @@
 
 
         $(window).on('scroll', function() {
-            if($(window).scrollTop() >= 628 && $(window).scrollTop() <= 900) {
+            if($(window).scrollTop() >= 628 && $(window).scrollTop() <= 760) {
                 $('.sec-policies-feature').addClass('policy-fixed');
             } else {
                 $('.sec-policies-feature').removeClass('policy-fixed');
