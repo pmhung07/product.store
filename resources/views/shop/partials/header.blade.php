@@ -15,7 +15,7 @@
         <meta property="og:site_name" content="">
         <link rel="canonical" href="index.html" />
         <meta name="viewport" content="width=device-width,initial-scale=1.0" />
-        <link rel="shortcut icon" type="image/png" href="{{ url(parse_image_url($GLB_Setting->favicon)) }}" />
+        <link rel="shortcut icon" type="image/png" href="{{ $GLB_Setting->favicon ? url(parse_image_url($GLB_Setting->favicon)) : url('/') }}" />
 
         <!-- Boostrap,owl.carousel,animated -->
         {{-- <link href='/shop/assets/hstatic.net/969/1000003969/1000161857/bootstrap_juno.min.css%3Fv=8910.css' rel='stylesheet' type='text/css'  media='all'  /> --}}
