@@ -60,6 +60,11 @@
         }
     </script>
 
+    <!-- Jquery input token -->
+    <link rel="stylesheet" type="text/css" href="/js/plugins/loopj-jquery-tokeninput/styles/token-input.css">
+    <link rel="stylesheet" type="text/css" href="/js/plugins/loopj-jquery-tokeninput/styles/token-input-facebook.css">
+    <script type="text/javascript" src="/js/plugins/loopj-jquery-tokeninput/src/jquery.tokeninput.js"></script>
+
     <script src="js/functions.js"></script>
     <script src="/js/core/helper.js" type="text/javascript"></script>
     <script src="js/core/core.js"></script>

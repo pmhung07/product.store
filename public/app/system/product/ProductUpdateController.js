@@ -175,6 +175,16 @@ app.ProductUpdateController = function(params) {
             })
         });
 
+        // Ajax search product group
+        $('#product-group').tokenInput('/system/ajax/product-group', {
+            preventDuplicates: true,
+            theme: 'facebook',
+            hintText: "Nhóm sản phẩm",
+            noResultsText: "Không có nhóm nào được tìm thấy",
+            searchingText: "Đang tìm",
+            prePopulate: params.group_data_input_token
+        });
+
     }
 
     return {

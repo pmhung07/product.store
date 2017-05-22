@@ -68,24 +68,24 @@ Route::group(['middleware' => 'auth'], function(){
 	Route::group(['prefix' => 'system'], function(){
 
 		// Tổng quan - thống kê
-		Route::get('dashboard', ['as' => 'admin.dashboard' , 'uses' => 'DashboardController@getDashboard']); 
+		Route::get('dashboard', ['as' => 'admin.dashboard' , 'uses' => 'DashboardController@getDashboard']);
 
 		// Quản lý Đơn hàng
 		Route::group(['prefix' => 'orders'], function(){
 
 			// Danh sách đơn hàng
-			Route::get('index', ['as' => 'admin.orders.index' , 'uses' => 'OrdersController@getIndex']); 
-			Route::get('trash', ['as' => 'admin.orders.trash' , 'uses' => 'OrdersController@getTrash']); 
-			Route::get('return', ['as' => 'admin.orders.return' , 'uses' => 'OrdersController@getReturn']); 
-			Route::get('details/{id}', ['as' => 'admin.orders.details' , 'uses' => 'OrdersController@getDetails']); 
+			Route::get('index', ['as' => 'admin.orders.index' , 'uses' => 'OrdersController@getIndex']);
+			Route::get('trash', ['as' => 'admin.orders.trash' , 'uses' => 'OrdersController@getTrash']);
+			Route::get('return', ['as' => 'admin.orders.return' , 'uses' => 'OrdersController@getReturn']);
+			Route::get('details/{id}', ['as' => 'admin.orders.details' , 'uses' => 'OrdersController@getDetails']);
 
 			// Chi tiết vận đơn
-			Route::get('delivery/details/{id}', ['as' => 'admin.orders.delivery' , 'uses' => 'OrdersController@getDeliveryDetails']); 
+			Route::get('delivery/details/{id}', ['as' => 'admin.orders.delivery' , 'uses' => 'OrdersController@getDeliveryDetails']);
 			Route::post('delivery/details/{id}', ['as' => 'admin.orders.createInfoDelivery' , 'uses' => 'OrdersController@postCreateInfoDelivery']);
 
 			// Tạo đơn hàng
-			Route::get('create', ['as' => 'admin.orders.getCreate' , 'uses' => 'OrdersController@getCreate']); 
-			Route::post('create', ['as' => 'admin.orders.getCreate' , 'uses' => 'OrdersController@postCreate']); 
+			Route::get('create', ['as' => 'admin.orders.getCreate' , 'uses' => 'OrdersController@getCreate']);
+			Route::post('create', ['as' => 'admin.orders.getCreate' , 'uses' => 'OrdersController@postCreate']);
 
 		});
 
@@ -93,36 +93,36 @@ Route::group(['middleware' => 'auth'], function(){
 		Route::group(['prefix' => 'product-group'], function(){
 
 			// Danh sách nhóm sản phẩm
-			Route::get('index', ['as' => 'admin.product-group.index' , 'uses' => 'ProductGroupController@getIndex']); 
+			Route::get('index', ['as' => 'admin.product-group.index' , 'uses' => 'ProductGroupController@getIndex']);
 
 			// Tạo nhóm sản phẩm
-			Route::get('create', ['as' => 'admin.product-group.getCreate' , 'uses' => 'ProductGroupController@getCreate']); 
-			Route::post('create', ['as' => 'admin.product-group.getCreate' , 'uses' => 'ProductGroupController@postCreate']); 
+			Route::get('create', ['as' => 'admin.product-group.getCreate' , 'uses' => 'ProductGroupController@getCreate']);
+			Route::post('create', ['as' => 'admin.product-group.getCreate' , 'uses' => 'ProductGroupController@postCreate']);
 
 			// Sửa nhóm sản phẩm
-			Route::get('update/{id}', ['as' => 'admin.product-group.getUpdate' , 'uses' => 'ProductGroupController@getUpdate']); 
-			Route::post('update/{id}', ['as' => 'admin.product-group.getUpdate' , 'uses' => 'ProductGroupController@postUpdate']); 
+			Route::get('update/{id}', ['as' => 'admin.product-group.getUpdate' , 'uses' => 'ProductGroupController@getUpdate']);
+			Route::post('update/{id}', ['as' => 'admin.product-group.getUpdate' , 'uses' => 'ProductGroupController@postUpdate']);
 
 			// Xoá nhóm sản phẩm
-			Route::get('delete/{id}', ['as' => 'admin.product-group.getDelete' , 'uses' => 'ProductGroupController@getDelete']); 
+			Route::get('delete/{id}', ['as' => 'admin.product-group.getDelete' , 'uses' => 'ProductGroupController@getDelete']);
 		});
 
 		// Quản lý Sản phẩm
 		Route::group(['prefix' => 'product'], function() {
 
 			// Danh sách sản phẩm
-			Route::get('index', ['as' => 'admin.product.index' , 'uses' => 'ProductController@getIndex']); 
+			Route::get('index', ['as' => 'admin.product.index' , 'uses' => 'ProductController@getIndex']);
 
 			// Tạo sản phẩm
-			Route::get('create', ['as' => 'admin.product.getCreate' , 'uses' => 'ProductController@getCreate']); 
-			Route::post('create', ['as' => 'admin.product.getCreate' , 'uses' => 'ProductController@postCreate']); 
+			Route::get('create', ['as' => 'admin.product.getCreate' , 'uses' => 'ProductController@getCreate']);
+			Route::post('create', ['as' => 'admin.product.getCreate' , 'uses' => 'ProductController@postCreate']);
 
 			// Sửa sản phẩm
-			Route::get('update/{id}', ['as' => 'admin.product.getUpdate' , 'uses' => 'ProductController@getUpdate']); 
-			Route::post('update/{id}', ['as' => 'admin.product.getUpdate' , 'uses' => 'ProductController@postUpdate']); 
+			Route::get('update/{id}', ['as' => 'admin.product.getUpdate' , 'uses' => 'ProductController@getUpdate']);
+			Route::post('update/{id}', ['as' => 'admin.product.getUpdate' , 'uses' => 'ProductController@postUpdate']);
 
 			// Xoá sản phẩm
-			Route::get('delete/{id}', ['as' => 'admin.product.getDelete' , 'uses' => 'ProductController@getDelete']); 
+			Route::get('delete/{id}', ['as' => 'admin.product.getDelete' , 'uses' => 'ProductController@getDelete']);
 
 			// Variant
 			Route::get('variant/{id}/delete', ['as' => 'admin.product.deleteVariant', 'uses' => 'ProductController@getDeleteVariant']);
@@ -139,168 +139,168 @@ Route::group(['middleware' => 'auth'], function(){
 		Route::group(['prefix' => 'stock'], function(){
 
 			// Danh sách kho hàng
-			Route::get('index', ['as' => 'admin.stock.index' , 'uses' => 'WarehouseController@getIndex']); 
+			Route::get('index', ['as' => 'admin.stock.index' , 'uses' => 'WarehouseController@getIndex']);
 
 			// Tạo kho hàng
-			Route::get('create', ['as' => 'admin.stock.getCreate' , 'uses' => 'WarehouseController@getCreate']); 
-			Route::post('create', ['as' => 'admin.stock.getCreate' , 'uses' => 'WarehouseController@postCreate']); 
+			Route::get('create', ['as' => 'admin.stock.getCreate' , 'uses' => 'WarehouseController@getCreate']);
+			Route::post('create', ['as' => 'admin.stock.getCreate' , 'uses' => 'WarehouseController@postCreate']);
 
 			// Sửa kho hàng
-			Route::get('update/{id}', ['as' => 'admin.stock.getUpdate' , 'uses' => 'WarehouseController@getUpdate']); 
-			Route::post('update/{id}', ['as' => 'admin.stock.getUpdate' , 'uses' => 'WarehouseController@postUpdate']); 
+			Route::get('update/{id}', ['as' => 'admin.stock.getUpdate' , 'uses' => 'WarehouseController@getUpdate']);
+			Route::post('update/{id}', ['as' => 'admin.stock.getUpdate' , 'uses' => 'WarehouseController@postUpdate']);
 
 			// Xoá kho hàng
-			Route::get('delete/{id}', ['as' => 'admin.stock.getDelete' , 'uses' => 'WarehouseController@getDelete']); 
+			Route::get('delete/{id}', ['as' => 'admin.stock.getDelete' , 'uses' => 'WarehouseController@getDelete']);
 		});
 
 		// Quản lý hàng tồn kho
 		Route::group(['prefix' => 'inventory'], function(){
 
 			// Danh sách sản phẩm tồn kho
-			Route::get('index', ['as' => 'admin.inventory.index' , 'uses' => 'WarehouseInventoryController@getIndex']); 
+			Route::get('index', ['as' => 'admin.inventory.index' , 'uses' => 'WarehouseInventoryController@getIndex']);
 		});
 
 		// Quản lý nhập kho
 		Route::group(['prefix' => 'stock-receipt'], function(){
 
 			// Chi tiết sản phẩm đã nhập vào kho
-			Route::get('index', ['as' => 'admin.stock-receipt.index' , 'uses' => 'WarehousePhController@getIndex']); 
-			Route::get('details/{id}', ['as' => 'admin.stock-receipt.details' , 'uses' => 'WarehousePhController@getDetails']); 
+			Route::get('index', ['as' => 'admin.stock-receipt.index' , 'uses' => 'WarehousePhController@getIndex']);
+			Route::get('details/{id}', ['as' => 'admin.stock-receipt.details' , 'uses' => 'WarehousePhController@getDetails']);
 
 			// Tạo Phiếu nhập kho
-			Route::get('create', ['as' => 'admin.stock-receipt.getCreate' , 'uses' => 'WarehousePhController@getCreate']); 
-			Route::post('create', ['as' => 'admin.stock-receipt.getCreate' , 'uses' => 'WarehousePhController@postCreate']); 
+			Route::get('create', ['as' => 'admin.stock-receipt.getCreate' , 'uses' => 'WarehousePhController@getCreate']);
+			Route::post('create', ['as' => 'admin.stock-receipt.getCreate' , 'uses' => 'WarehousePhController@postCreate']);
 
 			// Nhập sản phẩm vào phiếu
-			Route::get('update/{id}', ['as' => 'admin.stock-receipt.getUpdate' , 'uses' => 'WarehousePhController@getUpdate']); 
-			Route::post('update/{id}', ['as' => 'admin.stock-receipt.getUpdate' , 'uses' => 'WarehousePhController@postUpdate']); 
+			Route::get('update/{id}', ['as' => 'admin.stock-receipt.getUpdate' , 'uses' => 'WarehousePhController@getUpdate']);
+			Route::post('update/{id}', ['as' => 'admin.stock-receipt.getUpdate' , 'uses' => 'WarehousePhController@postUpdate']);
 
 			// Sửa xoá phiếu khi chưa nhập kho
-			Route::get('edit/{id}', ['as' => 'admin.stock-receipt.getEdit' , 'uses' => 'WarehousePhController@getEdit']); 
-			Route::post('edit/{id}', ['as' => 'admin.stock-receipt.getEdit' , 'uses' => 'WarehousePhController@postEdit']); 
+			Route::get('edit/{id}', ['as' => 'admin.stock-receipt.getEdit' , 'uses' => 'WarehousePhController@getEdit']);
+			Route::post('edit/{id}', ['as' => 'admin.stock-receipt.getEdit' , 'uses' => 'WarehousePhController@postEdit']);
 
 			// Xoá sản phẩm
-			Route::get('delete/{id}', ['as' => 'admin.stock-receipt.getDelete' , 'uses' => 'WarehousePhController@getDelete']); 
+			Route::get('delete/{id}', ['as' => 'admin.stock-receipt.getDelete' , 'uses' => 'WarehousePhController@getDelete']);
 
 			// Nhập sản phẩm vào kho
-			Route::post('details/{id}', ['as' => 'admin.stock-receipt.getWarehousing' , 'uses' => 'WarehousePhController@postWarehousing']); 
+			Route::post('details/{id}', ['as' => 'admin.stock-receipt.getWarehousing' , 'uses' => 'WarehousePhController@postWarehousing']);
 		});
 
 		// Quản lý chuyển kho
 		Route::group(['prefix' => 'transfer-product'], function(){
 
 			// Chi tiết sản phẩm đã nhập vào kho
-			Route::get('index', ['as' => 'admin.transfer-product.index' , 'uses' => 'WarehouseTransferPhController@getIndex']); 
-			Route::get('details/{id}', ['as' => 'admin.transfer-product.details' , 'uses' => 'WarehouseTransferPhController@getDetails']); 
+			Route::get('index', ['as' => 'admin.transfer-product.index' , 'uses' => 'WarehouseTransferPhController@getIndex']);
+			Route::get('details/{id}', ['as' => 'admin.transfer-product.details' , 'uses' => 'WarehouseTransferPhController@getDetails']);
 
 			// Tạo Phiếu chuyển kho
-			Route::get('create', ['as' => 'admin.transfer-product.getCreate' , 'uses' => 'WarehouseTransferPhController@getCreate']); 
-			Route::post('create', ['as' => 'admin.transfer-product.getCreate' , 'uses' => 'WarehouseTransferPhController@postCreate']); 
+			Route::get('create', ['as' => 'admin.transfer-product.getCreate' , 'uses' => 'WarehouseTransferPhController@getCreate']);
+			Route::post('create', ['as' => 'admin.transfer-product.getCreate' , 'uses' => 'WarehouseTransferPhController@postCreate']);
 
 			// Nhập sản phẩm vào phiếu
-			Route::get('update/{id}', ['as' => 'admin.transfer-product.getUpdate' , 'uses' => 'WarehouseTransferPhController@getUpdate']); 
-			Route::post('update/{id}', ['as' => 'admin.transfer-product.getUpdate' , 'uses' => 'WarehouseTransferPhController@postUpdate']); 
+			Route::get('update/{id}', ['as' => 'admin.transfer-product.getUpdate' , 'uses' => 'WarehouseTransferPhController@getUpdate']);
+			Route::post('update/{id}', ['as' => 'admin.transfer-product.getUpdate' , 'uses' => 'WarehouseTransferPhController@postUpdate']);
 
 			// Sửa xoá phiếu khi chưa nhập kho
-			Route::get('edit/{id}', ['as' => 'admin.transfer-product.getEdit' , 'uses' => 'WarehouseTransferPhController@getEdit']); 
-			Route::post('edit/{id}', ['as' => 'admin.transfer-product.getEdit' , 'uses' => 'WarehouseTransferPhController@postEdit']); 
+			Route::get('edit/{id}', ['as' => 'admin.transfer-product.getEdit' , 'uses' => 'WarehouseTransferPhController@getEdit']);
+			Route::post('edit/{id}', ['as' => 'admin.transfer-product.getEdit' , 'uses' => 'WarehouseTransferPhController@postEdit']);
 
 			// Xoá sản phẩm
-			Route::get('delete/{id}', ['as' => 'admin.transfer-product.getDelete' , 'uses' => 'WarehouseTransferPhController@getDelete']); 
+			Route::get('delete/{id}', ['as' => 'admin.transfer-product.getDelete' , 'uses' => 'WarehouseTransferPhController@getDelete']);
 
 			// Nhập sản phẩm vào kho
-			Route::post('details/{id}', ['as' => 'admin.transfer-product.getWarehousing' , 'uses' => 'WarehouseTransferPhController@postWarehousing']); 
+			Route::post('details/{id}', ['as' => 'admin.transfer-product.getWarehousing' , 'uses' => 'WarehouseTransferPhController@postWarehousing']);
 		});
 
 		// Trả hàng
 		Route::group(['prefix' => 'return-product'], function(){
-			Route::get('index', ['as' => 'admin.return-product.index' , 'uses' => 'WarehouseReturnProductPhController@getIndex']); 
-			Route::get('details/{id}', ['as' => 'admin.return-product.details' , 'uses' => 'WarehouseReturnProductPhController@getDetails']); 
-			Route::get('processing', ['as' => 'admin.return-product.processing' , 'uses' => 'WarehouseReturnProductPhController@getProcessing']); 
+			Route::get('index', ['as' => 'admin.return-product.index' , 'uses' => 'WarehouseReturnProductPhController@getIndex']);
+			Route::get('details/{id}', ['as' => 'admin.return-product.details' , 'uses' => 'WarehouseReturnProductPhController@getDetails']);
+			Route::get('processing', ['as' => 'admin.return-product.processing' , 'uses' => 'WarehouseReturnProductPhController@getProcessing']);
 		});
 
 		// Quản lý thống kê doanh số
 		Route::group(['prefix' => 'statistic'], function(){
-			Route::get('sales/dashboard', ['as' => 'admin.sale-statistic.getDashboard' , 'uses' => 'StatisticController@getStatistic']); 
-			Route::post('sales/dashboard', ['as' => 'admin.sale-statistic.getDashboard' , 'uses' => 'StatisticController@getStatisticDashboard']); 
-			Route::get('product', ['as' => 'admin.statistic.getProduct' , 'uses' => 'StatisticController@getProduct']); 
-			Route::get('product-group', ['as' => 'admin.statistic.getProductGroup' , 'uses' => 'StatisticController@getProductGroup']); 
-			Route::get('channel', ['as' => 'admin.statistic.getChannel' , 'uses' => 'StatisticController@getChannel']); 
-			Route::get('regions', ['as' => 'admin.statistic.getRegions'	 , 'uses' => 'StatisticController@getRegions']); 
-			Route::get('staff', ['as' => 'admin.statistic.getStaff' , 'uses' => 'StatisticController@getStaff']); 
+			Route::get('sales/dashboard', ['as' => 'admin.sale-statistic.getDashboard' , 'uses' => 'StatisticController@getStatistic']);
+			Route::post('sales/dashboard', ['as' => 'admin.sale-statistic.getDashboard' , 'uses' => 'StatisticController@getStatisticDashboard']);
+			Route::get('product', ['as' => 'admin.statistic.getProduct' , 'uses' => 'StatisticController@getProduct']);
+			Route::get('product-group', ['as' => 'admin.statistic.getProductGroup' , 'uses' => 'StatisticController@getProductGroup']);
+			Route::get('channel', ['as' => 'admin.statistic.getChannel' , 'uses' => 'StatisticController@getChannel']);
+			Route::get('regions', ['as' => 'admin.statistic.getRegions'	 , 'uses' => 'StatisticController@getRegions']);
+			Route::get('staff', ['as' => 'admin.statistic.getStaff' , 'uses' => 'StatisticController@getStaff']);
 		});
 
 		// Quản lý nhân viên
 		Route::group(['prefix' => 'staff'], function(){
-			Route::get('index', ['as' => 'admin.staff.index' , 'uses' => 'StaffController@getIndex']); 
-			Route::get('permissions/{id}', ['as' => 'admin.staff.permissions' , 'uses' => 'StaffController@getPermissions']); 
-			Route::post('permissions/{id}', ['as' => 'admin.staff.permissions' , 'uses' => 'StaffController@postPermissions']); 
-			Route::get('create', ['as' => 'admin.staff.getCreate' , 'uses' => 'StaffController@getCreate']); 
-			Route::post('create', ['as' => 'admin.staff.getCreate' , 'uses' => 'StaffController@postCreate']); 
-			Route::get('update/{id}', ['as' => 'admin.staff.getUpdate' , 'uses' => 'StaffController@getUpdate']); 
-			Route::post('update/{id}', ['as' => 'admin.staff.getUpdate' , 'uses' => 'StaffController@postUpdate']); 
-			Route::get('orders/{id}', ['as' => 'admin.staff.getOrders' , 'uses' => 'StaffController@getOrders']); 
+			Route::get('index', ['as' => 'admin.staff.index' , 'uses' => 'StaffController@getIndex']);
+			Route::get('permissions/{id}', ['as' => 'admin.staff.permissions' , 'uses' => 'StaffController@getPermissions']);
+			Route::post('permissions/{id}', ['as' => 'admin.staff.permissions' , 'uses' => 'StaffController@postPermissions']);
+			Route::get('create', ['as' => 'admin.staff.getCreate' , 'uses' => 'StaffController@getCreate']);
+			Route::post('create', ['as' => 'admin.staff.getCreate' , 'uses' => 'StaffController@postCreate']);
+			Route::get('update/{id}', ['as' => 'admin.staff.getUpdate' , 'uses' => 'StaffController@getUpdate']);
+			Route::post('update/{id}', ['as' => 'admin.staff.getUpdate' , 'uses' => 'StaffController@postUpdate']);
+			Route::get('orders/{id}', ['as' => 'admin.staff.getOrders' , 'uses' => 'StaffController@getOrders']);
 		});
 
 		// Quản lý khách hàng
 		Route::group(['prefix' => 'customer'], function(){
-			Route::get('index', ['as' => 'admin.customer.index' , 'uses' => 'CustomersController@getIndex']); 
-			Route::get('details/{id}', ['as' => 'admin.customer.getDetails' , 'uses' => 'CustomersController@getDetails']); 
-			Route::get('create', ['as' => 'admin.customer.getCreate' , 'uses' => 'CustomersController@getCreate']); 
-			Route::post('create', ['as' => 'admin.customer.getCreate' , 'uses' => 'CustomersController@postCreate']); 
-			Route::get('update/{id}', ['as' => 'admin.customer.getUpdate' , 'uses' => 'CustomersController@getUpdate']); 
-			Route::post('update/{id}', ['as' => 'admin.customer.getUpdate' , 'uses' => 'CustomersController@postUpdate']); 
+			Route::get('index', ['as' => 'admin.customer.index' , 'uses' => 'CustomersController@getIndex']);
+			Route::get('details/{id}', ['as' => 'admin.customer.getDetails' , 'uses' => 'CustomersController@getDetails']);
+			Route::get('create', ['as' => 'admin.customer.getCreate' , 'uses' => 'CustomersController@getCreate']);
+			Route::post('create', ['as' => 'admin.customer.getCreate' , 'uses' => 'CustomersController@postCreate']);
+			Route::get('update/{id}', ['as' => 'admin.customer.getUpdate' , 'uses' => 'CustomersController@getUpdate']);
+			Route::post('update/{id}', ['as' => 'admin.customer.getUpdate' , 'uses' => 'CustomersController@postUpdate']);
 			Route::get('delete/{id}', ['as' => 'admin.customer.delete' , 'uses' => 'CustomersController@getDelete']);
 		});
 
 		// Các kênh bán hàng
 		Route::group(['prefix' => 'channel'], function(){
-			Route::get('index', ['as' => 'admin.channel.index' , 'uses' => 'ChannelController@getIndex']); 
-			Route::get('create', ['as' => 'admin.channel.getCreate' , 'uses' => 'ChannelController@getCreate']); 
-			Route::post('create', ['as' => 'admin.channel.getCreate' , 'uses' => 'ChannelController@postCreate']); 
-			Route::get('update/{id}', ['as' => 'admin.channel.getUpdate' , 'uses' => 'ChannelController@getUpdate']); 
-			Route::post('update/{id}', ['as' => 'admin.channel.getUpdate' , 'uses' => 'ChannelController@postUpdate']); 
-			Route::get('delete/{id}', ['as' => 'admin.channel.getDelete' , 'uses' => 'ChannelController@getDelete']); 
+			Route::get('index', ['as' => 'admin.channel.index' , 'uses' => 'ChannelController@getIndex']);
+			Route::get('create', ['as' => 'admin.channel.getCreate' , 'uses' => 'ChannelController@getCreate']);
+			Route::post('create', ['as' => 'admin.channel.getCreate' , 'uses' => 'ChannelController@postCreate']);
+			Route::get('update/{id}', ['as' => 'admin.channel.getUpdate' , 'uses' => 'ChannelController@getUpdate']);
+			Route::post('update/{id}', ['as' => 'admin.channel.getUpdate' , 'uses' => 'ChannelController@postUpdate']);
+			Route::get('delete/{id}', ['as' => 'admin.channel.getDelete' , 'uses' => 'ChannelController@getDelete']);
 		});
 
 		// Các phương thức thanh toán
 		Route::group(['prefix' => 'payment-method'], function(){
-			Route::get('index', ['as' => 'admin.payment-method.index' , 'uses' => 'PaymentMethodsController@getIndex']); 
-			Route::get('create', ['as' => 'admin.payment-method.getCreate' , 'uses' => 'PaymentMethodsController@getCreate']); 
-			Route::post('create', ['as' => 'admin.payment-method.getCreate' , 'uses' => 'PaymentMethodsController@postCreate']); 
-			Route::get('update/{id}', ['as' => 'admin.payment-method.getUpdate' , 'uses' => 'PaymentMethodsController@getUpdate']); 
-			Route::post('update/{id}', ['as' => 'admin.payment-method.getUpdate' , 'uses' => 'PaymentMethodsController@postUpdate']); 
-			Route::get('delete/{id}', ['as' => 'admin.payment-method.getDelete' , 'uses' => 'PaymentMethodsController@getDelete']); 
+			Route::get('index', ['as' => 'admin.payment-method.index' , 'uses' => 'PaymentMethodsController@getIndex']);
+			Route::get('create', ['as' => 'admin.payment-method.getCreate' , 'uses' => 'PaymentMethodsController@getCreate']);
+			Route::post('create', ['as' => 'admin.payment-method.getCreate' , 'uses' => 'PaymentMethodsController@postCreate']);
+			Route::get('update/{id}', ['as' => 'admin.payment-method.getUpdate' , 'uses' => 'PaymentMethodsController@getUpdate']);
+			Route::post('update/{id}', ['as' => 'admin.payment-method.getUpdate' , 'uses' => 'PaymentMethodsController@postUpdate']);
+			Route::get('delete/{id}', ['as' => 'admin.payment-method.getDelete' , 'uses' => 'PaymentMethodsController@getDelete']);
 		});
 
 		// Các đơn vị
 		Route::group(['prefix' => 'units'], function(){
-			Route::get('index', ['as' => 'admin.units.index' , 'uses' => 'UnitsController@getIndex']); 
-			Route::get('create', ['as' => 'admin.units.getCreate' , 'uses' => 'UnitsController@getCreate']); 
-			Route::post('create', ['as' => 'admin.units.getCreate' , 'uses' => 'UnitsController@postCreate']); 
-			Route::get('update/{id}', ['as' => 'admin.units.getUpdate' , 'uses' => 'UnitsController@getUpdate']); 
-			Route::post('update/{id}', ['as' => 'admin.units.getUpdate' , 'uses' => 'UnitsController@postUpdate']); 
-			Route::get('delete/{id}', ['as' => 'admin.units.getDelete' , 'uses' => 'UnitsController@getDelete']); 
+			Route::get('index', ['as' => 'admin.units.index' , 'uses' => 'UnitsController@getIndex']);
+			Route::get('create', ['as' => 'admin.units.getCreate' , 'uses' => 'UnitsController@getCreate']);
+			Route::post('create', ['as' => 'admin.units.getCreate' , 'uses' => 'UnitsController@postCreate']);
+			Route::get('update/{id}', ['as' => 'admin.units.getUpdate' , 'uses' => 'UnitsController@getUpdate']);
+			Route::post('update/{id}', ['as' => 'admin.units.getUpdate' , 'uses' => 'UnitsController@postUpdate']);
+			Route::get('delete/{id}', ['as' => 'admin.units.getDelete' , 'uses' => 'UnitsController@getDelete']);
 		});
 
 		// Nhà cung cấp
 		Route::group(['prefix' => 'supplier'], function(){
-			Route::get('index', ['as' => 'admin.supplier.index' , 'uses' => 'SupplierController@getIndex']); 
-			Route::get('create', ['as' => 'admin.supplier.getCreate' , 'uses' => 'SupplierController@getCreate']); 
-			Route::post('create', ['as' => 'admin.supplier.getCreate' , 'uses' => 'SupplierController@postCreate']); 
-			Route::get('update/{id}', ['as' => 'admin.supplier.getUpdate' , 'uses' => 'SupplierController@getUpdate']); 
-			Route::post('update/{id}', ['as' => 'admin.supplier.getUpdate' , 'uses' => 'SupplierController@postUpdate']); 
-			Route::get('delete/{id}', ['as' => 'admin.supplier.getDelete' , 'uses' => 'SupplierController@getDelete']); 
+			Route::get('index', ['as' => 'admin.supplier.index' , 'uses' => 'SupplierController@getIndex']);
+			Route::get('create', ['as' => 'admin.supplier.getCreate' , 'uses' => 'SupplierController@getCreate']);
+			Route::post('create', ['as' => 'admin.supplier.getCreate' , 'uses' => 'SupplierController@postCreate']);
+			Route::get('update/{id}', ['as' => 'admin.supplier.getUpdate' , 'uses' => 'SupplierController@getUpdate']);
+			Route::post('update/{id}', ['as' => 'admin.supplier.getUpdate' , 'uses' => 'SupplierController@postUpdate']);
+			Route::get('delete/{id}', ['as' => 'admin.supplier.getDelete' , 'uses' => 'SupplierController@getDelete']);
 		});
 
 		// Quản lý Phân quyền
 		Route::group(['prefix' => 'permissions'], function(){
-			Route::get('index', ['as' => 'admin.permissions.index' , 'uses' => 'PermissionsController@getIndex']); 
-			Route::get('create', ['as' => 'admin.permissions.getCreate' , 'uses' => 'PermissionsController@getCreate']); 
-			Route::post('create', ['as' => 'admin.permissions.postCreate' , 'uses' => 'PermissionsController@postCreate']); 
-			Route::get('delete/{id}', ['as' => 'admin.permissions.getDelete' , 'uses' => 'PermissionsController@getDelete']); 
-			Route::get('update/{id}', ['as' => 'admin.permissions.getUpdate' , 'uses' => 'PermissionsController@getUpdate']); 
-			Route::post('update/{id}', ['as' => 'admin.permissions.postUpdate' , 'uses' => 'PermissionsController@postUpdate']); 
+			Route::get('index', ['as' => 'admin.permissions.index' , 'uses' => 'PermissionsController@getIndex']);
+			Route::get('create', ['as' => 'admin.permissions.getCreate' , 'uses' => 'PermissionsController@getCreate']);
+			Route::post('create', ['as' => 'admin.permissions.postCreate' , 'uses' => 'PermissionsController@postCreate']);
+			Route::get('delete/{id}', ['as' => 'admin.permissions.getDelete' , 'uses' => 'PermissionsController@getDelete']);
+			Route::get('update/{id}', ['as' => 'admin.permissions.getUpdate' , 'uses' => 'PermissionsController@getUpdate']);
+			Route::post('update/{id}', ['as' => 'admin.permissions.postUpdate' , 'uses' => 'PermissionsController@postUpdate']);
 		});
 
 		// Quản lý chức vụ nhân viên
@@ -316,13 +316,13 @@ Route::group(['middleware' => 'auth'], function(){
 
 		// Tạo Landing-Page bán hàng
 		Route::group(['prefix' => 'landing-page'], function(){
-			Route::get('index', ['as' => 'admin.landing-page.index' , 'uses' => 'SiteController@getIndex']); 
-			Route::get('create_info', ['as' => 'admin.landing-page.create_info' , 'uses' => 'SiteController@getInfoSiteCreate']); 
-			Route::post('create_info', ['as' => 'admin.landing-page.create_info' , 'uses' => 'SiteController@postInfoSiteCreate']); 
-			Route::get('create', ['as' => 'admin.landing-page.create' , 'uses' => 'SiteController@getSiteCreate']); 
-			Route::get('order', ['as' => 'admin.landing-page.order' , 'uses' => 'SiteController@getOrder']); 
-			Route::post('updatePageData', ['as' => 'updatePageData', 'uses' => 'SiteController@postUpdatePageData']); 
-			Route::get('site/{site_id}', [ 'as' => 'admin.landing-page.site', 'uses' => 'SiteController@getSite']); 
+			Route::get('index', ['as' => 'admin.landing-page.index' , 'uses' => 'SiteController@getIndex']);
+			Route::get('create_info', ['as' => 'admin.landing-page.create_info' , 'uses' => 'SiteController@getInfoSiteCreate']);
+			Route::post('create_info', ['as' => 'admin.landing-page.create_info' , 'uses' => 'SiteController@postInfoSiteCreate']);
+			Route::get('create', ['as' => 'admin.landing-page.create' , 'uses' => 'SiteController@getSiteCreate']);
+			Route::get('order', ['as' => 'admin.landing-page.order' , 'uses' => 'SiteController@getOrder']);
+			Route::post('updatePageData', ['as' => 'updatePageData', 'uses' => 'SiteController@postUpdatePageData']);
+			Route::get('site/{site_id}', [ 'as' => 'admin.landing-page.site', 'uses' => 'SiteController@getSite']);
 		});
 
 		// Shop
@@ -333,7 +333,7 @@ Route::group(['middleware' => 'auth'], function(){
 				Route::post('create', ['as' => 'admin.post-categories.create' , 'uses' => 'ShopPostCategoriesController@postCreate']);
 				Route::get('update/{id}', ['as' => 'admin.post-categories.getUpdate' , 'uses' => 'ShopPostCategoriesController@getUpdate']);
 				Route::post('update/{id}', ['as' => 'admin.post-categories.getUpdate' , 'uses' => 'ShopPostCategoriesController@postUpdate']);
-				Route::get('delete/{id}', ['as' => 'admin.post-categories.getDelete' , 'uses' => 'ShopPostCategoriesController@getDelete']); 
+				Route::get('delete/{id}', ['as' => 'admin.post-categories.getDelete' , 'uses' => 'ShopPostCategoriesController@getDelete']);
 			});
 
 			Route::group(['prefix' => 'post'], function(){
@@ -342,7 +342,7 @@ Route::group(['middleware' => 'auth'], function(){
 				Route::post('create', ['as' => 'admin.post.getCreate' , 'uses' => 'ShopPostController@postCreate']);
 				Route::get('update/{id}', ['as' => 'admin.post.getUpdate' , 'uses' => 'ShopPostController@getUpdate']);
 				Route::post('update/{id}', ['as' => 'admin.post.getUpdate' , 'uses' => 'ShopPostController@postUpdate']);
-				Route::get('delete/{id}', ['as' => 'admin.post.getDelete' , 'uses' => 'ShopPostController@getDelete']); 
+				Route::get('delete/{id}', ['as' => 'admin.post.getDelete' , 'uses' => 'ShopPostController@getDelete']);
 			});
 
 			// Trang tĩnh
@@ -352,7 +352,7 @@ Route::group(['middleware' => 'auth'], function(){
 				Route::post('create', ['as' => 'admin.page.getCreate' , 'uses' => 'ShopPageController@postCreate']);
 				Route::get('update/{id}', ['as' => 'admin.page.getUpdate' , 'uses' => 'ShopPageController@getUpdate']);
 				Route::post('update/{id}', ['as' => 'admin.page.getUpdate' , 'uses' => 'ShopPageController@postUpdate']);
-				Route::get('delete/{id}', ['as' => 'admin.page.getDelete' , 'uses' => 'ShopPageController@getDelete']); 
+				Route::get('delete/{id}', ['as' => 'admin.page.getDelete' , 'uses' => 'ShopPageController@getDelete']);
 			});
 
 			// Coupon
@@ -415,6 +415,12 @@ Route::group(['middleware' => 'auth'], function(){
 			Route::get('/{id}/edit', ['as' => 'system.store.update', 'uses' => 'StoreController@getUpdate']);
 			Route::post('/{id}/edit', ['as' => 'system.store.update', 'uses' => 'StoreController@postUpdate']);
 			Route::get('/{id}/delete', ['as' => 'system.store.delete', 'uses' => 'StoreController@getDelete']);
+		});
+
+		// Ajax system
+		Route::group(['prefix' => 'ajax'], function() {
+			// Ajax search product group
+			Route::get('/product-group', 'ProductGroupController@ajaxSearchProductGroup');
 		});
 	});
 });

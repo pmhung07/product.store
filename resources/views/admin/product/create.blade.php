@@ -66,10 +66,7 @@
                         </div>
                         <div class="form-group"><label class="col-sm-3 control-label">Nhóm sản phẩm</label>
                             <div class="col-sm-9">
-        	                    <select class="form-control m-b" name="product_group">
-        	                    	<option value="" selected="">-- Chọn nhóm sản phẩm --</option>
-                                    <? cat_parent($group_product);?>
-        	                    </select>
+        	                    <input type="text" id="product-group" name="product_group" class="form-control" />
                             </div>
                         </div>
                         <div class="form-group"><label class="col-sm-3 control-label">Chọn đơn vị đo</label>
@@ -128,6 +125,12 @@
                         <div class="form-group"><label class="col-sm-3 control-label">Mô tả sản phẩm</label>
                             <div class="col-sm-9">
                                 <textarea name="content" class="form-control summernote"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="form-group"><label class="col-sm-3 control-label">Hướng dẫn sử dụng</label>
+                            <div class="col-sm-9">
+                                <textarea name="introduce" class="form-control summernote"></textarea>
                             </div>
                         </div>
 

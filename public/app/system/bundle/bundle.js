@@ -643,6 +643,15 @@ __WEBPACK_IMPORTED_MODULE_1__app___default.a.ProductAddController = function() {
                 }
             });
         });
+
+        // Ajax search product group
+        $('#product-group').tokenInput('/system/ajax/product-group', {
+            preventDuplicates: true,
+            theme: 'facebook',
+            hintText: "Nhóm sản phẩm",
+            noResultsText: "Không có nhóm nào được tìm thấy",
+            searchingText: "Đang tìm"
+        });
     }
 
     return {
@@ -834,6 +843,16 @@ __WEBPACK_IMPORTED_MODULE_1__app___default.a.ProductUpdateController = function(
                     $('#modal-show-change-option').modal('hide');
                 }
             })
+        });
+
+        // Ajax search product group
+        $('#product-group').tokenInput('/system/ajax/product-group', {
+            preventDuplicates: true,
+            theme: 'facebook',
+            hintText: "Nhóm sản phẩm",
+            noResultsText: "Không có nhóm nào được tìm thấy",
+            searchingText: "Đang tìm",
+            prePopulate: params.group_data_input_token
         });
 
     }
