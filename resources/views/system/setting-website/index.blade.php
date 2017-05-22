@@ -29,6 +29,17 @@
                                         <input type="file" name="logo" class="form-control input-sm">
                                     </div>
                                 </div>
+
+                                <div class="form-group">
+                                    <label>
+                                        Favicon (*.png)
+                                    </label>
+                                    <div>
+                                        <img src="{{ parse_image_url('sm_'.$setting->favicon) }}" onerror="this.src='/img/default_picture.png'" height="50">
+                                        <input type="file" name="favicon" class="form-control input-sm" accept="image/png">
+                                    </div>
+                                </div>
+
                                 <div class="form-group">
                                     <label>Tên công ty</label>
                                     <input type="text" name="company_name" value="{{ $setting->company_name }}" class="form-control input-sm">

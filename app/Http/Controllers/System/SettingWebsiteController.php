@@ -57,6 +57,13 @@ class SettingWebsiteController extends Controller
             }
         }
 
+        if($request->hasFile('favicon')) {
+            $resultUpload = $this->imageUploader->upload('favicon');
+            if($resultUpload['status'] > 0) {
+                $setting->favicon = $resultUpload['filename'];
+            }
+        }
+
         $setting->save();
 
         return redirect()->route('system.setting_website.index')->with('success', 'Cập nhật thành công');

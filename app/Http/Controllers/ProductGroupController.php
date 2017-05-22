@@ -94,4 +94,23 @@ class ProductGroupController extends Controller
         return view('admin.product-group.index',['data'=> $data]);
     }
 
+
+    public function ajaxSearchProductGroup(Request $request)
+    {
+        $q = clean($request->get('q'));
+
+        $groups = ProductGroup::where('name', 'LIKE', '%'. $q .'%')->take(20)->orderBy('updated_at', 'DESC')->get();
+
+        $json = [];
+
+        foreach($groups as $item) {
+            $json[] = [
+                'id' => $item->id,
+                'name' => $item->name
+            ];
+        }
+
+        return response()->json($json);
+    }
+
 }

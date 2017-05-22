@@ -6,7 +6,7 @@
         <h2><i class="fa fa-list"></i> Danh sách bài </h2>
     </div>
     <div class="col-lg-3 btn-add">
-        <a href="system/shop/post/create" class="btn btn-primary " ><i class="fa fa-plus"></i>&nbsp;Thêm mới bài viết</a>
+        <a href="{{ route('admin.post.getCreate') }}" class="btn btn-primary " ><i class="fa fa-plus"></i>&nbsp;Thêm mới bài viết</a>
     </div>
 </div>
 @stop

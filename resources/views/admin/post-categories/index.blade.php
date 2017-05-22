@@ -6,10 +6,10 @@
         <h2><i class="fa fa-sitemap"></i> Danh sách nhóm tin</h2>
     </div>
     <div class="col-lg-3 btn-add">
-        <a href="system/shop/post-categories/create" class="btn btn-primary " ><i class="fa fa-plus"></i>&nbsp;Thêm nhóm tin</a>
+        <a href="{{ route('admin.post-categories.create') }}" class="btn btn-primary " ><i class="fa fa-plus"></i>&nbsp;Thêm nhóm tin</a>
     </div>
 </div>
-@stop            
+@stop
 
 @section('content')
 <div class="row">

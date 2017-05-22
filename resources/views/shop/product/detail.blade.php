@@ -110,6 +110,15 @@
                         </div>
                     </div>
                 @endif
+
+                @if($product->introduce)
+                    <div class="sec-related-product">
+                        <h5 class="sec-heading">
+                            <span>Hướng dẫn sử dụng</span>
+                        </h5>
+                        <div>{!! $product->introduce !!}</div>
+                    </div>
+                @endif
             </div>
         </div>
     </div>

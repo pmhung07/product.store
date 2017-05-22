@@ -22,7 +22,15 @@ class CategoryController extends ShopController
             $categoriesId[] = $childId;
         }
 
-        $products = Product::whereIn('product_group_id', $categoriesId)->take(20)->orderBy('updated_at', 'DESC')->get();
+        // $products = Product::whereIn('product_group_id', $categoriesId)->take(20)->orderBy('updated_at', 'DESC')->get();
+
+        $products = Product::join('products_groups', 'product.id', '=', 'products_groups.product_id')
+                            ->whereIn('products_groups.group_id', $categoriesId)
+                            ->select('product.*')
+                            ->groupBy('product.id')
+                            ->take(20)
+                            ->orderBy('updated_at', 'DESC')
+                            ->get();
 
         return view('shop/product_category/products', compact('category', 'products'));
     }

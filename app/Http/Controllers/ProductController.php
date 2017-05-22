@@ -43,7 +43,8 @@ class ProductController extends Controller
         $product->volume = $request->product_volume;
         $product->promotion_price = to_numberic($request->promotion_price);
         $product->spec = clean($request->get('spec'), 'youtube');
-        $product->content = clean($request->get('content', 'youtube'));
+        $product->content = clean($request->get('content'), 'youtube');
+        $product->introduce = clean($request->get('introduce'), 'youtube');
 
         if($request->hasFile('image')) {
             $resultUpload = $this->imageUploader->upload('image');
@@ -204,7 +205,17 @@ class ProductController extends Controller
             }
         }
 
-        return view('admin.product.update',compact('group_product','data', 'product', 'units', 'hasVariant', 'properties', 'childProducts'));
+        // Tìm xem nó thuộc danh mục nào
+        $groups = $product->categories()->get();
+        $groupDataInputToken = [];
+        foreach($groups as $item) {
+            $groupDataInputToken[] = [
+                'id' => $item->id,
+                'name' => $item->name
+            ];
+        }
+
+        return view('admin.product.update',compact('group_product','data', 'product', 'units', 'hasVariant', 'properties', 'childProducts', 'groupDataInputToken'));
     }
 
     public function postUpdate(Request $request,$id) {
@@ -240,6 +251,11 @@ class ProductController extends Controller
         $product->volume = $request->product_volume;
         $product->spec = clean($request->get('spec'), 'youtube');
         $product->content = clean($request->get('content'), 'youtube');
+
+        // 1 sản phẩm thuộc nhiều danh mục
+        $productGroup = $request->get('product_group');
+        $productGroupIds = explode(',', $productGroup);
+        $product->categories()->sync($productGroupIds);
 
         if($request->hasFile('image')) {
             $resultUpload = $this->imageUploader->upload('image');
