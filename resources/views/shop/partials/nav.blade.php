@@ -79,6 +79,7 @@
                                     $newestProduct = App\Product::join('products_groups', 'product.id', '=', 'products_groups.product_id')
                                                                  ->where('products_groups.group_id', '=', $parent_id)
                                                                  ->groupBy('product.id')
+                                                                 ->orderBy('product.updated_at', 'DESC')
                                                                  ->select('product.*')
                                                                  ->first();
 
