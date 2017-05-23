@@ -251,6 +251,7 @@ class ProductController extends Controller
         $product->volume = $request->product_volume;
         $product->spec = clean($request->get('spec'), 'youtube');
         $product->content = clean($request->get('content'), 'youtube');
+        $product->introduce = clean($request->get('introduce'), 'youtube');
 
         // 1 sản phẩm thuộc nhiều danh mục
         $productGroup = $request->get('product_group');
