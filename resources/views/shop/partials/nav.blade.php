@@ -76,7 +76,12 @@
                                 if ($cate_child)
                                 {
                                     // Tìm sản phẩm mới nhất của danh mục này
-                                    $newestProduct = App\Product::where('product_group_id', $parent_id)->orderBy('created_at', 'DESC')->first();
+                                    $newestProduct = App\Product::join('products_groups', 'product.id', '=', 'products_groups.product_id')
+                                                                 ->where('products_groups.group_id', '=', $parent_id)
+                                                                 ->groupBy('product.id')
+                                                                 ->select('product.*')
+                                                                 ->first();
+
                                     echo '<ul class="dropdown-menu drop-menu" style=";width:520px;border-radius: 0px 0px 5px 5px;">';
                                     if($newestProduct) {
                                         echo view('shop/partials/nav_item_newest_product', ['product' => $newestProduct])->render();
