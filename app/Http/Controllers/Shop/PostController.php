@@ -15,7 +15,7 @@ class PostController extends ShopBlogController
      * Tin tức
      * @return string
      */
-    public function getIndex()
+    public function getIndex(Request $request)
     {
         $posts = ShopPost::orderBy('updated_at', 'DESC')->paginate(20);
 
@@ -38,7 +38,13 @@ class PostController extends ShopBlogController
         // 5 bài hot trên top
         $hotPosts = ShopPost::with('category')->orderByRaw('RAND()')->take(5)->get();
 
-        return view('shop/post/index', compact('category', 'hotPosts', 'posts', 'postCategories'));
+        $this->metadata->title = 'Tin tức, Blog';
+        $this->metadata->description = 'Tin tức, Blog';
+        $this->metadata->image = $this->setting->logo ? url(parse_image_url($this->setting->logo)) : '';
+        $this->metadata->url = $request->url();
+        $metadata = $this->metadata->toArray();
+
+        return view('shop/post/index', compact('category', 'hotPosts', 'posts', 'postCategories', 'metadata'));
     }
 
     /**
@@ -58,6 +64,13 @@ class PostController extends ShopBlogController
                          ->orderBy('created_at', 'DESC')
                          ->get();
 
-        return view('shop/post/detail', compact('post', 'relatedPosts'));
+        // Metadata
+        $this->metadata->title = $post->meta_title ? $post->meta_title : $post->title;
+        $this->metadata->description = substr(strip_tags($post->meta_description ? $post->meta_description : $post->content), 0, 200);
+        $this->metadata->image = $post->image ? url(parse_image_url($post->image)) : '';
+        $this->metadata->url = $post->getUrl();
+        $metadata = $this->metadata->toArray();
+
+        return view('shop/post/detail', compact('post', 'relatedPosts', 'metadata'));
     }
 }
