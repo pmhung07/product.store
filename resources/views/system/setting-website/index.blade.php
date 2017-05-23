@@ -145,6 +145,26 @@
                             </div>
                         </div>
                     </div>
+
+                    <div class="col-xs-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading"><b>SEO</b></div>
+                            <div class="panel-body">
+                                <div class="form-group">
+                                    <label>Meta title</label>
+                                    <input type="text" name="meta_title" value="{{ $setting->meta_title }}" class="form-control input-sm">
+                                </div>
+                                <div class="form-group">
+                                    <label>Meta keyword</label>
+                                    <input type="text" name="meta_keyword" value="{{ $setting->meta_keyword }}" class="form-control input-sm">
+                                </div>
+                                <div class="form-group">
+                                    <label>Meta description</label>
+                                    <input type="text" name="meta_description" value="{{ $setting->meta_description }}" class="form-control input-sm">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="row">
                     <div class="col-xs-12">

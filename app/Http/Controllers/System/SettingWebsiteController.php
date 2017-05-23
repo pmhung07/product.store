@@ -48,6 +48,9 @@ class SettingWebsiteController extends Controller
         $setting->linkedin = clean($request->get('linkedin'));
         $setting->province_id = intval($request->get('province_id'));
         $setting->district_id = intval($request->get('district_id'));
+        $setting->meta_title = clean($request->get('meta_title'));
+        $setting->meta_keyword = clean($request->get('meta_keyword'));
+        $setting->meta_description = clean($request->get('meta_description'));
         $setting->merchant_id = $merchantId;
 
         if($request->hasFile('logo')) {

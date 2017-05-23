@@ -5,20 +5,17 @@
         <meta name="p:domain_verify" content="50a57bef3e9a4ae42fbcd722c7074695"/>
         <meta http-equiv="content-type" content="text/html" />
         <meta charset="utf-8" />
-        <title>Khỏe mạnh hơn để sống hết mình cùng Juno Magazine</title>
+        <title>{{ array_get($metadata, 'title') }}</title>
         <meta property="og:type" content="website" />
-        <meta property="og:title" content="Khỏe mạnh hơn để sống hết mình cùng Juno Magazine" />
-        <meta property="og:image" content="http://hstatic.net/969/1000003969/1000161857/logo.png?v=8910" />
-        <meta property="og:image" content="https://hstatic.net/969/1000003969/1000161857/logo.png?v=8910" />
-        <meta property="og:description" content="Cảnh báo cho bạn những căn bệnh theo mùa, những dịch bệnh bùng phát hay đơn giản là những thông tin y học để bạn tạo thói quen sống lành mạnh và khoa học hơn." />
-        <meta property="og:url" content="https://juno.vn/blogs/khoe" />
-        <meta property="og:site_name" content="JUNO" />
-        <link rel="canonical" href="khoe.html" />
-        <meta name="google-site-verification" content="YyO2rAtS9EGrKuulJLkr6Czqc98au8arKS_APRqJDZY" />
-        <meta property="fb:app_id" content="436645616485850" />
+        <meta property="og:title" content="{{ array_get($metadata, 'title') }}" />
+        <meta property="og:image" content="{{ array_get($metadata, 'image') }}" />
+        <meta property="og:description" content="{{ array_get($metadata, 'description') }}" />
+        <meta property="og:url" content="{{ array_get($metadata, 'url') }}" />
+        <meta property="og:site_name" content="{{ url('/') }}" />
+        <link rel="canonical" href="{{ array_get($metadata, 'canonical', Request::url()) }}" />
         <meta name="viewport" content="width=device-width,initial-scale=1.0" />
-        <link rel="shortcut icon" type="image/png" href="/shop/assets/hstatic.net/969/1000003969/1000161857/favicon.png%3Fv=8910" />
-        <meta name="description" content="Cảnh báo cho bạn những căn bệnh theo mùa, những dịch bệnh bùng phát hay đơn giản là những thông tin y học để bạn tạo thói quen sống lành mạnh và khoa học hơn." />
+        <link rel="shortcut icon" type="image/png" href="{{ url(parse_image_url($GLB_Setting->favicon)) }}" />
+        <meta name="description" content="{{ array_get($metadata, 'description') }}" />
         <!--CSS-->
         <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <link href='/shop/assets/hstatic.net/0/global/design/css/font-awesome.min.css' rel='stylesheet' type='text/css'  media='all'  />

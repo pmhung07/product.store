@@ -44,6 +44,13 @@ class HomeController extends ShopController {
         // Tin tức
         $posts = ShopPost::take(5)->with('category')->orderByRaw('RAND()')->get();
 
-        return view('shop/home/index', compact('hotProducts', 'newestProductsInWeek', 'posts', 'slideItems'));
+        // Metadata
+        $this->metadata->title = $this->setting->meta_title ? $this->setting->meta_title : url('/');
+        $this->metadata->description = $this->setting->meta_description ? $this->setting->meta_description : url('/');
+        $this->metadata->image = $this->setting->logo ? url(parse_image_url($this->setting->logo)) : '';
+        $this->metadata->url = url('/');
+        $metadata = $this->metadata->toArray();
+
+        return view('shop/home/index', compact('hotProducts', 'newestProductsInWeek', 'posts', 'slideItems', 'metadata'));
     }
 }

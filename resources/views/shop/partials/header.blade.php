@@ -3,17 +3,15 @@
     <head>
         <meta http-equiv="content-type" content="text/html" />
         <meta charset="utf-8" />
-        <title>
-            Giày Nữ Thời Trang - Giày Công Sở, Giày Đi Chơi, Giày Dự Tiệc - JUNO
-        </title>
-        <meta name="description" content="" />
+        <title>{{ array_get($metadata, 'title') }}</title>
+        <meta name="description" content="{{ array_get($metadata, 'description') }}" />
         <meta property="og:type" content="website">
-        <meta property="og:title" content="">
-        <meta property="og:image" content="">
-        <meta property="og:description" content="">
-        <meta property="og:url" content="">
-        <meta property="og:site_name" content="">
-        <link rel="canonical" href="index.html" />
+        <meta property="og:title" content="{{ array_get($metadata, 'title') }}">
+        <meta property="og:image" content="{{ array_get($metadata, 'image') }}">
+        <meta property="og:description" content="{{ array_get($metadata, 'description') }}">
+        <meta property="og:url" content="{{ array_get($metadata, 'url') }}">
+        <meta property="og:site_name" content="{{ url('/') }}">
+        <link rel="canonical" href="{{ array_get($metadata, 'url', Request::url()) }}" />
         <meta name="viewport" content="width=device-width,initial-scale=1.0" />
         <link rel="shortcut icon" type="image/png" href="{{ $GLB_Setting->favicon ? url(parse_image_url($GLB_Setting->favicon)) : url('/') }}" />
 

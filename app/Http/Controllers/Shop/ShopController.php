@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Shop;
 
+use App\Hocs\Metadata;
 use App\Http\Controllers\Controller;
 use App\Models\SettingWebsite;
 use App\ProductGroup;
@@ -15,7 +16,10 @@ class ShopController extends Controller {
         view()->share('GLB_Categories', $this->categories);
 
         // Cấu hình chung website
-        $setting = SettingWebsite::where('merchant_id', 1)->firstOrNew([]);
-        view()->share('GLB_Setting', $setting);
+        $this->setting = SettingWebsite::where('merchant_id', 1)->firstOrNew([]);
+        view()->share('GLB_Setting', $this->setting);
+
+        // Metadata
+        $this->metadata = new Metadata();
     }
 }
