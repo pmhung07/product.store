@@ -85,6 +85,8 @@
                                     echo '<ul class="dropdown-menu drop-menu" style=";width:520px;border-radius: 0px 0px 5px 5px;">';
                                     if($newestProduct) {
                                         echo view('shop/partials/nav_item_newest_product', ['product' => $newestProduct])->render();
+                                    } else {
+                                        echo '<li class="menu-hover-li newest" style="height: 100px;"></li>';
                                     }
                                     foreach ($cate_child as $key => $item)
                                     {
