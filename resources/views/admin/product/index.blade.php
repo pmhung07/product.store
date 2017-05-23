@@ -101,7 +101,11 @@
                                             <img src="{{ parse_image_url('sm_'.$row['image']) }}" height="35">
                                         </td>
                                         <td>{{$row->name}}</td>
-                                        <td>{{$row->product_group_name}}</td>
+                                        <td>
+                                            @foreach($row->categories()->get() as $catItem)
+                                                <span class="label label-info">{{ $catItem->name }}</span>
+                                            @endforeach
+                                        </td>
                                         <td>{{number_format($row->price)}}</td>
                                         <td class="<?=($row->quantity_inventory <= $row->warning_out_of_stock)?'text-danger':'';?>">
                                             {!! number_format($row->quantity_inventory) !!}
