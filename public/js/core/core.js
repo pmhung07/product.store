@@ -3,7 +3,6 @@
 
     // Ajax load district
     $.fn.ajaxLoadDistrict = function(options) {
-
         var _default = {};
         options = $.extend(_default, options);
 
@@ -51,9 +50,9 @@
                 var item = items[i];
 
                 var $item = $('span').attr({
-                    class: 'infica-tag-item',
-                    'data-id' : item.id,
-                    'data-label': item.label
+                        class: 'infica-tag-item',
+                        'data-id' : item.id,
+                        'data-label': item.label
                 });
 
                 $container.append($item);
@@ -92,41 +91,45 @@ $(function() {
             }
         }
     });
+
+    $('.btn-delete-action').click(function() {
+        return confirm("Bạn có chắc chắn muốn xóa bản ghi này?");
+    });
 });
 
 
 // TinyMCE - Config
 tinymce.init({
-   selector: ".tiny-editor",
-   theme: "modern",
-   width: '100%',
-   height: 450,
-   // ===========================================
-   // INCLUDE THE PLUGIN
-   // ===========================================
-   plugins: [
-      'advlist autolink lists link image charmap print preview hr anchor pagebreak',
-      'searchreplace wordcount visualblocks visualchars code fullscreen',
-      'insertdatetime media nonbreaking save table contextmenu directionality',
-      'emoticons template paste textcolor colorpicker textpattern imagetools codesample jbimages'
-   ],
+    selector: ".tiny-editor",
+    theme: "modern",
+    width: '100%',
+    height: 450,
+    // ===========================================
+    // INCLUDE THE PLUGIN
+    // ===========================================
+    plugins: [
+        'advlist autolink lists link image charmap print preview hr anchor pagebreak',
+        'searchreplace wordcount visualblocks visualchars code fullscreen',
+        'insertdatetime media nonbreaking save table contextmenu directionality',
+        'emoticons template paste textcolor colorpicker textpattern imagetools codesample jbimages'
+    ],
 
-   // ===========================================
-   // PUT PLUGIN'S BUTTON on the toolbar
-   // ===========================================
-   toolbar1: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image jbimages',
-   toolbar2: 'print preview media | fontsizeselect fontselect forecolor backcolor emoticons | codesample',
+    // ===========================================
+    // PUT PLUGIN'S BUTTON on the toolbar
+    // ===========================================
+    toolbar1: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image jbimages',
+    toolbar2: 'print preview media | fontsizeselect fontselect forecolor backcolor emoticons | codesample',
 
 
-   // ===========================================
-   // SET RELATIVE_URLS to FALSE (This is required for images to display properly)
-   // ===========================================
+    // ===========================================
+    // SET RELATIVE_URLS to FALSE (This is required for images to display properly)
+    // ===========================================
 
-   fontsize_formats: '8pt 10pt 12pt 14pt 16pt 18pt 20pt 24pt 36pt',
+    fontsize_formats: '8pt 10pt 12pt 14pt 16pt 18pt 20pt 24pt 36pt',
 
-   font_formats: 'Arial=arial,helvetica,sans-serif;Courier New=courier new,courier,monospace;AkrutiKndPadmini=Akpdmi-n;Tahoma=tahoma,arial,helvetica,sans-serif;Times New Roman=times new roman,times;ElleFuturaBook=ElleFuturaBook',
+    font_formats: 'Arial=arial,helvetica,sans-serif;Courier New=courier new,courier,monospace;AkrutiKndPadmini=Akpdmi-n;Tahoma=tahoma,arial,helvetica,sans-serif;Times New Roman=times new roman,times;ElleFuturaBook=ElleFuturaBook',
 
-   relative_urls: false,
+    relative_urls: false,
 
-   image_advtab: true
+    image_advtab: true
 });

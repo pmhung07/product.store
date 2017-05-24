@@ -376,9 +376,52 @@ Route::group(['middleware' => 'auth'], function(){
 				Route::get('index', ['as' => 'system.ga.index', 'uses' => 'System\GaController@getIndex']);
 			});
 
+			// Setting
 			Route::group(['prefix' => 'setting'], function() {
 				Route::get('index', ['as' => 'system.setting_website.index', 'uses' => 'System\SettingWebsiteController@getIndex']);
 				Route::post('index', ['as' => 'system.setting_website.index', 'uses' => 'System\SettingWebsiteController@postIndex']);
+			});
+
+			// Banner
+			Route::group(['prefix' => 'banner'], function() {
+			    Route::get('/', [
+					'as'   => 'system.banner.index',
+					'uses' => 'System\BannerController@index',
+			    ]);
+
+			    Route::get('/create',  [
+					'as'   => 'system.banner.create',
+					'uses' => 'System\BannerController@create',
+			    ]);
+
+			    Route::post('/create', [
+					'as'   => 'system.banner.store',
+					'uses' =>'System\BannerController@store',
+			    ]);
+
+			    Route::get('{id}/edit',  [
+					'as'   => 'system.banner.edit',
+					'uses' => 'System\BannerController@edit',
+			    ]);
+
+			    Route::post('{id}/edit', [
+					'as'   => 'system.banner.update',
+					'uses' =>'System\BannerController@update',
+			    ]);
+
+			    Route::get('{id}/active', [
+					'as'   => 'system.banner.active',
+					'uses' => 'System\BannerController@active',
+			    ]);
+
+			    Route::get('{id}/delete', [
+					'as'   => 'system.banner.destroy',
+					'uses' => 'System\BannerController@destroy',
+			    ]);
+
+
+			    // Ajax editable
+			    Route::post('/ajax/editable', ['as' => 'system.banner.ajax.editable', 'uses' => 'System\BannerController@ajaxEditAble']);
 			});
 
 
