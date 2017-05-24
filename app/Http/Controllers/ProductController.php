@@ -32,7 +32,7 @@ class ProductController extends Controller
 
     public function postCreate(ProductRequest $request) {
     	$product = new Product();
-    	$product->product_group_id = $request->product_group;;
+    	// $product->product_group_id = $request->product_group;;
     	$product->unit_id = $request->product_unit;
     	$product->name = $request->product_name;
     	$product->sku = $request->product_sku;
@@ -54,6 +54,11 @@ class ProductController extends Controller
         }
 
         $product->save();
+
+        // 1 sản phẩm thuộc nhiều danh mục
+        $productGroup = $request->get('product_group');
+        $productGroupIds = explode(',', $productGroup);
+        $product->categories()->sync($productGroupIds);
 
         if($request->hasFile('images')) {
             $resultUpload = $this->imageUploader->uploadMulti('images');
