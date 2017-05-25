@@ -6,8 +6,8 @@
         <div id="home-slider" class="owl-carousel owl-theme">
             @foreach($slideItems as $item)
                 <div class="item">
-                    <a href="/">
-                        <img src="{{ $item }}" />
+                    <a class="link" href="{{ $item->link }}">
+                        <img class="img" src="{{ parse_image_url($item->image) }}" alt="{{ $item->image_alt ? $item->image_alt : url('/') }}" />
                     </a>
                 </div>
             @endforeach

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Shop;
 
 use App\Http\Controllers\Controller;
+use App\Models\Banner;
 use App\Orders;
 use App\Product;
 use App\ShopPost;
@@ -17,6 +18,12 @@ class HomeController extends ShopController {
             'https://file.hstatic.net/1000003969/file/banner-web-876cmt8.jpg',
             '/shop/assets/file.hstatic.net/1000003969/file/sd01034-banner-web-fix.jpg'
         ];
+
+        $slideItems = Banner::where('page', 'home')
+                            ->where('position', 'top')
+                            ->where('status', 1)
+                            ->orderBy('created_at', 'DESC')
+                            ->get();
 
         // Sản phẩm hot
         $hotProducts = Product::join('order_details', 'product.id', '=', 'order_details.product_id')

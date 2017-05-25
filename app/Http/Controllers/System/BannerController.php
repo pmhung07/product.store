@@ -22,7 +22,15 @@ class BannerController extends Controller
      */
     public function index(Request $request)
     {
-        $banners      = Banner::orderBy('updated_at', 'DESC')->paginate(20);
+        $query = Banner::orderBy('updated_at', 'DESC');
+
+        $targetPage = $request->get('_page');
+        $position = $request->get('position');
+
+        if($targetPage) $query->where('page', $targetPage);
+        if($position) $query->where('position', $position);
+
+        $banners = $query->paginate(20);
         $positionList = Banner::getPositionList();
         $pageList     = Banner::getPageList();
         return view('system/banner/index', compact('banners', 'positionList', 'pageList'));

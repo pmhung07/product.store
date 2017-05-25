@@ -95,6 +95,36 @@ $(function() {
     $('.btn-delete-action').click(function() {
         return confirm("Bạn có chắc chắn muốn xóa bản ghi này?");
     });
+
+    $('.btn-active-action')
+       .click(function(e) {
+          e.preventDefault();
+          var $this = $(this);
+          $.ajax({
+             url : $this.attr('href'),
+             type : 'GET',
+             dataType : 'json',
+             beforeSend: function() {
+                // initSpin();
+             },
+             success : function(data) {
+
+                $(document).trigger('action_active_success');
+
+                // stopSpin();
+                if(data.code === 1) {
+                   var _btn = $this.find('i');
+                   if(data.status == 1) {
+                      $this.html('<i class="fa fa-check-square fa-2x"></i>');
+                   }else{
+                      $this.html('<i class="fa fa-square-o fa-2x"></i>');
+                   }
+                }else{
+                   alert(data.message);
+                }
+             }
+          })
+       });
 });
 
 
