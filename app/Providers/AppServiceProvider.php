@@ -38,5 +38,9 @@ class AppServiceProvider extends ServiceProvider
             $image = new \Nht\Hocs\Core\Images\Image();
             return new \Nht\Hocs\Core\Images\ImageFactory($uploader, $image);
         });
+
+
+        // Sms
+        $this->app->bind('App\Hocs\Sms\SmsInterface', 'App\Hocs\Sms\SmsService');
     }
 }
