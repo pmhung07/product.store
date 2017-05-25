@@ -371,6 +371,20 @@
   font-weight: bold;
   padding: 5px 0;
 }
+#product.product-detail-container .nav-tabs > li > a {
+  font-weight: bold;
+  text-transform: uppercase;
+  color: #555;
+  border: none;
+  border-bottom: 2px solid transparent;
+}
+#product.product-detail-container .nav-tabs > li.active > a {
+  border: none;
+  border-bottom: 2px solid #d61c1f;
+}
+#product.product-detail-container .tab-content .tab-pane {
+  padding-top: 10px;
+}
 .ClickBlogItem {
   display: block;
 }

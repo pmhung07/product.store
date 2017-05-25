@@ -96,29 +96,35 @@
     <div id="descriptionproduct" class="container wow fadeIn" style="margin-top:20px">
         <div class="row clearfix">
             <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
+                <!-- Nav tabs -->
+                <ul class="nav nav-tabs" role="tablist">
+                    @if($product->getContent())
+                        <li role="presentation"><a href="#tab-product-info" aria-controls="tab-product-info" role="tab" data-toggle="tab">Thông tin sản phẩm</a></li>
+                    @endif
 
-                @if($product->getContent())
-                    <div class="description" role="tabpanel" id="tab-product">
-                        <!-- Nav tabs -->
-                        <ul class="nav nav-tabs" role="tablist">
-                            <li role="presentation" class="active"><a href="javascript;" aria-controls="home" role="tab" data-toggle="tab">Chi tiết sản phẩm</a></li>
-                        </ul>
-                        <div class="tab-content">
-                            <div role="tabpanel" class="tab-pane active" id="home" style="padding-top: 15px;">
-                                {!! $product->getContent() !!}
-                            </div>
-                        </div>
-                    </div>
-                @endif
+                    @if($product->spec)
+                        <li role="presentation" class="active"><a href="#tab-product-spec" aria-controls="tab-product-spec" role="tab" data-toggle="tab">Thông số kỹ thuật</a></li>
+                    @endif
 
-                @if($product->introduce)
-                    <div class="sec-related-product">
-                        <h5 class="sec-heading">
-                            <span>Hướng dẫn sử dụng</span>
-                        </h5>
-                        <div>{!! $product->introduce !!}</div>
-                    </div>
-                @endif
+                    @if($product->introduce)
+                        <li role="presentation"><a href="#tab-product-introduce" aria-controls="tab-product-introduce" role="tab" data-toggle="tab">Hướng dẫn sử dụng</a></li>
+                    @endif
+                </ul>
+                <!-- Tab panes -->
+                <div class="tab-content">
+                    @if($product->getContent())
+                        <div role="tabpanel" class="tab-pane active" id="tab-product-info">{!! $product->getContent() !!}</div>
+                    @endif
+
+                    @if($product->spec)
+                        <div role="tabpanel" class="tab-pane" id="tab-product-spec">{!! $product->spec !!}</div>
+                    @endif
+
+                    @if($product->introduce)
+                        <div role="tabpanel" class="tab-pane" id="tab-product-introduce">{!! $product->introduce !!}</div>
+                    @endif
+                </div>
+
             </div>
         </div>
     </div>

@@ -42,12 +42,3 @@
     </a>
     @endforeach
 </div>
-
-@if($product->spec)
-<div id="spec">
-    <h5 class="sec-heading"">
-        <span>Thông số kỹ thuật</span>
-    </h5>
-    <div class="spec-info">{!! $product->spec !!}</div>
-</div>
-@endif
