@@ -385,6 +385,9 @@
 #product.product-detail-container .tab-content .tab-pane {
   padding-top: 10px;
 }
+#product.product-detail-container #descriptionproduct img {
+  max-width: 100%;
+}
 .ClickBlogItem {
   display: block;
 }
