@@ -51,6 +51,10 @@
     <!-- Tiny mce -->
     <script src="/js/plugins/tinymce_4.4.3/tinymce.min.js"></script>
 
+    <!-- Editable -->
+    <link rel="stylesheet" href="{{ asset('/css/bootstrap-editable/bootstrap-editable.css') }}">
+    <script src="{{ asset('/js/jquery.editable/bootstrap-editable.js') }}"></script>
+
     <script type="text/javascript">
         if(typeof App === 'undefined') {
             var App = {};
