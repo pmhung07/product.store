@@ -25,13 +25,56 @@
             <div class="content">
                 <div class="clearfix" id="detail-product" style="background:#fff">
                     <div class="row">
-                        <div class="col-lg-5 col-md-6 col-sm-12 col-xs-12 slide-imagesm fadeIn wow" style="position: relative;overflow: hidden;">
-                            @include('shop/product/left')
+                        <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9">
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 slide-imagesm fadeIn wow" style="position: relative;overflow: hidden;">
+                                    @include('shop/product/left')
+                                </div>
+
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 product fadeIn wow">
+                                    @include('shop/product/right')
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <div id="descriptionproduct" class="wow fadeIn" style="margin-top:20px">
+                                        <div class="clearfix">
+                                            <div class="">
+                                                <!-- Nav tabs -->
+                                                <ul class="nav nav-tabs" role="tablist">
+                                                    @if($product->getContent())
+                                                        <li role="presentation"><a href="#tab-product-info" aria-controls="tab-product-info" role="tab" data-toggle="tab">Thông tin sản phẩm</a></li>
+                                                    @endif
+
+                                                    @if($product->spec)
+                                                        <li role="presentation" class="active"><a href="#tab-product-spec" aria-controls="tab-product-spec" role="tab" data-toggle="tab">Thông số kỹ thuật</a></li>
+                                                    @endif
+
+                                                    @if($product->introduce)
+                                                        <li role="presentation"><a href="#tab-product-introduce" aria-controls="tab-product-introduce" role="tab" data-toggle="tab">Hướng dẫn sử dụng</a></li>
+                                                    @endif
+                                                </ul>
+                                                <!-- Tab panes -->
+                                                <div class="tab-content">
+                                                    @if($product->getContent())
+                                                        <div role="tabpanel" class="tab-pane active" id="tab-product-info">{!! $product->getContent() !!}</div>
+                                                    @endif
+
+                                                    @if($product->spec)
+                                                        <div role="tabpanel" class="tab-pane" id="tab-product-spec">{!! $product->spec !!}</div>
+                                                    @endif
+
+                                                    @if($product->introduce)
+                                                        <div role="tabpanel" class="tab-pane" id="tab-product-introduce">{!! $product->introduce !!}</div>
+                                                    @endif
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
-                        <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12 product fadeIn wow">
-                            @include('shop/product/right')
-                        </div>
 
                         <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12 no-padding">
                             @if($warehouses->count() > 0)
@@ -90,41 +133,6 @@
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
-    <div id="descriptionproduct" class="container wow fadeIn" style="margin-top:20px">
-        <div class="row clearfix">
-            <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
-                <!-- Nav tabs -->
-                <ul class="nav nav-tabs" role="tablist">
-                    @if($product->getContent())
-                        <li role="presentation"><a href="#tab-product-info" aria-controls="tab-product-info" role="tab" data-toggle="tab">Thông tin sản phẩm</a></li>
-                    @endif
-
-                    @if($product->spec)
-                        <li role="presentation" class="active"><a href="#tab-product-spec" aria-controls="tab-product-spec" role="tab" data-toggle="tab">Thông số kỹ thuật</a></li>
-                    @endif
-
-                    @if($product->introduce)
-                        <li role="presentation"><a href="#tab-product-introduce" aria-controls="tab-product-introduce" role="tab" data-toggle="tab">Hướng dẫn sử dụng</a></li>
-                    @endif
-                </ul>
-                <!-- Tab panes -->
-                <div class="tab-content">
-                    @if($product->getContent())
-                        <div role="tabpanel" class="tab-pane active" id="tab-product-info">{!! $product->getContent() !!}</div>
-                    @endif
-
-                    @if($product->spec)
-                        <div role="tabpanel" class="tab-pane" id="tab-product-spec">{!! $product->spec !!}</div>
-                    @endif
-
-                    @if($product->introduce)
-                        <div role="tabpanel" class="tab-pane" id="tab-product-introduce">{!! $product->introduce !!}</div>
-                    @endif
-                </div>
-
             </div>
         </div>
     </div>
