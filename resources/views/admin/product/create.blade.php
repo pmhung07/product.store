@@ -168,6 +168,7 @@
                         <div class="form-group">
                             <div class="col-sm-8 col-sm-offset-3">
                                 <button class="btn btn-primary" type="submit">Lưu thông tin</button>
+                                <button class="btn btn-info" type="button" id="btn-save-and-exit">Lưu & Thoát</button>
                             </div>
                         </div>
                     </form>
