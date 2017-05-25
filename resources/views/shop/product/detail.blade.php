@@ -126,7 +126,7 @@
                                 </div>
                                 <div class="deliver-top-no deliver-phone">
                                     <div class="tit">Hỗ trợ mua nhanh</div>
-                                    <div class="tit-color">1800 1162</div>
+                                    <div class="tit-color">{{ $GLB_Setting->phone }}</div>
                                     <div class="descrip">từ 8:30 - 21:30 mỗi ngày</div>
                                 </div>
                             </div>
