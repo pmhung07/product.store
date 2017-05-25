@@ -43,11 +43,11 @@
                                                 <!-- Nav tabs -->
                                                 <ul class="nav nav-tabs" role="tablist">
                                                     @if($product->getContent())
-                                                        <li role="presentation"><a href="#tab-product-info" aria-controls="tab-product-info" role="tab" data-toggle="tab">Thông tin sản phẩm</a></li>
+                                                        <li role="presentation" class="active"><a href="#tab-product-info" aria-controls="tab-product-info" role="tab" data-toggle="tab">Thông tin sản phẩm</a></li>
                                                     @endif
 
                                                     @if($product->spec)
-                                                        <li role="presentation" class="active"><a href="#tab-product-spec" aria-controls="tab-product-spec" role="tab" data-toggle="tab">Thông số kỹ thuật</a></li>
+                                                        <li role="presentation"><a href="#tab-product-spec" aria-controls="tab-product-spec" role="tab" data-toggle="tab">Thông số kỹ thuật</a></li>
                                                     @endif
 
                                                     @if($product->introduce)
