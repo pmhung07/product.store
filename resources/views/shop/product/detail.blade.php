@@ -212,9 +212,9 @@
 
         $(window).on('scroll', function() {
             if($(window).scrollTop() >= 628 && $(window).scrollTop() <= 760) {
-                $('.sec-policies-feature').addClass('policy-fixed');
+                // $('.sec-policies-feature').addClass('policy-fixed');
             } else {
-                $('.sec-policies-feature').removeClass('policy-fixed');
+                // $('.sec-policies-feature').removeClass('policy-fixed');
                 // $('#product').css({
                 //     marginBottom: 0
                 // });
