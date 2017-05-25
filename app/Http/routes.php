@@ -464,6 +464,9 @@ Route::group(['middleware' => 'auth'], function(){
 		Route::group(['prefix' => 'ajax'], function() {
 			// Ajax search product group
 			Route::get('/product-group', 'ProductGroupController@ajaxSearchProductGroup');
+
+			// Ajax send sms
+			Route::post('/send-sms', ['as' => 'system.ajax.send_sms', 'uses' => 'System\SendSmsController@sendSmsToCustomers']);
 		});
 	});
 });

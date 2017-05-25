@@ -12,6 +12,8 @@ class SmsService implements SmsInterface {
 
     protected $successData = array();
 
+    protected $success;
+
     public function setApiKey($apiKey)
     {
         $this->apiKey = $apiKey;
@@ -51,6 +53,7 @@ class SmsService implements SmsInterface {
 
         if($obj['CodeResult'] == 100) {
             $this->successData[] = $obj;
+            $this->success = true;
         } else {
             throw new \Exception("Send message error: ".$obj['ErrorMessage'], 1);
         }
@@ -59,5 +62,10 @@ class SmsService implements SmsInterface {
     public function successData()
     {
         return $this->successData;
+    }
+
+    public function success()
+    {
+        return $this->success;
     }
 }
