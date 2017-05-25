@@ -147,6 +147,7 @@ class OrderController extends ShopController
 
     public function getThank()
     {
-        return view('shop/order/success');
+        $metadata = $this->metadata;
+        return view('shop/order/success', compact('metadata'));
     }
 }
