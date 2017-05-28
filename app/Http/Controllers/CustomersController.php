@@ -2,29 +2,25 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
+use App\Channel;
+use App\Customers;
+use App\Districts;
 use App\Http\Requests;
 use App\Http\Requests\CustomersRequest;
-
-
-use App\Orders;
 use App\OrderDetails;
-use App\Customers;
-use App\PaymentMethods;
-use App\Channel;
-use App\Product;
 use App\OrderProcessing;
+use App\Orders;
+use App\PaymentMethods;
+use App\Product;
 use App\Provinces;
-use App\Districts;
-use App\Warehouse;
 use App\User;
-
-use Carbon\Carbon;
-
+use App\Warehouse;
 use Auth;
+use Carbon\Carbon;
 use DB;
 use Hash;
+use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 
 
 class CustomersController extends Controller
@@ -52,7 +48,9 @@ class CustomersController extends Controller
 		$order='DESC';
         $rows = Customers::select('customers.*','provinces.name as provinces_name','districts.name as districts_name')
                            ->Join('provinces', 'provinces.id', '=', 'customers.province_id')
-                           ->join('districts', 'districts.id', '=', 'customers.district_id')->where('customers.active','!=',0);
+                           ->join('districts', 'districts.id', '=', 'customers.district_id')
+                           ->where('customers.active','!=',0);
+
 		if ($request->has('cus_name'))
 			$rows = $rows->where('customers.name', 'LIKE', '%'.$request->input("cus_name").'%');
 		if ($request->has('cus_phone'))
@@ -60,8 +58,35 @@ class CustomersController extends Controller
         if ($request->has('cus_email'))
             $rows = $rows->where('customers.email', 'LIKE', '%'.$request->input("cus_email").'%');
 
-		$data=$rows->orderBy($sort,$order)->paginate(10);//->with('category', 'brand')->paginate(10);
-		return view('admin.customer.index',['rows' => $data]);//, ['rows' => $data]);
+        $province_id = (int) $request->get('province_id');
+        $district_id = (int) $request->get('district_id');
+        $vip_customer = (int) $request->get('vip_customer');
+
+        if($province_id) $rows->where('customers.province_id', '=', $province_id);
+        if($district_id) $rows->where('customers.district_id', '=', $district_id);
+        if($vip_customer) {
+            $rows->join('orders', 'customers.id', '=', 'orders.customer_id')
+                 ->orderBy('orders.total_price', 'DESC');
+            $sort = 'orders.total_price';
+            $order = 'DESC';
+        }
+
+		$data = $rows->orderBy($sort,$order)->paginate(10);//->with('category', 'brand')->paginate(10);
+
+        $provinces = Provinces::orderBy('name', 'DESC')->get();
+        $districts = new Collection();
+        if($province_id) {
+            $districts = Districts::where('province_id', $province_id)->get();
+        }
+
+        // Bulk action
+        $bulkActions = [
+            "SEND_SMS"     => 'Gửi tin nhắn',
+            "SEND_EMAIL"   => 'Gửi mail',
+            // "DELETE_MULTI" => 'Xóa'
+        ];
+
+        return view('admin.customer.index',['rows' => $data, 'provinces' => $provinces, 'districts' => $districts, 'bulkActions' => $bulkActions]);//, ['rows' => $data]);
     }
 
     public function getUpdate($id){

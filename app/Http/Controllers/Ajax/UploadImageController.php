@@ -21,7 +21,7 @@ class UploadImageController extends Controller
             return response()->json([
                 'code' => 1,
                 'filename' => $resultUpload['filename'],
-                'url' => parse_image_url($resultUpload['filename'])
+                'url' => url(parse_image_url($resultUpload['filename']))
             ]);
         }
 

@@ -20,31 +20,36 @@
 
                 <div class="ibox" style="margin-bottom:0px;">
                     <div class="ibox-content">
-                        <div class="table-responsive" style="overflow-x: inherit;">
-                            <table class="table shoping-cart-table">
-                                <tbody>
-                                    <form method="GET" action="{!! route('admin.customer.index') !!}" accept-charset="UTF-8">
-                                        <tr>
-                                            <td style="width:20%;">
-                                                <div class="input-group date">
-                                                    <span class="input-group-addon">
-                                                        <i class="fa fa-search"></i>
-                                                    </span>
-                                                    <input value="{!! Request::input('cus_name') !!}" name="cus_name" class="form-control filter-product-sku" style="width:100%;" type="text" placeholder="Tên khách hàng">
-                                                </div>
-                                            </td>
-                                            <td style="width:20%;">
-                                                <div class="input-group date">
-                                                    <span class="input-group-addon">
-                                                        <i class="fa fa-search"></i>
-                                                    </span>
-                                                    <input value="{!! Request::input('cus_phone') !!}" name="cus_phone" class="form-control filter-product-name" style="width:100%;" type="text" placeholder="Số điện thoại">
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    </form>
-                                </tbody>
-                            </table>
+                        <form class="form form-inline">
+                            <input type="text" name="cus_name" placeholder="Tên khách hàng" value="{{ Request::get('cus_name') }}" class="form-control input-sm">
+                            <input type="text" name="cus_phone" placeholder="Số điện thoại" value="{{ Request::get('cus_phone') }}" class="form-control input-sm">
+                            <select id="province_id" name="province_id" class="form-control input-sm">
+                                <option value="">Tỉnh/Thành phố</option>
+                                @foreach($provinces as $item)
+                                    <option value="{{ $item->id }}" {{ $item->id == Request::get('province_id') ? 'selected' : '' }}>{{ $item->name }}</option>
+                                @endforeach
+                            </select>
+                            <select id="district_id" name="district_id" class="form-control input-sm">
+                                <option value="">Quận/Huyện</option>
+                                @foreach($districts as $item)
+                                    <option value="{{ $item->id }}" {{ $item->id == Request::get('district_id') ? 'selected' : '' }}>{{ $item->name }}</option>
+                                @endforeach
+                            </select>
+                            <label class="checkbox checkbox-inline">
+                                <input id="vip_customer" type="checkbox" name="vip_customer" value="1" {{ Request::get('vip_customer') == 1 ? 'checked' : '' }}> Mua nhiều nhất
+                            </label>
+                            <button type="submit" class="btn btn-sm btn-default"><i class="fa fa-search"></i> Lọc</button>
+                        </form>
+
+                        <div style="margin: 10px 0 0 0;">
+                            <form id="form-bulk-action" class="form form-inline hide">
+                                <select id="bulk_action" name="bulk_action" class="form-control input-sm">
+                                    <option value="">Thao tác</option>
+                                    @foreach($bulkActions as $key => $value)
+                                        <option value="{{ $key }}" {{ $key == Request::get('bulk_action') ? 'selected' : '' }}>{{ $value }}</option>
+                                    @endforeach
+                                </select>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -63,6 +68,9 @@
                         <table class="table table-striped table-bordered table-hover table-zip" id="editable" >
                             <thead>
                             <tr>
+                                <th>
+                                    <input type="checkbox" id="ckb_all" name="check_all">
+                                </th>
                                 <th>#</th>
                                 <th>Họ và tên</th>
                                 <th>Số điện thoại</th>
@@ -77,6 +85,9 @@
                             <?php $i=1; ?>
                             @foreach($rows as $row)
                                 <tr @if($i%2==0) {{'class="gradeA"'}} @else {{'class="gradeX"'}} @endif>
+                                    <td>
+                                        <input type="checkbox" class="ckb_item" name="customers[]" value="{{ $row->id }}">
+                                    </td>
                                     <td>{!! $i !!}</td>
                                     <td> {!! $row->name !!}</td>
                                     <td> {!! $row->phone !!}</td>
@@ -153,6 +164,54 @@
     </div>
 </div>
 
+<div id="modal-sms" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form id="form-send-sms" method="POST" action="POST" class="form">
+                <div class="modal-header">
+                    Gửi tin nhắn
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label class="control-label">Nội dung tin nhắn</label>
+                        <textarea name="msg" class="form-control" placeholder="Nhập nội dung tin nhắn"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-danger btn-ok">Gửi tin nhắn</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Huỷ thao tác</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div id="modal-email" class="modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form id="form-send-email" method="POST" action="POST" class="form">
+                <div class="modal-header">
+                    Gửi mail
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label class="control-label">Tiêu đề</label>
+                        <input type="text" name="title" class="form-control" placeholder="Nhập tiêu đề" />
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Nội dung</label>
+                        <textarea name="mail" class="form-control summernote" placeholder="Nhập nội dung"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-danger btn-ok">Gửi mail</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Huỷ thao tác</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 @stop
 
 @section('script')
@@ -189,6 +248,101 @@ $(document).ready(function() {
 
     $('#confirm-delete').on('show.bs.modal', function(e) {
         $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
+    });
+
+    $('#province_id').ajaxLoadDistrict({
+        observers: '#district_id'
+    });
+
+    // Check all
+    $('#ckb_all').on('click', function() {
+        $('.ckb_item').prop('checked', this.checked);
+        if(this.checked) {
+            $('#form-bulk-action').removeClass('hide');
+        } else {
+            $('#form-bulk-action').addClass('hide');
+        }
+    });
+
+    function get_customers_id() {
+        var ids = [];
+        $('.ckb_item:checked').each(function(ind, el) {
+            ids.push($(el).val());
+        });
+        return ids;
+    }
+
+    // Bulk action
+    $('#bulk_action').on('change', function() {
+        var $this = $(this);
+
+        var customer_ids = get_customers_id();
+        if(customer_ids.length == 0) {
+            alert("Vui lòng chọn ít nhất 1 khách hàng để thực hiện thao tác này");
+            $('#form-bulk-action').find('select').val("");
+            return;
+        }
+
+        switch ($this.val()) {
+            case "SEND_SMS":
+                $('#modal-sms').modal('show');
+                break;
+
+            case "SEND_EMAIL":
+                $('#modal-email').modal('show');
+                break;
+
+            case "DELETE_MULTI":
+                break;
+        }
+    });
+
+    $('#form-send-sms').on('submit', function(e) {
+        e.preventDefault();
+        var $this = $(this);
+        $('#modal-sms').modal('hide');
+        $.ajax({
+            url : "{{ route('system.ajax.send_sms') }}",
+            type: "POST",
+            dataType: "json",
+            data: {
+                _token: "{{ csrf_token() }}",
+                customers: get_customers_id().join(","),
+                msg: $this.find('[name="msg"]').val()
+            },
+            success : function(response) {
+                if(response.code == 1) {
+                    toastr.success(response.message);
+                } else {
+                    toastr.error(response.message);
+                }
+            }
+        });
+    });
+
+
+    $('#form-send-email').on('submit', function(e) {
+        e.preventDefault();
+        var $this = $(this);
+        $('#modal-email').modal('hide');
+        $.ajax({
+            url : "{{ route('system.ajax.send_mail') }}",
+            type: "POST",
+            dataType: "json",
+            data: {
+                _token: "{{ csrf_token() }}",
+                customers: get_customers_id().join(","),
+                content: $this.find('[name="mail"]').val(),
+                title: $this.find('[name="title"]').val()
+            },
+            success : function(response) {
+                if(response.code == 1) {
+                    toastr.success(response.message);
+                } else {
+                    toastr.error(response.message);
+                }
+            }
+        });
     });
 });
 </script>
