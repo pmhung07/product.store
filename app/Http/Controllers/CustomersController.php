@@ -83,7 +83,7 @@ class CustomersController extends Controller
         $bulkActions = [
             "SEND_SMS"     => 'Gửi tin nhắn',
             "SEND_EMAIL"   => 'Gửi mail',
-            "DELETE_MULTI" => 'Xóa'
+            // "DELETE_MULTI" => 'Xóa'
         ];
 
         return view('admin.customer.index',['rows' => $data, 'provinces' => $provinces, 'districts' => $districts, 'bulkActions' => $bulkActions]);//, ['rows' => $data]);

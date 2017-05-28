@@ -425,6 +425,31 @@ Route::group(['middleware' => 'auth'], function(){
 			});
 
 
+			// Navigation
+			Route::group(['prefix' => 'navigation'], function() {
+				Route::get('index', ['as' => 'system.navigation.index', 'uses' => 'System\NavigationController@getIndex']);
+				Route::get('create', ['as' => 'system.navigation.create', 'uses' => 'System\NavigationController@getCreate']);
+				Route::post('create', ['as' => 'system.navigation.create', 'uses' => 'System\NavigationController@postCreate']);
+				Route::get('{id}/edit', ['as' => 'system.navigation.edit', 'uses' => 'System\NavigationController@getEdit']);
+				Route::post('{id}/edit', ['as' => 'system.navigation.edit', 'uses' => 'System\NavigationController@postEdit']);
+				Route::get('{id}/delete', ['as' => 'system.navigation.delete', 'uses' => 'System\NavigationController@getDelete']);
+				Route::get('/{id}/active', ['as' => 'system.navigation.active', 'uses' => 'System\NavigationController@getActive']);
+				// Thiết kế menu
+			    Route::get('/design', ['as' => 'system.navigation.design', 'uses' => 'System\NavigationController@getDesign']);
+			    Route::post('/design', 'System\NavigationController@postDesign');
+
+			    // Ajax editable
+			    Route::post('/ajax/editable', ['as' => 'system.navigation.ajax.editable', 'uses' => 'System\NavigationController@ajaxEditable']);
+
+			    // Ajax search post
+			    Route::get('/ajax/search-post', ['as' => 'system.navigation.ajax.searchPost', 'uses' => 'System\NavigationController@ajaxSearchPost']);
+
+			    // Ajax search post-category
+			    Route::get('/ajax/search-post-category', ['as' => 'system.navigation.ajax.searchPostCategory', 'uses' => 'System\NavigationController@ajaxSearchPostCategory']);
+
+			    // Ajax search page
+			    Route::get('/ajax/search-page', ['as' => 'system.navigation.ajax.searchPage', 'uses' => 'System\NavigationController@ajaxSearchPage']);
+			});
 		});
 
 		// Affiliate
@@ -467,6 +492,9 @@ Route::group(['middleware' => 'auth'], function(){
 
 			// Ajax send sms
 			Route::post('/send-sms', ['as' => 'system.ajax.send_sms', 'uses' => 'System\SendSmsController@sendSmsToCustomers']);
+
+			// Ajax send sms
+			Route::post('/send-mail', ['as' => 'system.ajax.send_mail', 'uses' => 'System\SendMailController@sendMailToCustomers']);
 		});
 	});
 });

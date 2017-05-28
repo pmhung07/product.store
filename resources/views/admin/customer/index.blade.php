@@ -186,6 +186,32 @@
     </div>
 </div>
 
+<div id="modal-email" class="modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form id="form-send-email" method="POST" action="POST" class="form">
+                <div class="modal-header">
+                    Gửi mail
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label class="control-label">Tiêu đề</label>
+                        <input type="text" name="title" class="form-control" placeholder="Nhập tiêu đề" />
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Nội dung</label>
+                        <textarea name="mail" class="form-control summernote" placeholder="Nhập nội dung"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-danger btn-ok">Gửi mail</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Huỷ thao tác</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 @stop
 
 @section('script')
@@ -249,16 +275,24 @@ $(document).ready(function() {
     // Bulk action
     $('#bulk_action').on('change', function() {
         var $this = $(this);
+
+        var customer_ids = get_customers_id();
+        if(customer_ids.length == 0) {
+            alert("Vui lòng chọn ít nhất 1 khách hàng để thực hiện thao tác này");
+            $('#form-bulk-action').find('select').val("");
+            return;
+        }
+
         switch ($this.val()) {
             case "SEND_SMS":
-                var customer_ids = get_customers_id();
-                if(customer_ids.length == 0) {
-                    alert("Vui lòng chọn ít nhất 1 khách hàng để thực hiện thao tác này");
-                    $('#form-bulk-action').find('select').val("");
-                    return;
-                }
-
                 $('#modal-sms').modal('show');
+                break;
+
+            case "SEND_EMAIL":
+                $('#modal-email').modal('show');
+                break;
+
+            case "DELETE_MULTI":
                 break;
         }
     });
@@ -275,6 +309,31 @@ $(document).ready(function() {
                 _token: "{{ csrf_token() }}",
                 customers: get_customers_id().join(","),
                 msg: $this.find('[name="msg"]').val()
+            },
+            success : function(response) {
+                if(response.code == 1) {
+                    toastr.success(response.message);
+                } else {
+                    toastr.error(response.message);
+                }
+            }
+        });
+    });
+
+
+    $('#form-send-email').on('submit', function(e) {
+        e.preventDefault();
+        var $this = $(this);
+        $('#modal-email').modal('hide');
+        $.ajax({
+            url : "{{ route('system.ajax.send_mail') }}",
+            type: "POST",
+            dataType: "json",
+            data: {
+                _token: "{{ csrf_token() }}",
+                customers: get_customers_id().join(","),
+                content: $this.find('[name="mail"]').val(),
+                title: $this.find('[name="title"]').val()
             },
             success : function(response) {
                 if(response.code == 1) {
