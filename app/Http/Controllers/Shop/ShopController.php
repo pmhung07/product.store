@@ -17,7 +17,7 @@ class ShopController extends Controller {
         view()->share('GLB_Categories', $this->categories);
 
         // Menu
-        $this->menus = Navigation::orderBy('sort', 'DESC')->get();
+        $this->menus = Navigation::orderBy('sort', 'DESC')->where('active', 1)->get();
         $this->menus  = (new \App\Hocs\Sortable\Sortable($this->menus))->getData();
         view()->share('GLB_Menus', $this->menus);
 
