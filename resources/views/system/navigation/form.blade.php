@@ -1,4 +1,4 @@
-<form class="" method="POST" action="">
+<form class="" method="POST" action="" enctype="multipart/form-data">
     <div class="row">
         <div class="col-sm-3">
             <h4>Loại danh mục</h4>
@@ -24,6 +24,10 @@
                 @include('system/navigation/partials/post-category')
             @elseif($type == App\Models\Navigation::TYPE_PAGE)
                 @include('system/navigation/partials/page')
+            @elseif($type == App\Models\Navigation::TYPE_PRODUCT)
+                @include('system/navigation/partials/product')
+            @elseif($type == App\Models\Navigation::TYPE_PRODUCT_GROUP)
+                @include('system/navigation/partials/product-group')
             @endif
 
             <div class="form-group">

@@ -5,7 +5,10 @@
         <div class="col-lg-12">
             <h2>
                 Menu
-                <a class="pull-right btn btn-xs btn-primary" href="{{ route('system.navigation.create') }}">Thêm mới</a>
+                <div class="pull-right">
+                    <a class="btn btn-xs btn-primary" href="{{ route('system.navigation.create') }}">Thêm mới</a>
+                    <a class="btn btn-xs btn-danger" href="{{ route('system.navigation.design') }}">Kéo thả</a>
+                </div>
             </h2>
         </div>
     </div>

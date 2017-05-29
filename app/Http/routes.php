@@ -449,6 +449,12 @@ Route::group(['middleware' => 'auth'], function(){
 
 			    // Ajax search page
 			    Route::get('/ajax/search-page', ['as' => 'system.navigation.ajax.searchPage', 'uses' => 'System\NavigationController@ajaxSearchPage']);
+
+			    // Ajax search product
+			    Route::get('/ajax/search-product', ['as' => 'system.navigation.ajax.searchProduct', 'uses' => 'System\NavigationController@ajaxSearchProduct']);
+
+			    // Ajax search product group
+			    Route::get('/ajax/search-product-group', ['as' => 'system.navigation.ajax.searchProductGroup', 'uses' => 'System\NavigationController@ajaxSearchProductGroup']);
 			});
 		});
 

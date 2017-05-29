@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests;
 use App\Http\Requests\Core\NavigationFormRequest;
 use App\Models\Navigation;
+use App\Product;
 use App\ProductGroup;
 use App\ShopPage;
 use App\ShopPost;
@@ -16,6 +17,11 @@ use Illuminate\Support\Collection;
 
 class NavigationController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->imageUploader = app('ImageUploader');
+    }
 
     public function getIndex(Request $request)
     {
@@ -68,13 +74,11 @@ class NavigationController extends Controller
         $menus = $sortable->getData();
 
         $postCategories = ShopPostCategories::all();
-        $sortable = new Sortable($menus);
+        $sortable = new Sortable($postCategories);
         $postCategories = $sortable->getData();
 
-        _debug($postCategories);die;
-
         $productCategories = ProductGroup::all();
-        $sortable = new Sortable($menus);
+        $sortable = new Sortable($productCategories);
         $productCategories = $sortable->getData();
 
         return view('system/navigation/edit', compact('menu', 'type', 'menus', 'postCategories', 'productCategories'));
@@ -124,6 +128,13 @@ class NavigationController extends Controller
             'parent_id' => (int) $request->get('parent_id')
         ];
 
+        if($request->hasFile('icon')) {
+            $resultUpload = $this->imageUploader->upload('icon');
+            if($resultUpload['status'] > 0) {
+                $data['icon'] = $resultUpload['filename'];
+            }
+        }
+
         switch ($type) {
             case Navigation::TYPE_POST:
                 $post = ShopPost::findOrFail($objectId);
@@ -140,9 +151,23 @@ class NavigationController extends Controller
                 $data['url'] = route('shop.page.detail', [$page->id, removeTitle($page->title)]);
                 break;
 
+            case Navigation::TYPE_PRODUCT:
+                $product = Product::findOrFail($objectId);
+                $data['url'] = route('shop.product.detail', [$product->id, removeTitle($product->name)]);
+                break;
+
+            case Navigation::TYPE_PRODUCT_GROUP:
+                $productGroup = ProductGroup::findOrFail($objectId);
+                $data['url'] = route('shop.category.products', [$productGroup->id, removeTitle($productGroup->name)]);
+                break;
+
             default:
                 # code...
                 break;
+        }
+
+        foreach($data as $key => &$value) {
+            $value = clean($value);
         }
 
         return $data;
@@ -151,8 +176,10 @@ class NavigationController extends Controller
 
     public function getDesign(Request $request)
     {
-        $menus = $this->menu->get([], ['sort' => 'DESC']);
-        return view('menu::admin/design', compact('menus'));
+        $menus = Navigation::all();
+        $sortable = new Sortable($menus);
+        $menus = $sortable->getData();
+        return view('system/navigation/design', compact('menus'));
     }
 
     public function postDesign(Request $request)
@@ -164,7 +191,7 @@ class NavigationController extends Controller
         foreach($parsedData['menu_item'] as $id => $parentId) {
             $sort --;
             // Update parent id for menu
-            Menu::where('id', $id)->update(['parent_id' => (int) $parentId, 'sort' => $sort]);
+            Navigation::where('id', $id)->update(['parent_id' => (int) $parentId, 'sort' => $sort]);
         }
 
         return response()->json(['code' => 1]);
@@ -251,5 +278,35 @@ class NavigationController extends Controller
             \DB::table('menus')->where('id', $item->getId())
                                ->update(['level' => $item->level]);
         }
+    }
+
+
+    public function ajaxSearchProduct(Request $request)
+    {
+        $products = Product::where('name', 'LIKE', '%'. clean($request->get('q')) .'%')->take(20)->get();
+        $json = [];
+        foreach($products as $item) {
+            $json[] = [
+                'id' => $item->getId(),
+                'name' => $item->getName()
+            ];
+        }
+
+        return response()->json($json);
+    }
+
+
+    public function ajaxSearchProductGroup(Request $request)
+    {
+        $items = ProductGroup::where('name', 'LIKE', '%'. clean($request->get('q')) .'%')->take(20)->get();
+        $json = [];
+        foreach($items as $item) {
+            $json[] = [
+                'id' => $item->getId(),
+                'name' => $item->getName()
+            ];
+        }
+
+        return response()->json($json);
     }
 }
