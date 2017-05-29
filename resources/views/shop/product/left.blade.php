@@ -15,7 +15,15 @@
             </p>
         </a>
     </div>
-    <?php foreach($product->variants()->get() as $item): ?>
+    <?php
+        $productImages = new Illuminate\Support\Collection();
+        if($product->hasChild()) {
+            $productImages = $product->variants()->get();
+        } else {
+            $productImages = $product->images()->get();
+        }
+    ?>
+    <?php foreach($productImages as $item): ?>
         <div class="item itemdelete lazy"
             data-original="{{ parse_image_url($item->image) }}"
             data-option="do">
@@ -36,7 +44,7 @@
 </div>
 
 <div class="thumbnails-hidden" style="overflow: hidden;">
-    @foreach($product->variants()->get() as $item)
+    @foreach($productImages as $item)
     <a rel="gallery-1" class="swipebox thumbnail thumdelete" href="{{ parse_image_url($item->image) }}">
         <img src="{{ parse_image_url('sm_'.$item->image) }}">
     </a>
