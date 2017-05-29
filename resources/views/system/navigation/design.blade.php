@@ -1,4 +1,4 @@
-@extends('admin/layouts/master')
+@extends('layout/admin/index')
 
 @section('styles')
 <style type="text/css">
@@ -9,74 +9,82 @@
         background: #f5f5f5;
         cursor: pointer;
     }
-    ul {
+    ul, .list-unstyled {
         list-style: none;
+        padding-left: 30px;
     }
 </style>
 @stop
 
-{{-- Page content --}}
-@section('main-content')
-<div class="panel">
-    <div class="panel-heading">
-        <h3>
-           Thiết kế menu
-           <a class="pull-right btn-xs btn-primary" href="{{ route('admin.menu.index') }}">Quay lại</a>
-       </h3>
-    </div>
-    <div class="panel-body">
-        <div class="col-sm-10">
-        <?php
-            function showCategories($categories, $parent_id = 0, $first = 0)
-            {
-                // BƯỚC 2.1: LẤY DANH SÁCH CATE CON
-                $cate_child = array();
-                foreach ($categories as $key => $item)
-                {
-                    // Nếu là chuyên mục con thì hiển thị
-                    if ($item['parent_id'] == $parent_id)
-                    {
-                        $cate_child[] = $item;
-                        // unset($categories[$key]);
-                    }
-                }
-
-                // BƯỚC 2.2: HIỂN THỊ DANH SÁCH CHUYÊN MỤC CON NẾU CÓ
-                if ($cate_child)
-                {
-                    $class = ($first == 0 ? 'sortable' : '');
-                    $first ++;
-                    echo '<ul class="list-unstyled '. $class .'">';
-                    foreach ($cate_child as $key => $item)
-                    {
-                        // Hiển thị tiêu đề chuyên mục
-                        echo '<li id="menu_item_'.$item->getId().'" class="item">
-                                <div>
-                                    <a class="editable" data-name="label" data-pk="'.$item->id.'" data-type="text">'.$item['label'].'</a>
-                                </div>
-                                ';
-
-                        // Tiếp tục đệ quy để tìm chuyên mục con của chuyên mục đang lặp
-                        showCategories($categories, $item['id'], 1);
-                        echo '</li>';
-                    }
-                    echo '</ul>';
-                }
-            }
-
-            showCategories($menus);
-        ?>
+@section('breadcrumbs')
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-lg-12">
+            <h2>
+                Thiết kế menu
+                <a class="pull-right btn-xs btn-primary" href="{{ route('system.navigation.index') }}">Quay lại</a>
+            </h2>
         </div>
-        <div class="col-sm-2">
-            @if($menus->count())
-                <button id="submit" type="submit" class="btn btn-sm btn-primary">Cập nhật</button>
-            @endif
+    </div>
+@stop
+
+{{-- Page content --}}
+@section('content')
+<div class="ibox">
+    <div class="ibox-content">
+        <div class="row">
+            <div class="col-sm-10">
+            <?php
+                function showCategories($categories, $parent_id = 0, $first = 0)
+                {
+                    // BƯỚC 2.1: LẤY DANH SÁCH CATE CON
+                    $cate_child = array();
+                    foreach ($categories as $key => $item)
+                    {
+                        // Nếu là chuyên mục con thì hiển thị
+                        if ($item['parent_id'] == $parent_id)
+                        {
+                            $cate_child[] = $item;
+                            // unset($categories[$key]);
+                        }
+                    }
+
+                    // BƯỚC 2.2: HIỂN THỊ DANH SÁCH CHUYÊN MỤC CON NẾU CÓ
+                    if ($cate_child)
+                    {
+                        $class = ($first == 0 ? 'sortable' : '');
+                        $first ++;
+                        echo '<ul class="list-unstyled '. $class .'">';
+                        foreach ($cate_child as $key => $item)
+                        {
+                            // Hiển thị tiêu đề chuyên mục
+                            echo '<li id="menu_item_'.$item->getId().'" class="item">
+                                    <div>
+                                        <a class="editable" data-name="label" data-level="'.$item->level.'" data-pk="'.$item->id.'" data-type="text">'.$item['label'].'</a>
+                                    </div>
+                                    ';
+
+                            // Tiếp tục đệ quy để tìm chuyên mục con của chuyên mục đang lặp
+                            showCategories($categories, $item['id'], 1);
+                            echo '</li>';
+                        }
+                        echo '</ul>';
+                    }
+                }
+
+                showCategories($menus);
+            ?>
+            </div>
+            <div class="col-sm-2">
+                @if($menus->count())
+                    <button id="submit" type="submit" class="btn btn-sm btn-primary">Cập nhật</button>
+                @endif
+            </div>
         </div>
     </div>
 </div>
 @stop
 
-@section('scripts')
+@section('script')
 <script type="text/javascript">
      $(document).ready(function(){
 
@@ -85,13 +93,13 @@
             items: 'li',
             toleranceElement: '> div',
             listType: 'ul',
-            maxLevels: 3
+            maxLevels: 2
         });
 
 
         $('.editable').editable({
             showbuttons : true,
-            url : '{{ route('admin.menu.ajax.editable') }}',
+            url : '{{ route('system.navigation.ajax.editable') }}',
             params : {
                _token : '{{ csrf_token() }}'
             }
@@ -101,7 +109,7 @@
             e.preventDefault();
             var data = $('.sortable').nestedSortable('serialize');
             $.ajax({
-                url : "{{ route('admin.menu.design') }}",
+                url : "{{ route('system.navigation.design') }}",
                 type : "POST",
                 data : {
                     menu_item : data,

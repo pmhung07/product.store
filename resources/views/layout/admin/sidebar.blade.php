@@ -198,7 +198,7 @@
             </li>
             <?php } ?>
 
-            <li class="{{ Request::is('system/online-store/post-categories/*') || Request::is('system/online-store/post/*') || Request::is('system/online-store/page/*') || Request::is('system/online-store/coupon/*') || Request::is('system/online-store/ga/*') || Request::is('system/online-store/banner*') ? 'active' : '' }}">
+            <li class="{{ Request::is('system/online-store/post-categories/*') || Request::is('system/online-store/post/*') || Request::is('system/online-store/page/*') || Request::is('system/online-store/coupon/*') || Request::is('system/online-store/ga/*') || Request::is('system/online-store/banner*') || Request::is('system/online-store/navigation*') ? 'active' : '' }}">
                 <a href="javascript">
                     <i class="fa fa-leaf"></i>
                     <span class="nav-label">Website</span>
@@ -214,6 +214,18 @@
                         )  {!! 'style="color: #a8d3ec;"' !!} @endif>
                             <i class="fa fa-cogs"></i>
                             Cài đặt
+                        </a>
+                    </li>
+                    <?php } ?>
+
+                    <?php if(active_sidebar(0) == 1 ){ ?>
+                    <li>
+                        <a href="{{ route('system.navigation.index') }}"
+                        @if(
+                            Request::is('system/online-store/navigation/*')
+                        )  {!! 'style="color: #a8d3ec;"' !!} @endif>
+                            <i class="fa fa-tag"></i>
+                            Menu
                         </a>
                     </li>
                     <?php } ?>

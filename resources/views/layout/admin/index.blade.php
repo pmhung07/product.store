@@ -25,6 +25,10 @@
     <script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
     <script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
 
+    <!-- Jquery UI -->
+    <link href="/js/jquery-ui/jquery-ui-1.10.1.custom.min.css" rel="stylesheet">
+    <script src="/js/jquery-ui/jquery-ui-1.10.1.custom.min.js"></script>
+
     <!-- Custom and plugin javascript -->
     <script src="js/inspinia.js"></script>
     <script src="js/plugins/pace/pace.min.js"></script>
@@ -69,12 +73,17 @@
     <link rel="stylesheet" type="text/css" href="/js/plugins/loopj-jquery-tokeninput/styles/token-input-facebook.css">
     <script type="text/javascript" src="/js/plugins/loopj-jquery-tokeninput/src/jquery.tokeninput.js"></script>
 
+    <!-- Nested sortable -->
+    <script type="text/javascript" src="/js/jquery.mjs.nestedSortable.js"></script>
+
     <script src="js/functions.js"></script>
     <script src="/js/core/helper.js" type="text/javascript"></script>
     <script src="js/core/core.js"></script>
 
     <link rel="stylesheet" type="text/css" href="/app/system/bundle/style.css">
     <script src="/app/system/bundle/bundle.js" type="text/javascript"></script>
+
+    @yield('styles')
 </head>
 
 <body>

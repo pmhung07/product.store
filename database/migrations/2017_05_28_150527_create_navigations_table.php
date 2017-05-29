@@ -25,6 +25,7 @@ class CreateNavigationsTable extends Migration
             $table->tinyInteger('level')->default(0)->nullable();
             $table->bigInteger('sort')->default(0)->nullable();
             $table->tinyInteger('active')->default(1)->nullable();
+            $table->string('icon')->nullable();
             $table->timestamps();
         });
     }
