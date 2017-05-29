@@ -125,7 +125,8 @@ class NavigationController extends Controller
             'url'       => clean($request->get('url')),
             'type'      => $type,
             'object_id' => $objectId,
-            'parent_id' => (int) $request->get('parent_id')
+            'parent_id' => (int) $request->get('parent_id'),
+            'creator_id' => $request->user()->id
         ];
 
         if($request->hasFile('icon')) {
