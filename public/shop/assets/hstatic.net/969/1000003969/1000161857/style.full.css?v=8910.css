@@ -631,7 +631,7 @@ header .top .logo {padding: 34px 0 10px;text-align: left}
 	float: left;
 	position: relative;
 	border-right: 1px dashed #ddd;
-	width: calc(100%/8);
+	width: calc(100%/9);
 }
 .menu-top>li:last-child {
 	border: none

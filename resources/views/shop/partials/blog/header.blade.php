@@ -88,22 +88,26 @@
                                             <a href="/" title="Về trang chủ" class="logo"><img style="margin-top: -1px;" alt="JUNO" src="/shop/assets/hstatic.net/969/1000003969/10/2016/7-29/ico-home.png" /></a>
                                         </div>
                                     </li>
-                                    @foreach($GLB_Categories as $item)
+                                    @foreach($GLB_Menus as $item)
                                         @php if($item->parent_id > 0) continue; @endphp
                                             <?php
-                                                $childs = App\ProductGroup::where('parent_id', $item->id)->get();
+                                                $childs = App\Models\Navigation::where('parent_id', $item->id)->get();
                                             ?>
                                             <li  class="menu-li {{ $childs->count() > 0 ? 'hasChild' : 0 }} bup-be-1-click  fix-icon-coll" >
                                                 <a href="{{ $item->getUrl() }}">
                                                     <div class="coll-icon bup-be-1-click">
-                                                        <span  class="title-main-menu bup-be-1-click ">{{ $item->name }}</span>
+                                                        <span  class="title-main-menu bup-be-1-click ">{{ $item->label }}</span>
                                                     </div>
                                                 </a>
 
                                                 @if($childs->count())
                                                     <ul class="dropdown-menu drop-menu" style="left: 0%; width: 500px; border-radius: 0px 0px 5px 5px; display: none; height: 221px; padding-top: 15px; margin-top: 0px; padding-bottom: 15px; margin-bottom: 0px;">
                                                         <?php
-                                                            $newestProduct = App\Product::where('product_group_id', $item->id)->orderBy('created_at', 'DESC')->first();
+                                                            if($item->type == App\Models\Navigation::TYPE_PRODUCT_GROUP) {
+                                                                $newestProduct = App\Product::where('product_group_id', $item->getObjectId())->orderBy('created_at', 'DESC')->first();
+                                                            } else {
+                                                                $newestProduct = null;
+                                                            }
                                                         ?>
                                                         @if($newestProduct)
                                                             <li class="menu-hover-li">
@@ -128,7 +132,7 @@
                                                             </li>
                                                         @endif
                                                         @foreach($childs as $childItem)
-                                                            <li style="width:30%;float:left;"><a href="{{ $childItem->getUrl() }}"><i class="fa fa-caret-right" style="color:#666;padding-right:10px"></i> {{ $childItem->name }}</a></li>
+                                                            <li style="width:30%;float:left;"><a href="{{ $childItem->getUrl() }}"><i class="fa fa-caret-right" style="color:#666;padding-right:10px"></i> {{ $childItem->label }}</a></li>
                                                         @endforeach
                                                     </ul>
                                                 @endif
