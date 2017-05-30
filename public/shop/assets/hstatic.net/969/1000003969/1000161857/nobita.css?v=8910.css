@@ -9251,8 +9251,8 @@ header .bottom {
 .menu-top>li {
 	float: left;
 	position: relative;
-	padding-left: 17px;
-	padding-right: 17px
+	padding-left: 12px;
+	padding-right: 12px
 }
 
 .menu-top>li:last-child {
