@@ -885,6 +885,25 @@ __WEBPACK_IMPORTED_MODULE_1__app___default.a.ProductUpdateController = function(
             prePopulate: params.group_data_input_token
         });
 
+        $('.js-action-delete-product-image').on('click', function(e) {
+            e.preventDefault();
+            var $this = $(this);
+            if(confirm("Bạn có chắc chắn muốn xóa ảnh này?")) {
+                $.ajax({
+                    url : "/system/product/ajax/delete-image-item",
+                    type: "POST",
+                    dataType : "json",
+                    data : {
+                        id: $this.data('id'),
+                        _token: App.config.token
+                    },
+                    success: function(response) {
+                        $this.parent().remove();
+                    }
+                });
+            }
+        });
+
     }
 
     return {
