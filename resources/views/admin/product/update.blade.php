@@ -58,9 +58,19 @@
                         @endif
 
                         @if(!$product->hasChild())
-                        <div class="form-group"><label class="col-sm-3 control-label">Ảnh mô tả sản phẩm</label>
-                            <div class="col-sm-9"><input name="images[]" multiple="true" type="file" class="form-control"></div>
-                        </div>
+                            <div class="form-group"><label class="col-sm-3 control-label">Ảnh mô tả sản phẩm</label>
+                                <div class="col-sm-9"><input name="images[]" multiple="true" type="file" class="form-control"></div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-9 col-sm-offset-3">
+                                    @foreach($product->images()->get() as $item)
+                                        <a href="javascript:;" style="display: inline-block; margin: 0 2px 2px 0;">
+                                            <img src="{{ parse_image_url('sm_'.$item->image) }}" height="50">
+                                            <span data-id="{{ $item->id }}" class="js-action-delete-product-image" style="color: red; display: block; font-size: 10px;">Xóa</span>
+                                        </a>
+                                    @endforeach
+                                </div>
+                            </div>
                         @endif
 
                         <div class="form-group"><label class="col-sm-3 control-label">Tên sản phẩm</label>

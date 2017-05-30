@@ -508,4 +508,26 @@ class ProductController extends Controller
         return response()->json(['id' => $id, 'code' => 1, 'type' => 'success', 'message' => 'Xóa không thành công']);
     }
 
+    /**
+     * Delete image item
+     * @param  Request $request
+     * @return json
+     */
+    public function ajaxDeleteImageItem(Request $request)
+    {
+        $id = (int) $request->get('id');
+        $image = ProductImage::findOrFail($id);
+
+        @unlink(public_path() . parse_image_url($image->image));
+
+        $thumbs = config('image.thumbs');
+        foreach($thumbs as $type => $value) {
+           @unlink(public_path() . parse_image_url($type . $image->image));
+        }
+
+        $image->delete();
+
+        return response()->json(['code' => 200]);
+    }
+
 }

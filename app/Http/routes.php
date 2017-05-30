@@ -133,6 +133,9 @@ Route::group(['middleware' => 'auth'], function(){
 
 			// Xóa option value
 			Route::post('ajax/delete-option-value', ['as' => 'admin.product.ajax.deleteOptionValue', 'uses' => 'ProductController@getDeleteOptionValue']);
+
+			// Delete image item
+			Route::post('ajax/delete-image-item', ['as' => 'admin.product.ajax.deleteImageItem', 'uses' => 'ProductController@ajaxDeleteImageItem']);
 		});
 
 		// Quản lý kho hàng
