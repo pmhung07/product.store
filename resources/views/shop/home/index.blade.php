@@ -83,9 +83,8 @@
                 <div class="row">
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 padding-bottoms" style="padding-left:10px;">
                         <h3 class="category-title title-shoptype">
-                            <a href="javascript:void(0)">tin thời trang</a>
+                            <a href="javascript:void(0)">tin tức</a>
                         </h3>
-                        <p class="title-shoptype-small">Hiểu thời trang và thật thời trang mỗi ngày!</p>
                     </div>
                 </div>
             </div>
@@ -126,7 +125,7 @@
                 </div>
             </div>
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 title-more-bottom">
-                <span class="title-more">Bài viết mới cập nhật mỗi ngày. Mời bạn <a href="blogs/magazine.html" class="link">xem thêm</a> tin bài khác</span>
+                <span class="title-more">Bài viết mới cập nhật mỗi ngày. Mời bạn <a href="/tin-tuc" class="link">xem thêm</a> tin bài khác</span>
             </div>
         </div>
     </div>
