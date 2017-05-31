@@ -8,7 +8,9 @@
                             <span class="block m-t-xs usr-name">
                                 {{{ isset(Auth::user()->name) ? Auth::user()->name : Auth::user()->email }}}</strong>
                             </span>
-                            <span class="text-muted text-xs block"><i class="fa fa-user"></i> Quản lý hệ thống </span>
+                            <span class="text-muted text-xs block" style="color: #e5f2ce;">
+                                {!! get_position_name(Auth::user()->id) !!}
+                            </span>
                             <!--<a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
                                 <i class="fa fa-bell"></i>  <span class="label label-success">0</span>
                             </a>-->
@@ -40,15 +42,12 @@
             </li>
             <?php } ?>
 
-            <?php if(active_sidebar(0) == 1 ){ ?>
-            <li @if(Request::is('system/store/*')) {!! 'class="active"' !!} @endif>
-                <a href="/system/store/index">
-                    <i class="fa fa-home"></i>
-                    <span class="nav-label">Cửa hàng</span>
-                </a>
-            </li>
-            <?php } ?>
-
+            <?php if(   active_sidebar(3) == 1  ||
+                        active_sidebar(21) == 1 ||
+                        active_sidebar(25) == 1 ||
+                        active_sidebar(29) == 1 ||
+                        active_sidebar(30) == 1 ||
+                        active_sidebar(59) == 1    ){ ?>
             <li @if(Request::is('system/product-group/*') ||
                     Request::is('system/product/*') ||
                     Request::is('system/purchases/*') ||
@@ -124,18 +123,19 @@
                     </li>
                     <?php } ?>
 
-                    <?php if(active_sidebar(0) == 1 ){ ?>
-                    <li>
+                    <?//php if(active_sidebar(0) == 1 ){ ?>
+                    <!--<li>
                         <a href="/system/transfer-product/index"
-                        @if(
+                        /*@if(
                             Request::is('system/transfer-product/*')
-                        )  {!! 'style="color: #a8d3ec;"' !!} @endif>
+                        )  {!! 'style="color: #a8d3ec;"' !!} @endif>*/
                             <i class="fa fa-retweet"></i>
                             Chuyển kho
                         </a>
-                    </li>
-                    <?php } ?>
+                    </li>-->
+                    <?//php } ?>
 
+                    <?php if(active_sidebar(59) == 1 ){ ?>
                     <li>
                         <a href="/system/return-product/index"
                         @if(
@@ -145,8 +145,10 @@
                             Trả hàng
                         </a>
                     </li>
+                    <?php } ?>
                 </ul>
             </li>
+            <?php } ?>
 
             <?php if(active_sidebar(62) == 1 ){ ?>
             <li @if(Request::is('system/statistic/channel') ||
@@ -198,7 +200,18 @@
             </li>
             <?php } ?>
 
-            <li class="{{ Request::is('system/online-store/post-categories/*') || Request::is('system/online-store/post/*') || Request::is('system/online-store/page/*') || Request::is('system/online-store/coupon/*') || Request::is('system/online-store/ga/*') ? 'active' : '' }}">
+            <?php if(active_sidebar(81) == 1 ){ ?>
+            <li class="{{ Request::is('system/affiliate/*') ? 'active' : '' }}">
+                <a href="/system/affiliate/manager/dashboard">
+                    <i class="fa fa-globe"></i>
+                    <span class="nav-label">Affiliate management</span>
+                    <span class="fa arrow"></span>
+                </a>
+            </li>
+            <?php } ?>
+
+            <?php if(   active_sidebar(0) == 1  ){ ?>
+            <li class="{{ Request::is('system/online-store/*') || Request::is('system/store/*') ? 'active' : '' }}">
                 <a href="javascript">
                     <i class="fa fa-leaf"></i>
                     <span class="nav-label">Website</span>
@@ -256,6 +269,18 @@
 
                     <?php if(active_sidebar(0) == 1 ){ ?>
                     <li>
+                        <a href="/system/store/index"
+                        @if(
+                            Request::is('system/store/*')
+                        )  {!! 'style="color: #a8d3ec;"' !!} @endif>
+                            <i class="fa fa-home"></i>
+                            <span class="nav-label">Cửa hàng</span>
+                        </a>
+                    </li>
+                    <?php } ?>
+
+                    <?php if(active_sidebar(0) == 1 ){ ?>
+                    <li>
                         <a href="/system/online-store/coupon/index"
                         @if(
                             Request::is('system/online-store/coupon/*')
@@ -278,15 +303,6 @@
                     </li>
                     <?php } ?>
                 </ul>
-            </li>
-
-            <?php if(active_sidebar(81) == 1 ){ ?>
-            <li class="{{ Request::is('system/affiliate/*') ? 'active' : '' }}">
-                <a href="/system/affiliate/manager/dashboard">
-                    <i class="fa fa-globe"></i>
-                    <span class="nav-label">Affiliate management</span>
-                    <span class="fa arrow"></span>
-                </a>
             </li>
             <?php } ?>
 

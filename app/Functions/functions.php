@@ -255,6 +255,16 @@ function list_post_categories_loop($data, $parent = 0, $str=""){
 	}
 }
 
+function get_position_name($user_id){
+	$rows = App\User::select('users.*')->where('users.id','=',$user_id)->get()->first();
+	if($rows['user_position_id'] == 0){
+		echo 'Administrator';
+	}else{
+		$rows_pos = App\UsersPosition::select('users_position.name')->where('id','=',$rows['user_position_id'])->get()->first();
+		echo $rows_pos['name'];
+	}
+}
+
 function list_permissions_checkbox($data, $parent = 0, $str="",$arr_check=array()){
 	$i = 1;
 	foreach ($data as $val){

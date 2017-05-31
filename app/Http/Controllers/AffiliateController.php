@@ -243,4 +243,20 @@ class AffiliateController extends Controller
         return response()->json(['msg' => 'Bạn đã cập nhật hoa hồng cho sản phẩm này thành công!']);
     }
 
+    public function getMyProductStatistics(Request $request){
+        return view('admin.affiliate.collaborators-product-statistics');
+    }
+
+    public function updateAffiliateUserProduct(Request $request){
+        $check_affiliate_user_product = AffiliateUserProduct::select('id')->where('affiliate_product_id',$request->product_id)->where('user_id',Auth::user()->id)->get()->toArray();
+        if(count($check_affiliate_user_product) > 0){
+            return response()->json(['msg' => 'Bạn đã chọn sản phẩm này!']);
+        }else{
+            $affiliate_user_product = new AffiliateUserProduct();
+            $affiliate_user_product->affiliate_product_id = $request->product_id;
+            $affiliate_user_product->user_id = Auth::user()->id;
+            $affiliate_user_product->save();
+            return response()->json(['msg' => 'Chọn sản phẩm thành công!']);
+        }
+    }
 }
