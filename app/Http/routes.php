@@ -28,6 +28,7 @@ Route::post('load-districts',array('uses'=>'OrdersController@loadDistricts'));
 Route::post('post-return-product',array('uses'=>'WarehouseReturnProductPhController@postReturnProduct'));
 Route::post('update-profit',array('uses'=>'AffiliateController@updateProfit'));
 Route::post('update-properties/{id}', ['as'=>'admin.properties.update','uses'=>'ProductController@updateProperties']);
+Route::post('update-affiliate-user-product','AffiliateController@updateAffiliateUserProduct');
 // Tìm kiếm khách hàng
 Route::get('get-customer-auto-complete', ['as'=>'admin.orders.getCustomer','uses'=>'OrdersController@getCustomerAutoComplete']);
 
@@ -403,6 +404,7 @@ Route::group(['middleware' => 'auth'], function(){
 			Route::group(['prefix' => 'collaborators'], function(){
 				Route::get('product-listing', ['as' => 'admin.affiliate.manage-product.index' , 'uses' => 'AffiliateController@getManagerProduct']);
 				Route::get('product-manage', ['as' => 'admin.affiliate.manage-myproduct' , 'uses' => 'AffiliateController@getMyProduct']);
+				Route::get('product-statistics', ['as' => 'admin.affiliate.manage-statistics' , 'uses' => 'AffiliateController@getMyProductStatistics']);
 			});
 		});
 

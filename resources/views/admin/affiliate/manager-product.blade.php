@@ -37,7 +37,7 @@
         @endif
 
         <div class="row">
-
+            <?php if(Auth::user()->id == 1){ ?>
             <div class="col-md-12">
                 <div class="block-content">
                     <div class="tab-wrap">
@@ -77,7 +77,7 @@
                     </div>
                 </div>
             </div>
-
+            <?php } ?>
             <div class="col-md-12">
                 <div class="block-content">
                     <div class="tab-wrap">
@@ -139,7 +139,7 @@
                                     <th width="90">Giá bán <sup> - vnđ </sup></th>
                                     <th width="90">Hoa hồng <sup> - % </sup></th>
                                     <th width="100">Lợi nhuận <sup> - vnđ </sup></th>
-                                    <th class="text-right" width="80">Chọn sản phẩm</th>
+                                    <th class="text-left" width="130">Chọn sản phẩm</th>
                                     <th class="text-right" width="80">Hoạt động</th>
                                 </tr>
                                 </thead>
@@ -161,14 +161,18 @@
                                         <!--<td><input style="width:100%;" type="text" value=""></td>-->
                                         <td>{{number_format($row->product_price)}}</td>
                                         <td>
-                                            <input class="product_profit_{{$row->product_id}}" style="width:50%;" type="text" value="{{$row->profit}}" />
-                                            <small onclick="update_profit({{$row->product_id}})" class="label lb-sm-success" style="border:none!important;cursor:pointer;"><i class="fa fa-repeat"></i></small>
+                                            <?php if(Auth::user()->id == 1){ ?>
+                                                <input class="product_profit_{{$row->product_id}}" style="width:50%;" type="text" value="{{$row->profit}}" />
+                                                <small onclick="update_profit({{$row->product_id}})" class="label lb-sm-success" style="border:none!important;cursor:pointer;"><i class="fa fa-repeat"></i></small>
+                                            <?php }else{ ?>
+                                                {{$row->profit}}
+                                            <?php } ?>
                                         </td>
                                         <td class="text-danger">{{number_format($row->product_price/100*$row->profit)}}</td>
                                         <td class="text-left footable-visible footable-last-column">
                                             <div class="btn-group">
                                                 <?php if(Auth::user()->id != 1){?>
-                                                <a href="#" data-toggle="modal" data-target="#confirm-delete" data-href="{!! URL::route('admin.product.getDelete',$row->id) !!}"  class="btn-white btn btn-xs">
+                                                <a  onclick="update_affiliate_user_product({{$row->product_id}})" class="btn-white btn btn-xs">
                                                     <i class="fa fa-hand-o-up "></i> Chọn sản phẩm
                                                 </a>
                                                 <?php }else{ ?>
@@ -271,6 +275,28 @@ function update_profit(product_id){
                 _token: token,
                 product_id: product_id,
                 profit: profit
+            },
+            success:function(data){
+                alert(data.msg);
+                location.reload();
+            }
+        });
+    } else {
+        return false;
+    }
+}
+
+function update_affiliate_user_product(product_id){
+    token = $('meta[name="csrf-token"]').attr('content');
+
+    var conf = confirm("Bạn có muốn chọn sản phẩm này không?");
+    if (conf == true) {
+        $.ajax({
+            type:"POST",
+            url:'update-affiliate-user-product',
+            data:{
+                _token: token,
+                product_id: product_id,
             },
             success:function(data){
                 alert(data.msg);

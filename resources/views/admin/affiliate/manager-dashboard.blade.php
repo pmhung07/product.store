@@ -12,6 +12,7 @@
 @stop            
 
 @section('content')
+<?php if(Auth::user()->user_position_id != 4){ ?>
 <div class="row">
     <div class="col-lg-12">
         <div class="tab-wrap">
@@ -84,6 +85,9 @@
         </div>
     </div>
 </div>
+<?php } ?>
+
+<?php if(Auth::user()->id != 1){ ?>
 
 <div class="row">
     <div class="col-lg-12">
@@ -126,7 +130,7 @@
                     <div class="col-lg-3">
                         <div class="widget style1 lb-sm-refresh">
                             <div class="row">
-                                <a style="color:#6d889c;" href="system/affiliate/collaborators/product-manage">
+                                <a style="color:#6d889c;" href="system/affiliate/collaborators/product-statistics">
                                     <div class="col-xs-4">
                                         <i class="fa fa-bar-chart-o fa-4x"></i>
                                     </div>
@@ -143,6 +147,8 @@
         </div>
     </div>
 </div>
+
+<?php } ?>
 
 @stop
 
