@@ -429,7 +429,7 @@ header .top3 {
 	border: 2px solid #d5d5d5;
 	position: relative;border-radius: 16px;
 	width: 100%}
-header .top .logo {padding: 34px 0 10px;text-align: left}
+header .top .logo {padding: 23px 0 10px;text-align: left}
 .search-collection input[type=text],.search-collection2 input[type=text] {
 	border: none;
 	height: 30px;
