@@ -65,6 +65,13 @@ app.ProductUpdateController = function(params) {
             }
         });
 
+        var saveAndExit = 0;
+        $('#btn-save-and-exit').click(function(e) {
+            e.preventDefault();
+            saveAndExit = 1;
+            $('#form-data').submit();
+        });
+
         // Submit form
         $('#form-data').on('submit', function(e) {
             e.preventDefault();
@@ -100,7 +107,14 @@ app.ProductUpdateController = function(params) {
 
                 success : function(response) {
                     if(response.code == 1) {
-                        Helper.showMessageAndRedirect(response.message, 'success', response.redirect);
+                        if(saveAndExit == 0) {
+                            Helper.showMessageAndRedirect(response.message, 'success', response.redirect);
+                        } else {
+                            Helper.showMessage(response.message, 'success', 600);
+                            setTimeout(() => {
+                                window.location.href = "/system/product/index";
+                            }, 600)
+                        }
                     } else if(response.code == 422) {
                         Helper.showMessage(response.message, 'error');
                     }
@@ -173,6 +187,35 @@ app.ProductUpdateController = function(params) {
                     $('#modal-show-change-option').modal('hide');
                 }
             })
+        });
+
+        // Ajax search product group
+        $('#product-group').tokenInput('/system/ajax/product-group', {
+            preventDuplicates: true,
+            theme: 'facebook',
+            hintText: "Nhóm sản phẩm",
+            noResultsText: "Không có nhóm nào được tìm thấy",
+            searchingText: "Đang tìm",
+            prePopulate: params.group_data_input_token
+        });
+
+        $('.js-action-delete-product-image').on('click', function(e) {
+            e.preventDefault();
+            var $this = $(this);
+            if(confirm("Bạn có chắc chắn muốn xóa ảnh này?")) {
+                $.ajax({
+                    url : "/system/product/ajax/delete-image-item",
+                    type: "POST",
+                    dataType : "json",
+                    data : {
+                        id: $this.data('id'),
+                        _token: App.config.token
+                    },
+                    success: function(response) {
+                        $this.parent().remove();
+                    }
+                });
+            }
         });
 
     }

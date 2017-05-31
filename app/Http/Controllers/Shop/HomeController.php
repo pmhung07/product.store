@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Shop;
 
 use App\Http\Controllers\Controller;
+use App\Models\Banner;
 use App\Orders;
 use App\Product;
 use App\ShopPost;
@@ -17,6 +18,12 @@ class HomeController extends ShopController {
             'https://file.hstatic.net/1000003969/file/banner-web-876cmt8.jpg',
             '/shop/assets/file.hstatic.net/1000003969/file/sd01034-banner-web-fix.jpg'
         ];
+
+        $slideItems = Banner::where('page', 'home')
+                            ->where('position', 'top')
+                            ->where('status', 1)
+                            ->orderBy('created_at', 'DESC')
+                            ->get();
 
         // Sản phẩm hot
         $hotProducts = Product::join('order_details', 'product.id', '=', 'order_details.product_id')
@@ -44,6 +51,13 @@ class HomeController extends ShopController {
         // Tin tức
         $posts = ShopPost::take(5)->with('category')->orderByRaw('RAND()')->get();
 
-        return view('shop/home/index', compact('hotProducts', 'newestProductsInWeek', 'posts', 'slideItems'));
+        // Metadata
+        $this->metadata->title = $this->setting->meta_title ? $this->setting->meta_title : url('/');
+        $this->metadata->description = $this->setting->meta_description ? $this->setting->meta_description : url('/');
+        $this->metadata->image = $this->setting->logo ? url(parse_image_url($this->setting->logo)) : '';
+        $this->metadata->url = url('/');
+        $metadata = $this->metadata->toArray();
+
+        return view('shop/home/index', compact('hotProducts', 'newestProductsInWeek', 'posts', 'slideItems', 'metadata'));
     }
 }

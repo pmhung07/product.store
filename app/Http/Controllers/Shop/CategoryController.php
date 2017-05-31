@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 class CategoryController extends ShopController
 {
 
-    public function getProducts($id, $slug)
+    public function getProducts($id, $slug, Request $request)
     {
         $category = ProductGroup::findOrFail($id);
 
@@ -22,8 +22,22 @@ class CategoryController extends ShopController
             $categoriesId[] = $childId;
         }
 
-        $products = Product::whereIn('product_group_id', $categoriesId)->take(20)->orderBy('updated_at', 'DESC')->get();
+        // $products = Product::whereIn('product_group_id', $categoriesId)->take(20)->orderBy('updated_at', 'DESC')->get();
 
-        return view('shop/product_category/products', compact('category', 'products'));
+        $products = Product::join('products_groups', 'product.id', '=', 'products_groups.product_id')
+                            ->whereIn('products_groups.group_id', $categoriesId)
+                            ->select('product.*')
+                            ->groupBy('product.id')
+                            ->take(20)
+                            ->orderBy('updated_at', 'DESC')
+                            ->get();
+
+        $this->metadata->title = $category->name;
+        $this->metadata->description = $category->name;
+        $this->metadata->image = $this->setting->logo ? url(parse_image_url($this->setting->logo)) : '';
+        $this->metadata->url = $request->url();
+        $metadata = $this->metadata->toArray();
+
+        return view('shop/product_category/products', compact('category', 'products', 'metadata'));
     }
 }

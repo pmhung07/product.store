@@ -40,7 +40,17 @@ class ProductController extends ShopController
         // Options
         $properties = Properties::with('values')->where('product_id', $id)->get();
 
-        return view('shop/product/detail', compact('product', 'warehouses', 'provinces', 'properties'));
+        // Sản phẩm có thể bạn quan tâm
+        $relatedProducts = Product::where('product_group_id', $product->product_group_id)->whereNotIn('id',[$product->id])->orderBy('updated_at', 'DESC')->take(10)->get();
+
+        // Metadata
+        $this->metadata->title = $product->name;
+        $this->metadata->description = substr(strip_tags($product->content), 0, 200);
+        $this->metadata->image = $product->image ? url(parse_image_url($product->image)) : '';
+        $this->metadata->url = $product->getUrl();
+        $metadata = $this->metadata->toArray();
+
+        return view('shop/product/detail', compact('product', 'warehouses', 'provinces', 'properties', 'relatedProducts', 'metadata'));
     }
 
 

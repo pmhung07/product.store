@@ -52,6 +52,12 @@
             <a href="javascript:;" title="Đặt mua" class="add buy-to-cart action-add-to-cart"> Thêm sản phẩm này vào giỏ hàng</a>
         </div>
     </div>
+
+    <!-- Go to www.addthis.com/dashboard to customize your tools -->
+    <div class="share-buttons" style="margin-top: 20px;">
+        <h6>Chia sẻ với bạn bè</h6>
+        <div class="addthis_inline_share_toolbox_vvrr"></div>
+    </div>
 </form>
 
 <script type="text/javascript">

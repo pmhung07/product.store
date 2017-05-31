@@ -58,9 +58,19 @@
                         @endif
 
                         @if(!$product->hasChild())
-                        <div class="form-group"><label class="col-sm-3 control-label">Ảnh mô tả sản phẩm</label>
-                            <div class="col-sm-9"><input name="images[]" multiple="true" type="file" class="form-control"></div>
-                        </div>
+                            <div class="form-group"><label class="col-sm-3 control-label">Ảnh mô tả sản phẩm</label>
+                                <div class="col-sm-9"><input name="images[]" multiple="true" type="file" class="form-control"></div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-9 col-sm-offset-3">
+                                    @foreach($product->images()->get() as $item)
+                                        <a href="javascript:;" style="display: inline-block; margin: 0 2px 2px 0;">
+                                            <img src="{{ parse_image_url('sm_'.$item->image) }}" height="50">
+                                            <span data-id="{{ $item->id }}" class="js-action-delete-product-image" style="color: red; display: block; font-size: 10px;">Xóa</span>
+                                        </a>
+                                    @endforeach
+                                </div>
+                            </div>
                         @endif
 
                         <div class="form-group"><label class="col-sm-3 control-label">Tên sản phẩm</label>
@@ -85,10 +95,7 @@
 
                         <div class="form-group"><label class="col-sm-3 control-label">Nhóm sản phẩm</label>
                             <div class="col-sm-9">
-        	                    <select class="form-control m-b" name="product_group">
-        	                    	<option value="">-- Chọn nhóm sản phẩm --</option>
-                                    <?php cat_parent($group_product,0,"--",$data['product_group_id']); ?>
-        	                    </select>
+                                <input type="text" id="product-group" name="product_group" class="form-control" />
                             </div>
                         </div>
                         <div class="form-group"><label class="col-sm-3 control-label">Chọn đơn vị đo</label>
@@ -127,9 +134,19 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="form-group"><label class="col-sm-3 control-label">Thông số kỹ thuật</label>
+                            <div class="col-sm-9">
+                                <textarea name="spec" class="form-control summernote">{{ $data['spec'] }}</textarea>
+                            </div>
+                        </div>
                         <div class="form-group"><label class="col-sm-3 control-label">Mô tả sản phẩm</label>
                             <div class="col-sm-9">
                                 <textarea name="content" class="form-control summernote">{{ $data['content'] }}</textarea>
+                            </div>
+                        </div>
+                        <div class="form-group"><label class="col-sm-3 control-label">Hướng dẫn sử dụng</label>
+                            <div class="col-sm-9">
+                                <textarea name="introduce" class="form-control summernote">{{ $data['introduce'] }}</textarea>
                             </div>
                         </div>
                     </div>
@@ -207,6 +224,7 @@
             <div class="form-group">
                 <div class="col-sm-8 col-sm-offset-3">
                     <button class="btn btn-primary" type="submit">Lưu thông tin</button>
+                    <button class="btn btn-info" type="button" id="btn-save-and-exit">Lưu & Thoát</button>
                     <a href="{{ route('admin.product.index') }}" class="btn btn-default">Hủy</a>
                 </div>
             </div>
@@ -343,7 +361,8 @@ $(document).ready(function() {
     });
 
     new app.ProductUpdateController({
-        has_child : {{ $data->has_child }}
+        has_child : {{ $data->has_child }},
+        group_data_input_token: {!! json_encode($groupDataInputToken) !!}
     }).init();
 });
 </script>

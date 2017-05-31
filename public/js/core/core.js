@@ -3,7 +3,6 @@
 
     // Ajax load district
     $.fn.ajaxLoadDistrict = function(options) {
-
         var _default = {};
         options = $.extend(_default, options);
 
@@ -51,9 +50,9 @@
                 var item = items[i];
 
                 var $item = $('span').attr({
-                    class: 'infica-tag-item',
-                    'data-id' : item.id,
-                    'data-label': item.label
+                        class: 'infica-tag-item',
+                        'data-id' : item.id,
+                        'data-label': item.label
                 });
 
                 $container.append($item);
@@ -73,6 +72,9 @@ $(function() {
                 var data = new FormData();
                 data.append('file', files[0]);
                 data.append('_token', App.config.token);
+
+                var $editor = $(this);
+
                 $.ajax({
                     url: "/ajax/upload-image",
                     type: "POST",
@@ -82,11 +84,82 @@ $(function() {
                     data: data,
                     success: function(response) {
                         if(response.code == 1) {
-                            $('.summernote').summernote('insertImage', response.url);
+                            $editor.summernote('insertImage', response.url);
                         }
                     }
                 });
             }
         }
     });
+
+    $('.btn-delete-action').click(function() {
+        return confirm("Bạn có chắc chắn muốn xóa bản ghi này?");
+    });
+
+    $('.btn-active-action')
+       .click(function(e) {
+          e.preventDefault();
+          var $this = $(this);
+          $.ajax({
+             url : $this.attr('href'),
+             type : 'GET',
+             dataType : 'json',
+             beforeSend: function() {
+                // initSpin();
+             },
+             success : function(data) {
+
+                $(document).trigger('action_active_success');
+
+                // stopSpin();
+                if(data.code === 1) {
+                   var _btn = $this.find('i');
+                   if(data.status == 1) {
+                      $this.html('<i class="fa fa-check-square fa-2x"></i>');
+                   }else{
+                      $this.html('<i class="fa fa-square-o fa-2x"></i>');
+                   }
+                }else{
+                   alert(data.message);
+                }
+             }
+          })
+       });
+});
+
+
+// TinyMCE - Config
+tinymce.init({
+    selector: ".tiny-editor",
+    theme: "modern",
+    width: '100%',
+    height: 450,
+    // ===========================================
+    // INCLUDE THE PLUGIN
+    // ===========================================
+    plugins: [
+        'advlist autolink lists link image charmap print preview hr anchor pagebreak',
+        'searchreplace wordcount visualblocks visualchars code fullscreen',
+        'insertdatetime media nonbreaking save table contextmenu directionality',
+        'emoticons template paste textcolor colorpicker textpattern imagetools codesample jbimages'
+    ],
+
+    // ===========================================
+    // PUT PLUGIN'S BUTTON on the toolbar
+    // ===========================================
+    toolbar1: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image jbimages',
+    toolbar2: 'print preview media | fontsizeselect fontselect forecolor backcolor emoticons | codesample',
+
+
+    // ===========================================
+    // SET RELATIVE_URLS to FALSE (This is required for images to display properly)
+    // ===========================================
+
+    fontsize_formats: '8pt 10pt 12pt 14pt 16pt 18pt 20pt 24pt 36pt',
+
+    font_formats: 'Arial=arial,helvetica,sans-serif;Courier New=courier new,courier,monospace;AkrutiKndPadmini=Akpdmi-n;Tahoma=tahoma,arial,helvetica,sans-serif;Times New Roman=times new roman,times;ElleFuturaBook=ElleFuturaBook',
+
+    relative_urls: false,
+
+    image_advtab: true
 });

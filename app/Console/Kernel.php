@@ -14,7 +14,8 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         // Commands\Inspire::class,
-        Commands\CronDataGa::class
+        Commands\CronDataGa::class,
+        Commands\CleanDb::class
     ];
 
     /**
