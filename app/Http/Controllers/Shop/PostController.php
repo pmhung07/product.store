@@ -30,7 +30,7 @@ class PostController extends ShopBlogController
             if($hotPosts->count()) {
                 $newPosts = ShopPost::whereNotIn('id', $hotPosts->lists('id'))->orderBy('created_at', 'DESC')->take(5)->get();
             } else {
-                $newPosts = ShopPost::orderBy('created_at', 'DESC')->take(5)->get();
+                $newPosts = ShopPost::where('category_id', $category->getId())->orderBy('created_at', 'DESC')->take(5)->get();
             }
             $category->newPosts = $newPosts;
         }
