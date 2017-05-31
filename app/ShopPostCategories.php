@@ -27,6 +27,11 @@ class ShopPostCategories extends Model
         return removeTitle($this->getName());
     }
 
+    public function posts()
+    {
+        return $this->hasMany('App\ShopPost', 'category_id');
+    }
+
     public function getUrl()
     {
         return route('shop.post_category.posts', [$this->getId(), $this->getSlug()]);
