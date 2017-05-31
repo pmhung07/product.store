@@ -200,6 +200,7 @@
             </li>
             <?php } ?>
 
+<<<<<<< HEAD
             <?php if(active_sidebar(81) == 1 ){ ?>
             <li class="{{ Request::is('system/affiliate/*') ? 'active' : '' }}">
                 <a href="/system/affiliate/manager/dashboard">
@@ -212,6 +213,9 @@
 
             <?php if(   active_sidebar(0) == 1  ){ ?>
             <li class="{{ Request::is('system/online-store/*') || Request::is('system/store/*') ? 'active' : '' }}">
+=======
+            <li class="{{ Request::is('system/online-store/post-categories/*') || Request::is('system/online-store/post/*') || Request::is('system/online-store/page/*') || Request::is('system/online-store/coupon/*') || Request::is('system/online-store/ga/*') || Request::is('system/online-store/banner*') || Request::is('system/online-store/navigation*') ? 'active' : '' }}">
+>>>>>>> b8212d340e5b484d0b67ac112f72eeb75f2ac3b1
                 <a href="javascript">
                     <i class="fa fa-leaf"></i>
                     <span class="nav-label">Website</span>
@@ -227,6 +231,30 @@
                         )  {!! 'style="color: #a8d3ec;"' !!} @endif>
                             <i class="fa fa-cogs"></i>
                             Cài đặt
+                        </a>
+                    </li>
+                    <?php } ?>
+
+                    <?php if(active_sidebar(0) == 1 ){ ?>
+                    <li>
+                        <a href="{{ route('system.navigation.index') }}"
+                        @if(
+                            Request::is('system/online-store/navigation/*')
+                        )  {!! 'style="color: #a8d3ec;"' !!} @endif>
+                            <i class="fa fa-tag"></i>
+                            Menu
+                        </a>
+                    </li>
+                    <?php } ?>
+
+                    <?php if(active_sidebar(0) == 1 ){ ?>
+                    <li>
+                        <a href="{{ route('system.banner.index') }}"
+                        @if(
+                            Request::is('system/online-store/banner/*')
+                        )  {!! 'style="color: #a8d3ec;"' !!} @endif>
+                            <i class="fa fa-picture-o"></i>
+                            Banner
                         </a>
                     </li>
                     <?php } ?>

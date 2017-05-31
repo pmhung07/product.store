@@ -29,6 +29,17 @@
                                         <input type="file" name="logo" class="form-control input-sm">
                                     </div>
                                 </div>
+
+                                <div class="form-group">
+                                    <label>
+                                        Favicon (*.png)
+                                    </label>
+                                    <div>
+                                        <img src="{{ parse_image_url('sm_'.$setting->favicon) }}" onerror="this.src='/img/default_picture.png'" height="50">
+                                        <input type="file" name="favicon" class="form-control input-sm" accept="image/png">
+                                    </div>
+                                </div>
+
                                 <div class="form-group">
                                     <label>Tên công ty</label>
                                     <input type="text" name="company_name" value="{{ $setting->company_name }}" class="form-control input-sm">
@@ -130,6 +141,26 @@
                                             <input type="text" name="instagram" value="{{ $setting->instagram }}" class="form-control input-sm">
                                         </div>
                                     </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading"><b>SEO</b></div>
+                            <div class="panel-body">
+                                <div class="form-group">
+                                    <label>Meta title</label>
+                                    <input type="text" name="meta_title" value="{{ $setting->meta_title }}" class="form-control input-sm">
+                                </div>
+                                <div class="form-group">
+                                    <label>Meta keyword</label>
+                                    <input type="text" name="meta_keyword" value="{{ $setting->meta_keyword }}" class="form-control input-sm">
+                                </div>
+                                <div class="form-group">
+                                    <label>Meta description</label>
+                                    <input type="text" name="meta_description" value="{{ $setting->meta_description }}" class="form-control input-sm">
                                 </div>
                             </div>
                         </div>

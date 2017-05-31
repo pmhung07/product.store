@@ -6,7 +6,7 @@
                 <div class="col-md-6 col-sm-12 left no-padding">
                     <div class="col-md-4 col-sm-12 logoTop">
                         <div class="logo">
-                            <a href="/" title="JUNO" class="logo"><img style="width: 30px;" alt="JUNO" src="{{ parse_image_url('sm_'.$GLB_Setting->logo) }}" onerror="this.src='/img/default_picture.png'" /></a>
+                            <a href="/" title="JUNO" class="logo"><img style="width: 160px; height: 40px;" alt="JUNO" src="{{ parse_image_url('sm_'.$GLB_Setting->logo) }}" onerror="this.src='/img/default_picture.png'" /></a>
                         </div>
                     </div>
                     <div class="col-md-8 col-sm-12 no-padding searchTop">
@@ -75,17 +75,30 @@
 
                                 if ($cate_child)
                                 {
-                                    // Tìm sản phẩm mới nhất của danh mục này
-                                    $newestProduct = App\Product::where('product_group_id', $parent_id)->orderBy('created_at', 'DESC')->first();
+                                    $thisMenu = App\Models\Navigation::find($parent_id);
+                                    if($thisMenu && $thisMenu->type == App\Models\Navigation::TYPE_PRODUCT_GROUP) {
+                                        // Tìm sản phẩm mới nhất của danh mục này
+                                        $newestProduct = App\Product::join('products_groups', 'product.id', '=', 'products_groups.product_id')
+                                                                     ->where('products_groups.group_id', '=', $parent_id)
+                                                                     ->groupBy('product.id')
+                                                                     ->orderBy('product.updated_at', 'DESC')
+                                                                     ->select('product.*')
+                                                                     ->first();
+                                    } else {
+                                        $newestProduct = null;
+                                    }
+
                                     echo '<ul class="dropdown-menu drop-menu" style=";width:520px;border-radius: 0px 0px 5px 5px;">';
                                     if($newestProduct) {
                                         echo view('shop/partials/nav_item_newest_product', ['product' => $newestProduct])->render();
+                                    } else {
+                                        echo '<li class="menu-hover-li newest" style="height: 100px;"></li>';
                                     }
                                     foreach ($cate_child as $key => $item)
                                     {
                                         // Hiển thị tiêu đề chuyên mục
                                         echo '<li style="width:30%;float:left;">';
-                                            echo '<a href="'. $item->getUrl() .'"><i class="fa fa-caret-right" style="color:#666;padding-right:10px"></i>'. $item->getName() .'</a>';
+                                            echo '<a href="'. $item->getUrl() .'"><i class="fa fa-caret-right" style="color:#666;padding-right:10px"></i>'. $item->getLabel() .'</a>';
 
                                         // Tiếp tục đệ quy để tìm chuyên mục con của chuyên mục đang lặp
                                         showCategories($categories, $item['id']);
@@ -96,27 +109,19 @@
                             }
                         ?>
                         <ul class="menu-top clearfix hidden-xs">
-                            <?php foreach($GLB_Categories as $item): ?>
+                            <?php foreach($GLB_Menus as $item): ?>
                                 <?php if($item->parent_id > 0) continue; ?>
                                 <li class="menu-li" >
                                     <a href="{{ $item->getUrl() }}" class="" >
                                         <div class="coll-icon">
-                                            <img class="ico-top" src="{{ parse_image_url($item->icon) }}"/>
-                                            <span class="title-main-menu">{{ $item->name }}</span>
+                                            <img class="ico-top" src="{{ parse_image_url('md_'.$item->icon) }}"/>
+                                            <span class="title-main-menu">{{ $item->label }}</span>
                                         </div>
                                     </a>
-                                    <?php showCategories($GLB_Categories, $item->getId()); ?>
+                                    <?php showCategories($GLB_Menus, $item->getId()); ?>
                                 </li>
                             <?php endforeach; ?>
 
-                            <li class="menu-li fix-icon-coll">
-                                <a href="{{ route('shop.post.index') }}" class="" target="_blank">
-                                    <div class="coll-icon">
-                                        <img class="ico-top" src="https://file.hstatic.net/1000003969/file/imgImport_tinthoitrang_hover.svg" data-position="imgImport_tinthoitrang.svg" />
-                                        <span class="title-main-menu">Tin Thời Trang</span>
-                                    </div>
-                                </a>
-                            </li>
                             <script type="text/javascript">
                                 $(function() {
                                     $('.menu-li').each(function() {

@@ -131,8 +131,10 @@ var Helper = {
         });
     },
 
-    showMessage : function(message, type) {
-        toastr[type](message);
+    showMessage : function(message, type, timeOut = 800) {
+        toastr[type](message, '', {
+          timeOut: timeOut
+        });
     },
 
     showMessageAndRedirect : function(message, type, url) {
@@ -598,6 +600,13 @@ __WEBPACK_IMPORTED_MODULE_1__app___default.a.ProductAddController = function() {
             }
         });
 
+        var saveAndExit = 0;
+        $('#btn-save-and-exit').click(function(e) {
+            e.preventDefault();
+            saveAndExit = 1;
+            $('#form-data').submit();
+        });
+
         // Submit form
         $('#form-data').on('submit', function(e) {
             e.preventDefault();
@@ -638,10 +647,26 @@ __WEBPACK_IMPORTED_MODULE_1__app___default.a.ProductAddController = function() {
 
                 success : function(response) {
                     if(response.code == 1) {
-                        __WEBPACK_IMPORTED_MODULE_0__helper_helper___default.a.showMessageAndRedirect(response.message, 'success', response.redirect);
+                        if(saveAndExit == 0) {
+                            __WEBPACK_IMPORTED_MODULE_0__helper_helper___default.a.showMessageAndRedirect(response.message, 'success', response.redirect);
+                        } else {
+                            __WEBPACK_IMPORTED_MODULE_0__helper_helper___default.a.showMessage(response.message, 'success', 600);
+                            setTimeout(() => {
+                                window.location.href = "/system/product/index";
+                            }, 600)
+                        }
                     }
                 }
             });
+        });
+
+        // Ajax search product group
+        $('#product-group').tokenInput('/system/ajax/product-group', {
+            preventDuplicates: true,
+            theme: 'facebook',
+            hintText: "Nhóm sản phẩm",
+            noResultsText: "Không có nhóm nào được tìm thấy",
+            searchingText: "Đang tìm"
         });
     }
 
@@ -726,6 +751,13 @@ __WEBPACK_IMPORTED_MODULE_1__app___default.a.ProductUpdateController = function(
             }
         });
 
+        var saveAndExit = 0;
+        $('#btn-save-and-exit').click(function(e) {
+            e.preventDefault();
+            saveAndExit = 1;
+            $('#form-data').submit();
+        });
+
         // Submit form
         $('#form-data').on('submit', function(e) {
             e.preventDefault();
@@ -761,7 +793,14 @@ __WEBPACK_IMPORTED_MODULE_1__app___default.a.ProductUpdateController = function(
 
                 success : function(response) {
                     if(response.code == 1) {
-                        __WEBPACK_IMPORTED_MODULE_0__helper_helper___default.a.showMessageAndRedirect(response.message, 'success', response.redirect);
+                        if(saveAndExit == 0) {
+                            __WEBPACK_IMPORTED_MODULE_0__helper_helper___default.a.showMessageAndRedirect(response.message, 'success', response.redirect);
+                        } else {
+                            __WEBPACK_IMPORTED_MODULE_0__helper_helper___default.a.showMessage(response.message, 'success', 600);
+                            setTimeout(() => {
+                                window.location.href = "/system/product/index";
+                            }, 600)
+                        }
                     } else if(response.code == 422) {
                         __WEBPACK_IMPORTED_MODULE_0__helper_helper___default.a.showMessage(response.message, 'error');
                     }
@@ -834,6 +873,35 @@ __WEBPACK_IMPORTED_MODULE_1__app___default.a.ProductUpdateController = function(
                     $('#modal-show-change-option').modal('hide');
                 }
             })
+        });
+
+        // Ajax search product group
+        $('#product-group').tokenInput('/system/ajax/product-group', {
+            preventDuplicates: true,
+            theme: 'facebook',
+            hintText: "Nhóm sản phẩm",
+            noResultsText: "Không có nhóm nào được tìm thấy",
+            searchingText: "Đang tìm",
+            prePopulate: params.group_data_input_token
+        });
+
+        $('.js-action-delete-product-image').on('click', function(e) {
+            e.preventDefault();
+            var $this = $(this);
+            if(confirm("Bạn có chắc chắn muốn xóa ảnh này?")) {
+                $.ajax({
+                    url : "/system/product/ajax/delete-image-item",
+                    type: "POST",
+                    dataType : "json",
+                    data : {
+                        id: $this.data('id'),
+                        _token: App.config.token
+                    },
+                    success: function(response) {
+                        $this.parent().remove();
+                    }
+                });
+            }
         });
 
     }

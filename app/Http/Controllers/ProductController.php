@@ -32,7 +32,7 @@ class ProductController extends Controller
 
     public function postCreate(ProductRequest $request) {
     	$product = new Product();
-    	$product->product_group_id = $request->product_group;;
+    	// $product->product_group_id = $request->product_group;;
     	$product->unit_id = $request->product_unit;
     	$product->name = $request->product_name;
     	$product->sku = $request->product_sku;
@@ -42,7 +42,9 @@ class ProductController extends Controller
         $product->weight = $request->product_weight;
         $product->volume = $request->product_volume;
         $product->promotion_price = to_numberic($request->promotion_price);
-        $product->content = clean($request->get('content'));
+        $product->spec = clean($request->get('spec'), 'youtube');
+        $product->content = clean($request->get('content'), 'youtube');
+        $product->introduce = clean($request->get('introduce'), 'youtube');
 
         if($request->hasFile('image')) {
             $resultUpload = $this->imageUploader->upload('image');
@@ -52,6 +54,11 @@ class ProductController extends Controller
         }
 
         $product->save();
+
+        // 1 sản phẩm thuộc nhiều danh mục
+        $productGroup = $request->get('product_group');
+        $productGroupIds = explode(',', $productGroup);
+        $product->categories()->sync($productGroupIds);
 
         if($request->hasFile('images')) {
             $resultUpload = $this->imageUploader->uploadMulti('images');
@@ -203,11 +210,20 @@ class ProductController extends Controller
             }
         }
 
-        return view('admin.product.update',compact('group_product','data', 'product', 'units', 'hasVariant', 'properties', 'childProducts'));
+        // Tìm xem nó thuộc danh mục nào
+        $groups = $product->categories()->get();
+        $groupDataInputToken = [];
+        foreach($groups as $item) {
+            $groupDataInputToken[] = [
+                'id' => $item->id,
+                'name' => $item->name
+            ];
+        }
+
+        return view('admin.product.update',compact('group_product','data', 'product', 'units', 'hasVariant', 'properties', 'childProducts', 'groupDataInputToken'));
     }
 
     public function postUpdate(Request $request,$id) {
-        // _debug($request->all());die;
         $product = Product::find($id);
         $rules = [
             'product_name' => 'required',
@@ -238,7 +254,14 @@ class ProductController extends Controller
         $product->warning_out_of_stock = $request->product_warning_low_in_stock;
         $product->weight = $request->product_weight;
         $product->volume = $request->product_volume;
-        $product->content = clean($request->get('content'));
+        $product->spec = clean($request->get('spec'), 'youtube');
+        $product->content = clean($request->get('content'), 'youtube');
+        $product->introduce = clean($request->get('introduce'), 'youtube');
+
+        // 1 sản phẩm thuộc nhiều danh mục
+        $productGroup = $request->get('product_group');
+        $productGroupIds = explode(',', $productGroup);
+        $product->categories()->sync($productGroupIds);
 
         if($request->hasFile('image')) {
             $resultUpload = $this->imageUploader->upload('image');
@@ -483,6 +506,28 @@ class ProductController extends Controller
         }
 
         return response()->json(['id' => $id, 'code' => 1, 'type' => 'success', 'message' => 'Xóa không thành công']);
+    }
+
+    /**
+     * Delete image item
+     * @param  Request $request
+     * @return json
+     */
+    public function ajaxDeleteImageItem(Request $request)
+    {
+        $id = (int) $request->get('id');
+        $image = ProductImage::findOrFail($id);
+
+        @unlink(public_path() . parse_image_url($image->image));
+
+        $thumbs = config('image.thumbs');
+        foreach($thumbs as $type => $value) {
+           @unlink(public_path() . parse_image_url($type . $image->image));
+        }
+
+        $image->delete();
+
+        return response()->json(['code' => 200]);
     }
 
 }

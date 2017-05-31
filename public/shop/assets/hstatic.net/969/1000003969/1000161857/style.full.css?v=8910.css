@@ -429,7 +429,7 @@ header .top3 {
 	border: 2px solid #d5d5d5;
 	position: relative;border-radius: 16px;
 	width: 100%}
-header .top .logo {padding: 34px 0 10px;text-align: left}
+header .top .logo {padding: 23px 0 10px;text-align: left}
 .search-collection input[type=text],.search-collection2 input[type=text] {
 	border: none;
 	height: 30px;
@@ -631,7 +631,7 @@ header .top .logo {padding: 34px 0 10px;text-align: left}
 	float: left;
 	position: relative;
 	border-right: 1px dashed #ddd;
-	width: calc(100%/8);
+	width: calc(100%/9);
 }
 .menu-top>li:last-child {
 	border: none
@@ -3270,6 +3270,7 @@ header .top#mobile-menu {
 	width: 100%;
 	background: #fff;
 	border-bottom: 1px solid #EEE;
+	box-shadow: 0px 0px 3px #ccc;
 	z-index: 999999
 }
 #mobile-menu .navbar-toggle {

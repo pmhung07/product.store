@@ -11,11 +11,17 @@ use Cart;
 class CartController extends ShopController
 {
 
-    public function getIndex()
+    public function getIndex(Request $request)
     {
         $cartItems = Cart::content();
-        // _debug($cartItems->toArray());die;
-        return view('shop/cart/index', compact('cartItems'));
+
+        $this->metadata->title = 'Giỏ hàng';
+        $this->metadata->description = 'Giỏ hàng, lưu thông tin sản phẩm bạn đã chọn mua';
+        $this->metadata->image = $this->setting->logo ? url(parse_image_url($this->setting->logo)) : '';
+        $this->metadata->url = $request->url();
+        $metadata = $this->metadata->toArray();
+
+        return view('shop/cart/index', compact('cartItems', 'metadata'));
     }
 
     public function addToCart(Request $request)

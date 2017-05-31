@@ -17,7 +17,9 @@
         "mews/purifier": "^2.0",
         "google/apiclient": "^2.0",
         "trendylabs/shortener": "dev-master",
-        "mbarwick83/shorty": "^1.0"
+        "mbarwick83/shorty": "^1.0",
+        "guzzlehttp/guzzle": "^6.2",
+        "swiftmailer/swiftmailer": "^5.4"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

@@ -35,4 +35,9 @@ class ProductGroup extends Model
     {
         return route('shop.category.products', [$this->getId(), $this->getSlug()]);
     }
+
+    public function products()
+    {
+        return $this->belongsToMany('App\Product', 'products_groups', 'group_id', 'product_id');
+    }
 }

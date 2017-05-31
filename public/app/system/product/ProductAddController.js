@@ -75,6 +75,13 @@ app.ProductAddController = function() {
             }
         });
 
+        var saveAndExit = 0;
+        $('#btn-save-and-exit').click(function(e) {
+            e.preventDefault();
+            saveAndExit = 1;
+            $('#form-data').submit();
+        });
+
         // Submit form
         $('#form-data').on('submit', function(e) {
             e.preventDefault();
@@ -115,10 +122,26 @@ app.ProductAddController = function() {
 
                 success : function(response) {
                     if(response.code == 1) {
-                        Helper.showMessageAndRedirect(response.message, 'success', response.redirect);
+                        if(saveAndExit == 0) {
+                            Helper.showMessageAndRedirect(response.message, 'success', response.redirect);
+                        } else {
+                            Helper.showMessage(response.message, 'success', 600);
+                            setTimeout(() => {
+                                window.location.href = "/system/product/index";
+                            }, 600)
+                        }
                     }
                 }
             });
+        });
+
+        // Ajax search product group
+        $('#product-group').tokenInput('/system/ajax/product-group', {
+            preventDuplicates: true,
+            theme: 'facebook',
+            hintText: "Nhóm sản phẩm",
+            noResultsText: "Không có nhóm nào được tìm thấy",
+            searchingText: "Đang tìm"
         });
     }
 

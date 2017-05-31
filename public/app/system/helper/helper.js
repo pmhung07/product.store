@@ -51,8 +51,10 @@ var Helper = {
         });
     },
 
-    showMessage : function(message, type) {
-        toastr[type](message);
+    showMessage : function(message, type, timeOut = 800) {
+        toastr[type](message, '', {
+          timeOut: timeOut
+        });
     },
 
     showMessageAndRedirect : function(message, type, url) {

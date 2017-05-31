@@ -19,7 +19,7 @@
             <div class="product-info " >
                 <a class="newclick" href="{{ $product->getUrl() }}" title="{{ $product->getName() }}">
                     <h2>
-                        {{ $product->getSku() }}
+                        {{ $product->getName() }}
                     </h2>
                 </a>
                 <div class="price-info clearfix">

@@ -1,26 +1,19 @@
 <!DOCTYPE HTML>
 <html>
     <head>
-        <meta property="fb:pages" content="172922056238158" />
-        <meta name="adx:sections" content="https://juno.vn/" />
-        <meta name="p:domain_verify" content="50a57bef3e9a4ae42fbcd722c7074695"/>
-        <meta name="google-site-verification" content="mr8z4Wdem8xgXrWSm1FLf8g96FRSgKwDdOyJ5JEpBmQ" />
         <meta http-equiv="content-type" content="text/html" />
         <meta charset="utf-8" />
-        <title>
-            Giày Nữ Thời Trang - Giày Công Sở, Giày Đi Chơi, Giày Dự Tiệc - JUNO
-        </title>
-        <meta name="description" content="JUNO là thương hiệu giày thời trang nữ hàng đầu Việt Nam. Đến với JUNO, bạn sẽ dễ dàng chọn cho mình một sản phẩm giày hiệu chất lượng và cực kỳ phong cách." />
+        <title>{{ array_get($metadata, 'title') }}</title>
+        <meta name="description" content="{{ array_get($metadata, 'description') }}" />
         <meta property="og:type" content="website">
-        <meta property="og:title" content="Gi&#224;y Nữ Thời Trang - Gi&#224;y C&#244;ng Sở, Gi&#224;y Đi Chơi, Gi&#224;y Dự Tiệc - JUNO">
-        <meta property="og:image" content="http://file.hstatic.net/1000003969/file/muajuno-trung-mazda2.png">
-        <meta property="og:image:secure_url" content="https://file.hstatic.net/1000003969/file/muajuno-trung-mazda2.png">
-        <meta property="og:description" content="JUNO l&#224; thương hiệu gi&#224;y thời trang nữ h&#224;ng đầu Việt Nam. Đến với JUNO, bạn sẽ dễ d&#224;ng chọn cho m&#236;nh một sản phẩm gi&#224;y hiệu chất lượng v&#224; cực kỳ phong c&#225;ch.">
-        <meta property="og:url" content="https://juno.vn/">
-        <meta property="og:site_name" content="">
-        <link rel="canonical" href="index.html" />
+        <meta property="og:title" content="{{ array_get($metadata, 'title') }}">
+        <meta property="og:image" content="{{ array_get($metadata, 'image') }}">
+        <meta property="og:description" content="{{ array_get($metadata, 'description') }}">
+        <meta property="og:url" content="{{ array_get($metadata, 'url') }}">
+        <meta property="og:site_name" content="{{ url('/') }}">
+        <link rel="canonical" href="{{ array_get($metadata, 'url', Request::url()) }}" />
         <meta name="viewport" content="width=device-width,initial-scale=1.0" />
-        <link rel="shortcut icon" type="image/png" href="/shop/assets/hstatic.net/969/1000003969/1000161857/favicon.png%3Fv=8910" />
+        <link rel="shortcut icon" type="image/png" href="{{ $GLB_Setting->favicon ? url(parse_image_url($GLB_Setting->favicon)) : url('/') }}" />
 
         <!-- Boostrap,owl.carousel,animated -->
         {{-- <link href='/shop/assets/hstatic.net/969/1000003969/1000161857/bootstrap_juno.min.css%3Fv=8910.css' rel='stylesheet' type='text/css'  media='all'  /> --}}

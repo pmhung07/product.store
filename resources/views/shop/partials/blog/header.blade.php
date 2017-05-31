@@ -5,20 +5,17 @@
         <meta name="p:domain_verify" content="50a57bef3e9a4ae42fbcd722c7074695"/>
         <meta http-equiv="content-type" content="text/html" />
         <meta charset="utf-8" />
-        <title>Khỏe mạnh hơn để sống hết mình cùng Juno Magazine</title>
+        <title>{{ array_get($metadata, 'title') }}</title>
         <meta property="og:type" content="website" />
-        <meta property="og:title" content="Khỏe mạnh hơn để sống hết mình cùng Juno Magazine" />
-        <meta property="og:image" content="http://hstatic.net/969/1000003969/1000161857/logo.png?v=8910" />
-        <meta property="og:image" content="https://hstatic.net/969/1000003969/1000161857/logo.png?v=8910" />
-        <meta property="og:description" content="Cảnh báo cho bạn những căn bệnh theo mùa, những dịch bệnh bùng phát hay đơn giản là những thông tin y học để bạn tạo thói quen sống lành mạnh và khoa học hơn." />
-        <meta property="og:url" content="https://juno.vn/blogs/khoe" />
-        <meta property="og:site_name" content="JUNO" />
-        <link rel="canonical" href="khoe.html" />
-        <meta name="google-site-verification" content="YyO2rAtS9EGrKuulJLkr6Czqc98au8arKS_APRqJDZY" />
-        <meta property="fb:app_id" content="436645616485850" />
+        <meta property="og:title" content="{{ array_get($metadata, 'title') }}" />
+        <meta property="og:image" content="{{ array_get($metadata, 'image') }}" />
+        <meta property="og:description" content="{{ array_get($metadata, 'description') }}" />
+        <meta property="og:url" content="{{ array_get($metadata, 'url') }}" />
+        <meta property="og:site_name" content="{{ url('/') }}" />
+        <link rel="canonical" href="{{ array_get($metadata, 'canonical', Request::url()) }}" />
         <meta name="viewport" content="width=device-width,initial-scale=1.0" />
-        <link rel="shortcut icon" type="image/png" href="/shop/assets/hstatic.net/969/1000003969/1000161857/favicon.png%3Fv=8910" />
-        <meta name="description" content="Cảnh báo cho bạn những căn bệnh theo mùa, những dịch bệnh bùng phát hay đơn giản là những thông tin y học để bạn tạo thói quen sống lành mạnh và khoa học hơn." />
+        <link rel="shortcut icon" type="image/png" href="{{ url(parse_image_url($GLB_Setting->favicon)) }}" />
+        <meta name="description" content="{{ array_get($metadata, 'description') }}" />
         <!--CSS-->
         <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <link href='/shop/assets/hstatic.net/0/global/design/css/font-awesome.min.css' rel='stylesheet' type='text/css'  media='all'  />
@@ -91,22 +88,26 @@
                                             <a href="/" title="Về trang chủ" class="logo"><img style="margin-top: -1px;" alt="JUNO" src="/shop/assets/hstatic.net/969/1000003969/10/2016/7-29/ico-home.png" /></a>
                                         </div>
                                     </li>
-                                    @foreach($GLB_Categories as $item)
+                                    @foreach($GLB_Menus as $item)
                                         @php if($item->parent_id > 0) continue; @endphp
                                             <?php
-                                                $childs = App\ProductGroup::where('parent_id', $item->id)->get();
+                                                $childs = App\Models\Navigation::where('parent_id', $item->id)->get();
                                             ?>
                                             <li  class="menu-li {{ $childs->count() > 0 ? 'hasChild' : 0 }} bup-be-1-click  fix-icon-coll" >
                                                 <a href="{{ $item->getUrl() }}">
                                                     <div class="coll-icon bup-be-1-click">
-                                                        <span  class="title-main-menu bup-be-1-click ">{{ $item->name }}</span>
+                                                        <span  class="title-main-menu bup-be-1-click ">{{ $item->label }}</span>
                                                     </div>
                                                 </a>
 
                                                 @if($childs->count())
                                                     <ul class="dropdown-menu drop-menu" style="left: 0%; width: 500px; border-radius: 0px 0px 5px 5px; display: none; height: 221px; padding-top: 15px; margin-top: 0px; padding-bottom: 15px; margin-bottom: 0px;">
                                                         <?php
-                                                            $newestProduct = App\Product::where('product_group_id', $item->id)->orderBy('created_at', 'DESC')->first();
+                                                            if($item->type == App\Models\Navigation::TYPE_PRODUCT_GROUP) {
+                                                                $newestProduct = App\Product::where('product_group_id', $item->getObjectId())->orderBy('created_at', 'DESC')->first();
+                                                            } else {
+                                                                $newestProduct = null;
+                                                            }
                                                         ?>
                                                         @if($newestProduct)
                                                             <li class="menu-hover-li">
@@ -131,7 +132,7 @@
                                                             </li>
                                                         @endif
                                                         @foreach($childs as $childItem)
-                                                            <li style="width:30%;float:left;"><a href="{{ $childItem->getUrl() }}"><i class="fa fa-caret-right" style="color:#666;padding-right:10px"></i> {{ $childItem->name }}</a></li>
+                                                            <li style="width:30%;float:left;"><a href="{{ $childItem->getUrl() }}"><i class="fa fa-caret-right" style="color:#666;padding-right:10px"></i> {{ $childItem->label }}</a></li>
                                                         @endforeach
                                                     </ul>
                                                 @endif
