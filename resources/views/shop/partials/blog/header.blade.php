@@ -104,7 +104,13 @@
                                                     <ul class="dropdown-menu drop-menu" style="left: 0%; width: 500px; border-radius: 0px 0px 5px 5px; display: none; height: 221px; padding-top: 15px; margin-top: 0px; padding-bottom: 15px; margin-bottom: 0px;">
                                                         <?php
                                                             if($item->type == App\Models\Navigation::TYPE_PRODUCT_GROUP) {
-                                                                $newestProduct = App\Product::where('product_group_id', $item->getObjectId())->orderBy('created_at', 'DESC')->first();
+                                                                // Tìm sản phẩm mới nhất của danh mục này
+                                                                $newestProduct = App\Product::join('products_groups', 'product.id', '=', 'products_groups.product_id')
+                                                                                         ->where('products_groups.group_id', '=', $item->getObjectId())
+                                                                                         ->groupBy('product.id')
+                                                                                         ->orderBy('product.updated_at', 'DESC')
+                                                                                         ->select('product.*')
+                                                                                         ->first();
                                                             } else {
                                                                 $newestProduct = null;
                                                             }
