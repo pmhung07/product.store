@@ -131,8 +131,19 @@
                                                                 </div>
                                                             </li>
                                                         @endif
+
+                                                        @if($newestProduct)
+                                                            @php
+                                                                $styleInline = "width:30%;float:left;";
+                                                            @endphp
+                                                        @else
+                                                            @php
+                                                                $styleInline = "width:100%;float:left;";
+                                                            @endphp
+                                                        @endif
+
                                                         @foreach($childs as $childItem)
-                                                            <li style="width:30%;float:left;"><a href="{{ $childItem->getUrl() }}"><i class="fa fa-caret-right" style="color:#666;padding-right:10px"></i> {{ $childItem->label }}</a></li>
+                                                            <li style="{{ $styleInline  }}"><a href="{{ $childItem->getUrl() }}"><i class="fa fa-caret-right" style="color:#666;padding-right:10px"></i> {{ $childItem->label }}</a></li>
                                                         @endforeach
                                                     </ul>
                                                 @endif
