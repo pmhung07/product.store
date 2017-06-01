@@ -159,6 +159,7 @@
                                             <textarea class="form-control attribute-value-input" name="value[]" placeholder="Giá trị thuộc tính cách nhau bằng dấu phẩy. Ví dụ: Xanh,Đỏ,Vàng"></textarea>
                                         </div>
                                     </section>
+                                    <div id="placement-new-attribute"></div>
                                     <button id="btn-add-new-attribute" class="btn btn-xs btn-danger">Tạo mới thuộc tính</button>
                                 </div>
                             </div>
