@@ -67,7 +67,7 @@
 
         get_variant();
 
-        $('.action-add-to-cart').on('click', function() {
+        $(document).on('click', '.action-add-to-cart', function() {
             var url = _urlAddToCart;
             window.location.href = url;
             return false;

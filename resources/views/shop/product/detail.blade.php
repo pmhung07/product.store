@@ -37,7 +37,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-xs-12">
-                                    <div id="descriptionproduct" class="wow fadeIn" style="margin-top:20px">
+                                    <div id="descriptionproduct" class="wow fadeIn" style="margin-top:20px;min-height: 294px;">
                                         <div class="clearfix">
                                             <div class="">
                                                 <!-- Nav tabs -->
@@ -97,6 +97,7 @@
                             </div>
                             @endif
                             <div class="sec-policies-feature">
+                                <div class="hidden-btn-buy-now" style="padding: 10px 0 0 0"></div>
                                 <div class="deliver-top info ">
                                     <div class="tit-color">Sẽ có tại nhà bạn</div>
                                     <div class="descrip">từ 1-5 ngày làm việc</div>
@@ -218,29 +219,35 @@
         });
 
 
+        var cloneBtnBuyNow = $('.product-btn-buy').clone();
         $(window).on('scroll', function() {
-            if($(window).scrollTop() >= 628 && $(window).scrollTop() <= 760) {
-                // $('.sec-policies-feature').addClass('policy-fixed');
-            } else {
-                // $('.sec-policies-feature').removeClass('policy-fixed');
-                // $('#product').css({
-                //     marginBottom: 0
-                // });
+
+            if($(window).scrollTop() >= $('.sec-policies-feature').offset().top) {
+                $('.sec-policies-feature').addClass('policy-fixed');
+
+                $('.hidden-btn-buy-now').html(cloneBtnBuyNow);
+
+                if($(window).scrollTop() + $('.sec-policies-feature').height() >= $('.footer-map').offset().top) {
+                    // $('.sec-policies-feature').removeClass('policy-fixed');
+                    $('body').trigger('clear-right-fixed');
+                }
             }
 
-            // if($(window).scrollTop() >= 900) {
-            //     $('.sec-policies-feature').removeClass('fixed');
-            //     $('#product').css({
-            //         marginBottom: 0
-            //     });
-            // }
+            if($(window).scrollTop() <= $('.deliver-top').offset().top + $('.deliver-top').height() + 20) {
+                // $('.sec-policies-feature').removeClass('policy-fixed');
+                $('body').trigger('clear-right-fixed');
+            }
 
-            // if($(window).scrollTop() < 508) {
-            //     $('.sec-policies-feature').removeClass('fixed').removeClass('hide');
-            //     $('#product').css({
-            //         marginBottom: 0
-            //     });
-            // }
+
+            if($(window).scrollTop() >= $('.sec-related-product').offset().top) {
+                // $('.sec-policies-feature').removeClass('policy-fixed');
+                $('body').trigger('clear-right-fixed');
+            }
+        });
+
+        $('body').on('clear-right-fixed', function() {
+            $('.sec-policies-feature').removeClass('policy-fixed');
+            $('.hidden-btn-buy-now').html('');
         });
     });
 

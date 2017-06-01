@@ -342,9 +342,11 @@
   #product.product-detail-container .sec-policies-feature.policy-fixed {
     position: fixed;
     right: 75px;
+    z-index: 100;
     background: #fff;
     width: 290px;
-    top: 10px;
+    top: 0px;
+    transition: all 1s;
   }
 }
 #product.product-detail-container #spec {
