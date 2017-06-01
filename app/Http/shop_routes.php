@@ -1,14 +1,16 @@
 <?php
 
 $domains = [
-    'vatphammayman.vn',
-    'shop.9119.dev',
-    'shop.9119.vn'
+    'vatphammayman.vn' => 'vatphammayman.vn',
+    'shop.9119.dev'    => 'shop.9119.dev',
+    'shop.9119.vn'     => 'shop.9119.vn'
 ];
 
-foreach($domains as $domain) {
+$_domain = $_SERVER['HTTP_HOST'];
+
+if(array_key_exists($_domain, $domains)) {
     // Shop
-    Route::group(['domain' => $domain, 'namespace' => 'Shop'], function () {
+    Route::group(['domain' => $domains[$_domain], 'namespace' => 'Shop'], function () {
         Route::get('/', 'HomeController@getIndex');
 
         // Danh mục sản phẩm
