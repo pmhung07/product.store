@@ -15,8 +15,8 @@
                                         <?php foreach($GLB_Categories as $item): ?>
                                             <?php if($item->parent_id > 0) continue; ?>
                                             <li class="col-xs-6 col-sm-3 col-md-3 col-lg-2">
-                                                <a class="link" href="{{ $item->getUrl() }}" title="Giày búp bê">
-                                                    <img class="image" src="{{ parse_image_url($item->icon) }}" alt="Giày búp bê" class="img-responsive" />
+                                                <a class="link" href="{{ $item->getUrl() }}" title="{{ $item->name }}">
+                                                    <img class="image" src="{{ parse_image_url($item->icon) }}" alt="{{ $item->name }}" class="img-responsive" />
                                                     <span class="label_footer">{{ $item->getName() }}</span>
                                                 </a>
                                             </li>

@@ -36,13 +36,13 @@
             <div class="home-filter-top5 center-product product-item products-resize home-filter-product-new">
                 <?php foreach($hotProducts as $item): ?>
                     <div class="col-xs-12 col-sm-4 col-md-3 col-lg-24">
-                        {!! view('shop/partials/product/item', ['product' => $item, 'type' => 'hot'])->render() !!}
+                        {!! view('shop/partials/product/item', ['product' => $item, 'type' => ''])->render() !!}
                     </div>
                 <?php endforeach; ?>
             </div>
         </div>
 
-        <div class="row">
+        <div class="row hide">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 title-more-bottom">
                 <span class="title-more">Mời bạn <a href="/" class="link">xem thêm các sản phẩm hot</a></span> khác
             </div>
@@ -62,13 +62,13 @@
                 <div class="center-product product-item products-resize home-filter-product-new">
                     <?php foreach($newestProductsInWeek as $item): ?>
                         <div class="col-xs-12 col-sm-4 col-md-3 col-lg-24">
-                            {!! view('shop/partials/product/item', ['product' => $item, 'type' => 'new'])->render() !!}
+                            {!! view('shop/partials/product/item', ['product' => $item, 'type' => ''])->render() !!}
                         </div>
                     <?php endforeach; ?>
                 </div>
             </div>
         </div>
-        <div class="row">
+        <div class="row hide">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 title-more-bottom">
                 <span class="title-more">Mời bạn <a href="/" class="link">xem thêm các mẫu mới</a> khác</span>
             </div>

@@ -1,61 +1,69 @@
 <?php
 
-// Shop
-Route::group(['domain' => 'vatphammayman.vn', 'namespace' => 'Shop'], function () {
-    Route::get('/', 'HomeController@getIndex');
+$domains = [
+    'vatphammayman.vn',
+    'shop.9119.dev',
+    'shop.9119.vn'
+];
 
-    // Danh mục sản phẩm
-    Route::get('/category/{id}-{slug}', ['as' => 'shop.category.products', 'uses' => 'CategoryController@getProducts']);
+foreach($domains as $domain) {
+    // Shop
+    Route::group(['domain' => $domain, 'namespace' => 'Shop'], function () {
+        Route::get('/', 'HomeController@getIndex');
 
-    // Chi tiết sản phẩm
-    Route::get('product/{id}-{slug}', ['as' => 'shop.product.detail', 'uses' => 'ProductController@getDetail']);
-    // Lấy cửa hàng theo thành phố
-    Route::get('/ajax/product/html-stock-item', ['as' => 'shop.product.detail.ajax.get_html_stock', 'uses' => 'ProductController@ajaxHtmlStockItem']);
+        // Danh mục sản phẩm
+        Route::get('/category/{id}-{slug}', ['as' => 'shop.category.products', 'uses' => 'CategoryController@getProducts']);
 
-    // Trang tĩnh
-    Route::get('page/{id}-{slug}', ['as' => 'shop.page.detail', 'uses' => 'PageController@getDetail']);
+        // Chi tiết sản phẩm
+        Route::get('product/{id}-{slug}', ['as' => 'shop.product.detail', 'uses' => 'ProductController@getDetail']);
+        // Lấy cửa hàng theo thành phố
+        Route::get('/ajax/product/html-stock-item', ['as' => 'shop.product.detail.ajax.get_html_stock', 'uses' => 'ProductController@ajaxHtmlStockItem']);
 
-    // Hệ thống cửa hàng
-    Route::get('store.html', ['as' => 'shop.store.index', 'uses' => 'StoreController@getIndex']);
-    Route::get('store/{id}', ['as' => 'shop.store.detail', 'uses' => 'StoreController@getDetail']);
+        // Trang tĩnh
+        Route::get('page/{id}-{slug}', ['as' => 'shop.page.detail', 'uses' => 'PageController@getDetail']);
 
-    // Tìm kiếm
-    Route::get('search', ['as' => 'shop.search', 'uses' => 'SearchController@getIndex']);
+        // Hệ thống cửa hàng
+        Route::get('store.html', ['as' => 'shop.store.index', 'uses' => 'StoreController@getIndex']);
+        Route::get('store/{id}', ['as' => 'shop.store.detail', 'uses' => 'StoreController@getDetail']);
 
-    // Tin tức
-    Route::get('/tin-tuc', ['as' => 'shop.post.index', 'uses' => 'PostController@getIndex']);
+        // Tìm kiếm
+        Route::get('search', ['as' => 'shop.search', 'uses' => 'SearchController@getIndex']);
 
-    // Tin tức chi tiết
-    Route::get('/tin-tuc/{id}-{slug}', ['as' => 'shop.post.detail', 'uses' => 'PostController@getDetail']);
+        // Tin tức
+        Route::get('/tin-tuc', ['as' => 'shop.post.index', 'uses' => 'PostController@getIndex']);
 
-    // Danh mục tin tức
-    Route::get('/danh-muc/tin-tuc/{id}-{slug}', ['as' => 'shop.post_category.posts', 'uses' => 'PostCategoryController@getPosts']);
+        // Tin tức chi tiết
+        Route::get('/tin-tuc/{id}-{slug}', ['as' => 'shop.post.detail', 'uses' => 'PostController@getDetail']);
 
-    // Giỏ hàng
-    Route::group(['prefix' => 'cart'], function() {
-        Route::get('/', ['as' => 'shop.cart.index', 'uses' => 'CartController@getIndex']);
-        Route::get('/add-to-cart', ['as' => 'shop.cart.add', 'uses' => 'CartController@addToCart']);
-        Route::get('/delete/{rowId}', ['as' => 'shop.cart.delete', 'uses' => 'CartController@delete']);
-        Route::post('/ajax/update-cart', ['as' => 'shop.cart.ajax.update', 'uses' => 'CartController@ajaxUpdate']);
-        Route::get('/clear', ['as' => 'shop.cart.clear', 'uses' => 'CartController@clear']);
+        // Danh mục tin tức
+        Route::get('/danh-muc/tin-tuc/{id}-{slug}', ['as' => 'shop.post_category.posts', 'uses' => 'PostCategoryController@getPosts']);
+
+        // Giỏ hàng
+        Route::group(['prefix' => 'cart'], function() {
+            Route::get('/', ['as' => 'shop.cart.index', 'uses' => 'CartController@getIndex']);
+            Route::get('/add-to-cart', ['as' => 'shop.cart.add', 'uses' => 'CartController@addToCart']);
+            Route::get('/delete/{rowId}', ['as' => 'shop.cart.delete', 'uses' => 'CartController@delete']);
+            Route::post('/ajax/update-cart', ['as' => 'shop.cart.ajax.update', 'uses' => 'CartController@ajaxUpdate']);
+            Route::get('/clear', ['as' => 'shop.cart.clear', 'uses' => 'CartController@clear']);
+        });
+
+        // Thanh toán
+        Route::get('/gui-don-hang', ['as' => 'shop.submitOrder', 'uses' => 'OrderController@getIndex']);
+        Route::post('/gui-don-hang', 'OrderController@postIndex');
+
+        // Gửi đơn hàng thành công, cảm ơn
+        Route::get('/thank.html', 'OrderController@getThank');
+
+        // Ajax
+        Route::group(['prefix' => 'ajax', 'namespace' => 'Ajax'], function() {
+            Route::get('/product/quick-view', 'ProductController@getQuickView');
+            Route::get('/product/get-variant', 'ProductController@getVariant');
+
+            // Kiểm tra mã coupon
+            Route::post('/check-coupon/{code}', 'CouponController@check');
+
+            // Html cart trang order
+            Route::get('/html-cart-in-order-page', 'CartController@getHtmlCartInOrderPage');
+        });
     });
-
-    // Thanh toán
-    Route::get('/gui-don-hang', ['as' => 'shop.submitOrder', 'uses' => 'OrderController@getIndex']);
-    Route::post('/gui-don-hang', 'OrderController@postIndex');
-
-    // Gửi đơn hàng thành công, cảm ơn
-    Route::get('/thank.html', 'OrderController@getThank');
-
-    // Ajax
-    Route::group(['prefix' => 'ajax', 'namespace' => 'Ajax'], function() {
-        Route::get('/product/quick-view', 'ProductController@getQuickView');
-        Route::get('/product/get-variant', 'ProductController@getVariant');
-
-        // Kiểm tra mã coupon
-        Route::post('/check-coupon/{code}', 'CouponController@check');
-
-        // Html cart trang order
-        Route::get('/html-cart-in-order-page', 'CartController@getHtmlCartInOrderPage');
-    });
-});
+}
