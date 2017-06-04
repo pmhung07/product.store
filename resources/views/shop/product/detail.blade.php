@@ -251,9 +251,11 @@
         });
 
 
+        // Thumbs slider
         $('.product-thumbs-slider').each(function(index, el) {
             var $this = $(el);
             if($this.data('count_items') > 10) {
+                $this.addClass('owl-carousel owl-theme');
                 var slider = $this.owlCarousel({
                     margin:10,
                     autoplay: false,
@@ -265,13 +267,15 @@
                     animateIn: 'fadeIn',
                 });
 
-                $this.parents().find('.slider-controls .left').click(function() {
+                $this.parent().find('.slider-controls .left').click(function() {
                     slider.trigger('prev.owl.carousel');
                 });
 
-                $this.parents().find('.slider-controls .right').click(function() {
+                $this.parent().find('.slider-controls .right').click(function() {
                     slider.trigger('next.owl.carousel');
                 });
+            } else {
+                $this.parent().find('.slider-controls').addClass('hide');
             }
         });
     });
