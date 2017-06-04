@@ -44,7 +44,7 @@
 </div>
 
 <div class="thumbnails-hidden" style="overflow: hidden;">
-    <div class="product-thumbs-slider owl-carousel owl-theme" data-count_items="{{ $productImages->count() }}">
+    <div class="product-thumbs-slider" data-count_items="{{ $productImages->count() }}">
         @foreach($productImages as $item)
         <a rel="gallery-1" class="swipebox thumbnail thumdelete" href="{{ parse_image_url($item->image) }}">
             <img src="{{ parse_image_url('sm_'.$item->image) }}">
