@@ -56,6 +56,20 @@
         <script type="text/javascript" src="/shop/assets/js/my-plugin/add-to-cart.js"></script>
         <script type="text/javascript" src="/shop/assets/js/my-plugin/load-district.js"></script>
 
+        <?php
+            $countMenuLevel1 = 0;
+            foreach($GLB_Menus as $item) {
+                if($item->parent_id == 0) {
+                    $countMenuLevel1 ++;
+                }
+            }
+        ?>
+        <style type="text/css">
+            .menu-top>li {
+                width: calc(100%/{{ $countMenuLevel1 }});
+            }
+        </style>
+
     </head>
     <body class="cms-index-index">
         <div id="script-head-body"></div>

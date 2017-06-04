@@ -27,11 +27,11 @@
                     <div class="row">
                         <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9">
                             <div class="row">
-                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 slide-imagesm fadeIn wow" style="position: relative;overflow: hidden;">
+                                <div class="col-lg-8 col-md-8 col-sm-6 col-xs-12 slide-imagesm fadeIn wow" style="position: relative;overflow: hidden;">
                                     @include('shop/product/left')
                                 </div>
 
-                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 product fadeIn wow">
+                                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 product fadeIn wow">
                                     @include('shop/product/right')
                                 </div>
                             </div>
