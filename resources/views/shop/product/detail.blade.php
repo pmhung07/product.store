@@ -249,6 +249,31 @@
             $('.sec-policies-feature').removeClass('policy-fixed');
             $('.hidden-btn-buy-now').html('');
         });
+
+
+        $('.product-thumbs-slider').each(function(index, el) {
+            var $this = $(el);
+            if($this.data('count_items') > 10) {
+                var slider = $this.owlCarousel({
+                    margin:10,
+                    autoplay: false,
+                    nav:true,
+                    navText: ["", ""],
+                    dots: false,
+                    items: 10,
+                    animateOut: 'fadeOut',
+                    animateIn: 'fadeIn',
+                });
+
+                $this.parents().find('.slider-controls .left').click(function() {
+                    slider.trigger('prev.owl.carousel');
+                });
+
+                $this.parents().find('.slider-controls .right').click(function() {
+                    slider.trigger('next.owl.carousel');
+                });
+            }
+        });
     });
 
 </script>

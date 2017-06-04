@@ -390,6 +390,24 @@
 #product.product-detail-container #descriptionproduct img {
   max-width: 100%;
 }
+#product.product-detail-container .thumbnails-hidden {
+  position: relative;
+}
+#product.product-detail-container .thumbnails-hidden .slider-controls .left,
+#product.product-detail-container .thumbnails-hidden .slider-controls .right {
+  position: absolute;
+  z-index: 100;
+  top: 0;
+  font-size: 40px;
+  color: #c0c0c0;
+  cursor: pointer;
+}
+#product.product-detail-container .thumbnails-hidden .slider-controls .left {
+  left: 0;
+}
+#product.product-detail-container .thumbnails-hidden .slider-controls .right {
+  right: 0;
+}
 .ClickBlogItem {
   display: block;
 }
