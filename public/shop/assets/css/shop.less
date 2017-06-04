@@ -290,6 +290,25 @@ body {
             max-width: 100%;
         }
     }
+    .thumbnails-hidden {
+        position: relative;
+        .slider-controls {
+            .left,.right {
+                position: absolute;
+                z-index: 100;
+                top: 0;
+                font-size: 40px;
+                color: #c0c0c0;
+                cursor: pointer;
+            }
+            .left {
+                left: 0;
+            }
+            .right {
+                right: 0;
+            }
+        }
+    }
 }
 
 .ClickBlogItem {
