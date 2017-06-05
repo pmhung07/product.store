@@ -94,7 +94,7 @@
                     if(response.code == 200) {
                         var variant = response.variant;
                         $('.maspd').text(variant.sku);
-                        $('.variant-price').text(variant.price);
+                        $('.variant-price').text(variant.price_str);
                         $('#main-product-image').attr('data-original', variant.image.large);
                         $('#main-product-image > a').attr('href', variant.image.large);
                         $('#main-product-image > a').attr('data-image', variant.image.large);
