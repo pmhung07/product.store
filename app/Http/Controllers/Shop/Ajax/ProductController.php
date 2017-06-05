@@ -53,6 +53,7 @@ class ProductController extends Controller
                 'variant' => [
                     'id' => $variant->id,
                     'price' => $variant->price,
+                    'price_str' => formatCurrency($variant->price) . ' VNĐ',
                     'sku' => $variant->sku,
                     'image' => [
                         'large' => parse_image_url('lg_' . $variant->image),
