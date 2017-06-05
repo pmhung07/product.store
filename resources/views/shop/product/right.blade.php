@@ -23,7 +23,7 @@
         @endforeach
     </div>
     <div class="price">
-        <label class="variant-price red">{{ formatCurrency($product->getPrice()) }}<sup>đ</sup></label>
+        <label class="variant-price red">{{ formatCurrency($product->getPrice()) }} VNĐ</label>
     </div>
 </div>
 
