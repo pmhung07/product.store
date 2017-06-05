@@ -376,6 +376,7 @@ class ProductController extends Controller
 
         $properties = (array) $request->get('option');
         $values = (array) $request->get('value');
+        $arrayAllValueIds = array();
 
         // Tạo option và value
         foreach($properties as $key => $property) {
@@ -479,7 +480,20 @@ class ProductController extends Controller
     public function getDeleteOption($id)
     {
         $option = Properties::findOrFail($id);
+
+        $values = $option->values()->get();
+        $valueIdsArray = array();
+        foreach($values as $value) {
+            $variantValues = VariantValue::where('values_str', 'LIKE', '%'. $value->id .'%')->get();
+            foreach($variantValues as $item) {
+                Product::where('id', $item->variant_id)->delete();
+            }
+        }
+
+        // Xóa hết giá trị của nó
         $option->values()->delete();
+
+        // Xóa chính nó
         if($option->delete()) {
             return response()->json(['id' => $id, 'code' => 1, 'type' => 'success', 'message' => 'Xóa thành công']);
         }

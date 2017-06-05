@@ -10,7 +10,7 @@
                         </div>
                     </div>
                     <div class="col-md-8 col-sm-12 no-padding searchTop">
-                        <div class="search-collection col-xs-10 no-padding">
+                        <div class="search-collection col-xs-12 no-padding">
                             <form class="search" action="/search">
                                 <input id="text-product" class="col-xs-10 no-padding" type="text" name="q" placeholder="Bạn cần tìm gì?" />
                                 <input type="hidden" value="product" name="type" />
@@ -59,7 +59,7 @@
         <div class="container-fluid menutopid" style="">
             <div class="container" style="position:relative">
                 <div class="row">
-                    <div class="col-lg-10 col-md-10">
+                    <div class="col-lg-12 col-md-12">
                         <?php
                             function showCategories($categories, $parent_id = 0)
                             {

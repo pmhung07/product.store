@@ -293,7 +293,7 @@
                                     </script>
                                 </div>
                                 <div class="col-sm-1">
-                                    <button class="btn btn-xs btn-danger btn-delete-attribute"><i class="fa fa-trash"></i></button>
+                                    <button class="btn btn-xs btn-danger btn-delete-attribute" data-id="{{ $property->id }}"><i class="fa fa-trash"></i></button>
                                 </div>
                             </section>
                         @endforeach

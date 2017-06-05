@@ -721,6 +721,8 @@ __WEBPACK_IMPORTED_MODULE_1__app___default.a.ProductUpdateController = function(
                 placeHolder: "VD: Xanh,Đỏ,Vàng"
             });
 
+            $('#placement-new-attribute').find('.btn-delete-attribute').attr('data-id', 0);
+
             if($('.attribute-row').length == 3) {
                 $(this).addClass('hide');
             }
@@ -729,7 +731,17 @@ __WEBPACK_IMPORTED_MODULE_1__app___default.a.ProductUpdateController = function(
         // Delete variant
         $(document).on('click', '.btn-delete-attribute', function(e) {
             e.preventDefault();
-            $(this).parents('.attribute-row').remove();
+            var $this = $(this);
+            $this.parents('.attribute-row').remove();
+
+            $.ajax({
+                url: "/system/product/option/"+$this.data('id')+"/delete",
+                type: 'GET',
+                dataType: "json",
+                success: function(response) {
+                    console.log(response);
+                }
+            });
 
             // Nếu xóa hết, cập nhật lại trạng thái _fillAttr
             if($('.attribute-row').length == 0) {
