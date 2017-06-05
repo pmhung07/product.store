@@ -166,7 +166,7 @@ body {
     margin-bottom: 20px;
 }
 .breadcrumb {
-    margin-top: 30px;
+    margin-top: 5px;
 }
 
 #cartform {
@@ -229,10 +229,10 @@ body {
         &.policy-fixed {
             @media only screen and (min-width: 1220px) {
                 position: fixed;
-                right: 75px;
+                // right: 75px;
                 z-index: 100;
                 background: #fff;
-                width: 290px;
+                width: 234px;
                 top: 0px;
                 transition: all 1s;
             }
@@ -283,6 +283,9 @@ body {
     .tab-content {
         .tab-pane {
             padding-top: 10px;
+            img {
+                max-width: 100%;
+            }
         }
     }
     #descriptionproduct {
@@ -307,6 +310,16 @@ body {
             .right {
                 right: 0;
             }
+        }
+    }
+    .col-sys-left-wrapper {
+        @media only screen and(min-width: 1200px) {
+            width: 80%;
+        }
+    }
+    .store-wrapper {
+        @media only screen and(min-width: 1200px) {
+            width: 20%;
         }
     }
 }

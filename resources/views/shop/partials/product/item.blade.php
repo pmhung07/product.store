@@ -29,12 +29,5 @@
                 </div>
             </div>
         </div>
-        <div class="wrapBtn col-md-10 buttoncart">
-            <div class="product-buy">
-                <a class="quick-view" data-title="{{ $product->getName() }}" href="javascript:;" data-id="{{ $product->getId() }}" data-sku="{{ $product->getSku() }}">
-                    <span>Mua Nhanh</span>
-                </a>
-            </div>
-        </div>
     </div>
 </div>

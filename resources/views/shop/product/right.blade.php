@@ -1,12 +1,9 @@
-<div class="thongtingia clearfix">
-    <div class="changeLabel">
-        <div class="hot-tags redTag">Sản phẩm giá tốt</div>
-    </div>
-
-</div>
 <div class="thongtingia">
     <h1>{{ $product->getName() }}</h1>
     <h4>Mã SP : <span class="maspd">{{ $product->getSku() }}</span></h4>
+
+    <div class="fb-like" data-href="{{ route('shop.product.detail', [$product->id, $product->getSlug()]) }}" data-layout="button_count" data-action="like" data-size="small" data-show-faces="false" data-share="true"></div>
+
     <!-- Variant -->
     <div class="sec-properties">
         @foreach($properties as $property)
@@ -53,11 +50,6 @@
         </div>
     </div>
 
-    <!-- Go to www.addthis.com/dashboard to customize your tools -->
-    <div class="share-buttons" style="margin-top: 20px;">
-        <h6>Chia sẻ với bạn bè</h6>
-        <div class="addthis_inline_share_toolbox_vvrr"></div>
-    </div>
 </form>
 
 <script type="text/javascript">
