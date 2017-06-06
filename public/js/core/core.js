@@ -125,6 +125,11 @@ $(function() {
              }
           })
        });
+
+    $('img').on('error', function() {
+        var $this = $(this);
+        $this.attr('src', '/img/default_picture.png');
+    });
 });
 
 
