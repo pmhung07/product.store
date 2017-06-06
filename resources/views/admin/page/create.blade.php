@@ -30,11 +30,13 @@
                             <div class="col-sm-9"><input name="title" type="text" class="form-control"></div>
                         </div>
                         <div class="form-group"><label class="col-sm-3 control-label">Teaser</label>
-                            <div class="col-sm-9"><input name="teaser" type="text" class="form-control"></div>
+                            <div class="col-sm-9">
+                                <textarea name="teaser" class="form-control"></textarea>
+                            </div>
                         </div>
                         <div class="form-group"><label class="col-sm-3 control-label">Nội dung</label>
                             <div class="col-sm-9">
-                                <textarea name="content" class="form-control summernote"></textarea>
+                                <textarea name="content" class="form-control tiny-editor"></textarea>
                             </div>
                         </div>
 

@@ -39,11 +39,13 @@
                             <div class="col-sm-9"><input name="title" type="text" class="form-control" value="{!! old('title',isset($data) ? $data['title'] : '') !!}"></div>
                         </div>
                         <div class="form-group"><label class="col-sm-3 control-label">Teaser</label>
-                            <div class="col-sm-9"><input name="teaser" type="text" class="form-control" value="{!! old('teaser',isset($data) ? $data['teaser'] : '') !!}"></div>
+                            <div class="col-sm-9">
+                                <textarea name="teaser" class="form-control">{!! old('teaser',isset($data) ? $data['teaser'] : '') !!}</textarea>
+                            </div>
                         </div>
                         <div class="form-group"><label class="col-sm-3 control-label">Nội dung</label>
                             <div class="col-sm-9">
-                                <textarea name="content" class="form-control summernote">{!! old('content',isset($data) ? $data['content'] : '') !!}</textarea>
+                                <textarea name="content" class="form-control tiny-editor">{!! old('content',isset($data) ? $data['content'] : '') !!}</textarea>
                             </div>
                         </div>
                         <div class="form-group"><label class="col-sm-3 control-label">Danh mục bài viết</label>

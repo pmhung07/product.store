@@ -187,7 +187,7 @@
 </div>
 
 <div id="modal-email" class="modal">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <form id="form-send-email" method="POST" action="POST" class="form">
                 <div class="modal-header">
@@ -200,7 +200,7 @@
                     </div>
                     <div class="form-group">
                         <label class="control-label">Nội dung</label>
-                        <textarea name="mail" class="form-control summernote" placeholder="Nhập nội dung"></textarea>
+                        <textarea name="mail" class="form-control tiny-editor" placeholder="Nhập nội dung"></textarea>
                     </div>
                 </div>
                 <div class="modal-footer">
