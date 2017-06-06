@@ -59,21 +59,19 @@
                         @if(!$product->hasChild())
                         <div class="form-group"><label class="col-sm-3 control-label">Ảnh sản phẩm</label>
                             <div class="col-sm-9">
-                                @if($data['image'])
-                                    <span style="position: relative; display: inline-block; margin: 0 5px 0 0">
-                                        <img class="img-thumbnail" src="{{ parse_image_url('sm_'.$data['image']) }}" height="90" style="margin-bottom: 10px; height: 50px; display: block;">
-                                        <input name="image" type="file" class="form-control input-file-hidden">
-                                        <span class="help-inline text-info" style="font-size: 10px;">Mặt trước</span>
-                                    </span>
-                                @endif
 
-                                @if($data['back_image'])
-                                    <span style="position: relative; display: inline-block; margin: 0 5px 0 0">
-                                        <img class="img-thumbnail" src="{{ parse_image_url('sm_'.$data['back_image']) }}" height="90" style="margin-bottom: 10px; height: 50px; display: block;">
-                                        <input name="back_image" type="file" class="form-control input-file-hidden">
-                                        <span class="help-inline text-info" style="font-size: 10px;">Mặt sau</span>
-                                    </span>
-                                @endif
+                                <span style="position: relative; display: inline-block; margin: 0 5px 0 0">
+                                    <img class="img-thumbnail" src="{{ parse_image_url('sm_'.$data['image']) }}" height="90" style="margin-bottom: 10px; height: 50px; display: block;">
+                                    <input name="image" type="file" class="form-control input-file-hidden">
+                                    <span class="help-inline text-info" style="font-size: 10px;">Mặt trước</span>
+                                </span>
+
+                                <span style="position: relative; display: inline-block; margin: 0 5px 0 0">
+                                    <img class="img-thumbnail" src="{{ parse_image_url('sm_'.$data['back_image']) }}" height="90" style="margin-bottom: 10px; height: 50px; display: block;">
+                                    <input name="back_image" type="file" class="form-control input-file-hidden">
+                                    <span class="help-inline text-info" style="font-size: 10px;">Mặt sau</span>
+                                </span>
+
                             </div>
                         </div>
                         @endif
