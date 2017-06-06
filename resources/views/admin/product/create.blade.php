@@ -130,19 +130,19 @@
 
                         <div class="form-group"><label class="col-sm-3 control-label">Thông số kỹ thuật</label>
                             <div class="col-sm-9">
-                                <textarea name="spec" class="form-control summernote">{{ old('spec') }}</textarea>
+                                <textarea name="spec" class="form-control tiny-editor">{{ old('spec') }}</textarea>
                             </div>
                         </div>
 
                         <div class="form-group"><label class="col-sm-3 control-label">Mô tả sản phẩm</label>
                             <div class="col-sm-9">
-                                <textarea name="content" class="form-control summernote"></textarea>
+                                <textarea name="content" class="form-control tiny-editor"></textarea>
                             </div>
                         </div>
 
                         <div class="form-group"><label class="col-sm-3 control-label">Hướng dẫn sử dụng</label>
                             <div class="col-sm-9">
-                                <textarea name="introduce" class="form-control summernote"></textarea>
+                                <textarea name="introduce" class="form-control tiny-editor"></textarea>
                             </div>
                         </div>
 
