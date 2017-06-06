@@ -45,7 +45,7 @@
                     <div class="row">
                         <div class="col-lg-header-15 col-md-2 col-sm-10">
                             <div class="logo">
-                                <a href="/" title="JUNO" class="logo"><img alt="JUNO" src="{{ parse_image_url('sm_'.$GLB_Setting->logo) }}" onerror="this.src='/img/default_picture.png'" style="height: 30px;" /></a>
+                                <a href="/" title="Logo" class="logo"><img alt="Logo" src="{{ parse_image_url('sm_'.$GLB_Setting->logo) }}" onerror="this.src='/img/default_picture.png'" style="height: 30px;" /></a>
                             </div>
                         </div>
                         <div class="col-lg-header-35 col-sm-5 col-md-8">
@@ -76,11 +76,11 @@
                 <div class="container-fluid menutopid" style="background:#242424">
                     <div class="container" style="position:relative">
                         <div class="row">
-                            <div class="col-lg-10 col-md-10">
+                            <div class="col-lg-12 col-md-12">
                                 <ul class="menu-top clearfix hidden-xs">
                                     <li class="logo-top hidden">
                                         <div class="logo2">
-                                            <a href="/" title="JUNO" class="logo"><img alt="JUNO" src="/shop/assets/hstatic.net/969/1000003969/1000161857/logo.png%3Fv=8910" /></a>
+                                            <a href="/" title="Logo" class="logo"><img alt="Logo" src="{{ parse_image_url('sm_'.$GLB_Setting->logo) }}" /></a>
                                         </div>
                                     </li>
                                     <li class="logo-top-home active" style="padding-left:10px !important;padding-right:10px !important">
