@@ -1,4 +1,4 @@
-<div class="owl-carousel owl-theme" id="slide-image">
+<div class="" id="slide-image">
     <div id="main-product-image" class="item itemdelete lazy"
         data-original="{{ parse_image_url($product->image) }}"
         data-option="do">
@@ -24,7 +24,7 @@
         }
     ?>
     <?php foreach($productImages as $item): ?>
-        <div class="item itemdelete lazy"
+       {{--  <div class="item itemdelete lazy"
             data-original="{{ parse_image_url($item->image) }}"
             data-option="do">
             <a href="{{ parse_image_url($item->image) }}"
@@ -39,14 +39,14 @@
                     rel="lightbox-do" >
                 </p>
             </a>
-        </div>
+        </div> --}}
     <?php endforeach; ?>
 </div>
 
 <div class="thumbnails-hidden" style="overflow: hidden;">
     <div class="product-thumbs-slider" data-count_items="{{ $productImages->count() }}">
-        @foreach($productImages as $item)
-        <a rel="gallery-1" class="swipebox thumbnail thumdelete" href="{{ parse_image_url($item->image) }}">
+        @foreach($productImages as $k => $item)
+        <a rel="gallery-1" class="thumb-item-image swipebox thumbnail thumdelete {{ $k == $productImages->count()-1 ? 'last' : '' }}" href="{{ parse_image_url($item->image) }}">
             <img src="{{ parse_image_url('sm_'.$item->image) }}">
         </a>
         @endforeach

@@ -6,7 +6,7 @@ $domains = [
     'shop.9119.vn'     => 'shop.9119.vn'
 ];
 
-$_domain = $_SERVER['HTTP_HOST'];
+$_domain = @$_SERVER['HTTP_HOST'];
 
 if(array_key_exists($_domain, $domains)) {
     // Shop

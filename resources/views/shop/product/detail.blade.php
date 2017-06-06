@@ -72,19 +72,19 @@
 }(document, 'script', 'facebook-jssdk'));</script>
 
 <script type="text/javascript">
-    $("#slide-image").owlCarousel({
-        margin:10,
-        autoplay: false,
-        nav:true,
-        navText: ["", ""],
-        dots: false,
-        items: 1,
-        animateOut: 'fadeOut',
-        animateIn: 'fadeIn',
-    });
+    // $("#slide-image").owlCarousel({
+    //     margin:10,
+    //     autoplay: false,
+    //     nav:true,
+    //     navText: ["", ""],
+    //     dots: false,
+    //     items: 1,
+    //     animateOut: 'fadeOut',
+    //     animateIn: 'fadeIn',
+    // });
 
     $(function() {
-        $( '.swipebox' ).swipebox();
+        // $( '.swipebox' ).swipebox();
 
         $('.plus-qty').on('click', function() {
             var qty = parseInt($('#quantity-custom').val());
@@ -152,7 +152,7 @@
         // Thumbs slider
         $('.product-thumbs-slider').each(function(index, el) {
             var $this = $(el);
-            if($this.data('count_items') > 10) {
+            if($this.data('count_items') > 6) {
                 $this.addClass('owl-carousel owl-theme');
                 var slider = $this.owlCarousel({
                     margin:10,
@@ -160,7 +160,7 @@
                     nav:true,
                     navText: ["", ""],
                     dots: false,
-                    items: 10,
+                    items: 6,
                     animateOut: 'fadeOut',
                     animateIn: 'fadeIn',
                 });
@@ -175,6 +175,12 @@
             } else {
                 $this.parent().find('.slider-controls').addClass('hide');
             }
+        });
+
+        $(".thumb-item-image").on('click', function(e) {
+            e.preventDefault();
+            var $this = $(this);
+            $('.image-product-carousel').attr('src', $this.find('img').attr('src').replace('sm_', 'lg_'));
         });
     });
 

@@ -47,9 +47,18 @@ class ProductController extends Controller
         $product->introduce = clean($request->get('introduce'), 'youtube');
 
         if($request->hasFile('image')) {
-            $resultUpload = $this->imageUploader->upload('image');
+            $imageUploader = App::make('ImageUploader');
+            $resultUpload = $imageUploader->upload('image');
             if($resultUpload['status'] > 0) {
                 $product->image = $resultUpload['filename'];
+            }
+        }
+
+        if($request->hasFile('back_image')) {
+            $imageUploader = App::make('ImageUploader');
+            $resultUpload = $imageUploader->upload('back_image');
+            if($resultUpload['status'] > 0) {
+                $product->back_image = $resultUpload['filename'];
             }
         }
 
@@ -61,7 +70,8 @@ class ProductController extends Controller
         $product->categories()->sync($productGroupIds);
 
         if($request->hasFile('images')) {
-            $resultUpload = $this->imageUploader->uploadMulti('images');
+            $imageUploader = App::make('ImageUploader');
+            $resultUpload = $imageUploader->uploadMulti('images');
             foreach($resultUpload['filename'] as $filename) {
                 $productImage = new ProductImage();
                 $productImage->product_id = $product->id;
@@ -267,6 +277,13 @@ class ProductController extends Controller
             $resultUpload = $this->imageUploader->upload('image');
             if($resultUpload['status'] > 0) {
                 $product->image = $resultUpload['filename'];
+            }
+        }
+
+        if($request->hasFile('back_image')) {
+            $resultUpload = $this->imageUploader->upload('back_image');
+            if($resultUpload['status'] > 0) {
+                $product->back_image = $resultUpload['filename'];
             }
         }
 
