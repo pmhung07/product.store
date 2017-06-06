@@ -56,8 +56,7 @@
                 	<div class="col-lg-12">
                         <input type="hidden" name="_token" value="{!! csrf_token() !!}">
 
-                        @if(!$product->hasChild())
-                        <div class="form-group"><label class="col-sm-3 control-label">Ảnh sản phẩm</label>
+                        <div class="form-group"><label class="col-sm-3 control-label">Ảnh minh họa</label>
                             <div class="col-sm-9">
 
                                 <span style="position: relative; display: inline-block; margin: 0 5px 0 0">
@@ -74,7 +73,6 @@
 
                             </div>
                         </div>
-                        @endif
 
                         @if(!$product->hasChild())
                             <div class="form-group"><label class="col-sm-3 control-label">Ảnh mô tả sản phẩm</label>
