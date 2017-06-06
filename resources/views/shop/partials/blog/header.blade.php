@@ -80,7 +80,7 @@
                                 <ul class="menu-top clearfix hidden-xs">
                                     <li class="logo-top hidden">
                                         <div class="logo2">
-                                            <a href="/" title="Logo" class="logo"><img alt="Logo" src="{{ parse_image_url('sm_'.$GLB_Setting->logo) }}" /></a>
+                                            <a href="/" title="Logo" class="logo"><img alt="Logo" src="{{ parse_image_url('sm_'.$GLB_Setting->logo) }}" style="width: 118px; max-height: 86px;" /></a>
                                         </div>
                                     </li>
                                     <li class="logo-top-home active" style="padding-left:10px !important;padding-right:10px !important">
