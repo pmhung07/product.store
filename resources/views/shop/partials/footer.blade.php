@@ -108,7 +108,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="container-fluid fooMenu" style="background:#f4f4f4">
+                <div class="container-fluid fooMenu hide" style="background:#f4f4f4">
                     <div class="">
                         <div class="top">
                             <div class="container">

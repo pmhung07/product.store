@@ -1509,6 +1509,7 @@ a.active .coll-icon.cua-hang:before,a:hover .coll-icon.cua-hang:before {
 .product-item .product-wrapper.image1x .product-image {
 	position: relative;
 	text-align: center;
+	position: relative;
 	// padding: 10px
 }
 .product-image:hover {
@@ -1516,7 +1517,8 @@ a.active .coll-icon.cua-hang:before,a:hover .coll-icon.cua-hang:before {
 }
 .product-image {
 	opacity: 1;
-	transition: all 0.5s
+	transition: all 0.5s;
+	position: relative;
 }
 .product-item .product-wrapper.image1xx .product-image {
 	position: relative;
@@ -1526,16 +1528,21 @@ a.active .coll-icon.cua-hang:before,a:hover .coll-icon.cua-hang:before {
 }
 .product-item .product-wrapper.image1x .product-image img {
 	// padding-top: 50px;
-	background: #f7f7f7
+	background: #f7f7f7;
+}
+.product-wrapper .product-information .product-image .image-default {
+	position: absolute;
 }
 .product-wrapper .product-information .product-image .image-hover {
-	display: none
+	opacity: 0;
+	transition: all 1s;
 }
 .product-wrapper .product-information:hover .product-image .image-default {
-	display: none!important
+	opacity: 1;
+	transition: all 1s;
 }
 .product-wrapper .product-information:hover .product-image .image-hover {
-	display: block!important
+	opacity: 1;
 }
 .onlyonline,.runfast {
 	font-size: 11px;

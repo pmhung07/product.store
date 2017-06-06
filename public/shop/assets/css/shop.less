@@ -198,13 +198,18 @@ body {
 
 #product.product-detail-container {
     .thumbnail {
-        height: 50px;
-        width: 50px;
+        height: 67px;
+        width: 90px;
         display: block;
         overflow: hidden;
         float: left;
         padding: 0;
-        margin: 5px 5px 5px 0;
+        margin: 5px 10px 5px 0;
+        object-fit: cover;
+        object-position: center center;
+        &.last {
+            margin-right: 0;
+        }
         img {
             margin-top: 0;
             width: 100%;
@@ -556,5 +561,15 @@ body {
         width: 100%;
         object-fit: cover;
         object-position: center center;
+    }
+}
+
+.center-product {
+    .product-image {
+        &:hover {
+            .image-hover {
+                // display: block;
+            }
+        }
     }
 }

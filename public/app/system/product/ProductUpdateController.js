@@ -65,10 +65,15 @@ app.ProductUpdateController = function(params) {
 
         // Get file data when i click choose file from computer
         var _image,
+            _back_image,
             _images = [];
 
         $('[name="image"]').change(function() {
             _image = this.files[0];
+        });
+
+        $('[name="back_image"]').change(function() {
+            _back_image = this.files[0];
         });
 
         $('[name="images[]"]').change(function() {
@@ -99,6 +104,7 @@ app.ProductUpdateController = function(params) {
             }
 
             if(_image) formData.append('image', _image);
+            if(_back_image) formData.append('back_image', _back_image);
             if(_images) {
                 for( var i in _images ) {
                     formData.append('images[]', _images[i]);
@@ -227,6 +233,21 @@ app.ProductUpdateController = function(params) {
                         $this.parent().remove();
                     }
                 });
+            }
+        });
+
+
+        // Preview image when you choice
+        $('.input-file-hidden').on('change', function() {
+            var $this = $(this);
+            if (this.files && this.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $this.prev().attr('src', e.target.result);
+                }
+
+                reader.readAsDataURL(this.files[0]);
             }
         });
 
