@@ -24,6 +24,17 @@
             <div id="descriptionblog" class="description descriptionblog">
                 {!! $post->getContent() !!}
             </div>
+
+            <div class="sec-tags" style="margin: 10px 0 0 0; padding: 10px 0; border-top: 1px dashed #ccc;">
+                <span>Tags: </span>
+                <?php
+                    $tagArray = explode(',', $post->tags);
+                ?>
+                @foreach($tagArray as $tag)
+                    <span href="" class="label label-info" style="margin: 0 2px 0 0">{{ $tag }}</span>
+                @endforeach
+            </div>
+
             <div class="" id="orther-article">
                 <div class="blog-category-items">
                     <h3 class="category-title article-title">

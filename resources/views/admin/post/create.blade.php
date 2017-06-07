@@ -49,6 +49,13 @@
         	                    </select>
                             </div>
                         </div>
+
+                        <div class="form-group"><label class="col-sm-3 control-label">Tags</label>
+                            <div class="col-sm-9">
+                                <input name="tags" type="text" class="form-control tags">
+                            </div>
+                        </div>
+
         	            <div class="form-group"><label class="col-sm-3 control-label">Meta Title</label>
                             <div class="col-sm-9"><input name="meta_title" type="text" class="form-control"></div>
                         </div>
@@ -80,6 +87,12 @@
 <!-- Page-Level Scripts -->
 <script>
 $(document).ready(function() {
+
+    $('.tags').tagsInput({
+        height:'140px',
+        width: '100%',
+        defaultText: 'Thêm tag'
+    });
 
     $('.footable').footable();
 

@@ -56,6 +56,13 @@
                                 </select>
                             </div>
                         </div>
+
+                        <div class="form-group"><label class="col-sm-3 control-label">Tags</label>
+                            <div class="col-sm-9">
+                                <input name="tags" type="text" class="form-control tags">
+                            </div>
+                        </div>
+
                         <div class="form-group"><label class="col-sm-3 control-label">Meta Title</label>
                             <div class="col-sm-9"><input name="meta_title" type="text" class="form-control" value="{!! old('meta_title',isset($data) ? $data['meta_title'] : '') !!}"></div>
                         </div>
@@ -96,6 +103,14 @@
 $(document).ready(function() {
 
     $('.footable').footable();
+
+    $('.tags').tagsInput({
+        height:'140px',
+        width: '100%',
+        defaultText: 'Thêm tag'
+    });
+
+    $('.tags').importTags('{{ $data->tags }}');
 
     $('#date_added').datepicker({
         todayBtn: "linked",
