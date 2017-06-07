@@ -18,7 +18,7 @@ class ShopBlogController extends Controller {
         view()->share('GLB_Categories', $this->categories);
 
         // Menu blog
-        view()->share('GLB_PostCategories', ShopPostCategories::all());
+        view()->share('GLB_PostCategories', ShopPostCategories::orderBy('sort', 'DESC')->get());
 
         // Menu
         $this->menus = Navigation::orderBy('sort', 'DESC')->where('active', 1)->get();

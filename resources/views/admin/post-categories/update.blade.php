@@ -9,7 +9,7 @@
 
     </div>
 </div>
-@stop            
+@stop
 
 @section('content')
 <div class="row">
@@ -39,7 +39,7 @@
                         </div>
                     </div>
                 @endif
-                
+
 
                 <div class="ibox-content">
                     <form action="" method="POST" class="form-horizontal">
@@ -52,10 +52,15 @@
                         <div class="form-group"><label class="col-sm-2 control-label">Danh mục cha</label>
                             <div class="col-sm-10">
         	                    <select class="form-control m-b" name="post_categories_id">
-        	                    	<option value="0" selected="">-- Chọn danh mục --</option>	   
+        	                    	<option value="0" selected="">-- Chọn danh mục --</option>
                                     <?php cat_parent($parent,0,"--",$data['parent_id']); ?>
-                                        
+
         	                    </select>
+                            </div>
+                        </div>
+                        <div class="form-group"><label class="col-sm-2 control-label">Độ ưu tiên</label>
+                            <div class="col-sm-10">
+                                <input required name="sort" type="text" class="form-control" value="{!! old('sort',isset($data) ? $data['sort'] : '') !!}">
                             </div>
                         </div>
                         <div class="form-group">
