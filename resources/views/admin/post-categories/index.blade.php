@@ -56,6 +56,7 @@
                             <tr>
                                 <th width="10">#</th>
                                 <th class="footable-visible footable-first-column footable-sortable">Tên nhóm<span class="footable-sort-indicator"></span></th>
+                                <th>Độ ưu tiên</th>
                                 <th width="150" class="text-right">Chức năng</th>
                             </tr>
                             </thead>

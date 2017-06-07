@@ -10,7 +10,7 @@ use App\ShopPostCategories;
 class ShopPostCategoriesController extends Controller {
 
     public function getIndex(Request $request){
-        $sort='id';
+        $sort='sort';
         $order='desc';
         $rows = new ShopPostCategories();
 
@@ -36,7 +36,7 @@ class ShopPostCategoriesController extends Controller {
 
     public function getUpdate($id){
         $data = ShopPostCategories::find($id)->toArray();
-        $parent = ShopPostCategories::select('id','name','parent_id')->get()->toArray();
+        $parent = ShopPostCategories::get()->toArray();
         return view('admin.post-categories.update',compact('parent','data'));
     }
 
@@ -48,6 +48,7 @@ class ShopPostCategoriesController extends Controller {
         $post_categories = ShopPostCategories::find($id);
         $post_categories->parent_id = $request->post_categories_id;
         $post_categories->name = $request->post_categories_name;
+        $post_categories->sort = (int) $request->get('sort');
         $post_categories->save();
         return redirect()->route('admin.post-categories.index')->with(['flash_message' => 'Cập nhật nhóm tin thành công!']);
     }
@@ -57,7 +58,7 @@ class ShopPostCategoriesController extends Controller {
         if($countParent == 0){
             $data = ShopPostCategories::find($id);
             $data->delete($id);
-            return redirect()->route('admin.post-categories.index')->with(['flash_message' => 'Xoá nhóm tin thành công!']);    
+            return redirect()->route('admin.post-categories.index')->with(['flash_message' => 'Xoá nhóm tin thành công!']);
         }else{
             echo "<script>
                     alert('Bạn không thể xoá dữ liệu này! Hiện tại có danh mục cấp thấp hơn còn tồn tại.');
