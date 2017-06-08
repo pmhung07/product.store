@@ -31,7 +31,7 @@
                     $tagArray = explode(',', $post->tags);
                 ?>
                 @foreach($tagArray as $tag)
-                    <span href="" class="label label-info" style="margin: 0 2px 0 0">{{ $tag }}</span>
+                    <span class="label label-info" style="margin: 0 2px 0 0">{{ $tag }}</span>
                 @endforeach
             </div>
 
