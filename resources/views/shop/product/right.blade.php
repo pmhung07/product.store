@@ -1,12 +1,9 @@
-<div class="thongtingia clearfix">
-    <div class="changeLabel">
-        <div class="hot-tags redTag">Sản phẩm giá tốt</div>
-    </div>
-
-</div>
 <div class="thongtingia">
     <h1>{{ $product->getName() }}</h1>
     <h4>Mã SP : <span class="maspd">{{ $product->getSku() }}</span></h4>
+
+    <div class="fb-like" data-href="{{ route('shop.product.detail', [$product->id, $product->getSlug()]) }}" data-layout="button_count" data-action="like" data-size="small" data-show-faces="false" data-share="true"></div>
+
     <!-- Variant -->
     <div class="sec-properties">
         @foreach($properties as $property)
@@ -26,7 +23,7 @@
         @endforeach
     </div>
     <div class="price">
-        <label class="variant-price red">{{ formatCurrency($product->getPrice()) }}<sup>đ</sup></label>
+        <label class="variant-price red">{{ formatCurrency($product->getPrice()) }} VNĐ</label>
     </div>
 </div>
 
@@ -53,11 +50,6 @@
         </div>
     </div>
 
-    <!-- Go to www.addthis.com/dashboard to customize your tools -->
-    <div class="share-buttons" style="margin-top: 20px;">
-        <h6>Chia sẻ với bạn bè</h6>
-        <div class="addthis_inline_share_toolbox_vvrr"></div>
-    </div>
 </form>
 
 <script type="text/javascript">
@@ -67,7 +59,7 @@
 
         get_variant();
 
-        $('.action-add-to-cart').on('click', function() {
+        $(document).on('click', '.action-add-to-cart', function() {
             var url = _urlAddToCart;
             window.location.href = url;
             return false;
@@ -102,7 +94,7 @@
                     if(response.code == 200) {
                         var variant = response.variant;
                         $('.maspd').text(variant.sku);
-                        $('.variant-price').text(variant.price);
+                        $('.variant-price').text(variant.price_str);
                         $('#main-product-image').attr('data-original', variant.image.large);
                         $('#main-product-image > a').attr('href', variant.image.large);
                         $('#main-product-image > a').attr('data-image', variant.image.large);

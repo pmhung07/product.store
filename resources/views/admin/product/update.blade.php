@@ -13,6 +13,16 @@
 
 @section('content')
 
+<style type="text/css">
+    .input-file-hidden {
+        position: absolute;
+        width: 100%;
+        height: 50px;
+        top: 0;
+        left: 0;
+        opacity: 0;
+    }
+</style>
 <div class="row">
     <div class="col-lg-12">
 
@@ -46,16 +56,23 @@
                 	<div class="col-lg-12">
                         <input type="hidden" name="_token" value="{!! csrf_token() !!}">
 
-                        @if(!$product->hasChild())
-                        <div class="form-group"><label class="col-sm-3 control-label">Ảnh sản phẩm</label>
+                        <div class="form-group"><label class="col-sm-3 control-label">Ảnh minh họa</label>
                             <div class="col-sm-9">
-                                @if($data['image'])
-                                    <img src="{{ parse_image_url('sm_'.$data['image']) }}" height="90" style="margin-bottom: 10px;">
-                                @endif
-                                <input name="image" type="file" class="form-control">
+
+                                <span style="position: relative; display: inline-block; margin: 0 5px 0 0">
+                                    <img class="img-thumbnail" src="{{ parse_image_url('sm_'.$data['image']) }}" height="90" style="margin-bottom: 10px; height: 50px; display: block;">
+                                    <input name="image" type="file" class="form-control input-file-hidden">
+                                    <span class="help-inline text-info" style="font-size: 10px;">Mặt trước</span>
+                                </span>
+
+                                <span style="position: relative; display: inline-block; margin: 0 5px 0 0">
+                                    <img class="img-thumbnail" src="{{ parse_image_url('sm_'.$data['back_image']) }}" height="90" style="margin-bottom: 10px; height: 50px; display: block;">
+                                    <input name="back_image" type="file" class="form-control input-file-hidden">
+                                    <span class="help-inline text-info" style="font-size: 10px;">Mặt sau</span>
+                                </span>
+
                             </div>
                         </div>
-                        @endif
 
                         @if(!$product->hasChild())
                             <div class="form-group"><label class="col-sm-3 control-label">Ảnh mô tả sản phẩm</label>
@@ -136,17 +153,17 @@
                         </div>
                         <div class="form-group"><label class="col-sm-3 control-label">Thông số kỹ thuật</label>
                             <div class="col-sm-9">
-                                <textarea name="spec" class="form-control summernote">{{ $data['spec'] }}</textarea>
+                                <textarea name="spec" class="form-control tiny-editor">{{ $data['spec'] }}</textarea>
                             </div>
                         </div>
                         <div class="form-group"><label class="col-sm-3 control-label">Mô tả sản phẩm</label>
                             <div class="col-sm-9">
-                                <textarea name="content" class="form-control summernote">{{ $data['content'] }}</textarea>
+                                <textarea name="content" class="form-control tiny-editor">{{ $data['content'] }}</textarea>
                             </div>
                         </div>
                         <div class="form-group"><label class="col-sm-3 control-label">Hướng dẫn sử dụng</label>
                             <div class="col-sm-9">
-                                <textarea name="introduce" class="form-control summernote">{{ $data['introduce'] }}</textarea>
+                                <textarea name="introduce" class="form-control tiny-editor">{{ $data['introduce'] }}</textarea>
                             </div>
                         </div>
                     </div>
@@ -293,7 +310,7 @@
                                     </script>
                                 </div>
                                 <div class="col-sm-1">
-                                    <button class="btn btn-xs btn-danger btn-delete-attribute"><i class="fa fa-trash"></i></button>
+                                    <button class="btn btn-xs btn-danger btn-delete-attribute" data-id="{{ $property->id }}"><i class="fa fa-trash"></i></button>
                                 </div>
                             </section>
                         @endforeach

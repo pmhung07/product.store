@@ -26,14 +26,14 @@ class AppServiceProvider extends ServiceProvider
         /**
          * Upload file
          */
-        $this->app->singleton('Uploader', function() {
+        $this->app->bind('Uploader', function() {
             return new \Nht\Hocs\Core\Uploads\Uploader(new \Nht\Hocs\Core\Uploads\Upload());
         });
 
         /**
          * Upload ảnh, có resize, crop
          */
-        $this->app->singleton('ImageUploader', function() {
+        $this->app->bind('ImageUploader', function() {
             $uploader = $this->app->make('Uploader');
             $image = new \Nht\Hocs\Core\Images\Image();
             return new \Nht\Hocs\Core\Images\ImageFactory($uploader, $image);

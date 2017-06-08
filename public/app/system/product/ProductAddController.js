@@ -63,10 +63,15 @@ app.ProductAddController = function() {
 
         // Get file data when i click choose file from computer
         var _image,
+            _back_image,
             _images = [];
 
         $('[name="image"]').change(function() {
             _image = this.files[0];
+        });
+
+        $('[name="back_image"]').change(function() {
+            _back_image = this.files[0];
         });
 
         $('[name="images[]"]').change(function() {
@@ -97,6 +102,7 @@ app.ProductAddController = function() {
             }
 
             if(_image) formData.append('image', _image);
+            if(_back_image) formData.append('back_image', _back_image);
             if(_images) {
                 for( var i in _images ) {
                     formData.append('images[]', _images[i]);

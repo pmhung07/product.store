@@ -166,7 +166,7 @@ body {
     margin-bottom: 20px;
 }
 .breadcrumb {
-    margin-top: 30px;
+    margin-top: 5px;
 }
 
 #cartform {
@@ -198,13 +198,18 @@ body {
 
 #product.product-detail-container {
     .thumbnail {
-        height: 50px;
-        width: 50px;
+        height: 67px;
+        width: 90px;
         display: block;
         overflow: hidden;
         float: left;
         padding: 0;
-        margin: 5px 5px 5px 0;
+        margin: 5px 10px 5px 0;
+        object-fit: cover;
+        object-position: center center;
+        &.last {
+            margin-right: 0;
+        }
         img {
             margin-top: 0;
             width: 100%;
@@ -229,11 +234,12 @@ body {
         &.policy-fixed {
             @media only screen and (min-width: 1220px) {
                 position: fixed;
-                right: 75px;
-                // z-index: -1;
+                // right: 75px;
+                z-index: 100;
                 background: #fff;
-                width: 290px;
-                top: 10px;
+                width: 234px;
+                top: 0px;
+                transition: all 1s;
             }
         }
     }
@@ -282,11 +288,43 @@ body {
     .tab-content {
         .tab-pane {
             padding-top: 10px;
+            img {
+                max-width: 100%;
+            }
         }
     }
     #descriptionproduct {
         img {
             max-width: 100%;
+        }
+    }
+    .thumbnails-hidden {
+        position: relative;
+        .slider-controls {
+            .left,.right {
+                position: absolute;
+                z-index: 100;
+                top: 0;
+                font-size: 40px;
+                color: #c0c0c0;
+                cursor: pointer;
+            }
+            .left {
+                left: 0;
+            }
+            .right {
+                right: 0;
+            }
+        }
+    }
+    .col-sys-left-wrapper {
+        @media only screen and(min-width: 1200px) {
+            width: 80%;
+        }
+    }
+    .store-wrapper {
+        @media only screen and(min-width: 1200px) {
+            width: 20%;
         }
     }
 }
@@ -523,5 +561,15 @@ body {
         width: 100%;
         object-fit: cover;
         object-position: center center;
+    }
+}
+
+.center-product {
+    .product-image {
+        &:hover {
+            .image-hover {
+                // display: block;
+            }
+        }
     }
 }

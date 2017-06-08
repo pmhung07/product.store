@@ -1,61 +1,71 @@
 <?php
 
-// Shop
-Route::group(['domain' => 'shop.'.env('APP_DOMAIN'), 'namespace' => 'Shop'], function () {
-    Route::get('/', 'HomeController@getIndex');
+$domains = [
+    'vatphammayman.vn' => 'vatphammayman.vn',
+    'shop.9119.dev'    => 'shop.9119.dev',
+    'shop.9119.vn'     => 'shop.9119.vn'
+];
 
-    // Danh mục sản phẩm
-    Route::get('/category/{id}-{slug}', ['as' => 'shop.category.products', 'uses' => 'CategoryController@getProducts']);
+$_domain = @$_SERVER['HTTP_HOST'];
 
-    // Chi tiết sản phẩm
-    Route::get('product/{id}-{slug}', ['as' => 'shop.product.detail', 'uses' => 'ProductController@getDetail']);
-    // Lấy cửa hàng theo thành phố
-    Route::get('/ajax/product/html-stock-item', ['as' => 'shop.product.detail.ajax.get_html_stock', 'uses' => 'ProductController@ajaxHtmlStockItem']);
+if(array_key_exists($_domain, $domains)) {
+    // Shop
+    Route::group(['domain' => $domains[$_domain], 'namespace' => 'Shop'], function () {
+        Route::get('/', 'HomeController@getIndex');
 
-    // Trang tĩnh
-    Route::get('page/{id}-{slug}', ['as' => 'shop.page.detail', 'uses' => 'PageController@getDetail']);
+        // Danh mục sản phẩm
+        Route::get('/category/{id}-{slug}', ['as' => 'shop.category.products', 'uses' => 'CategoryController@getProducts']);
 
-    // Hệ thống cửa hàng
-    Route::get('store.html', ['as' => 'shop.store.index', 'uses' => 'StoreController@getIndex']);
-    Route::get('store/{id}', ['as' => 'shop.store.detail', 'uses' => 'StoreController@getDetail']);
+        // Chi tiết sản phẩm
+        Route::get('product/{id}-{slug}', ['as' => 'shop.product.detail', 'uses' => 'ProductController@getDetail']);
+        // Lấy cửa hàng theo thành phố
+        Route::get('/ajax/product/html-stock-item', ['as' => 'shop.product.detail.ajax.get_html_stock', 'uses' => 'ProductController@ajaxHtmlStockItem']);
 
-    // Tìm kiếm
-    Route::get('search', ['as' => 'shop.search', 'uses' => 'SearchController@getIndex']);
+        // Trang tĩnh
+        Route::get('page/{id}-{slug}', ['as' => 'shop.page.detail', 'uses' => 'PageController@getDetail']);
 
-    // Tin tức
-    Route::get('/tin-tuc', ['as' => 'shop.post.index', 'uses' => 'PostController@getIndex']);
+        // Hệ thống cửa hàng
+        Route::get('store.html', ['as' => 'shop.store.index', 'uses' => 'StoreController@getIndex']);
+        Route::get('store/{id}', ['as' => 'shop.store.detail', 'uses' => 'StoreController@getDetail']);
 
-    // Tin tức chi tiết
-    Route::get('/tin-tuc/{id}-{slug}', ['as' => 'shop.post.detail', 'uses' => 'PostController@getDetail']);
+        // Tìm kiếm
+        Route::get('search', ['as' => 'shop.search', 'uses' => 'SearchController@getIndex']);
 
-    // Danh mục tin tức
-    Route::get('/danh-muc/tin-tuc/{id}-{slug}', ['as' => 'shop.post_category.posts', 'uses' => 'PostCategoryController@getPosts']);
+        // Tin tức
+        Route::get('/tin-tuc', ['as' => 'shop.post.index', 'uses' => 'PostController@getIndex']);
 
-    // Giỏ hàng
-    Route::group(['prefix' => 'cart'], function() {
-        Route::get('/', ['as' => 'shop.cart.index', 'uses' => 'CartController@getIndex']);
-        Route::get('/add-to-cart', ['as' => 'shop.cart.add', 'uses' => 'CartController@addToCart']);
-        Route::get('/delete/{rowId}', ['as' => 'shop.cart.delete', 'uses' => 'CartController@delete']);
-        Route::post('/ajax/update-cart', ['as' => 'shop.cart.ajax.update', 'uses' => 'CartController@ajaxUpdate']);
-        Route::get('/clear', ['as' => 'shop.cart.clear', 'uses' => 'CartController@clear']);
+        // Tin tức chi tiết
+        Route::get('/tin-tuc/{id}-{slug}', ['as' => 'shop.post.detail', 'uses' => 'PostController@getDetail']);
+
+        // Danh mục tin tức
+        Route::get('/danh-muc/tin-tuc/{id}-{slug}', ['as' => 'shop.post_category.posts', 'uses' => 'PostCategoryController@getPosts']);
+
+        // Giỏ hàng
+        Route::group(['prefix' => 'cart'], function() {
+            Route::get('/', ['as' => 'shop.cart.index', 'uses' => 'CartController@getIndex']);
+            Route::get('/add-to-cart', ['as' => 'shop.cart.add', 'uses' => 'CartController@addToCart']);
+            Route::get('/delete/{rowId}', ['as' => 'shop.cart.delete', 'uses' => 'CartController@delete']);
+            Route::post('/ajax/update-cart', ['as' => 'shop.cart.ajax.update', 'uses' => 'CartController@ajaxUpdate']);
+            Route::get('/clear', ['as' => 'shop.cart.clear', 'uses' => 'CartController@clear']);
+        });
+
+        // Thanh toán
+        Route::get('/gui-don-hang', ['as' => 'shop.submitOrder', 'uses' => 'OrderController@getIndex']);
+        Route::post('/gui-don-hang', 'OrderController@postIndex');
+
+        // Gửi đơn hàng thành công, cảm ơn
+        Route::get('/thank.html', 'OrderController@getThank');
+
+        // Ajax
+        Route::group(['prefix' => 'ajax', 'namespace' => 'Ajax'], function() {
+            Route::get('/product/quick-view', 'ProductController@getQuickView');
+            Route::get('/product/get-variant', 'ProductController@getVariant');
+
+            // Kiểm tra mã coupon
+            Route::post('/check-coupon/{code}', 'CouponController@check');
+
+            // Html cart trang order
+            Route::get('/html-cart-in-order-page', 'CartController@getHtmlCartInOrderPage');
+        });
     });
-
-    // Thanh toán
-    Route::get('/gui-don-hang', ['as' => 'shop.submitOrder', 'uses' => 'OrderController@getIndex']);
-    Route::post('/gui-don-hang', 'OrderController@postIndex');
-
-    // Gửi đơn hàng thành công, cảm ơn
-    Route::get('/thank.html', 'OrderController@getThank');
-
-    // Ajax
-    Route::group(['prefix' => 'ajax', 'namespace' => 'Ajax'], function() {
-        Route::get('/product/quick-view', 'ProductController@getQuickView');
-        Route::get('/product/get-variant', 'ProductController@getVariant');
-
-        // Kiểm tra mã coupon
-        Route::post('/check-coupon/{code}', 'CouponController@check');
-
-        // Html cart trang order
-        Route::get('/html-cart-in-order-page', 'CartController@getHtmlCartInOrderPage');
-    });
-});
+}

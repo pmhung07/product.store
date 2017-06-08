@@ -31,6 +31,7 @@ class ShopPostController extends Controller
     	$shoppost->meta_title = $request->meta_title;
         $shoppost->meta_keyword = $request->meta_keyword;
         $shoppost->meta_description = $request->meta_description;
+        $shoppost->tags = clean($request->get('tags'));
 
         if($request->hasFile('image')) {
             $result = $this->imageUploader->upload('image');
@@ -87,6 +88,7 @@ class ShopPostController extends Controller
         $shoppost->meta_title = $request->meta_title;
         $shoppost->meta_keyword = $request->meta_keyword;
         $shoppost->meta_description = $request->meta_description;
+        $shoppost->tags = clean($request->get('tags'));
 
         if($request->hasFile('image')) {
             $result = $this->imageUploader->upload('image');

@@ -47,9 +47,18 @@ class ProductController extends Controller
         $product->introduce = clean($request->get('introduce'), 'youtube');
 
         if($request->hasFile('image')) {
-            $resultUpload = $this->imageUploader->upload('image');
+            $imageUploader = App::make('ImageUploader');
+            $resultUpload = $imageUploader->upload('image');
             if($resultUpload['status'] > 0) {
                 $product->image = $resultUpload['filename'];
+            }
+        }
+
+        if($request->hasFile('back_image')) {
+            $imageUploader = App::make('ImageUploader');
+            $resultUpload = $imageUploader->upload('back_image');
+            if($resultUpload['status'] > 0) {
+                $product->back_image = $resultUpload['filename'];
             }
         }
 
@@ -61,7 +70,8 @@ class ProductController extends Controller
         $product->categories()->sync($productGroupIds);
 
         if($request->hasFile('images')) {
-            $resultUpload = $this->imageUploader->uploadMulti('images');
+            $imageUploader = App::make('ImageUploader');
+            $resultUpload = $imageUploader->uploadMulti('images');
             foreach($resultUpload['filename'] as $filename) {
                 $productImage = new ProductImage();
                 $productImage->product_id = $product->id;
@@ -270,6 +280,13 @@ class ProductController extends Controller
             }
         }
 
+        if($request->hasFile('back_image')) {
+            $resultUpload = $this->imageUploader->upload('back_image');
+            if($resultUpload['status'] > 0) {
+                $product->back_image = $resultUpload['filename'];
+            }
+        }
+
     	$product->save();
 
         if($request->hasFile('images')) {
@@ -376,6 +393,7 @@ class ProductController extends Controller
 
         $properties = (array) $request->get('option');
         $values = (array) $request->get('value');
+        $arrayAllValueIds = array();
 
         // Tạo option và value
         foreach($properties as $key => $property) {
@@ -479,7 +497,20 @@ class ProductController extends Controller
     public function getDeleteOption($id)
     {
         $option = Properties::findOrFail($id);
+
+        $values = $option->values()->get();
+        $valueIdsArray = array();
+        foreach($values as $value) {
+            $variantValues = VariantValue::where('values_str', 'LIKE', '%'. $value->id .'%')->get();
+            foreach($variantValues as $item) {
+                Product::where('id', $item->variant_id)->delete();
+            }
+        }
+
+        // Xóa hết giá trị của nó
         $option->values()->delete();
+
+        // Xóa chính nó
         if($option->delete()) {
             return response()->json(['id' => $id, 'code' => 1, 'type' => 'success', 'message' => 'Xóa thành công']);
         }
