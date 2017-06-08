@@ -45,7 +45,7 @@
                     <div class="row">
                         <div class="col-lg-header-15 col-md-2 col-sm-10">
                             <div class="logo">
-                                <a href="/" title="JUNO" class="logo"><img alt="JUNO" src="{{ parse_image_url('sm_'.$GLB_Setting->logo) }}" onerror="this.src='/img/default_picture.png'" style="height: 30px;" /></a>
+                                <a href="/" title="Logo" class="logo"><img alt="Logo" src="{{ parse_image_url('sm_'.$GLB_Setting->logo) }}" onerror="this.src='/img/default_picture.png'" style="height: 30px;" /></a>
                             </div>
                         </div>
                         <div class="col-lg-header-35 col-sm-5 col-md-8">
@@ -76,11 +76,11 @@
                 <div class="container-fluid menutopid" style="background:#242424">
                     <div class="container" style="position:relative">
                         <div class="row">
-                            <div class="col-lg-10 col-md-10">
+                            <div class="col-lg-12 col-md-12">
                                 <ul class="menu-top clearfix hidden-xs">
                                     <li class="logo-top hidden">
                                         <div class="logo2">
-                                            <a href="/" title="JUNO" class="logo"><img alt="JUNO" src="/shop/assets/hstatic.net/969/1000003969/1000161857/logo.png%3Fv=8910" /></a>
+                                            <a href="/" title="Logo" class="logo"><img alt="Logo" src="{{ parse_image_url('sm_'.$GLB_Setting->logo) }}" style="width: 118px; max-height: 86px;" /></a>
                                         </div>
                                     </li>
                                     <li class="logo-top-home active" style="padding-left:10px !important;padding-right:10px !important">
@@ -104,7 +104,13 @@
                                                     <ul class="dropdown-menu drop-menu" style="left: 0%; width: 500px; border-radius: 0px 0px 5px 5px; display: none; height: 221px; padding-top: 15px; margin-top: 0px; padding-bottom: 15px; margin-bottom: 0px;">
                                                         <?php
                                                             if($item->type == App\Models\Navigation::TYPE_PRODUCT_GROUP) {
-                                                                $newestProduct = App\Product::where('product_group_id', $item->getObjectId())->orderBy('created_at', 'DESC')->first();
+                                                                // Tìm sản phẩm mới nhất của danh mục này
+                                                                $newestProduct = App\Product::join('products_groups', 'product.id', '=', 'products_groups.product_id')
+                                                                                         ->where('products_groups.group_id', '=', $item->getObjectId())
+                                                                                         ->groupBy('product.id')
+                                                                                         ->orderBy('product.updated_at', 'DESC')
+                                                                                         ->select('product.*')
+                                                                                         ->first();
                                                             } else {
                                                                 $newestProduct = null;
                                                             }
@@ -131,8 +137,19 @@
                                                                 </div>
                                                             </li>
                                                         @endif
+
+                                                        @if($newestProduct)
+                                                            @php
+                                                                $styleInline = "width:30%;float:left;";
+                                                            @endphp
+                                                        @else
+                                                            @php
+                                                                $styleInline = "width:100%;float:left;";
+                                                            @endphp
+                                                        @endif
+
                                                         @foreach($childs as $childItem)
-                                                            <li style="width:30%;float:left;"><a href="{{ $childItem->getUrl() }}"><i class="fa fa-caret-right" style="color:#666;padding-right:10px"></i> {{ $childItem->label }}</a></li>
+                                                            <li style="{{ $styleInline  }}"><a href="{{ $childItem->getUrl() }}"><i class="fa fa-caret-right" style="color:#666;padding-right:10px"></i> {{ $childItem->label }}</a></li>
                                                         @endforeach
                                                     </ul>
                                                 @endif

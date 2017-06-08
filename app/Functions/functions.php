@@ -201,11 +201,12 @@ function list_post_categories($data, $parent = 0, $str=""){
 			echo '
 			<tr class="footable-even" style="display: table-row;">
 			    <td class="hasinput"><span class="footable-toggle"></span>
-			      	#
+			      	'.$i.'
 			    </td>
 			    <td>
 			       '.$str.$name.'
 			    </td>
+			    <td>'.$val['sort'].'</td>
 			    <td class="text-right footable-visible footable-last-column">
                     <div class="btn-group">
                         <a href="'.URL::route('admin.post-categories.getUpdate',$id).'" class="btn-white btn btn-xs">

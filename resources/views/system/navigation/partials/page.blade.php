@@ -8,7 +8,7 @@
     {!! alertError('object_id') !!}
 </div>
 
-@section('scripts')
+@section('script')
 <script type="text/javascript">
     $(function() {
         $('#keyword').tokenInput('{{ route('system.navigation.ajax.searchPage') }}', {

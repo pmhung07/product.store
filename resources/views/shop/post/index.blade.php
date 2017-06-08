@@ -14,7 +14,9 @@
 
     {{-- Tin trong từng danh mục --}}
     @foreach($postCategories as $category)
-        @include('shop/post/partials/post-in-category')
+        @if($category->posts()->count())
+            @include('shop/post/partials/post-in-category')
+        @endif
     @endforeach
 </div>
 

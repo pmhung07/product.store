@@ -4,7 +4,11 @@
             <a class="newclick" href="{{ $product->getUrl() }}" title="{{ $product->getName() }}" style="display: block;">
                 <div class="product-image" style="position:relative;overflow:hidden;">
                     <img class="image-default image" src="{{ parse_image_url('md_'.$product->getImage()) }}" />
-                    <img class="image-hover image" src="{{ parse_image_url($product->getImage()) }}" alt="{{ $product->getName() }}" />
+                    @if($product->back_image)
+                        <img class="image-hover image" src="{{ parse_image_url($product->back_image) }}" alt="{{ $product->getName() }}" />
+                    @else
+                        <img class="image-hover image" src="{{ parse_image_url($product->image) }}" alt="{{ $product->getName() }}" />
+                    @endif
                 </div>
             </a>
 
@@ -27,13 +31,6 @@
                         <span>{{ formatCurrency($product->getPrice()) }}<sup>đ</sup></span>
                     </div>
                 </div>
-            </div>
-        </div>
-        <div class="wrapBtn col-md-10 buttoncart">
-            <div class="product-buy">
-                <a class="quick-view" data-title="{{ $product->getName() }}" href="javascript:;" data-id="{{ $product->getId() }}" data-sku="{{ $product->getSku() }}">
-                    <span>Mua Nhanh</span>
-                </a>
             </div>
         </div>
     </div>

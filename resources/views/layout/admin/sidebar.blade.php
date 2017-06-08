@@ -211,6 +211,7 @@
             <?php } ?>
 
             <?php if(   active_sidebar(0) == 1  ){ ?>
+
             <li class="{{ Request::is('system/online-store/*') || Request::is('system/store/*') ? 'active' : '' }}">
             <li class="{{ Request::is('system/online-store/post-categories/*') || Request::is('system/online-store/post/*') || Request::is('system/online-store/page/*') || Request::is('system/online-store/coupon/*') || Request::is('system/online-store/ga/*') || Request::is('system/online-store/banner*') || Request::is('system/online-store/navigation*') ? 'active' : '' }}">
                 <a href="javascript">

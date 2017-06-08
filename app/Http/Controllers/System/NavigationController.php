@@ -229,7 +229,7 @@ class NavigationController extends Controller
 
     public function ajaxSearchPage(Request $request)
     {
-        $items = $this->page->getPages(20, ['title' => $request->get('q')], [], false);
+        $items = ShopPage::where('title', 'LIKE', '%'.clean($request->get('q')).'%')->take(20)->get();
         $json = [];
         foreach($items as $item) {
             $json[] = [

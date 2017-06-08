@@ -66,31 +66,31 @@
 
 
 $(function() {
-    $('.summernote').summernote({
-        callbacks: {
-            onImageUpload: function(files) {
-                var data = new FormData();
-                data.append('file', files[0]);
-                data.append('_token', App.config.token);
+    // $('.summernote').summernote({
+    //     callbacks: {
+    //         onImageUpload: function(files) {
+    //             var data = new FormData();
+    //             data.append('file', files[0]);
+    //             data.append('_token', App.config.token);
 
-                var $editor = $(this);
+    //             var $editor = $(this);
 
-                $.ajax({
-                    url: "/ajax/upload-image",
-                    type: "POST",
-                    cache: false,
-                    contentType: false,
-                    processData: false,
-                    data: data,
-                    success: function(response) {
-                        if(response.code == 1) {
-                            $editor.summernote('insertImage', response.url);
-                        }
-                    }
-                });
-            }
-        }
-    });
+    //             $.ajax({
+    //                 url: "/ajax/upload-image",
+    //                 type: "POST",
+    //                 cache: false,
+    //                 contentType: false,
+    //                 processData: false,
+    //                 data: data,
+    //                 success: function(response) {
+    //                     if(response.code == 1) {
+    //                         $editor.summernote('insertImage', response.url);
+    //                     }
+    //                 }
+    //             });
+    //         }
+    //     }
+    // });
 
     $('.btn-delete-action').click(function() {
         return confirm("Bạn có chắc chắn muốn xóa bản ghi này?");
@@ -125,6 +125,11 @@ $(function() {
              }
           })
        });
+
+    $('img').on('error', function() {
+        var $this = $(this);
+        $this.attr('src', '/img/default_picture.png');
+    });
 });
 
 
@@ -133,7 +138,7 @@ tinymce.init({
     selector: ".tiny-editor",
     theme: "modern",
     width: '100%',
-    height: 450,
+    height: 300,
     // ===========================================
     // INCLUDE THE PLUGIN
     // ===========================================

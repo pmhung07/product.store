@@ -47,8 +47,20 @@
 
                         <input type="hidden" name="_token" value="{!! csrf_token() !!}">
 
-                        <div class="form-group"><label class="col-sm-3 control-label">Ảnh sản phẩm</label>
-                            <div class="col-sm-9"><input name="image" type="file" class="form-control"></div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">Ảnh sản phẩm</label>
+                            <div class="col-sm-9">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <input name="image" type="file" class="form-control">
+                                        <span class="help-inline text-info">Ảnh mặt trước</span>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <input name="back_image" type="file" class="form-control">
+                                        <span class="help-inline text-info">Ảnh mặt sau</span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
                         <div class="form-group"><label class="col-sm-3 control-label">Ảnh mô tả sản phẩm</label>
@@ -118,19 +130,19 @@
 
                         <div class="form-group"><label class="col-sm-3 control-label">Thông số kỹ thuật</label>
                             <div class="col-sm-9">
-                                <textarea name="spec" class="form-control summernote">{{ old('spec') }}</textarea>
+                                <textarea name="spec" class="form-control tiny-editor">{{ old('spec') }}</textarea>
                             </div>
                         </div>
 
                         <div class="form-group"><label class="col-sm-3 control-label">Mô tả sản phẩm</label>
                             <div class="col-sm-9">
-                                <textarea name="content" class="form-control summernote"></textarea>
+                                <textarea name="content" class="form-control tiny-editor"></textarea>
                             </div>
                         </div>
 
                         <div class="form-group"><label class="col-sm-3 control-label">Hướng dẫn sử dụng</label>
                             <div class="col-sm-9">
-                                <textarea name="introduce" class="form-control summernote"></textarea>
+                                <textarea name="introduce" class="form-control tiny-editor"></textarea>
                             </div>
                         </div>
 
@@ -159,6 +171,7 @@
                                             <textarea class="form-control attribute-value-input" name="value[]" placeholder="Giá trị thuộc tính cách nhau bằng dấu phẩy. Ví dụ: Xanh,Đỏ,Vàng"></textarea>
                                         </div>
                                     </section>
+                                    <div id="placement-new-attribute"></div>
                                     <button id="btn-add-new-attribute" class="btn btn-xs btn-danger">Tạo mới thuộc tính</button>
                                 </div>
                             </div>

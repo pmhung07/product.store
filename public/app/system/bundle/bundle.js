@@ -588,10 +588,15 @@ __WEBPACK_IMPORTED_MODULE_1__app___default.a.ProductAddController = function() {
 
         // Get file data when i click choose file from computer
         var _image,
+            _back_image,
             _images = [];
 
         $('[name="image"]').change(function() {
             _image = this.files[0];
+        });
+
+        $('[name="back_image"]').change(function() {
+            _back_image = this.files[0];
         });
 
         $('[name="images[]"]').change(function() {
@@ -622,6 +627,7 @@ __WEBPACK_IMPORTED_MODULE_1__app___default.a.ProductAddController = function() {
             }
 
             if(_image) formData.append('image', _image);
+            if(_back_image) formData.append('back_image', _back_image);
             if(_images) {
                 for( var i in _images ) {
                     formData.append('images[]', _images[i]);
@@ -721,6 +727,8 @@ __WEBPACK_IMPORTED_MODULE_1__app___default.a.ProductUpdateController = function(
                 placeHolder: "VD: Xanh,Đỏ,Vàng"
             });
 
+            $('#placement-new-attribute').find('.btn-delete-attribute').attr('data-id', 0);
+
             if($('.attribute-row').length == 3) {
                 $(this).addClass('hide');
             }
@@ -729,7 +737,17 @@ __WEBPACK_IMPORTED_MODULE_1__app___default.a.ProductUpdateController = function(
         // Delete variant
         $(document).on('click', '.btn-delete-attribute', function(e) {
             e.preventDefault();
-            $(this).parents('.attribute-row').remove();
+            var $this = $(this);
+            $this.parents('.attribute-row').remove();
+
+            $.ajax({
+                url: "/system/product/option/"+$this.data('id')+"/delete",
+                type: 'GET',
+                dataType: "json",
+                success: function(response) {
+                    console.log(response);
+                }
+            });
 
             // Nếu xóa hết, cập nhật lại trạng thái _fillAttr
             if($('.attribute-row').length == 0) {
@@ -739,10 +757,15 @@ __WEBPACK_IMPORTED_MODULE_1__app___default.a.ProductUpdateController = function(
 
         // Get file data when i click choose file from computer
         var _image,
+            _back_image,
             _images = [];
 
         $('[name="image"]').change(function() {
             _image = this.files[0];
+        });
+
+        $('[name="back_image"]').change(function() {
+            _back_image = this.files[0];
         });
 
         $('[name="images[]"]').change(function() {
@@ -773,6 +796,7 @@ __WEBPACK_IMPORTED_MODULE_1__app___default.a.ProductUpdateController = function(
             }
 
             if(_image) formData.append('image', _image);
+            if(_back_image) formData.append('back_image', _back_image);
             if(_images) {
                 for( var i in _images ) {
                     formData.append('images[]', _images[i]);
@@ -901,6 +925,21 @@ __WEBPACK_IMPORTED_MODULE_1__app___default.a.ProductUpdateController = function(
                         $this.parent().remove();
                     }
                 });
+            }
+        });
+
+
+        // Preview image when you choice
+        $('.input-file-hidden').on('change', function() {
+            var $this = $(this);
+            if (this.files && this.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $this.prev().attr('src', e.target.result);
+                }
+
+                reader.readAsDataURL(this.files[0]);
             }
         });
 
