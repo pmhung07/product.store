@@ -173,7 +173,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a href="/" title="JUNO" class="logo"><img alt="JUNO" src="{{ parse_image_url('sm_'.$GLB_Setting->logo) }}" /></a>
+                    <a href="/" title="JUNO" class="logo"><img alt="JUNO" src="{{ parse_image_url('sm_'.$GLB_Setting->logo) }}" style="margin-top: -20px; width: 150px; height: 40px;" /></a>
                     <a class="btn-search">
                         <img src="/shop/assets/sw001.hstatic.net/5/014c1ac1703356/search.png">
                     </a>
