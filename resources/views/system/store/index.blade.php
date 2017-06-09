@@ -42,7 +42,7 @@
                                 <tbody>
                                     @foreach($stores as $k => $item)
                                         <tr>
-                                            <td>{{ $k }}</td>
+                                            <td>{{ $k+1 }}</td>
                                             <td>{{ $item->name }}</td>
                                             <td>{{ $item->address }}</td>
                                             <td>{{ date('d/m/Y', strtotime($item->created_at)) }}</td>
