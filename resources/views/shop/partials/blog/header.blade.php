@@ -168,18 +168,14 @@
             <div class="top hidden-lg hidden-md" id="mobile-menu">
                 <div class="fixed-nav">
                     <button id="menu-toggle" class="navbar-toggle pull-left" type="button" data-toggle="modal" data-target="#menu-modal">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
                     </button>
-                    <a href="/" title="JUNO" class="logo"><img alt="JUNO" src="/shop/assets/hstatic.net/969/1000003969/1000161857/logo.png%3Fv=8910" /></a>
-                    <a href="/cart.php" class="cart-link">
-                    <span>0</span>
-                    <img src="/shop/assets/hstatic.net/969/1000003969/10/2016/7-25/icon-card_034.png" />
-                    </a>
+                    <a href="/" title="JUNO" class="logo"><img alt="JUNO" src="{{ parse_image_url('sm_'.$GLB_Setting->logo) }}" /></a>
                     <a class="btn-search">
-                    <img src="/shop/assets/sw001.hstatic.net/5/014c1ac1703356/search.png">
+                        <img src="/shop/assets/sw001.hstatic.net/5/014c1ac1703356/search.png">
                     </a>
                 </div>
             </div>
