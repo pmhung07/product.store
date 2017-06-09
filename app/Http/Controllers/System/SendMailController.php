@@ -30,7 +30,8 @@ class SendMailController extends Controller
 
         return response()->json([
             'code' => 200,
-            'message' => 'OK'
+            'type' => 'success',
+            'message' => 'Thành công'
         ]);
     }
 }
