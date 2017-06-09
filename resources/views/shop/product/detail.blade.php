@@ -41,7 +41,7 @@
                                     @include('shop/product/tab-content-spec')
 
                                     {{-- Comment box --}}
-                                    <div class="fb-comments" data-href="{{ url('shop.product.detail', [$product->id, $product->getSlug()]) }}" data-width="100%" data-numposts="5"></div>
+                                    <div class="fb-comments" data-href="{{ route('shop.product.detail', [$product->id, $product->getSlug()]) }}" data-width="100%" data-numposts="5"></div>
 
                                     {{-- Sản phẩm liên quan --}}
                                     @include('shop/product/relate-products')
