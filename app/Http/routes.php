@@ -329,6 +329,11 @@ Route::group(['middleware' => 'auth'], function(){
 			Route::get('site/{site_id}', [ 'as' => 'admin.landing-page.site', 'uses' => 'SiteController@getSite']);
 		});
 
+		// Email marketing
+		Route::group(['prefix' => 'email-marketing'], function(){
+			Route::get('index', ['as' => 'system.emailMarketing.index' , 'uses' => 'System\EmailMarketingController@getIndex']);
+		});
+
 		// Shop
 		Route::group(['prefix' => 'online-store'], function(){
 			Route::group(['prefix' => 'post-categories'], function(){
