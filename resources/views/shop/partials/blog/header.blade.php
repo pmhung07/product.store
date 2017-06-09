@@ -20,6 +20,9 @@
         <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <link href='/shop/assets/hstatic.net/0/global/design/css/font-awesome.min.css' rel='stylesheet' type='text/css'  media='all'  />
         <script src="/shop/assets/hstatic.net/0/0/global/design/js/jquery.min.1.11.0.js"></script>
+
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" type="text/javascript"></script>
+
         <script src='/shop/assets/hstatic.net/969/1000003969/1000161857/owl.carousel.2.js%3Fv=8910' type='text/javascript'></script>
         <link href='/shop/assets/hstatic.net/969/1000003969/1000161857/owl.carousel.2.css%3Fv=8910.css' rel='stylesheet' type='text/css'  media='all'  />
         <link href='/shop/assets/hstatic.net/969/1000003969/1000161857/owl.theme.2.css%3Fv=8910.css' rel='stylesheet' type='text/css'  media='all'  />
@@ -166,18 +169,7 @@
                 </div>
             </div>
             <div class="top hidden-lg hidden-md" id="mobile-menu">
-                <div class="fixed-nav">
-                    <button id="menu-toggle" class="navbar-toggle pull-left" type="button" data-toggle="modal" data-target="#menu-modal">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a href="/" title="JUNO" class="logo"><img alt="JUNO" src="{{ parse_image_url('sm_'.$GLB_Setting->logo) }}" style="margin-top: -20px; width: 150px; height: 40px;" /></a>
-                    <a class="btn-search">
-                        <img src="/shop/assets/sw001.hstatic.net/5/014c1ac1703356/search.png">
-                    </a>
-                </div>
+                @include('shop/partials/nav-mobile')
             </div>
         </header>
         <script>
