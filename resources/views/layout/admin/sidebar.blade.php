@@ -264,6 +264,18 @@
                     </li>
                     <?php } ?>
 
+
+                    <li>
+                        <a href="{{ route('system.testimonial.index') }}"
+                        @if(
+                            Request::is('system/online-store/testimonial/*')
+                        )  {!! 'style="color: #a8d3ec;"' !!} @endif>
+                            <i class="fa fa-fire"></i>
+                            Ý kiến khách hàng
+                        </a>
+                    </li>
+
+
                     <?php if(active_sidebar(0) == 1 ){ ?>
                     <li>
                         <a href="/system/online-store/post-categories/index"

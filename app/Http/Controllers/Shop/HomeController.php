@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Shop;
 
 use App\Http\Controllers\Controller;
 use App\Models\Banner;
+use App\Models\Testimonial;
 use App\Orders;
 use App\Product;
 use App\ShopPost;
@@ -12,13 +13,6 @@ class HomeController extends ShopController {
 
     public function getIndex()
     {
-        // Slider
-        $slideItems = [
-            'https://file.hstatic.net/1000003969/file/banner-web-collection-ngoctrinh-fix2.jpg',
-            'https://file.hstatic.net/1000003969/file/banner-web-876cmt8.jpg',
-            '/shop/assets/file.hstatic.net/1000003969/file/sd01034-banner-web-fix.jpg'
-        ];
-
         $slideItems = Banner::where('page', 'home')
                             ->where('position', 'top')
                             ->where('status', 1)
@@ -51,6 +45,9 @@ class HomeController extends ShopController {
         // Tin tức
         $posts = ShopPost::take(5)->with('category')->orderByRaw('RAND()')->get();
 
+        // Ý kiến khách hàng
+        $testimonials = Testimonial::orderBy('created_at', 'DESC')->take(10)->get();
+
         // Metadata
         $this->metadata->title = $this->setting->meta_title ? $this->setting->meta_title : url('/');
         $this->metadata->description = $this->setting->meta_description ? $this->setting->meta_description : url('/');
@@ -58,6 +55,6 @@ class HomeController extends ShopController {
         $this->metadata->url = url('/');
         $metadata = $this->metadata->toArray();
 
-        return view('shop/home/index', compact('hotProducts', 'newestProductsInWeek', 'posts', 'slideItems', 'metadata'));
+        return view('shop/home/index', compact('hotProducts', 'newestProductsInWeek', 'posts', 'slideItems', 'testimonials', 'metadata'));
     }
 }
