@@ -131,6 +131,35 @@
     </div>
 </div>
 
+@if($testimonials->count())
+    <section id="sc-testimonial" class="section-container home">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div id="testimonial-slider" class="owl-carousel">
+                        @foreach($testimonials as $item)
+                            <div class="item testimonial">
+                                <p class="testimonial-content">
+                                    {{ $item->getComment() }}
+                                </p>
+                                <div class="testimonial-info">
+                                    <div class="test-img">
+                                        <img src="{{ parse_image_url('md_'.$item->getAvatar()) }}">
+                                    </div>
+                                    <div class="content-info">
+                                        <h3 class="name">{{ $item->getName() }}</h3>
+                                        <span class="job">{{ $item->getProfession() }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+@endif
+
 
 <script>
     $("#owl-blog-slider").owlCarousel({
@@ -153,6 +182,24 @@
         itemsDesktopSmall : [967,2],
         itemsTablet: [600,1],
         itemsMobile : [600,1]
+    });
+
+
+    $('#testimonial-slider').owlCarousel({
+        margin: 0,
+        loop: true,
+        nav:true,
+        responsive: {
+            0: {
+                items: 1
+            },
+            600: {
+                items: 2
+            },
+            1000: {
+                items: 2
+            }
+        }
     });
 </script>
 @stop

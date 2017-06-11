@@ -474,6 +474,20 @@ Route::group(['middleware' => 'auth'], function(){
 			    // Ajax search product group
 			    Route::get('/ajax/search-product-group', ['as' => 'system.navigation.ajax.searchProductGroup', 'uses' => 'System\NavigationController@ajaxSearchProductGroup']);
 			});
+
+			// Testimonial
+			Route::group(['prefix' => 'testimonial',  'namespace' => 'System'], function() {
+
+			    Route::get('/index', ['as' => 'system.testimonial.index', 'permissions' => 'feedback.view', 'uses' => 'TestimonialController@getIndex']);
+
+			    Route::get('/create', ['as' => 'system.testimonial.create', 'permissions' => 'feedback.create', 'uses' => 'TestimonialController@getCreate']);
+			    Route::post('/create', 'TestimonialController@postCreate');
+
+			    Route::get('/{id}/edit', ['as' => 'system.testimonial.edit', 'permissions' => 'feedback.edit', 'uses' => 'TestimonialController@getEdit']);
+			    Route::post('/{id}/edit', 'TestimonialController@postEdit');
+
+			    Route::get('/{id}/delete', ['as' => 'system.testimonial.delete', 'permissions' => 'feedback.delete', 'uses' => 'TestimonialController@getDelete']);
+			});
 		});
 
 		// Affiliate
