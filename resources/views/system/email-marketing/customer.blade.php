@@ -2,11 +2,12 @@
 
 @section('breadcrumbs')
 <div class="row wrapper border-bottom white-bg page-heading">
-    <div class="col-lg-6">
-        <h2><i class="fa fa-user"></i> Danh sách khách hàng</h2>
-    </div>
-    <div class="col-lg-6 btn-add">
-        <a href="system/customer/create" class="btn btn-primary" ><i class="fa fa-plus"></i>&nbsp;Tạo khách hàng</a>
+    <div class="col-lg-12">
+        <h2>
+            <i class="fa fa-user"></i> Chọn tập khách hàng
+            <a class="pull-right btn btn-sm btn-default" href="{{ route('system.emailMarketing.index') }}"><i class="fa fa-arrow-left"></i> Quay lại</a>
+            <div class="clearfix"></div>
+        </h2>
     </div>
 </div>
 @stop
@@ -41,8 +42,8 @@
                             <button type="submit" class="btn btn-sm btn-default"><i class="fa fa-search"></i> Lọc</button>
                         </form>
 
-                        {{-- <div style="margin: 10px 0 0 0;">
-                            <form id="form-bulk-action" class="form form-inline hide">
+                        <div style="margin: 10px 0 0 0;">
+                            <form id="form-bulk-action" class="form form-inline">
                                 <select id="bulk_action" name="bulk_action" class="form-control input-sm">
                                     <option value="">Thao tác</option>
                                     @foreach($bulkActions as $key => $value)
@@ -50,7 +51,7 @@
                                     @endforeach
                                 </select>
                             </form>
-                        </div> --}}
+                        </div>
                     </div>
                 </div>
 
@@ -77,13 +78,12 @@
                                 <th>Giới tính</th>
                                 <th>Quận huyện</th>
                                 <th>Tỉnh thành</th>
-                                <th>Thống kê</th>
-                                <th class="text-right" width="130">Chức năng</th>
+
                             </tr>
                             </thead>
                             <tbody>
                             <?php $i=1; ?>
-                            @foreach($rows as $row)
+                            @foreach($customers as $row)
                                 <tr @if($i%2==0) {{'class="gradeA"'}} @else {{'class="gradeX"'}} @endif>
                                     <td>
                                         <input type="checkbox" class="ckb_item" name="customers[]" value="{{ $row->id }}">
@@ -102,26 +102,7 @@
                                     </td>
                                     <td> {!! $row->provinces_name !!}</td>
                                     <td> {!! $row->districts_name !!}</td>
-                                    <td>
-                                        <a href="{!! URL::route('admin.customer.getDetails',$row->id) !!}" class="btn btn-xs">
-                                            <i class="fa fa-bar-chart "></i>
-                                            Thống kê, báo cáo
-                                        </a>
-                                    </td>
-                                    <td class="text-right footable-visible footable-last-column">
-                                        <div class="btn-group">
-                                            <a href="{!! URL::route('admin.customer.getUpdate',$row->id) !!}" class="btn-white btn btn-xs">
-                                                <i class="fa fa-edit "></i>
-                                                Sửa
-                                            </a>
-                                        </div>
-                                        <div class="btn-group">
-                                            <a href="#" data-toggle="modal" data-target="#confirm-delete" data-href="{!! URL::route('admin.customer.delete',$row->id) !!}" class="btn-white btn btn-xs">
-                                                <i class="fa fa-trash "></i>
-                                                Xoá
-                                            </a>
-                                        </div>
-                                    </td>
+
                                 </tr>
                                 <?php $i++; ?>
                             @endforeach
@@ -131,7 +112,7 @@
                         <div class="row">
                             <div class="col-sm-6 text-left">
                                 <div class="dataTables_paginate paging_bootstrap_full">
-                                    {{ $rows->appends(array(
+                                    {{ $customers->appends(array(
                                         'name' =>Request::input('cus_name'),
                                         'phone' =>Request::input('cus_phone'),
                                         ))->links()
@@ -252,6 +233,92 @@ $(document).ready(function() {
 
     $('#province_id').ajaxLoadDistrict({
         observers: '#district_id'
+    });
+
+    // Check all
+    $('#ckb_all').on('click', function() {
+        $('.ckb_item').prop('checked', this.checked);
+    });
+
+    function get_customers_id() {
+        var ids = [];
+        $('.ckb_item:checked').each(function(ind, el) {
+            ids.push($(el).val());
+        });
+        return ids;
+    }
+
+    // Bulk action
+    $('#bulk_action').on('change', function() {
+        var $this = $(this);
+
+        var customer_ids = get_customers_id();
+        if(customer_ids.length == 0) {
+            alert("Vui lòng chọn ít nhất 1 khách hàng để thực hiện thao tác này");
+            $('#form-bulk-action').find('select').val("");
+            return;
+        }
+
+        switch ($this.val()) {
+            case "SEND_SMS":
+                $('#modal-sms').modal('show');
+                break;
+
+            case "SEND_EMAIL":
+                $('#modal-email').modal('show');
+                break;
+
+            case "DELETE_MULTI":
+                break;
+        }
+    });
+
+    $('#form-send-sms').on('submit', function(e) {
+        e.preventDefault();
+        var $this = $(this);
+        $('#modal-sms').modal('hide');
+        $.ajax({
+            url : "{{ route('system.ajax.send_sms') }}",
+            type: "POST",
+            dataType: "json",
+            data: {
+                _token: "{{ csrf_token() }}",
+                customers: get_customers_id().join(","),
+                msg: $this.find('[name="msg"]').val()
+            },
+            success : function(response) {
+                if(response.code == 1) {
+                    toastr.success(response.message);
+                } else {
+                    toastr.error(response.message);
+                }
+            }
+        });
+    });
+
+
+    $('#form-send-email').on('submit', function(e) {
+        e.preventDefault();
+        var $this = $(this);
+        $('#modal-email').modal('hide');
+        $.ajax({
+            url : "{{ route('system.ajax.send_mail') }}",
+            type: "POST",
+            dataType: "json",
+            data: {
+                _token: "{{ csrf_token() }}",
+                customers: get_customers_id().join(","),
+                content: $this.find('[name="mail"]').val(),
+                title: $this.find('[name="title"]').val()
+            },
+            success : function(response) {
+                if(response.code == 1) {
+                    toastr.success(response.message);
+                } else {
+                    toastr.error(response.message);
+                }
+            }
+        });
     });
 });
 </script>
