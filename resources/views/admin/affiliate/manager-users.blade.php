@@ -44,7 +44,7 @@
                             <div class="table-responsive bg-block table-bordered" style="overflow-x: inherit;">
                                 <table class="table shoping-cart-table">
                                     <tbody>
-                                        <form method="GET" action="{!! route('admin.affiliate.collaborators-group') !!}" accept-charset="UTF-8">
+                                        <form method="GET" action="" accept-charset="UTF-8">
                                             <tr>
                                                 <td>
                                                     <div class="input-group date">
@@ -54,8 +54,24 @@
                                                         <input value="{!! Request::input('user-name') !!}" name="group-name" class="form-control filter-product-name" style="width:100%;" type="text" placeholder="Tên thành viên..">
                                                     </div>
                                                 </td>
+                                                <td style="width:25%;">
+                                                    <div class="input-group date">
+                                                        <span class="input-group-addon">
+                                                            <i class="fa fa-calendar"></i>
+                                                        </span>
+                                                        <input value="{!! Request::input('filter-date-start') !!}" name="filter-date-start" class="form-control filter-date-start" style="width:100%;" type="text" placeholder="Từ ngày..">
+                                                    </div>
+                                                </td>
+                                                <td style="width:25%;">
+                                                    <div class="input-group date">
+                                                        <span class="input-group-addon">
+                                                            <i class="fa fa-calendar"></i>
+                                                        </span>
+                                                        <input value="{!! Request::input('filter-date-end') !!}" name="filter-date-end" class="form-control filter-date-end" style="width:100%;" type="text" placeholder="Đến ngày..">
+                                                    </div>
+                                                </td>
                                                 <td>
-                                                    <input class="btn btn-sm btn-primary" type="submit" value="Tìm kiếm">
+                                                    <input class="btn btn-sm btn-primary" type="submit" value="Thống kê">
                                                 </td>
                                             </tr>
                                         </form>
@@ -73,13 +89,14 @@
                                 <thead>
                                 <tr>
                                     <th width="10">#</th>
-                                    <th width="120">Tên thành viên</th>
-                                    <th style="color: #484848;border-color: #7bbf20;" width="250">Số sản phẩm bán được - <sup>Sản phẩm</sup></th>
-                                    <th style="color: #484848;border-color: #7bbf20;" width="170">Số tiền bán được - <sup>vnđ</sup></th>
-                                    <th style="color: #484848;border-color: #7bbf20;" width="80">Hoa hồng - <sup>vnđ</sup></th>
-                                    <th width="120">Chức vụ nhóm</th>
-                                    <th width="150">Người tạo</th>
-                                    <th width="100">Ngày tạo</th>
+                                    <th width="120">Cộng tác viên</th>
+                                    <th style="color: #484848;border-color: #7bbf20;" width="130">Số lượng bán được</sup></th>
+                                    <th style="color: #484848;border-color: #7bbf20;" width="150">Số tiền bán được</sup></th>
+                                    <th style="color: #484848;border-color: #7bbf20;" width="130">Lợi nhuận <sup> - vnđ </sup></th>
+                                    <th width="100" class="text-center">Chức vụ nhóm</th>
+                                    <th width="120">Người tạo</th>
+                                    <th width="80">Ngày tạo</th>
+                                    <th class="text-right" width="90">Chức năng</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -92,12 +109,17 @@
                                     <tr @if($i%2==0) {{'class="gradeA"'}} @else {{'class="gradeX"'}} @endif>
                                         <td>{{$i}}</td>
                                         <td><a href="system/affiliate/manager/users-product/{{$row->id}}">{{$row->name}}</a></td>
-                                        <th style="color: #484848;border-color: #7bbf20;">{{$row->total_quantity}}</th>
-                                        <th style="color: #484848;border-color: #7bbf20;">{{$row->total_price}}</th>
-                                        <th style="color: #484848;border-color: #7bbf20;" width="150"></th>
-                                        <th class="text-center"><?=($row->leader == 1)?'<small class="label lb-sm-success">Trưởng nhóm</small>':'Thành viên';?></th>
+                                        <td>{{number_format($row->total_quantity)}}</td>
+                                        <td>{{number_format($row->total_price)}}</td>
+                                        <td>{{number_format($row->total_profit)}}</td>
+                                        <td class="text-center"><?=($row->leader == 1)?'<small class="label lb-sm-success">Trưởng nhóm</small>':'Thành viên';?></td>
                                         <td>{!! get_user_name_position(1) !!}</td>
                                         <td>{!! $row->created_at !!}</td>
+                                        <td class="text-right">
+                                            <a href="system/affiliate/manager/users-product/{{$row->id}}" class="btn-white btn btn-xs">
+                                                <i class="fa fa-hand-o-right"></i> Chi tiết
+                                            </a>
+                                        </td>
                                         </tr>
                                     <?php $i++;$total_quantity_inventory = $total_quantity_inventory + $row->quantity_inventory; ?>
                                 @endforeach
@@ -115,7 +137,7 @@
                             <div class="col-lg-12">
                                 <div class="ibox">
                                     <div class="ibox-content bg-block">
-                                        <div class="sp-14-400"><a href="system/statistic/product"><i class="fa fa-bar-chart-o"></i> Thống kê nhóm cộng tác viên</a></div>
+                                        <div class="sp-14-400"><a href="system/statistic/product"><i class="fa fa-bar-chart-o"></i> Thống kê cộng tác viên</a></div>
                                         <table class="table table-stripped m-t-md">
                                             <tbody>
                                             <tr>
@@ -178,20 +200,22 @@ $(document).ready(function() {
 
     $('.footable').footable();
 
-    $('#date_added').datepicker({
+    $('.filter-date-start').datepicker({
         todayBtn: "linked",
         keyboardNavigation: false,
         forceParse: false,
         calendarWeeks: true,
-        autoclose: true
+        autoclose: true,
+        format: 'yyyy-mm-dd'
     });
 
-    $('#date_modified').datepicker({
+    $('.filter-date-end').datepicker({
         todayBtn: "linked",
         keyboardNavigation: false,
         forceParse: false,
         calendarWeeks: true,
-        autoclose: true
+        autoclose: true,
+        format: 'yyyy-mm-dd'
     });
 
     $('#confirm-delete').on('show.bs.modal', function(e) {

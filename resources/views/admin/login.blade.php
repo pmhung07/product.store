@@ -31,7 +31,7 @@
                 </div>
                 <button type="submit" class="btn btn-primary block full-width m-b">Đăng nhập</button>
             </form>
-            <p class="m-t"> <small>Dev by pmhung07 - pmhung07@gmail.com</small> </p>
+            <p class="m-t"> <small>Dev by 9119 Team</small> </p>
         </div>
     </div>
 

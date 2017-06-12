@@ -92,8 +92,24 @@
                                                         <input value="{!! Request::input('group-name') !!}" name="group-name" class="form-control filter-product-name" style="width:100%;" type="text" placeholder="Nhóm cộng tác viên">
                                                     </div>
                                                 </td>
+                                                <td style="width:25%;">
+                                                    <div class="input-group date">
+                                                        <span class="input-group-addon">
+                                                            <i class="fa fa-calendar"></i>
+                                                        </span>
+                                                        <input value="{!! Request::input('filter-date-start') !!}" name="filter-date-start" class="form-control filter-date-start" style="width:100%;" type="text" placeholder="Từ ngày..">
+                                                    </div>
+                                                </td>
+                                                <td style="width:25%;">
+                                                    <div class="input-group date">
+                                                        <span class="input-group-addon">
+                                                            <i class="fa fa-calendar"></i>
+                                                        </span>
+                                                        <input value="{!! Request::input('filter-date-end') !!}" name="filter-date-end" class="form-control filter-date-end" style="width:100%;" type="text" placeholder="Đến ngày..">
+                                                    </div>
+                                                </td>
                                                 <td>
-                                                    <input class="btn btn-sm btn-primary" type="submit" value="Tìm kiếm">
+                                                    <input class="btn btn-sm btn-primary" type="submit" value="Thống kê">
                                                 </td>
                                             </tr>
                                         </form>
@@ -111,12 +127,13 @@
                                 <thead>
                                 <tr>
                                     <th width="10">#</th>
-                                    <th width="100">Tên nhóm</th>
-                                    <th style="color: #484848;border-color: #7bbf20;" width="180">Tổng số sản phẩm bán được - <sup>Sản phẩm</sup></th>
-                                    <th style="color: #484848;border-color: #7bbf20;" width="120">Tổng số tiền thu được - <sup>vnđ</sup></th>
-                                    <th width="100">Người tạo</th>
-                                    <th width="60">Ngày tạo</th>
-                                    <th class="text-right" width="60">Hoạt động</th>
+                                    <th width="180">Tên nhóm</th>
+                                    <th style="color: #484848;border-color: #7bbf20;" width="60">Số lượng bán được</th>
+                                    <th style="color: #484848;border-color: #7bbf20;" width="60">Số tiền bán được - <sup>vnđ</sup></th>
+                                    <th style="color: #484848;border-color: #7bbf20;" width="60">Lợi nhuận - <sup>vnđ</sup></th>
+                                    <th width="120">Người tạo</th>
+                                    <th width="80">Ngày tạo</th>
+                                    <th class="text-right" width="140">Chức năng</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -129,13 +146,19 @@
                                     <tr @if($i%2==0) {{'class="gradeA"'}} @else {{'class="gradeX"'}} @endif>
                                         <td>{{$i}}</td>
                                         <td><a href='system/affiliate/manager/users-collaborators-group/{{$row->id}}'><i class="fa fa-hand-o-right"></i> {{$row->name}}</a></td>
-                                        <th style="color: #484848;border-color: #7bbf20;" width="150">{{ $row->total_quantity }}</th>
-                                        <th style="color: #484848;border-color: #7bbf20;" width="150">{{ $row->total_price }}</th>
+                                        <td style="color: #484848;border-color: #7bbf20;" width="150">{{ number_format($row->total_quantity) }}</td>
+                                        <td style="color: #484848;border-color: #7bbf20;" width="150">{{ number_format($row->total_price) }}</td>
+                                        <td style="color: #484848;border-color: #7bbf20;" width="150">{{ number_format($row->profit_price) }}</td>
                                         <td>{!! get_user_name_position($row->admin_id) !!}</td>
                                         <td>{!! $row->created_at !!}</td>
-                                            <td class="text-center">
-                                                <?=($row->active == 1)?'<small class="label lb-sm-success">On</small>':'<small class="label lb-sm-cancel">Off</small>';?>
-                                            </td>
+                                        <td class="text-right">
+                                            <a href="system/affiliate/manager/users-collaborators-group/{{$row->id}}" class="btn-white btn btn-xs">
+                                                <i class="fa fa-hand-o-right"></i> Chi tiết
+                                            </a>
+                                            <a href="#" data-toggle="modal" data-target="#confirm-delete" data-href="{!! URL::route('admin.affiliate.collaborators-group-delete',$row->id) !!}" class="btn-white btn btn-xs">
+                                                <i class="fa fa-trash "></i> Xoá
+                                            </a>
+                                        </td>
                                         </tr>
                                     <?php $i++;$total_quantity_inventory = $total_quantity_inventory + $row->quantity_inventory; ?>
                                 @endforeach
@@ -181,10 +204,10 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                Xoá dữ liệu Sản phẩm
+                Xoá nhóm Affiliate?
             </div>
             <div class="modal-body">
-                Bạn có muốn xoá dữ liệu này không?
+                Bạn có chắc chắn muốn xoá nhóm này khỏi hệ thống Affiliate không?
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Huỷ thao tác</button>
@@ -216,20 +239,22 @@ $(document).ready(function() {
 
     $('.footable').footable();
 
-    $('#date_added').datepicker({
+    $('.filter-date-start').datepicker({
         todayBtn: "linked",
         keyboardNavigation: false,
         forceParse: false,
         calendarWeeks: true,
-        autoclose: true
+        autoclose: true,
+        format: 'yyyy-mm-dd'
     });
 
-    $('#date_modified').datepicker({
+    $('.filter-date-end').datepicker({
         todayBtn: "linked",
         keyboardNavigation: false,
         forceParse: false,
         calendarWeeks: true,
-        autoclose: true
+        autoclose: true,
+        format: 'yyyy-mm-dd'
     });
 
     $('#confirm-delete').on('show.bs.modal', function(e) {

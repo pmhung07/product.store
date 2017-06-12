@@ -57,6 +57,7 @@ Route::post('details-virtual/{order_id}', ['as' => 'admin.orders.getDetailsVirtu
 
 // Không có quyền truy cập
 Route::get('system/denied',['as' => 'admin.denied',function () { return view('admin.denied'); }]);
+Route::get('system/welcome',['as' => 'admin.welcome',function () { return view('admin.welcome'); }]);
 
 // Login hệ thống
 Route::get('/', 'LoginController@getLogin');
@@ -468,11 +469,14 @@ Route::group(['middleware' => 'auth'], function(){
 			Route::group(['prefix' => 'manager'], function(){
 				Route::get('dashboard', ['as' => 'admin.affiliate.manager-dashboard' , function () { return view('admin.affiliate.manager-dashboard'); }]);
 				Route::get('product', ['as' => 'admin.affiliate.manager-product' , 'uses' => 'AffiliateController@getManagerProduct']);
-				Route::post('product', ['as' => 'admin.affiliate.manager-product' , 'uses' => 'AffiliateController@addManagerProduct']);
+				Route::post('product', ['as' => 'admin.affiliate.manager-product-add' , 'uses' => 'AffiliateController@addManagerProduct']);
+				Route::get('product/delete/{id}', ['as' => 'admin.affiliate.manager-product-delete' , 'uses' => 'AffiliateController@getDeleteProductAffiliate']);
 				Route::get('collaborators-group', ['as' => 'admin.affiliate.collaborators-group' , 'uses' => 'AffiliateController@getCollaboratorsGroup']);
 				Route::post('collaborators-group', ['as' => 'admin.affiliate.collaborators-group' , 'uses' => 'AffiliateController@addCollaboratorsGroup']);
+				Route::get('collaborators-group/delete/{id}', ['as' => 'admin.affiliate.collaborators-group-delete' , 'uses' => 'AffiliateController@getDeleteCollaboratorsGroup']);
 				Route::get('users-collaborators-group/{group_id}', ['as' => 'admin.affiliate.users-collaborators-group' , 'uses' => 'AffiliateController@getUsersCollaboratorsGroup']);
 				Route::post('users-collaborators-group/{group_id}', ['as' => 'admin.affiliate.users-collaborators-group' , 'uses' => 'AffiliateController@addUsersCollaboratorsGroup']);
+				Route::get('users-collaborators-group/delete/{id}', ['as' => 'admin.affiliate.users-collaborators-group-delete' , 'uses' => 'AffiliateController@getDeleteCollaboratorsGroupUser']);
 				Route::get('users', ['as' => 'admin.affiliate.users' , 'uses' => 'AffiliateController@getUsers']);
 				Route::get('users-product/{user_id}', ['as' => 'admin.affiliate.users-product' , 'uses' => 'AffiliateController@getUsersProduct']);
 			});
