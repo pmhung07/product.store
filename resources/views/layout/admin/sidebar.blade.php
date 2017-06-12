@@ -187,6 +187,13 @@
             </li>
             <?php } ?>
 
+            <li @if(Request::is('system/email-marketing/*')) {!! 'class="active"' !!} @endif>
+                <a href="/system/email-marketing/index">
+                    <i class="fa fa-inbox"></i>
+                    <span class="nav-label">Email marketing</span>
+                </a>
+            </li>
+
             <?php if(active_sidebar(78) == 1 ){ ?>
             <li @if(Request::is('system/landing-page/index') ||
                     Request::is('system/landing-page/create') ||
@@ -256,6 +263,18 @@
                         </a>
                     </li>
                     <?php } ?>
+
+
+                    <li>
+                        <a href="{{ route('system.testimonial.index') }}"
+                        @if(
+                            Request::is('system/online-store/testimonial/*')
+                        )  {!! 'style="color: #a8d3ec;"' !!} @endif>
+                            <i class="fa fa-fire"></i>
+                            Ý kiến khách hàng
+                        </a>
+                    </li>
+
 
                     <?php if(active_sidebar(0) == 1 ){ ?>
                     <li>

@@ -6,7 +6,7 @@
                 <div class="col-md-6 col-sm-12 left no-padding">
                     <div class="col-md-4 col-sm-12 logoTop">
                         <div class="logo">
-                            <a href="/" title="JUNO" class="logo"><img style="width: 160px; height: 40px;" alt="JUNO" src="{{ parse_image_url('sm_'.$GLB_Setting->logo) }}" onerror="this.src='/img/default_picture.png'" /></a>
+                            <a href="/" title="Logo" class="logo"><img style="width: 160px; height: 40px;" alt="JUNO" src="{{ parse_image_url('sm_'.$GLB_Setting->logo) }}" onerror="this.src='/img/default_picture.png'" /></a>
                         </div>
                     </div>
                     <div class="col-md-8 col-sm-12 no-padding searchTop">

@@ -37,7 +37,7 @@
 
                 // Hiển thị tiêu đề chuyên mục
                 echo '<li class="'. ($hasChild == 0 ? '' : 'dropdown') .'">';
-                    echo '<a '. $attrToggleDropdown .' href="'. $item->getUrl() .'">'. $item->getName() . $caret .'</a>';
+                    echo '<a '. $attrToggleDropdown .' href="'. $item->getUrl() .'">'. $item->label . $caret .'</a>';
                     // Tiếp tục đệ quy để tìm chuyên mục con của chuyên mục đang lặp
                     showCategoriesForMobile($categories, $item['id'], $navClassFlag);
                 echo '</li>';
@@ -56,11 +56,13 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/">9119</a>
+            <a class="navbar-brand" href="/">
+                <img style="width: 160px; height: 40px; margin-top: -8px;" alt="JUNO" src="{{ parse_image_url('sm_'.$GLB_Setting->logo) }}" onerror="this.src='/img/default_picture.png'" />
+            </a>
         </div>
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            @php showCategoriesForMobile($GLB_Categories, 0); @endphp
+            @php showCategoriesForMobile($GLB_Menus, 0); @endphp
         </div>
         <!-- /.navbar-collapse -->
     </div>

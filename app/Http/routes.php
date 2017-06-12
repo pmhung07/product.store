@@ -330,6 +330,20 @@ Route::group(['middleware' => 'auth'], function(){
 			Route::get('site/{site_id}', [ 'as' => 'admin.landing-page.site', 'uses' => 'SiteController@getSite']);
 		});
 
+		// Email marketing
+		Route::group(['prefix' => 'email-marketing'], function(){
+			Route::get('index', ['as' => 'system.emailMarketing.index' , 'uses' => 'System\EmailMarketingController@getIndex']);
+			Route::get('/create', ['as' => 'system.emailMarketing.create', 'uses' => 'System\EmailMarketingController@getCreate']);
+			Route::post('/create', ['as' => 'system.emailMarketing.create', 'uses' => 'System\EmailMarketingController@postCreate']);
+
+			Route::get('/{id}/choice-customer', ['as' => 'system.emailMarketing.choiceCustomer', 'uses' => 'System\EmailMarketingController@getChoiceCustomer']);
+			Route::post('/{id}/choice-customer', ['as' => 'system.emailMarketing.choiceCustomer', 'uses' => 'System\EmailMarketingController@postChoiceCustomer']);
+			// Route::get('/{id}/edit', ['as' => 'system.emailMarketing.edit', 'uses' => 'System\EmailMarketingController@getEdit']);
+			// Route::post('/{id}/edit', ['as' => 'system.emailMarketing.edit', 'uses' => 'System\EmailMarketingController@postEdit']);
+			// Route::get('/{id}/detail', ['as' => 'system.emailMarketing.detail', 'uses' => 'System\EmailMarketingController@getDetail']);
+			Route::get('/{id}/delete', ['as' => 'system.emailMarketing.delete', 'uses' => 'System\EmailMarketingController@getDelete']);
+		});
+
 		// Shop
 		Route::group(['prefix' => 'online-store'], function(){
 			Route::group(['prefix' => 'post-categories'], function(){
@@ -460,6 +474,20 @@ Route::group(['middleware' => 'auth'], function(){
 
 			    // Ajax search product group
 			    Route::get('/ajax/search-product-group', ['as' => 'system.navigation.ajax.searchProductGroup', 'uses' => 'System\NavigationController@ajaxSearchProductGroup']);
+			});
+
+			// Testimonial
+			Route::group(['prefix' => 'testimonial',  'namespace' => 'System'], function() {
+
+			    Route::get('/index', ['as' => 'system.testimonial.index', 'permissions' => 'feedback.view', 'uses' => 'TestimonialController@getIndex']);
+
+			    Route::get('/create', ['as' => 'system.testimonial.create', 'permissions' => 'feedback.create', 'uses' => 'TestimonialController@getCreate']);
+			    Route::post('/create', 'TestimonialController@postCreate');
+
+			    Route::get('/{id}/edit', ['as' => 'system.testimonial.edit', 'permissions' => 'feedback.edit', 'uses' => 'TestimonialController@getEdit']);
+			    Route::post('/{id}/edit', 'TestimonialController@postEdit');
+
+			    Route::get('/{id}/delete', ['as' => 'system.testimonial.delete', 'permissions' => 'feedback.delete', 'uses' => 'TestimonialController@getDelete']);
 			});
 		});
 
