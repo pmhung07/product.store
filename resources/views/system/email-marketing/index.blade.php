@@ -26,6 +26,7 @@
                                 <th>#</th>
                                 <th>Tên chiến dịch</th>
                                 <th>Ngày tạo</th>
+                                <th width="30">Sửa</th>
                                 <th width="30">Xóa</th>
                             </thead>
                             <tbody>
@@ -34,6 +35,9 @@
                                         <td>{{ $key+1 }}</td>
                                         <td>{{ $item->name }}</td>
                                         <td>{{ date('d/m/Y H:i', strtotime($item->created_at)) }}</td>
+                                        <td>
+                                            {!! makeEditButton(route('system.emailMarketing.edit', $item->id)) !!}
+                                        </td>
                                         <td>
                                             <a href="#" data-toggle="modal" data-target="#confirm-delete" data-href="{{ route('system.emailMarketing.delete', $item->id) }}" class="btn btn-xs btn-white"><i class="fa fa-trash"></i> Xóa</a>
                                         </td>

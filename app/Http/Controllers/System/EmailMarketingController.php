@@ -85,20 +85,20 @@ class EmailMarketingController extends Controller
         return view('system/email-marketing/customer', compact('item', 'bulkActions', 'customers', 'provinces', 'districts'));
     }
 
-    // public function getEdit($id)
-    // {
-    //     $item = EmailMarketingCampain::findOrFail($id);
-    //     return view('system/email-marketing/edit', compact('item'));
-    // }
+    public function getEdit($id)
+    {
+        $item = EmailMarketingCampain::findOrFail($id);
+        return view('system/email-marketing/edit', compact('item'));
+    }
 
-    // public function postEdit($id, EmailMarketingCampainFormRequest $request)
-    // {
-    //     $item = EmailMarketingCampain::findOrFail($id);
-    //     $item->name = clean($request->get('name'));
-    //     $item->save();
+    public function postEdit($id, EmailMarketingCampainFormRequest $request)
+    {
+        $item = EmailMarketingCampain::findOrFail($id);
+        $item->name = clean($request->get('name'));
+        $item->save();
 
-    //     return redirect()->route('system.emailMarketing.index')->with('success', 'Cập nhật thành công');
-    // }
+        return redirect()->route('system.emailMarketing.index')->with('success', 'Cập nhật thành công');
+    }
 
     public function getDelete($id)
     {
