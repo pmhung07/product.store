@@ -190,7 +190,7 @@
             <li @if(Request::is('system/email-marketing/*')) {!! 'class="active"' !!} @endif>
                 <a href="/system/email-marketing/index">
                     <i class="fa fa-inbox"></i>
-                    <span class="nav-label">Email marketing</span>
+                    <span class="nav-label">Chăm sóc khách hàng</span>
                 </a>
             </li>
 
