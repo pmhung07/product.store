@@ -191,6 +191,7 @@
                 <a href="/system/email-marketing/index">
                     <i class="fa fa-inbox"></i>
                     <span class="nav-label">Chăm sóc khách hàng</span>
+                    <span class="fa arrow"></span>
                 </a>
             </li>
 

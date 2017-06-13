@@ -528,6 +528,15 @@ Route::group(['middleware' => 'auth'], function(){
 			Route::get('/{id}/delete', ['as' => 'system.store.delete', 'uses' => 'StoreController@getDelete']);
 		});
 
+		Route::group(['prefix' => 'email-template', 'namespace' => 'System'], function() {
+			Route::get('/index', ['as' => 'system.emailTemplate.index', 'uses' => 'EmailTemplateController@getIndex']);
+			Route::get('/create', ['as' => 'system.emailTemplate.create', 'uses' => 'EmailTemplateController@getCreate']);
+			Route::post('/create', ['as' => 'system.emailTemplate.create', 'uses' => 'EmailTemplateController@postCreate']);
+			Route::get('/{id}/edit', ['as' => 'system.emailTemplate.update', 'uses' => 'EmailTemplateController@getUpdate']);
+			Route::post('/{id}/edit', ['as' => 'system.emailTemplate.update', 'uses' => 'EmailTemplateController@postUpdate']);
+			Route::get('/{id}/delete', ['as' => 'system.emailTemplate.delete', 'uses' => 'EmailTemplateController@getDelete']);
+		});
+
 		// Ajax system
 		Route::group(['prefix' => 'ajax'], function() {
 			// Ajax search product group
