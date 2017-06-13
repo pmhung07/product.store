@@ -299,7 +299,7 @@ class AffiliateController extends Controller
             }
         }
 
-        $data = $rows->orderBy($sort,$orderby)->paginate(20);
+        $data = $rows->groupBy('users.id')->orderBy($sort,$orderby)->paginate(20);
         $total_row = count($data);
         return view('admin.affiliate.manager-users', ['rows' => $data, 'total_row' => $total_row]);
     }
