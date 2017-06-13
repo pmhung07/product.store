@@ -29,7 +29,7 @@ class LoginController extends Controller
             'password' => $request->password
         ];
         if (Auth::attempt($login)) {
-            return redirect()->route('admin.dashboard');
+            return redirect()->route('admin.welcome');
         } else{
             return redirect()->back();
         }

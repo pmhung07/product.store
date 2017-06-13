@@ -3,7 +3,7 @@
 @section('breadcrumbs')
 <div class="row wrapper border-bottom white-bg page-heading">
     <div class="col-lg-9">
-        <h2><i class="fa fa-list"></i> Danh sách sản phẩm trong hệ thống Affliate</h2>
+        <h2><i class="fa fa-list"></i> Danh sách sản phẩm trong hệ thống Affiliate</h2>
     </div>
 </div>
 @stop
@@ -48,7 +48,7 @@
                             <div class="table-responsive bg-block table-bordered" style="overflow-x: inherit;">
                                 <table class="table shoping-cart-table">
                                     <tbody>
-                                        <form method="POST" accept-charset="UTF-8" action="{!! route('admin.affiliate.manager-product') !!}">
+                                        <form method="POST" accept-charset="UTF-8" action="{!! route('admin.affiliate.manager-product-add') !!}">
                                             <input type="hidden" name="_token" value="{!! csrf_token() !!}">
                                             <tr>
                                                 <td style="width:50%;">
@@ -88,7 +88,7 @@
                             <div class="table-responsive bg-block table-bordered" style="overflow-x: inherit;">
                                 <table class="table shoping-cart-table">
                                     <tbody>
-                                        <form method="GET" action="{!! route('admin.product.index') !!}" accept-charset="UTF-8">
+                                        <form method="GET" action="" accept-charset="UTF-8">
                                             <tr>
                                                 <td>
                                                     <div class="input-group date">
@@ -140,7 +140,7 @@
                                     <th width="90">Hoa hồng <sup> - % </sup></th>
                                     <th width="100">Lợi nhuận <sup> - vnđ </sup></th>
                                     <th class="text-left" width="130">Chọn sản phẩm</th>
-                                    <th class="text-right" width="80">Hoạt động</th>
+                                    <th class="text-right" width="80">Chức năng</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -172,7 +172,7 @@
                                         <td class="text-left footable-visible footable-last-column">
                                             <div class="btn-group">
                                                 <?php if(Auth::user()->id != 1){?>
-                                                <a  onclick="update_affiliate_user_product({{$row->product_id}})" class="btn-white btn btn-xs">
+                                                <a  onclick="update_affiliate_user_product({{$row->id}})" class="btn-white btn btn-xs">
                                                     <i class="fa fa-hand-o-up "></i> Chọn sản phẩm
                                                 </a>
                                                 <?php }else{ ?>
@@ -181,7 +181,9 @@
                                             </div>
                                         </td>
                                         <td class="text-center">
-                                            <?=($row->active == 1)?'<small class="label lb-sm-success">On</small>':'<small class="label lb-sm-cancel">Off</small>';?>
+                                            <a href="#" data-toggle="modal" data-target="#confirm-delete" data-href="{!! URL::route('admin.affiliate.manager-product-delete',$row->id) !!}" class="btn-white btn btn-xs">
+                                                <i class="fa fa-trash "></i> Xoá
+                                            </a>
                                         </td>
                                     </tr>
                                     <?php $i++;$total_quantity_inventory = $total_quantity_inventory + $row->quantity_inventory; ?>
@@ -231,7 +233,7 @@
                 Xoá dữ liệu Sản phẩm
             </div>
             <div class="modal-body">
-                Bạn có muốn xoá dữ liệu này không?
+                Bạn có muốn xoá sản phẩm này khỏi hệ thống Affiliate không?
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Huỷ thao tác</button>

@@ -19,7 +19,7 @@
                         <div class="table-responsive bg-block table-bordered" style="overflow-x: inherit;">
                             <table class="table shoping-cart-table">
                                 <tbody>
-                                    <form method="GET" action="{!! route('admin.product.index') !!}" accept-charset="UTF-8">
+                                    <form method="GET" action="" accept-charset="UTF-8">
                                         <tr>
                                             <td>
                                                 <div class="input-group date">
@@ -42,6 +42,22 @@
                                                     <option value="-1" selected>-- Nhóm sản phẩm --</option>
                                                     <? cat_parent($product_group,0,'--',Request::input('filter-product-groupt-id'));?>
                                                 </select>
+                                            </td>
+                                            <td style="width:20%;">
+                                                <div class="input-group date">
+                                                    <span class="input-group-addon">
+                                                        <i class="fa fa-calendar"></i>
+                                                    </span>
+                                                    <input value="{!! Request::input('filter-date-start') !!}" name="filter-date-start" class="form-control filter-date-start" style="width:100%;" type="text" placeholder="Từ ngày..">
+                                                </div>
+                                            </td>
+                                            <td style="width:20%;">
+                                                <div class="input-group date">
+                                                    <span class="input-group-addon">
+                                                        <i class="fa fa-calendar"></i>
+                                                    </span>
+                                                    <input value="{!! Request::input('filter-date-end') !!}" name="filter-date-end" class="form-control filter-date-end" style="width:100%;" type="text" placeholder="Đến ngày..">
+                                                </div>
                                             </td>
                                             <td>
                                                 <input class="btn btn-sm btn-primary" type="submit" value="Tìm kiếm">
@@ -76,10 +92,10 @@
                                     <th width="100">Tên Sản phẩm</th>
                                     <th width="100">Nhóm sản phẩm</th>
                                     <th width="80">Giá bán <sup> - vnđ </sup></th>
-                                    <th width="80">Hoa hồng <sup> - % </sup></th>
-                                    <th width="80">Lợi nhuận <sup> - vnđ </sup></th>
-                                    <th width="200">Link share sản phẩm</th>
-                                    <th width="70">Hoạt động</th>
+                                    <th width="70">Hoa hồng <sup> - % </sup></th>
+                                    <th style="color: #484848;border-color: #7bbf20;" width="100">Số lượng bán được</sup></th>
+                                    <th style="color: #484848;border-color: #7bbf20;" width="100">Số tiền bán được</sup></th>
+                                    <th style="color: #484848;border-color: #7bbf20;" width="100">Lợi nhuận <sup> - vnđ </sup></th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -98,12 +114,11 @@
                                         <td><a>{{$row->product_name}}</a></td>
                                         <td>{{$row->product_group_name}}</td>
                                         <td>{{number_format($row->product_price)}}</td>
-                                        <td>{{$row->my_affiliate_profit}}</td>
-                                        <td>{{number_format($row->price)}}</td>
-                                        <td><a><?php echo url('/').'/product/'.$row->product_id.'-'.removeTitle($row->product_name).'?uid='.Auth::user()->id; ?></a></td>
-                                        <td class="text-center">
-                                            <?=($row->active == 1)?'<small class="label lb-sm-success">On</small>':'<small class="label lb-sm-cancel">Off</small>';?>
-                                        </td>
+                                        <td>{{$row->affiliate_product_profit}}</td>
+                                        <td>{{number_format($row->total_quantity)}}</td>
+                                        <td>{{number_format($row->total_price)}}</td>
+                                        <td>{{number_format($row->total_profit)}}</td>
+                                        <!--<td><a><?//php echo url('/').'/product/'.$row->product_id.'-'.removeTitle($row->product_name).'?uid='.Auth::user()->id; ?></a></td>-->
                                     </tr>
                                     <?php $i++;$total_quantity_inventory = $total_quantity_inventory + $row->quantity_inventory; ?>
                                 @endforeach
@@ -180,20 +195,22 @@ $(document).ready(function() {
 
     $('.footable').footable();
 
-    $('#date_added').datepicker({
+    $('.filter-date-start').datepicker({
         todayBtn: "linked",
         keyboardNavigation: false,
         forceParse: false,
         calendarWeeks: true,
-        autoclose: true
+        autoclose: true,
+        format: 'yyyy-mm-dd'
     });
 
-    $('#date_modified').datepicker({
+    $('.filter-date-end').datepicker({
         todayBtn: "linked",
         keyboardNavigation: false,
         forceParse: false,
         calendarWeeks: true,
-        autoclose: true
+        autoclose: true,
+        format: 'yyyy-mm-dd'
     });
 
     $('#confirm-delete').on('show.bs.modal', function(e) {
