@@ -1,7 +1,7 @@
             <div class="footer-map container-fluid wow fadeIn">
                 <div class="row">
                     <div class=" col-lg-12 col-md-12 button-store">
-                        <a class="store-footer" target="_blank" href="/">Mời bạn xem địa chỉ hệ thống cửa hàng</a>
+
                     </div>
                 </div>
             </div>

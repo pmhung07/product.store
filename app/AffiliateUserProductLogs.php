@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class AffliateUserProductLogs extends Model
+class AffiliateUserProductLogs extends Model
 {
     protected $table = 'affiliate_user_product_logs';
 

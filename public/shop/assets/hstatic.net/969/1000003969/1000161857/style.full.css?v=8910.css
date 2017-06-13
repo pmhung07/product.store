@@ -61,8 +61,11 @@ html{overflow: auto !important}
 	transform: scale(1)
 }
 .footer-map {
-	background:rgba(0, 0, 0, 0) url("../../../../file.hstatic.net/1000003969/file/stores-bg.jpg") repeat scroll 0 0;
-	text-align:center
+    background: rgba(0, 0, 0, 0) url(/img/bg-store.jpg) no-repeat scroll 0 0;
+    text-align: center;
+    height: 214px;
+    background-size: cover;
+    background-position: center center;
 }
 .titleCollections {
 	text-align: center

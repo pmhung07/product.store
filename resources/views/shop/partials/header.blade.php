@@ -28,6 +28,7 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" type="text/javascript"></script>
 
         <link rel="stylesheet" type="text/css" href="/shop/assets/js/OwlCarousel2-2.2.0/dist/assets/owl.carousel.min.css">
+        <link rel="stylesheet" type="text/css" href="/shop/assets/js/OwlCarousel2-2.2.0/dist/assets/owl.theme.default.min.css">
         <script src="/shop/assets/js/OwlCarousel2-2.2.0/dist/owl.carousel.min.js" type="text/javascript"></script>
 
         <script src='/shop/assets/hstatic.net/969/1000003969/1000161857/wow.js%3Fv=8910' type='text/javascript'></script>
