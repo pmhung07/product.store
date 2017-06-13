@@ -58,6 +58,12 @@
                             Cấu hình phân quyền
                         </a>
                     </li>-->
+                    <li>
+                        <a href="{{ route('system.emailTemplate.index') }}" {{ Request::is('system/email-template/*') ? 'style="color: #115c8c;font-weight: 600;"' : '' }}>
+                            <i class="fa fa fa-inbox"></i>
+                            Mẫu Email
+                        </a>
+                    </li>
                 </ul>
                 <div class="clearfix"></div>
             </div>
