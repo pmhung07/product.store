@@ -256,7 +256,9 @@ class StaffController extends Controller
         $usersArray = array();
         $data = User::select("id","name","email","phone","address")
                 ->where("name","LIKE","%{$request->get('search-input-user')}%")
+                ->where("user_position_id","=",4)
                 ->orWhere("email","LIKE","%{$request->get('search-input-user')}%")
+                ->where("user_position_id","=",4)
                 ->orWhere("phone","LIKE","%{$request->get('search-input-user')}%")
                 ->where("user_position_id","=",4)
                 ->get();

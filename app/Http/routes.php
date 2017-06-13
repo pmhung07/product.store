@@ -11,7 +11,7 @@
 |
 */
 
-require_once __DIR__ . '/shop_routes.php';
+
 
 
 // Load ajax
@@ -602,3 +602,7 @@ Route::group(['prefix' => 'ajax', 'namespace' => 'Ajax'], function() {
 Route::get('/ga/analyze', ['as' => 'ga.analyze', 'uses' => 'GaController@analyze']);
 
 Route::get('/test', 'TestController@index');
+
+
+// Frontend routes
+require_once __DIR__ . '/shop_routes.php';

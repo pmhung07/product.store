@@ -17,7 +17,7 @@
                 margin:10,
                 autoplay: true,
                 nav:false,
-                dots: false,
+                dots: true,
                 items: 1,
                 animateOut: 'fadeOut',
                 animateIn: 'fadeIn',
