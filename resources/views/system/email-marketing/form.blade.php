@@ -1,9 +1,59 @@
+<style type="text/css">
+    .email-template-selected-item {
+        border: 1px solid #ccc;
+        float: left;
+        margin: 3px;
+        text-align: center;
+        padding: 5px;
+    }
+    .email-template-selected-item .time {
+        font-size: 10px;
+    }
+</style>
 <form class="form" method="POST">
     <div class="form-group {{ hasValidator('name') }}">
         <label class="control-label">Tên chiến dịch</label>
         <input type="text" name="name" class="form-control" value="{{ old('name', $item->name) }}">
         {!! alertError('name') !!}
     </div>
+
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="panel panel-primary">
+                <div class="panel-heading">Chọn mẫu email</div>
+                <div class="panel-body">
+                    @for($i = 0; $i < 10; $i ++)
+                    <button type="button" class="btn btn-sm btn-default" style="margin-bottom: 5px;">
+                        <div class="checkbox" style="margin-top: 0px; margin-bottom: 0px;">
+                            <label>
+                                <input type="checkbox" name="">
+                                #1 Lorem tuyet voi
+                            </label>
+                        </div>
+                    </button>
+                    @endfor
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="panel panel-primary">
+                <div class="panel-heading">Mẫu được chọn</div>
+                <div class="panel-body">
+                    @for($i = 0; $i < 5; $i ++)
+                        <div class="email-template-selected-item">
+                            <p class="title">#1 Lorem tuyet voi</p>
+                            <p class="time text-success">24/10/2018 10:00</p>
+                            <div class="btn-group">
+                                <button class="btn btn-xs btn-info" data-toggle="tooltip" data-title="Đặt lịch"><i class="fa fa-clock-o"></i></button>
+                                <button class="btn btn-xs btn-danger" data-toggle="tooltip" data-title="Xóa"><i class="fa fa-trash-o"></i></button>
+                            </div>
+                        </div>
+                    @endfor
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="form-group {{ hasValidator('name') }}">
         <label class="control-label">Đặt lịch gửi</label>
         <div class="row">
