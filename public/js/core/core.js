@@ -130,6 +130,16 @@ $(function() {
         var $this = $(this);
         $this.attr('src', '/img/default_picture.png');
     });
+
+
+    $('.date-picker').datepicker({
+        todayBtn: "linked",
+        keyboardNavigation: false,
+        forceParse: false,
+        calendarWeeks: true,
+        autoclose: true,
+        format: 'dd/mm/yyyy'
+    });
 });
 
 

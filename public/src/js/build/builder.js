@@ -1846,11 +1846,11 @@
 
             if( $(this.element).closest('body').width() !== $(this.element).width() ) {
 
-                $(this.element).css({'outline': '3px dashed red', 'cursor': 'pointer'});
+                $(this.element).css({'outline': '1px dashed #0dbadc', 'cursor': 'pointer'});
 
             } else {
 
-                $(this.element).css({'outline': '3px dashed red', 'outline-offset':'-3px',  'cursor': 'pointer'});
+                $(this.element).css({'outline': '1px dashed #0dbadc', 'outline-offset':'-3px',  'cursor': 'pointer'});
 
             }
 
@@ -1867,11 +1867,11 @@
 
                 if( $(this).closest('body').width() !== $(this).width() ) {
 
-                    $(this).css({'outline': '3px dashed red', 'cursor': 'pointer'});
+                    $(this).css({'outline': '1px dashed #0dbadc', 'cursor': 'pointer'});
 
                 } else {
 
-                    $(this).css({'outline': '3px dashed red', 'outline-offset': '-3px', 'cursor': 'pointer'});
+                    $(this).css({'outline': '1px dashed #0dbadc', 'outline-offset': '-3px', 'cursor': 'pointer'});
 
                 }
 
@@ -1967,16 +1967,17 @@
     module.exports.editableItems = {
         'span.fa': ['color', 'font-size'],
         '.bg.bg1': ['background-color'],
-        'nav a, a.edit': ['color', 'font-weight', 'text-transform'],
+        'nav a, a.edit, span.edit, .pix_header_button': ['color', 'font-weight', 'text-transform'],
+        '.pix_header_button, .pix_button, .editContent': ['color', 'font-weight', 'text-transform', 'background-image', 'background-color'],
         'h1, h2, h3, h4, h5, p': ['color', 'font-size', 'background-color', 'font-family'],
-        'a.btn, button.btn': ['border-radius', 'font-size', 'background-color'],
+        'span.btn, a.btn, button.btn': ['color', 'border-radius', 'font-size', 'background-color'],
 
         'img': ['border-top-left-radius', 'border-top-right-radius', 'border-bottom-left-radius', 'border-bottom-right-radius', 'border-color', 'border-style', 'border-width'],
         'hr.dashed': ['border-color', 'border-width'],
         '.divider > span': ['color', 'font-size'],
         'hr.shadowDown': ['margin-top', 'margin-bottom'],
         '.footer a': ['color'],
-        '.bg.bg1, .bg.bg2, .header10, .header11': ['background-image', 'background-color'],
+        '.bg.bg1, .bg.bg2, .header10, .header11, .pix_builder_bg': ['background-image', 'background-color'],
         '.frameCover': []
     };
 
@@ -4410,11 +4411,11 @@
 
             if( $(styleeditor.activeElement.element).closest('body').width() !== $(styleeditor.activeElement.element).width() ) {
 
-                $(styleeditor.activeElement.element).attr('style', '').css({'outline': '3px dashed red', 'cursor': 'pointer'});
+                $(styleeditor.activeElement.element).attr('style', '').css({'outline': '1px dashed #0dbadc', 'cursor': 'pointer'});
 
             } else {
 
-                $(styleeditor.activeElement.element).attr('style', '').css({'outline': '3px dashed red', 'outline-offset':'-3px', 'cursor': 'pointer'});
+                $(styleeditor.activeElement.element).attr('style', '').css({'outline': '1px dashed #0dbadc', 'outline-offset':'-3px', 'cursor': 'pointer'});
 
             }
 

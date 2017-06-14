@@ -338,8 +338,8 @@ Route::group(['middleware' => 'auth'], function(){
 
 			Route::get('/{id}/choice-customer', ['as' => 'system.emailMarketing.choiceCustomer', 'uses' => 'System\EmailMarketingController@getChoiceCustomer']);
 			Route::post('/{id}/choice-customer', ['as' => 'system.emailMarketing.choiceCustomer', 'uses' => 'System\EmailMarketingController@postChoiceCustomer']);
-			// Route::get('/{id}/edit', ['as' => 'system.emailMarketing.edit', 'uses' => 'System\EmailMarketingController@getEdit']);
-			// Route::post('/{id}/edit', ['as' => 'system.emailMarketing.edit', 'uses' => 'System\EmailMarketingController@postEdit']);
+			Route::get('/{id}/edit', ['as' => 'system.emailMarketing.edit', 'uses' => 'System\EmailMarketingController@getEdit']);
+			Route::post('/{id}/edit', ['as' => 'system.emailMarketing.edit', 'uses' => 'System\EmailMarketingController@postEdit']);
 			// Route::get('/{id}/detail', ['as' => 'system.emailMarketing.detail', 'uses' => 'System\EmailMarketingController@getDetail']);
 			Route::get('/{id}/delete', ['as' => 'system.emailMarketing.delete', 'uses' => 'System\EmailMarketingController@getDelete']);
 		});
