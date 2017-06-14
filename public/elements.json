@@ -2,16 +2,12 @@
     "Headers":[
         {"url":"elements/26_event_1.html","height":222, "thumbnail":"elements/thumbs/179.png"},
         {"url":"elements/pix_header_5.html","height":222, "thumbnail":"elements/thumbs/195.png"},
-        {"url":"elements/pix_header_6.html","height":222, "thumbnail":"elements/thumbs/196.png"},
         {"url":"elements/pix_header_1.html","height":222, "thumbnail":"elements/thumbs/90.png"},
         {"url":"elements/pix_header_3.html","height":222, "thumbnail":"elements/thumbs/91.png"},
         {"url":"elements/pix_header_2.html","height":222, "thumbnail":"elements/thumbs/92.png"},
         {"url":"elements/pix_header_1_dark.html","height":222, "thumbnail":"elements/thumbs/102.png"},
         {"url":"elements/pix_header_2_dark.html","height":222, "thumbnail":"elements/thumbs/103.png"},
         {"url":"elements/pix_header_3_dark.html","height":222, "thumbnail":"elements/thumbs/104.png"},
-        {"url":"elements/pix_header_4.html","height":222, "thumbnail":"elements/thumbs/164.jpg"},
-        {"url":"elements/1_normal_1.html","height":567, "thumbnail":"elements/thumbs/1.png"},
-        {"url":"elements/8_ecourse_1.html","height":567, "thumbnail":"elements/thumbs/51.png"},
         {"url":"elements/pix_intro_1.html","height":513, "thumbnail":"elements/thumbs/119.png"},
         {"url":"elements/pix_intro_2.html","height":513, "thumbnail":"elements/thumbs/134.jpg"},
         {"url":"elements/pix_intro_3.html","height":513, "thumbnail":"elements/thumbs/151.jpg"},
@@ -30,7 +26,6 @@
         {"url":"elements/15_party_1.html","height":488, "thumbnail":"elements/thumbs/76.png"}
     ],
     "Features":[
-        {"url":"elements/26_event_5.html","height":222, "thumbnail":"elements/thumbs/183.png"},
         {"url":"elements/features_1.html","height":222, "thumbnail":"elements/thumbs/117.png"},
         {"url":"elements/features_1_dark.html","height":222, "thumbnail":"elements/thumbs/118.png"},
         {"url":"elements/features_2_dark.html","height":222, "thumbnail":"elements/thumbs/122.jpg"},

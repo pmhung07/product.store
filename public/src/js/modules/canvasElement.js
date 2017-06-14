@@ -20,11 +20,11 @@
 
             if( $(this.element).closest('body').width() !== $(this.element).width() ) {
 
-                $(this.element).css({'outline': '3px dashed red', 'cursor': 'pointer'});
+                $(this.element).css({'outline': '1px dashed #0dbadc', 'cursor': 'pointer'});
 
             } else {
 
-                $(this.element).css({'outline': '3px dashed red', 'outline-offset':'-3px',  'cursor': 'pointer'});
+                $(this.element).css({'outline': '1px dashed #0dbadc', 'outline-offset':'-3px',  'cursor': 'pointer'});
 
             }
 
@@ -41,11 +41,11 @@
 
                 if( $(this).closest('body').width() !== $(this).width() ) {
 
-                    $(this).css({'outline': '3px dashed red', 'cursor': 'pointer'});
+                    $(this).css({'outline': '1px dashed #0dbadc', 'cursor': 'pointer'});
 
                 } else {
 
-                    $(this).css({'outline': '3px dashed red', 'outline-offset': '-3px', 'cursor': 'pointer'});
+                    $(this).css({'outline': '1px dashed #0dbadc', 'outline-offset': '-3px', 'cursor': 'pointer'});
 
                 }
 

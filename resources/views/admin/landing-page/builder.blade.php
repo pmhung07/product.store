@@ -110,7 +110,7 @@ Tạo Landing Page :: Bán hàng trực tuyến
     </div><!-- /.container -->
 
     <div id="styleEditor" class="styleEditor">
-        <a href="#" class="close"><span class="fui-cross-circle"></span></a>
+        <a class="close"><span class="fui-cross-circle"></span></a>
         <h3><span class="fui-new"></span> Detail Editor</h3>
         <ul class="breadcrumb">
             <li>editing:</li>

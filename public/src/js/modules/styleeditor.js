@@ -885,11 +885,11 @@
 
             if( $(styleeditor.activeElement.element).closest('body').width() !== $(styleeditor.activeElement.element).width() ) {
 
-                $(styleeditor.activeElement.element).attr('style', '').css({'outline': '3px dashed red', 'cursor': 'pointer'});
+                $(styleeditor.activeElement.element).attr('style', '').css({'outline': '1px dashed #0dbadc ', 'cursor': 'pointer'});
 
             } else {
 
-                $(styleeditor.activeElement.element).attr('style', '').css({'outline': '3px dashed red', 'outline-offset':'-3px', 'cursor': 'pointer'});
+                $(styleeditor.activeElement.element).attr('style', '').css({'outline': '1px dashed #0dbadc ', 'outline-offset':'-3px', 'cursor': 'pointer'});
 
             }
 
