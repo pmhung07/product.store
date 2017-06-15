@@ -156,14 +156,14 @@ tinymce.init({
         'advlist autolink lists link image charmap print preview hr anchor pagebreak',
         'searchreplace wordcount visualblocks visualchars code fullscreen',
         'insertdatetime media nonbreaking save table contextmenu directionality',
-        'emoticons template paste textcolor colorpicker textpattern imagetools codesample jbimages'
+        'emoticons template paste textcolor colorpicker textpattern imagetools codesample jbimages email'
     ],
 
     // ===========================================
     // PUT PLUGIN'S BUTTON on the toolbar
     // ===========================================
     toolbar1: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image jbimages',
-    toolbar2: 'print preview media | fontsizeselect fontselect forecolor backcolor emoticons | codesample',
+    toolbar2: 'print preview media | fontsizeselect fontselect forecolor backcolor emoticons | codesample | email',
 
 
     // ===========================================
