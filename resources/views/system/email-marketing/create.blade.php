@@ -32,5 +32,9 @@
 @stop
 
 @section('script')
-
+<script type="text/javascript">
+    $(function() {
+        new app.EmailMarketingAddController().init();
+    });
+</script>
 @stop
