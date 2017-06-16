@@ -10,10 +10,10 @@
         font-size: 10px;
     }
 </style>
-<form class="form" method="POST">
+<form class="form" method="POST" id="form-main">
     <div class="form-group {{ hasValidator('name') }}">
         <label class="control-label">Tên chiến dịch</label>
-        <input type="text" name="name" class="form-control" value="{{ old('name', $item->name) }}">
+        <input type="text" name="name" class="form-control" value="{{ old('name', $item->name) }}" required>
         {!! alertError('name') !!}
     </div>
 
@@ -22,24 +22,19 @@
             <div class="panel panel-primary">
                 <div class="panel-heading">Chọn mẫu email</div>
                 <div class="panel-body">
-                    @for($i = 0; $i < 10; $i ++)
-                    <button type="button" class="btn btn-sm btn-default" style="margin-bottom: 5px;">
-                        <div class="checkbox" style="margin-top: 0px; margin-bottom: 0px;">
-                            <label>
-                                <input type="checkbox" name="">
-                                #1 Lorem tuyet voi
-                            </label>
-                        </div>
+                    @foreach($templateEmails as $item)
+                    <button type="button" data-id="{{ $item->id }}" data-title="{{ $item->title }}" class="btn btn-sm btn-default btn-action-select-template-email" style="margin-bottom: 5px;">
+                        #{{ $item->id }} {{ $item->title }}
                     </button>
-                    @endfor
+                    @endforeach
                 </div>
             </div>
         </div>
         <div class="col-sm-7">
             <div class="panel panel-primary">
                 <div class="panel-heading">Mẫu được chọn</div>
-                <div class="panel-body">
-                    @for($i = 0; $i < 5; $i ++)
+                <div class="panel-body" id="email-selected-container">
+                    {{-- @for($i = 0; $i < 5; $i ++)
                         <div class="email-template-selected-item">
                             <p class="title">#1 Lorem tuyet voi</p>
                             <p class="time text-success">24/10/2018 10:00</p>
@@ -56,7 +51,7 @@
                             <button class="btn btn-xs btn-info" data-toggle="tooltip" data-title="Đặt lịch"><i class="fa fa-clock-o"></i></button>
                             <button class="btn btn-xs btn-danger" data-toggle="tooltip" data-title="Xóa"><i class="fa fa-trash-o"></i></button>
                         </div>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
         </div>
@@ -71,12 +66,12 @@
 <div id="modal-timer" class="modal">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Đặt lịch gửi</h4>
-            </div>
-            <div class="modal-body">
-                <form class="form">
+            <form class="form" id="form-set-timer">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Đặt lịch gửi</h4>
+                </div>
+                <div class="modal-body">
                     <div class="form-group {{ hasValidator('name') }}">
                         <div class="row">
                             <div class="col-xs-4">
@@ -96,21 +91,30 @@
                             </div>
                             <div class="col-xs-3">
                                 <div class="checkbox">
-                                    <label><input id="timer-checkbox-right-now" type="checkbox" value="now">Ngay lập tức</label>
+                                    <label><input id="timer-checkbox-right-now" type="checkbox" value="now" name="now">Ngay lập tức</label>
                                 </div>
                             </div>
                         </div>
                         <span class="help-inline text-info">Chú ý: Giờ: 00-23,Phút: 00-59,Ngày: 01-31,Tháng: 01-12</span>
                         {!! alertError('name') !!}
                     </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="submit" class="btn btn-sm btn-primary">Cập nhật</button>
-            </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" id="btn-set-change-timer" class="btn btn-sm btn-primary">Cập nhật</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
 
 
-<script type="text/javascript"></script>
+<script id="tpl-email-selected" type="text/template">
+    <div id="selected-item-id-@{{ id }}" class="email-template-selected-item">
+        <p class="title">#@{{ id }} @{{ title }}</p>
+        <p class="time text-success">@{{ time }}</p>
+        <div class="btn-group">
+            <button class="btn btn-xs btn-info btn-timer" data-id="@{{ id }}" data-toggle="tooltip" data-title="Đặt lịch"><i class="fa fa-clock-o"></i></button>
+            <button class="btn btn-xs btn-danger btn-delete" data-id="@{{ id }}" data-toggle="tooltip" data-title="Xóa"><i class="fa fa-trash-o"></i></button>
+        </div>
+    </div>
+</script>

@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests;
 use App\Http\Requests\EmailMarketingCampainFormRequest;
 use App\Models\EmailMarketingCampain;
+use App\Models\EmailTemplate;
 use App\Provinces;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
@@ -23,7 +24,11 @@ class EmailMarketingController extends Controller
     public function getCreate()
     {
         $item = new EmailMarketingCampain();
-        return view('system/email-marketing/create', compact('item'));
+
+        // Mẫu email
+        $templateEmails = EmailTemplate::orderBy('updated_at', 'DESC')->get();
+
+        return view('system/email-marketing/create', compact('item', 'templateEmails'));
     }
 
     public function postCreate(EmailMarketingCampainFormRequest $request)
@@ -32,7 +37,16 @@ class EmailMarketingController extends Controller
         $item->name = clean($request->get('name'));
         $item->save();
 
-        return redirect()->route('system.emailMarketing.choiceCustomer', $item->id)->with('success', 'Cập nhật thành công');
+        $emailTemplateSelected = (array) $request->get('email_template_selected');
+        foreach($emailTemplateSelected as $item) {
+            if($item['now']) {
+
+            } else {
+
+            }
+        }
+
+        // return redirect()->route('system.emailMarketing.choiceCustomer', $item->id)->with('success', 'Cập nhật thành công');
     }
 
     public function getChoiceCustomer($id, Request $request)

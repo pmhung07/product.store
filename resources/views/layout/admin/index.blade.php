@@ -80,6 +80,8 @@
     <script src="/js/core/helper.js" type="text/javascript"></script>
     <script src="js/core/core.js"></script>
 
+    <script type="text/javascript" src="/app/plugins/mustache.min.js"></script>
+
     <link rel="stylesheet" type="text/css" href="/app/system/bundle/style.css">
     <script src="/app/system/bundle/bundle.js" type="text/javascript"></script>
 
