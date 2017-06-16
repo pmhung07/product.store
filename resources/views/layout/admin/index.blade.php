@@ -82,8 +82,8 @@
 
     <script type="text/javascript" src="/app/plugins/mustache.min.js"></script>
 
-    <link rel="stylesheet" type="text/css" href="/app/system/bundle/style.css">
-    <script src="/app/system/bundle/bundle.js" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" href="/bundle/system.style.css">
+    <script src="/bundle/system.bundle.js" type="text/javascript"></script>
 
     @yield('styles')
 </head>
