@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 7);
+/******/ 	return __webpack_require__(__webpack_require__.s = 9);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -303,7 +303,9 @@ module.exports = Helper;
 })( jQuery );
 
 /***/ }),
-/* 3 */
+/* 3 */,
+/* 4 */,
+/* 5 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -515,7 +517,7 @@ __WEBPACK_IMPORTED_MODULE_1__app___default.a.GaController = function(params) {
 }
 
 /***/ }),
-/* 4 */
+/* 6 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -682,7 +684,7 @@ __WEBPACK_IMPORTED_MODULE_1__app___default.a.ProductAddController = function() {
 };
 
 /***/ }),
-/* 5 */
+/* 7 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -802,6 +804,10 @@ __WEBPACK_IMPORTED_MODULE_1__app___default.a.ProductUpdateController = function(
                     formData.append('images[]', _images[i]);
                 }
             }
+
+            formData.append('spec', tinymce.get('spec').getContent());
+            formData.append('content', tinymce.get('content').getContent());
+            formData.append('introduce', tinymce.get('introduce').getContent());
 
             $.ajax({
                 url: $form.attr('action'),
@@ -951,24 +957,24 @@ __WEBPACK_IMPORTED_MODULE_1__app___default.a.ProductUpdateController = function(
 }
 
 /***/ }),
-/* 6 */
+/* 8 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
-/* 7 */
+/* 9 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__plugins_infica_tags_input_infica_tags_input_js__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__plugins_infica_tags_input_infica_tags_input_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__plugins_infica_tags_input_infica_tags_input_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__plugins_infica_tags_input_infica_tags_input_scss__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__plugins_infica_tags_input_infica_tags_input_scss__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__plugins_infica_tags_input_infica_tags_input_scss___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__plugins_infica_tags_input_infica_tags_input_scss__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__product_ProductAddController__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__product_ProductUpdateController__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ga_GaController_js__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__product_ProductAddController__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__product_ProductUpdateController__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ga_GaController_js__ = __webpack_require__(5);
 // Plugins
 
 

@@ -111,6 +111,10 @@ app.ProductUpdateController = function(params) {
                 }
             }
 
+            formData.append('spec', tinymce.get('spec').getContent());
+            formData.append('content', tinymce.get('content').getContent());
+            formData.append('introduce', tinymce.get('introduce').getContent());
+
             $.ajax({
                 url: $form.attr('action'),
                 type: "POST",
