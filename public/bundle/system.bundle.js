@@ -316,7 +316,7 @@ module.exports = Helper;
 
 __WEBPACK_IMPORTED_MODULE_1__app___default.a.EmailMarketingAddController = function(args) {
     var that = this;
-
+    that.args = args;
     that.lastEmailTemplateChangeTimer = 0;
     that.formData = {
         title: "",
@@ -405,7 +405,7 @@ __WEBPACK_IMPORTED_MODULE_1__app___default.a.EmailMarketingAddController = funct
     function onSubmitMainForm(e) {
         e.preventDefault();
         var $this = $(this);
-        that.formData.title = $this.find('[name="name"]').val();
+        that.formData.name = $this.find('[name="name"]').val();
 
         $.ajax({
             url: "/system/email-marketing/create?_token="+args.token,
@@ -414,8 +414,44 @@ __WEBPACK_IMPORTED_MODULE_1__app___default.a.EmailMarketingAddController = funct
         });
     }
 
+    function onOpenPopUpNewEmailTemplate(e) {
+        e.preventDefault();
+        var $this = $(this);
+        $('#modal-form-new-email-template').modal('show');
+    }
+
+    function onSubmitNewEmailTemplate(e) {
+        e.preventDefault();
+        var $this = $(this);
+
+        let data = $.unserialize($this.serialize());
+        data.content = tinymce.get('tiny-editor-new-email-template').getContent();
+
+        $.ajax({
+            url: '/system/email-template/create?_token='+that.args.token,
+            type: 'POST',
+            data: data,
+            beforeSend: function() {
+                $this.find('.btn-submit').attr('disabled', 'disabled');
+            },
+            success: function(response) {
+                $this.find('.btn-submit').removeAttr('disabled');
+                $('#modal-form-new-email-template').modal('hide');
+                if(response.code == 200) {
+                    let item = response.item;
+                    let newEmailTemplate = Mustache.render($('#tpl-email-template').html(), {
+                        id: item.id,
+                        title: item.title
+                    });
+
+                    $('#email-template-container').append(newEmailTemplate);
+                }
+            }
+        });
+    }
+
     function eventRegister() {
-        $('.btn-action-select-template-email').on('click', onSelectEmailTemplate);
+        $(document).on('click', '.btn-action-select-template-email', onSelectEmailTemplate);
         $(document).on('click',  '.btn-timer', onOpenPopupSetTimer);
         $(document).on('click',  '.btn-delete', onDeleteTimer);
         $('#timer-checkbox-right-now').on('change', toggleSendBtnRightNow);
@@ -423,6 +459,10 @@ __WEBPACK_IMPORTED_MODULE_1__app___default.a.EmailMarketingAddController = funct
         $('#form-set-timer').on('submit', onSetTimerSubmit);
 
         $('#form-main').on('submit', onSubmitMainForm);
+
+        $('.btn-action-new-email-template').on('click', onOpenPopUpNewEmailTemplate);
+
+        $('#form-new-email-template').on('submit', onSubmitNewEmailTemplate);
     }
 
     return {
@@ -1101,11 +1141,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__plugins_infica_tags_input_infica_tags_input_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__plugins_infica_tags_input_infica_tags_input_js__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__plugins_infica_tags_input_infica_tags_input_scss__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__plugins_infica_tags_input_infica_tags_input_scss___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__plugins_infica_tags_input_infica_tags_input_scss__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__product_ProductAddController__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__product_ProductUpdateController__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__email_marketing_EmailMarketingAddController__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ga_GaController_js__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__less_common_less__ = __webpack_require__(17);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__less_common_less___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__less_common_less__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__plugins_unserialize_js__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__plugins_unserialize_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__plugins_unserialize_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__product_ProductAddController__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__product_ProductUpdateController__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__email_marketing_EmailMarketingAddController__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__ga_GaController_js__ = __webpack_require__(4);
 // Plugins
+
+
+
+
 
 
 
@@ -1117,6 +1165,60 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 // Ga
 
+
+/***/ }),
+/* 11 */,
+/* 12 */,
+/* 13 */,
+/* 14 */,
+/* 15 */,
+/* 16 */
+/***/ (function(module, exports) {
+
+(function($){
+    $.unserialize = function(str){
+        var items = str.split('&');
+        var ret = "{";
+        var arrays = [];
+        var index = "";
+        for (var i = 0; i < items.length; i++) {
+            var parts = items[i].split(/=/);
+            //console.log(parts[0], parts[0].indexOf("%5B"),  parts[0].indexOf("["));
+            if (parts[0].indexOf("%5B") > -1 || parts[0].indexOf("[") > -1){
+                //Array serializado
+                index = (parts[0].indexOf("%5B") > -1) ? parts[0].replace("%5B","").replace("%5D","") : parts[0].replace("[","").replace("]","");
+                //console.log("array detectado:", index);
+                //console.log(arrays[index] === undefined);
+                if (arrays[index] === undefined){
+                    arrays[index] = [];
+                }
+                arrays[index].push( decodeURIComponent(parts[1].replace(/\+/g," ")));
+                //console.log("arrays:", arrays);
+            } else {
+                //console.log("common item (not array)");
+                if (parts.length > 1){
+                    ret += "\""+parts[0] + "\": \"" + decodeURIComponent(parts[1].replace(/\+/g," ")).replace(/\n/g,"\\n").replace(/\r/g,"\\r") + "\", ";
+                }
+            }
+
+        };
+
+        ret = (ret != "{") ? ret.substr(0,ret.length-2) + "}" : ret + "}";
+        //console.log(ret, arrays);
+        var ret2 = JSON.parse(ret);
+        //proceso los arrays
+        for (arr in arrays){
+            ret2[arr] = arrays[arr];
+        }
+        return ret2;
+    }
+})(jQuery);
+
+/***/ }),
+/* 17 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
 
 /***/ })
 /******/ ]);

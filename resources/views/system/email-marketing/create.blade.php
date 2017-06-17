@@ -34,9 +34,9 @@
 @section('script')
 <script type="text/javascript">
     $(function() {
-        new app.EmailMarketingAddController().init({
+        new app.EmailMarketingAddController({
             token: "{{ csrf_token() }}"
-        });
+        }).init();
     });
 </script>
 @stop

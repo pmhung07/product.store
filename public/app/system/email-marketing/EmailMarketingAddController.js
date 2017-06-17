@@ -3,7 +3,7 @@ import app from '../app';
 
 app.EmailMarketingAddController = function(args) {
     var that = this;
-
+    that.args = args;
     that.lastEmailTemplateChangeTimer = 0;
     that.formData = {
         title: "",
@@ -92,7 +92,7 @@ app.EmailMarketingAddController = function(args) {
     function onSubmitMainForm(e) {
         e.preventDefault();
         var $this = $(this);
-        that.formData.title = $this.find('[name="name"]').val();
+        that.formData.name = $this.find('[name="name"]').val();
 
         $.ajax({
             url: "/system/email-marketing/create?_token="+args.token,
@@ -101,8 +101,44 @@ app.EmailMarketingAddController = function(args) {
         });
     }
 
+    function onOpenPopUpNewEmailTemplate(e) {
+        e.preventDefault();
+        var $this = $(this);
+        $('#modal-form-new-email-template').modal('show');
+    }
+
+    function onSubmitNewEmailTemplate(e) {
+        e.preventDefault();
+        var $this = $(this);
+
+        let data = $.unserialize($this.serialize());
+        data.content = tinymce.get('tiny-editor-new-email-template').getContent();
+
+        $.ajax({
+            url: '/system/email-template/create?_token='+that.args.token,
+            type: 'POST',
+            data: data,
+            beforeSend: function() {
+                $this.find('.btn-submit').attr('disabled', 'disabled');
+            },
+            success: function(response) {
+                $this.find('.btn-submit').removeAttr('disabled');
+                $('#modal-form-new-email-template').modal('hide');
+                if(response.code == 200) {
+                    let item = response.item;
+                    let newEmailTemplate = Mustache.render($('#tpl-email-template').html(), {
+                        id: item.id,
+                        title: item.title
+                    });
+
+                    $('#email-template-container').append(newEmailTemplate);
+                }
+            }
+        });
+    }
+
     function eventRegister() {
-        $('.btn-action-select-template-email').on('click', onSelectEmailTemplate);
+        $(document).on('click', '.btn-action-select-template-email', onSelectEmailTemplate);
         $(document).on('click',  '.btn-timer', onOpenPopupSetTimer);
         $(document).on('click',  '.btn-delete', onDeleteTimer);
         $('#timer-checkbox-right-now').on('change', toggleSendBtnRightNow);
@@ -110,6 +146,10 @@ app.EmailMarketingAddController = function(args) {
         $('#form-set-timer').on('submit', onSetTimerSubmit);
 
         $('#form-main').on('submit', onSubmitMainForm);
+
+        $('.btn-action-new-email-template').on('click', onOpenPopUpNewEmailTemplate);
+
+        $('#form-new-email-template').on('submit', onSubmitNewEmailTemplate);
     }
 
     return {

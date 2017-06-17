@@ -8,6 +8,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests;
 use App\Http\Requests\EmailMarketingCampainFormRequest;
 use App\Models\EmailMarketingCampain;
+use App\Models\EmailMarketingCampainHasEmailTemplate;
+use App\Models\EmailMarketingSendMailLog;
 use App\Models\EmailTemplate;
 use App\Provinces;
 use Illuminate\Http\Request;
@@ -28,7 +30,10 @@ class EmailMarketingController extends Controller
         // Mẫu email
         $templateEmails = EmailTemplate::orderBy('updated_at', 'DESC')->get();
 
-        return view('system/email-marketing/create', compact('item', 'templateEmails'));
+        $provinces = Provinces::orderBy('name', 'DESC')->get();
+        $districts = new Collection();
+
+        return view('system/email-marketing/create', compact('item', 'templateEmails', 'provinces', 'districts'));
     }
 
     public function postCreate(EmailMarketingCampainFormRequest $request)
@@ -37,10 +42,36 @@ class EmailMarketingController extends Controller
         $item->name = clean($request->get('name'));
         $item->save();
 
-        $emailTemplateSelected = (array) $request->get('email_template_selected');
-        foreach($emailTemplateSelected as $item) {
-            if($item['now']) {
+        // Đọc file excel lưu thành mảng khách hàng
+        $customers = new Collection();
+        $customers->push(new Customers(['id' => 1000, 'email' => 'cong.itsoft@gmail.com', 'name' => 'Justin']));
 
+        $emailTemplateSelected = (array) $request->get('email_template_selected');
+        foreach($emailTemplateSelected as $itemTemplate) {
+            EmailMarketingCampainHasEmailTemplate::insert([
+                'campain_id' => $item->id,
+                'template_id' => $itemTemplate['id'],
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s'),
+            ]);
+
+            // Nếu thằng nào gửi ngay thì cho nó đi luôn và lưu log lại
+            if($itemTemplate['now']) {
+                $template = EmailTemplate::where('id', $itemTemplate['id'])->first();
+                if($template) {
+                    foreach($customers as $customer) {
+                        \Mail::send('layout/mail/send-mail-template', ['title' => $item->name,'content' => $template->content], function ($m) use ($template, $item, $customer) {
+                            $m->from('tamnguyen@9119.vn', $item->name);
+                            $m->to($customer->email, $customer->name)->subject($item->name);
+                        });
+                        $log = new EmailMarketingSendMailLog([
+                            'campain_id' => $item->id,
+                            'customer_id' => $customer->id,
+                            'template_id' => $template->id
+                        ]);
+                        $log->save();
+                    }
+                }
             } else {
 
             }

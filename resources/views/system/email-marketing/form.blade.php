@@ -21,7 +21,8 @@
         <div class="col-sm-5">
             <div class="panel panel-primary">
                 <div class="panel-heading">Chọn mẫu email</div>
-                <div class="panel-body">
+                <div class="panel-body" id="email-template-container">
+                    <button type="button" class="btn btn-sm btn-danger btn-action-new-email-template" style="margin-bottom: 5px;">Tạo mới</button>
                     @foreach($templateEmails as $item)
                     <button type="button" data-id="{{ $item->id }}" data-title="{{ $item->title }}" class="btn btn-sm btn-default btn-action-select-template-email" style="margin-bottom: 5px;">
                         #{{ $item->id }} {{ $item->title }}
@@ -53,6 +54,19 @@
                         </div>
                     </div> --}}
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="panel panel-primary">
+            <div class="panel-heading">Chọn tập khách hàng</div>
+            <div class="panel-body">
+                <p>Chọn tệp khách hàng từ máy tính</p>
+                <p>
+                    <input type="file" name="">
+                </p>
+                <p>File bắt buộc phải là file có dạng *.xls hoặc *.xlsx</p>
             </div>
         </div>
     </div>
@@ -107,6 +121,32 @@
     </div>
 </div>
 
+<div id="modal-form-new-email-template" class="modal fade">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form id="form-new-email-template" class="form">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Tạo mới mẫu email</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label class="control-label">Tiêu đề</label>
+                        <input type="text" name="title" class="form-control" value="">
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Nội dung</label>
+                        <textarea name="content" id="tiny-editor-new-email-template" class="form-control tiny-editor"></textarea>
+                    </div>
+                    <div class="form-group">
+                        {!! csrf_field() !!}
+                        <button type="submit" class="btn btn-sm btn-primary btn-submit">Cập nhật</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 
 <script id="tpl-email-selected" type="text/template">
     <div id="selected-item-id-@{{ id }}" class="email-template-selected-item">
@@ -117,4 +157,10 @@
             <button class="btn btn-xs btn-danger btn-delete" data-id="@{{ id }}" data-toggle="tooltip" data-title="Xóa"><i class="fa fa-trash-o"></i></button>
         </div>
     </div>
+</script>
+
+<script type="text/template" id="tpl-email-template">
+    <button type="button" data-id="@{{ id }}" data-title="@{{ title }}" class="btn btn-sm btn-default btn-action-select-template-email" style="margin-bottom: 5px;">
+        #@{{ id }} @{{ title }}
+    </button>
 </script>

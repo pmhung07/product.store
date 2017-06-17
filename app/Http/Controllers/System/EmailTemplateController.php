@@ -29,6 +29,14 @@ class EmailTemplateController extends Controller
         $item->content = clean($request->get('content'));
         $item->creator_id = $request->user()->id;
         $item->save();
+
+        if($request->ajax()) {
+            return response()->json([
+                'code' => 200,
+                'item' => $item->toArray()
+            ]);
+        }
+
         return redirect()->route('system.emailTemplate.index')->with('success', 'Cập nhật thành công');
     }
 
