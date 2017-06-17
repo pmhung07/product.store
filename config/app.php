@@ -148,7 +148,7 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
-
+        Maatwebsite\Excel\ExcelServiceProvider::class,
         /*
          * Application Service Providers...
          */
@@ -217,8 +217,8 @@ return [
         'ImageIntervention' => Intervention\Image\Facades\Image::class,
         'Cart' => Gloudemans\Shoppingcart\Facades\Cart::class,
         'Xss' => Mews\Purifier\Facades\Purifier::class,
-        'Shorty'    => Mbarwick83\Shorty\Facades\Shorty::class
-
+        'Shorty'    => Mbarwick83\Shorty\Facades\Shorty::class,
+        'Excel' => Maatwebsite\Excel\Facades\Excel::class
         //'Shortener' => TrendyLabs\Shortener\Facade::class
 
     ],

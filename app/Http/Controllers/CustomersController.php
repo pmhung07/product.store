@@ -21,7 +21,7 @@ use DB;
 use Hash;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
-
+use Excel;
 
 class CustomersController extends Controller
 {
@@ -61,9 +61,11 @@ class CustomersController extends Controller
         $province_id = (int) $request->get('province_id');
         $district_id = (int) $request->get('district_id');
         $vip_customer = (int) $request->get('vip_customer');
+        $gender = (int) $request->get('gender', -1);
 
         if($province_id) $rows->where('customers.province_id', '=', $province_id);
         if($district_id) $rows->where('customers.district_id', '=', $district_id);
+        if($gender != -1) $rows->where('customers.gender', '=', $gender);
         if($vip_customer) {
             $rows->join('orders', 'customers.id', '=', 'orders.customer_id')
                  ->orderBy('orders.total_price', 'DESC');
@@ -71,7 +73,14 @@ class CustomersController extends Controller
             $order = 'DESC';
         }
 
-		$data = $rows->orderBy($sort,$order)->paginate(10);//->with('category', 'brand')->paginate(10);
+		$data = $rows->orderBy($sort,$order);
+
+        $wantToExport = $request->get('export');
+        if($wantToExport == 0) {
+            $data = $data->paginate(10);//->with('category', 'brand')->paginate(10);
+        } else {
+            $data = $data->paginate(5000);
+        }
 
         $provinces = Provinces::orderBy('name', 'DESC')->get();
         $districts = new Collection();
@@ -85,6 +94,20 @@ class CustomersController extends Controller
             "SEND_EMAIL"   => 'Gửi mail',
             // "DELETE_MULTI" => 'Xóa'
         ];
+
+        // Nếu muốn export
+        if($wantToExport && $data->count() > 0) {
+            Excel::create('DS_CUSTOMER_'.date('Ymd').'_'.time(), function($excel) use($data) {
+                $excel->sheet('Sheet1', function($sheet) use($data) {
+                    $i = 1;
+                    $sheet->row($i, ['id', 'name', 'email']);
+                    foreach($data as $item) {
+                        $i++;
+                        $sheet->row($i, [$item->id, $item->name, $item->email]);
+                    }
+                });
+            })->download('xls');
+        }
 
         return view('admin.customer.index',['rows' => $data, 'provinces' => $provinces, 'districts' => $districts, 'bulkActions' => $bulkActions]);//, ['rows' => $data]);
     }

@@ -342,6 +342,8 @@ Route::group(['middleware' => 'auth'], function(){
 			Route::post('/{id}/edit', ['as' => 'system.emailMarketing.edit', 'uses' => 'System\EmailMarketingController@postEdit']);
 			// Route::get('/{id}/detail', ['as' => 'system.emailMarketing.detail', 'uses' => 'System\EmailMarketingController@getDetail']);
 			Route::get('/{id}/delete', ['as' => 'system.emailMarketing.delete', 'uses' => 'System\EmailMarketingController@getDelete']);
+
+			Route::get('/get-schedule-at', 'System\EmailMarketingController@getScheduleAt');
 		});
 
 		// Shop

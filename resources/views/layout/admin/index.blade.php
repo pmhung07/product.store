@@ -81,6 +81,7 @@
     <script src="js/core/core.js"></script>
 
     <script type="text/javascript" src="/app/plugins/mustache.min.js"></script>
+    <script type="text/javascript" src="/app/plugins/moment.js"></script>
 
     <link rel="stylesheet" type="text/css" href="/bundle/system.style.css">
     <script src="/bundle/system.bundle.js" type="text/javascript"></script>

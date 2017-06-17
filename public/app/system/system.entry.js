@@ -10,7 +10,9 @@ import '../plugins/unserialize.js';
 import './product/ProductAddController';
 import './product/ProductUpdateController';
 
+// Email marketing
 import './email-marketing/EmailMarketingAddController';
+import './email-marketing/EmailMarketingEditController';
 
 // Ga
 import './ga/GaController.js'

@@ -32,13 +32,13 @@
                             <select id="district_id" name="district_id" class="form-control input-sm">
                                 <option value="">Quận/Huyện</option>
                                 @foreach($districts as $item)
-                                    <option value="{{ $item->id }}" {{ $item->id == Request::get('district_id') ? 'selected' : '' }}>{{ $item->name }}</option>
+                                    <option class="option" value="{{ $item->id }}" {{ $item->id == Request::get('district_id') ? 'selected' : '' }}>{{ $item->name }}</option>
                                 @endforeach
                             </select>
                             <select name="gender" class="form-control input-sm">
-                                <option value="">Giới tính</option>
-                                <option value="0">Nữ</option>
-                                <option value="1">Nam</option>
+                                <option value="-1">Giới tính</option>
+                                <option value="0" {{ Request::get('gender') == 0 ? 'selected': '' }}>Nữ</option>
+                                <option value="1" {{ Request::get('gender') == 1 ? 'selected': '' }}>Nam</option>
                             </select>
                             <label class="checkbox checkbox-inline">
                                 <input id="vip_customer" type="checkbox" name="vip_customer" value="1" {{ Request::get('vip_customer') == 1 ? 'checked' : '' }}> Mua nhiều nhất
