@@ -506,7 +506,7 @@ __WEBPACK_IMPORTED_MODULE_1__app___default.a.EmailMarketingAddController = funct
         });
 
         $.ajax({
-            url: "/system/email-marketing/create",
+            url: "/system/crm/email-marketing/create",
             type: "POST",
             data: formData,
             processData: false,
@@ -518,7 +518,7 @@ __WEBPACK_IMPORTED_MODULE_1__app___default.a.EmailMarketingAddController = funct
                 if(response.code == 200) {
                     __WEBPACK_IMPORTED_MODULE_0__helper_helper___default.a.showMessage(response.message, 'success', 600);
                     setTimeout(() => {
-                        window.location.href = '/system/email-marketing/index';
+                        window.location.href = '/system/crm/email-marketing/index';
                     }, 500);
                 }
             }
@@ -752,7 +752,7 @@ __WEBPACK_IMPORTED_MODULE_1__app___default.a.EmailMarketingEditController = func
         });
 
         $.ajax({
-            url: "/system/email-marketing/"+that.args.campain_id+"/edit",
+            url: "/system/crm/email-marketing/"+that.args.campain_id+"/edit",
             type: "POST",
             data: formData,
             processData: false,
@@ -764,7 +764,7 @@ __WEBPACK_IMPORTED_MODULE_1__app___default.a.EmailMarketingEditController = func
                 if(response.code == 200) {
                     __WEBPACK_IMPORTED_MODULE_0__helper_helper___default.a.showMessage(response.message, 'success', 600);
                     setTimeout(() => {
-                        // window.location.href = '/system/email-marketing/index';
+                        window.location.href = '/system/crm/email-marketing/index';
                     }, 500);
                 }
             }

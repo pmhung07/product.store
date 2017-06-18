@@ -268,14 +268,14 @@ class EmailMarketingController extends Controller
                     $month = array_get($itemTemplate, 'month');
                     $day = array_get($itemTemplate, 'day');
                     $year = array_get($itemTemplate, 'year');
-                    $queue = new EmailMarketingQueue([
-                        'campain_id' => $item->id,
-                        'template_id' => $template->id,
-                        'merchant_id' => 0,
-                        'customer_id' => $customer->id,
-                        'email' => $customer->email,
-                        'send_schedule_at' => date('Y-m-d H:i:s', mktime($hour, $minute, 0, $month, $day, $year))
-                    ]);
+
+                    $queue = new EmailMarketingQueue();
+                    $queue->campain_id = $item->id;
+                    $queue->template_id = $template->id;
+                    $queue->merchant_id = 0;
+                    $queue->customer_id = $customer->id;
+                    $queue->email = $customer->email;
+                    $queue->send_schedule_at = date('Y-m-d H:i:s', mktime($hour, $minute, 0, $month, $day, $year));
                     $queue->save();
                 }
             }

@@ -331,19 +331,30 @@ Route::group(['middleware' => 'auth'], function(){
 		});
 
 		// Email marketing
-		Route::group(['prefix' => 'email-marketing'], function(){
-			Route::get('index', ['as' => 'system.emailMarketing.index' , 'uses' => 'System\EmailMarketingController@getIndex']);
-			Route::get('/create', ['as' => 'system.emailMarketing.create', 'uses' => 'System\EmailMarketingController@getCreate']);
-			Route::post('/create', ['as' => 'system.emailMarketing.create', 'uses' => 'System\EmailMarketingController@postCreate']);
+		Route::group(['prefix' => 'crm'], function() {
+			Route::group(['prefix' => 'sms-marketing'], function() {
+				Route::get('index', ['as' => 'system.smsMarketing.index', 'uses' => 'System\SmsMarketingController@getIndex']);
+				Route::get('/create', ['as' => 'system.smsMarketing.create', 'uses' => 'System\SmsMarketingController@getCreate']);
+				Route::post('/create', ['as' => 'system.smsMarketing.create', 'uses' => 'System\SmsMarketingController@postCreate']);
+				Route::get('/{id}/edit', ['as' => 'system.smsMarketing.edit', 'uses' => 'System\SmsMarketingController@getEdit']);
+				Route::post('/{id}/edit', ['as' => 'system.smsMarketing.edit', 'uses' => 'System\SmsMarketingController@postEdit']);
+				Route::get('/{id}/delete', ['as' => 'system.smsMarketing.delete', 'uses' => 'System\SmsMarketingController@getDelete']);
+			});
 
-			Route::get('/{id}/choice-customer', ['as' => 'system.emailMarketing.choiceCustomer', 'uses' => 'System\EmailMarketingController@getChoiceCustomer']);
-			Route::post('/{id}/choice-customer', ['as' => 'system.emailMarketing.choiceCustomer', 'uses' => 'System\EmailMarketingController@postChoiceCustomer']);
-			Route::get('/{id}/edit', ['as' => 'system.emailMarketing.edit', 'uses' => 'System\EmailMarketingController@getEdit']);
-			Route::post('/{id}/edit', ['as' => 'system.emailMarketing.edit', 'uses' => 'System\EmailMarketingController@postEdit']);
-			// Route::get('/{id}/detail', ['as' => 'system.emailMarketing.detail', 'uses' => 'System\EmailMarketingController@getDetail']);
-			Route::get('/{id}/delete', ['as' => 'system.emailMarketing.delete', 'uses' => 'System\EmailMarketingController@getDelete']);
+			Route::group(['prefix' => 'email-marketing'], function(){
+				Route::get('index', ['as' => 'system.emailMarketing.index' , 'uses' => 'System\EmailMarketingController@getIndex']);
+				Route::get('/create', ['as' => 'system.emailMarketing.create', 'uses' => 'System\EmailMarketingController@getCreate']);
+				Route::post('/create', ['as' => 'system.emailMarketing.create', 'uses' => 'System\EmailMarketingController@postCreate']);
 
-			Route::get('/get-schedule-at', 'System\EmailMarketingController@getScheduleAt');
+				Route::get('/{id}/choice-customer', ['as' => 'system.emailMarketing.choiceCustomer', 'uses' => 'System\EmailMarketingController@getChoiceCustomer']);
+				Route::post('/{id}/choice-customer', ['as' => 'system.emailMarketing.choiceCustomer', 'uses' => 'System\EmailMarketingController@postChoiceCustomer']);
+				Route::get('/{id}/edit', ['as' => 'system.emailMarketing.edit', 'uses' => 'System\EmailMarketingController@getEdit']);
+				Route::post('/{id}/edit', ['as' => 'system.emailMarketing.edit', 'uses' => 'System\EmailMarketingController@postEdit']);
+				// Route::get('/{id}/detail', ['as' => 'system.emailMarketing.detail', 'uses' => 'System\EmailMarketingController@getDetail']);
+				Route::get('/{id}/delete', ['as' => 'system.emailMarketing.delete', 'uses' => 'System\EmailMarketingController@getDelete']);
+
+				Route::get('/get-schedule-at', 'System\EmailMarketingController@getScheduleAt');
+			});
 		});
 
 		// Shop

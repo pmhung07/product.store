@@ -150,7 +150,7 @@ app.EmailMarketingEditController = function(args) {
         });
 
         $.ajax({
-            url: "/system/email-marketing/"+that.args.campain_id+"/edit",
+            url: "/system/crm/email-marketing/"+that.args.campain_id+"/edit",
             type: "POST",
             data: formData,
             processData: false,
@@ -162,7 +162,7 @@ app.EmailMarketingEditController = function(args) {
                 if(response.code == 200) {
                     Helper.showMessage(response.message, 'success', 600);
                     setTimeout(() => {
-                        // window.location.href = '/system/email-marketing/index';
+                        window.location.href = '/system/crm/email-marketing/index';
                     }, 500);
                 }
             }

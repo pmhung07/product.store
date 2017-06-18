@@ -188,11 +188,19 @@
             <?php } ?>
 
             <li @if(Request::is('system/email-marketing/*')) {!! 'class="active"' !!} @endif>
-                <a href="/system/email-marketing/index">
+                <a href="javascript:;">
                     <i class="fa fa-inbox"></i>
                     <span class="nav-label">Chăm sóc khách hàng</span>
                     <span class="fa arrow"></span>
                 </a>
+                <ul class="nav nav-second-level collapse">
+                    <li>
+                        <a href="{{ route('system.emailMarketing.index') }}">Email marketing</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('system.smsMarketing.index') }}">SMS marketing</a>
+                    </li>
+                </ul>
             </li>
 
             <?php if(active_sidebar(78) == 1 ){ ?>
