@@ -11,6 +11,7 @@ app.EmailMarketingEditController = function(args) {
         email_template_selected: {}
     };
 
+    that.fileSelected = false;
     const formData = new FormData();
 
     function init() {
@@ -95,27 +96,22 @@ app.EmailMarketingEditController = function(args) {
         var minute = $('#form-set-timer').find('[name="minute"]').val();
         var now = $('#form-set-timer').find('[name="now"]').is(':checked');
 
-        let timestamp = moment([year,month,day].join('-') + ' ' + [hour,minute].join(':')).unix();
+        let timestamp = 0;
+        let timeString = '';
+        if(!now) {
+            timestamp = moment([year,month,day].join('-') + ' ' + [hour,minute].join(':')).unix();
+            timeString = day+'/'+month+'/'+year+' '+hour+':'+minute;
+        }
 
         // Set lại timestamp để hiện cho đúng
         $('#selected-item-id-'+$('#modal-timer').attr('last-selected-id')).find('.btn-timer').data('time', timestamp);
-
         $('#modal-timer').modal('hide');
 
-        let timeString = day+'/'+month+'/'+year+' '+hour+':'+minute;
         if(now) {
             timeString = 'Ngay lập tức';
             $('#selected-item-id-'+$('#modal-timer').attr('last-selected-id')).find('.btn-timer').data('time', 0);
         }
         $('#selected-item-id-'+that.lastEmailTemplateChangeTimer).find('.time').text(timeString);
-
-        // formData.append("email_template_selected["+that.lastEmailTemplateChangeTimer+"][id]", that.lastEmailTemplateChangeTimer);
-        // formData.append("email_template_selected["+that.lastEmailTemplateChangeTimer+"][year]", year);
-        // formData.append("email_template_selected["+that.lastEmailTemplateChangeTimer+"][month]", month);
-        // formData.append("email_template_selected["+that.lastEmailTemplateChangeTimer+"][day]", day);
-        // formData.append("email_template_selected["+that.lastEmailTemplateChangeTimer+"][hour]", hour);
-        // formData.append("email_template_selected["+that.lastEmailTemplateChangeTimer+"][minute]", minute);
-        // formData.append("email_template_selected["+that.lastEmailTemplateChangeTimer+"][now]", now);
     }
 
     function onSubmitMainForm(e) {
@@ -213,6 +209,7 @@ app.EmailMarketingEditController = function(args) {
 
         $('#file-customers').on('change', function() {
             formData.append('file-customers', this.files[0]);
+            this.fileSelected = true;
         });
     }
 

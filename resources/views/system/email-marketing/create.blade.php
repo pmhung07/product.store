@@ -159,7 +159,7 @@
                                 <p class="title">#@{{ id }} @{{ title }}</p>
                                 <p class="time text-success">@{{ time }}</p>
                                 <div class="btn-group">
-                                    <button class="btn btn-xs btn-info btn-timer" data-id="@{{ id }}" data-toggle="tooltip" data-title="Đặt lịch"><i class="fa fa-clock-o"></i></button>
+                                    <button class="btn btn-xs btn-info btn-timer" data-time="0" data-id="@{{ id }}" data-toggle="tooltip" data-title="Đặt lịch"><i class="fa fa-clock-o"></i></button>
                                     <button class="btn btn-xs btn-danger btn-delete" data-id="@{{ id }}" data-toggle="tooltip" data-title="Xóa"><i class="fa fa-trash-o"></i></button>
                                 </div>
                             </div>

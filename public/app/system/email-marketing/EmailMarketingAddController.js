@@ -5,6 +5,7 @@ app.EmailMarketingAddController = function(args) {
     var that = this;
     that.args = args;
     that.lastEmailTemplateChangeTimer = 0;
+    that.fileSelected = false;
     that.formData = {
         title: "",
         email_template_selected: {}
@@ -21,7 +22,6 @@ app.EmailMarketingAddController = function(args) {
         let $this = $(this);
 
         if($('#email-selected-container').find('#selected-item-id-'+$this.data('id')).length == 0) {
-            console.log('template');
             let template = Mustache.render($('#tpl-email-selected').html(), {
                 id: $this.data('id'),
                 title: $this.data('title'),
@@ -36,9 +36,26 @@ app.EmailMarketingAddController = function(args) {
     function onOpenPopupSetTimer(e) {
         e.preventDefault();
         var $this = $(this);
-        $('#modal-timer').modal('show');
 
-        that.lastEmailTemplateChangeTimer = $this.data('id');
+        let $modalTimer = $('#modal-timer');
+        $modalTimer.modal('show');
+        $modalTimer.attr('last-selected-id', $this.data('id'));
+
+        let time = $this.data('time');
+        if(time > 0) {
+            let date = new Date(time * 1000);
+            let year = date.getFullYear();
+            let month = date.getMonth()+1;
+            let day = date.getDate();
+            let hour = date.getHours();
+            let minute = date.getMinutes();
+
+            $modalTimer.find('[name="year"]').val(year);
+            $modalTimer.find('[name="month"]').val(month);
+            $modalTimer.find('[name="day"]').val(day);
+            $modalTimer.find('[name="hour"]').val(hour);
+            $modalTimer.find('[name="minute"]').val(minute);
+        }
     }
 
     function onDeleteTimer(e) {
@@ -74,29 +91,21 @@ app.EmailMarketingAddController = function(args) {
 
         $('#modal-timer').modal('hide');
 
-        let timeString = day+'/'+month+'/'+year+' '+hour+':'+minute;
+        let timestamp = 0;
+        let timeString = '';
+        if(!now) {
+            timestamp = moment([year,month,day].join('-') + ' ' + [hour,minute].join(':')).unix();
+            timeString = day+'/'+month+'/'+year+' '+hour+':'+minute;
+        }
+
+        let $itemEmailTemplate = $('#selected-item-id-'+$('#modal-timer').attr('last-selected-id'));
+        $itemEmailTemplate.find('.btn-timer').data('time', timestamp);
+
         if(now) {
             timeString = 'Ngay lập tức';
+            $('#selected-item-id-'+$('#modal-timer').attr('last-selected-id')).find('.btn-timer').data('time', 0);
         }
-        $('#selected-item-id-'+that.lastEmailTemplateChangeTimer).find('.time').text(timeString);
-
-        // that.formData.email_template_selected[that.lastEmailTemplateChangeTimer] = {
-        //     id: that.lastEmailTemplateChangeTimer,
-        //     year: year,
-        //     month: month,
-        //     day: day,
-        //     hour: hour,
-        //     minute: minute,
-        //     now: now
-        // };
-
-        formData.append("email_template_selected["+that.lastEmailTemplateChangeTimer+"][id]", that.lastEmailTemplateChangeTimer);
-        formData.append("email_template_selected["+that.lastEmailTemplateChangeTimer+"][year]", year);
-        formData.append("email_template_selected["+that.lastEmailTemplateChangeTimer+"][month]", month);
-        formData.append("email_template_selected["+that.lastEmailTemplateChangeTimer+"][day]", day);
-        formData.append("email_template_selected["+that.lastEmailTemplateChangeTimer+"][hour]", hour);
-        formData.append("email_template_selected["+that.lastEmailTemplateChangeTimer+"][minute]", minute);
-        formData.append("email_template_selected["+that.lastEmailTemplateChangeTimer+"][now]", now);
+        $('#selected-item-id-'+$('#modal-timer').attr('last-selected-id')).find('.time').text(timeString);
     }
 
     function onSubmitMainForm(e) {
@@ -104,6 +113,40 @@ app.EmailMarketingAddController = function(args) {
         var $this = $(this);
         formData.append('name', $this.find('[name="name"]').val());
         formData.append('_token', args.token);
+
+        if($('.email-template-selected-item').length == 0) {
+            alert('Vui lòng chọn một mẫu email để tiếp tục');
+            return;
+        }
+
+        if(!that.fileSelected) {
+            alert("Vui lòng chọn tập khách hàng từ máy tính");
+            $('#file-customers').trigger('click');
+            return;
+        }
+
+        $('.email-template-selected-item').each((index, el) => {
+            let time = $(el).find('.btn-timer').data('time');
+
+            if(time > 0) {
+                let date = new Date(time * 1000);
+                let year = date.getFullYear();
+                let month = date.getMonth()+1;
+                let day = date.getDate();
+                let hour = date.getHours();
+                let minute = date.getMinutes();
+
+                formData.append("email_template_selected["+$(el).find('.btn-timer').data('id')+"][id]", $(el).find('.btn-timer').data('id'));
+                formData.append("email_template_selected["+$(el).find('.btn-timer').data('id')+"][year]", year);
+                formData.append("email_template_selected["+$(el).find('.btn-timer').data('id')+"][month]", month);
+                formData.append("email_template_selected["+$(el).find('.btn-timer').data('id')+"][day]", day);
+                formData.append("email_template_selected["+$(el).find('.btn-timer').data('id')+"][hour]", hour);
+                formData.append("email_template_selected["+$(el).find('.btn-timer').data('id')+"][minute]", minute);
+                formData.append("email_template_selected["+$(el).find('.btn-timer').data('id')+"][now]", 'false');
+            } else {
+                formData.append("email_template_selected["+$(el).find('.btn-timer').data('id')+"][now]", 'true');
+            }
+        });
 
         $.ajax({
             url: "/system/email-marketing/create",
@@ -165,6 +208,11 @@ app.EmailMarketingAddController = function(args) {
         $('#form-new-email-template').on('submit', onSubmitNewEmailTemplate);
 
         $('#file-customers').on('change', function() {
+            formData.append('file-customers', this.files[0]);
+        });
+
+        $('#file-customers').on('change', function() {
+            that.fileSelected = true;
             formData.append('file-customers', this.files[0]);
         });
     }
