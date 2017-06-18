@@ -51,7 +51,7 @@
 
         <link rel="stylesheet" type="text/css" href="/shop/assets/css/shop.css">
 
-        <link rel="stylesheet" type="text/css" href="/bundle/style.css">
+        <link rel="stylesheet" type="text/css" href="/bundle/shop.style.css">
 
         <!-- MY PLUGIN -->
         <script type="text/javascript" src="/shop/assets/js/my-plugin/add-to-cart.js"></script>

@@ -68,10 +68,21 @@
 /************************************************************************/
 /******/ ({
 
-/***/ 12:
+/***/ 10:
 /***/ (function(module, exports) {
 
-throw new Error("Module build failed: Error: ENOENT: no such file or directory, open '/home/justin/public_html/9119/public/app/shop/shop.entry.js'\n    at Error (native)");
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+
+/***/ 12:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__less_custom_style_less__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__less_custom_style_less___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__less_custom_style_less__);
+
 
 /***/ })
 

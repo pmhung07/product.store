@@ -64,6 +64,31 @@
 })( jQuery );
 
 
+(function($){
+    $.unserialize = function(serializedString){
+        var str = decodeURI(serializedString);
+        var pairs = str.split('&');
+        var obj = {}, p, idx, val;
+        for (var i=0, n=pairs.length; i < n; i++) {
+            p = pairs[i].split('=');
+            idx = p[0];
+
+            if (idx.indexOf("[]") == (idx.length - 2)) {
+                // Eh um vetor
+                var ind = idx.substring(0, idx.length-2)
+                if (obj[ind] === undefined) {
+                    obj[ind] = [];
+                }
+                obj[ind].push(p[1]);
+            }
+            else {
+                obj[idx] = p[1];
+            }
+        }
+        return obj;
+    };
+})(jQuery);
+
 
 $(function() {
     // $('.summernote').summernote({
@@ -131,15 +156,18 @@ $(function() {
         $this.attr('src', '/img/default_picture.png');
     });
 
+    try {
+        $('.date-picker').datepicker({
+            todayBtn: "linked",
+            keyboardNavigation: false,
+            forceParse: false,
+            calendarWeeks: true,
+            autoclose: true,
+            format: 'dd/mm/yyyy'
+        });
+    } catch (error) {
 
-    $('.date-picker').datepicker({
-        todayBtn: "linked",
-        keyboardNavigation: false,
-        forceParse: false,
-        calendarWeeks: true,
-        autoclose: true,
-        format: 'dd/mm/yyyy'
-    });
+    }
 });
 
 
@@ -162,8 +190,8 @@ tinymce.init({
     // ===========================================
     // PUT PLUGIN'S BUTTON on the toolbar
     // ===========================================
-    toolbar1: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link email image jbimages',
-    toolbar2: 'print preview media | fontsizeselect fontselect forecolor backcolor emoticons | codesample',
+    toolbar1: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image jbimages',
+    toolbar2: 'print preview media | fontsizeselect fontselect forecolor backcolor emoticons | codesample | email',
 
 
     // ===========================================
