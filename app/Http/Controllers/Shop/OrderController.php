@@ -139,6 +139,17 @@ class OrderController extends ShopController
 
             Cart::destroy();
 
+            // Send email
+            $paramsSetToMailTemplate = [
+                'order' => $order,
+                'orderDetail' => $order->details()->with('product')->get()
+            ];
+            $configEmail = config('mail.from');
+            \Mail::send('shop/mail/order', $paramsSetToMailTemplate , function ($m) use ($order, $orderDetail, $customer, $configEmail) {
+                $m->from($configEmail['address'], $configEmail['name']);
+                $m->to($customer->email, $customer->name)->subject('Đơn hàng tại '.$_SERVER['SERVER_NAME']);
+            });
+
             return redirect()->to('/thank.html');
         }
 
