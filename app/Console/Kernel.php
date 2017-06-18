@@ -15,7 +15,8 @@ class Kernel extends ConsoleKernel
     protected $commands = [
         // Commands\Inspire::class,
         Commands\CronDataGa::class,
-        Commands\CleanDb::class
+        Commands\CleanDb::class,
+        Commands\EmailMarketingSendEmailQueue::class
     ];
 
     /**
@@ -29,5 +30,6 @@ class Kernel extends ConsoleKernel
         // $schedule->command('inspire')
         //          ->hourly();
         $schedule->command('cron:data-ga')->daily();
+        $schedule->command('email-marketing:send')->everyMinute();
     }
 }

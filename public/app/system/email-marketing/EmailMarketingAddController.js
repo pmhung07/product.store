@@ -144,6 +144,7 @@ app.EmailMarketingAddController = function(args) {
                 formData.append("email_template_selected["+$(el).find('.btn-timer').data('id')+"][minute]", minute);
                 formData.append("email_template_selected["+$(el).find('.btn-timer').data('id')+"][now]", 'false');
             } else {
+                formData.append("email_template_selected["+$(el).find('.btn-timer').data('id')+"][id]", $(el).find('.btn-timer').data('id'));
                 formData.append("email_template_selected["+$(el).find('.btn-timer').data('id')+"][now]", 'true');
             }
         });
@@ -153,7 +154,18 @@ app.EmailMarketingAddController = function(args) {
             type: "POST",
             data: formData,
             processData: false,
-            contentType: false
+            contentType: false,
+            beforeSend: function(e) {
+                $this.find('button[type="submit"]').attr('disabled', 'disabled');
+            },
+            success: function(response) {
+                if(response.code == 200) {
+                    Helper.showMessage(response.message, 'success', 600);
+                    setTimeout(() => {
+                        window.location.href = '/system/email-marketing/index';
+                    }, 500);
+                }
+            }
         });
     }
 

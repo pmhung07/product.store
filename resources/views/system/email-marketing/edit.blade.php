@@ -61,7 +61,7 @@
                                             @foreach($templateSelected as $v)
                                                 <div id="selected-item-id-{{ $v->id }}" class="email-template-selected-item">
                                                     <p class="title">#{{ $v->id }} {{ $v->title }}</p>
-                                                    <p class="time text-success">{{ date('d/m/Y H:i', strtotime($v->send_schedule_at)) }}</p>
+                                                    <p class="time text-success">{{ $v->send_schedule_at ? date('d/m/Y H:i', strtotime($v->send_schedule_at)) : 'Đã được gửi' }}</p>
                                                     <div class="btn-group">
                                                         <button class="btn btn-xs btn-info btn-timer" data-time="{{ strtotime($v->send_schedule_at) }}" data-campain_id="{{ $campain->id }}" data-id="{{ $v->id }}" data-toggle="tooltip" data-title="Đặt lịch"><i class="fa fa-clock-o"></i></button>
                                                         <button class="btn btn-xs btn-danger btn-delete" data-id="{{ $v->id }}" data-toggle="tooltip" data-title="Xóa"><i class="fa fa-trash-o"></i></button>

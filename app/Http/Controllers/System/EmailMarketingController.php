@@ -68,6 +68,7 @@ class EmailMarketingController extends Controller
 
 
         $emailTemplateSelected = (array) $request->get('email_template_selected');
+        $configEmail = config('mail.from');
         foreach($emailTemplateSelected as $itemTemplate) {
             EmailMarketingCampainHasEmailTemplate::insert([
                 'campain_id' => $item->id,
@@ -81,8 +82,8 @@ class EmailMarketingController extends Controller
             if($itemTemplate['now'] == 'true') {
                 if($template) {
                     foreach($customers as $customer) {
-                        \Mail::send('layout/mail/send-mail-template', ['title' => $item->name,'content' => $template->content], function ($m) use ($template, $item, $customer) {
-                            $m->from('tamnguyen@9119.vn', $item->name);
+                        \Mail::send('layout/mail/send-mail-template', ['title' => $item->name,'content' => $template->content], function ($m) use ($template, $item, $customer, $configEmail) {
+                            $m->from($configEmail['address'], $configEmail['name']);
                             $m->to($customer->email, $customer->name)->subject($item->name);
                         });
                         $log = new EmailMarketingSendMailLog([
@@ -104,6 +105,7 @@ class EmailMarketingController extends Controller
                         'campain_id' => $item->id,
                         'template_id' => $template->id,
                         'merchant_id' => 0,
+                        'customer_id' => $customer->id,
                         'email' => $customer->email,
                         'send_schedule_at' => date('Y-m-d H:i:s', mktime($hour, $minute, 0, $month, $day, $year))
                     ]);
@@ -181,7 +183,7 @@ class EmailMarketingController extends Controller
         $templateSelected = EmailTemplate::join('email_marketing_campain_has_email_template', 'email_template.id', '=', 'email_marketing_campain_has_email_template.template_id')
                                         ->join('email_marketing_queue', 'email_template.id', '=', 'email_marketing_queue.template_id')
                                         ->select('email_template.*', 'email_marketing_queue.send_schedule_at')
-                                        ->where('email_marketing_queue.campain_id', '=', $id)
+                                        ->where('email_marketing_campain_has_email_template.campain_id', '=', $id)
                                         ->groupBy('email_template.id')
                                         ->get();
 
@@ -234,6 +236,7 @@ class EmailMarketingController extends Controller
         EmailMarketingCampainHasEmailTemplate::where('campain_id', $id)->delete();
         EmailMarketingQueue::where('campain_id', $id)->delete();
 
+        $configEmail = config('mail.from');
         foreach($emailTemplateSelected as $itemTemplate) {
             EmailMarketingCampainHasEmailTemplate::insert([
                 'campain_id' => $item->id,
@@ -241,15 +244,14 @@ class EmailMarketingController extends Controller
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s'),
             ]);
-
             // Nếu thằng nào gửi ngay thì cho nó đi luôn và lưu log lại
             $template = EmailTemplate::where('id', $itemTemplate['id'])->firstOrNew([]);
             if($itemTemplate['now'] == 'true') {
                 if($template) {
                     foreach($customers as $customer) {
-                        \Mail::send('layout/mail/send-mail-template', ['title' => $item->name,'content' => $template->content], function ($m) use ($template, $item, $customer) {
-                            $m->from('tamnguyen@9119.vn', $item->name);
-                            $m->to($customer->email, $customer->name)->subject($item->name);
+                        \Mail::send('layout/mail/send-mail-template', ['title' => $template->title,'content' => $template->content], function ($m) use ($template, $item, $customer, $configEmail) {
+                            $m->from($configEmail['address'], $configEmail['name']);
+                            $m->to($customer->email, $customer->name)->subject($template->title);
                         });
                         $log = new EmailMarketingSendMailLog([
                             'campain_id' => $item->id,
@@ -270,6 +272,7 @@ class EmailMarketingController extends Controller
                         'campain_id' => $item->id,
                         'template_id' => $template->id,
                         'merchant_id' => 0,
+                        'customer_id' => $customer->id,
                         'email' => $customer->email,
                         'send_schedule_at' => date('Y-m-d H:i:s', mktime($hour, $minute, 0, $month, $day, $year))
                     ]);

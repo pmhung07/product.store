@@ -500,6 +500,7 @@ __WEBPACK_IMPORTED_MODULE_1__app___default.a.EmailMarketingAddController = funct
                 formData.append("email_template_selected["+$(el).find('.btn-timer').data('id')+"][minute]", minute);
                 formData.append("email_template_selected["+$(el).find('.btn-timer').data('id')+"][now]", 'false');
             } else {
+                formData.append("email_template_selected["+$(el).find('.btn-timer').data('id')+"][id]", $(el).find('.btn-timer').data('id'));
                 formData.append("email_template_selected["+$(el).find('.btn-timer').data('id')+"][now]", 'true');
             }
         });
@@ -509,7 +510,18 @@ __WEBPACK_IMPORTED_MODULE_1__app___default.a.EmailMarketingAddController = funct
             type: "POST",
             data: formData,
             processData: false,
-            contentType: false
+            contentType: false,
+            beforeSend: function(e) {
+                $this.find('button[type="submit"]').attr('disabled', 'disabled');
+            },
+            success: function(response) {
+                if(response.code == 200) {
+                    __WEBPACK_IMPORTED_MODULE_0__helper_helper___default.a.showMessage(response.message, 'success', 600);
+                    setTimeout(() => {
+                        window.location.href = '/system/email-marketing/index';
+                    }, 500);
+                }
+            }
         });
     }
 
@@ -734,6 +746,7 @@ __WEBPACK_IMPORTED_MODULE_1__app___default.a.EmailMarketingEditController = func
                 formData.append("email_template_selected["+$(el).find('.btn-timer').data('id')+"][minute]", minute);
                 formData.append("email_template_selected["+$(el).find('.btn-timer').data('id')+"][now]", 'false');
             } else {
+                formData.append("email_template_selected["+$(el).find('.btn-timer').data('id')+"][id]", $(el).find('.btn-timer').data('id'));
                 formData.append("email_template_selected["+$(el).find('.btn-timer').data('id')+"][now]", 'true');
             }
         });
@@ -743,7 +756,18 @@ __WEBPACK_IMPORTED_MODULE_1__app___default.a.EmailMarketingEditController = func
             type: "POST",
             data: formData,
             processData: false,
-            contentType: false
+            contentType: false,
+            beforeSend: function(e) {
+                $this.find('button[type="submit"]').attr('disabled', 'disabled');
+            },
+            success: function(response) {
+                if(response.code == 200) {
+                    __WEBPACK_IMPORTED_MODULE_0__helper_helper___default.a.showMessage(response.message, 'success', 600);
+                    setTimeout(() => {
+                        // window.location.href = '/system/email-marketing/index';
+                    }, 500);
+                }
+            }
         });
     }
 
