@@ -54,10 +54,12 @@ Route::post('details-delivered/{order_id}', ['as' => 'admin.orders.getDetailsDel
 Route::post('details-virtual/{order_id}', ['as' => 'admin.orders.getDetailsVirtual' , 'uses' => 'OrdersController@postDetailsVirtual']);
 
 
-
 // Không có quyền truy cập
 Route::get('system/denied',['as' => 'admin.denied',function () { return view('admin.denied'); }]);
-Route::get('system/welcome',['as' => 'admin.welcome',function () { return view('admin.welcome'); }]);
+Route::get('system/welcome',['as' => 'admin.welcome',function () {
+	// return view('admin.welcome');
+	return redirect('/system/dashboard');
+}]);
 
 // Login hệ thống
 Route::get('/', 'LoginController@getLogin');

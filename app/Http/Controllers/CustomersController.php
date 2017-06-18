@@ -100,10 +100,10 @@ class CustomersController extends Controller
             Excel::create('DS_CUSTOMER_'.date('Ymd').'_'.time(), function($excel) use($data) {
                 $excel->sheet('Sheet1', function($sheet) use($data) {
                     $i = 1;
-                    $sheet->row($i, ['id', 'name', 'email']);
+                    $sheet->row($i, ['id', 'name', 'phone', 'email']);
                     foreach($data as $item) {
                         $i++;
-                        $sheet->row($i, [$item->id, $item->name, $item->email]);
+                        $sheet->row($i, [$item->id, $item->name, $item->phone, $item->email]);
                     }
                 });
             })->download('xls');

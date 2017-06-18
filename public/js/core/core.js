@@ -156,15 +156,18 @@ $(function() {
         $this.attr('src', '/img/default_picture.png');
     });
 
+    try {
+        $('.date-picker').datepicker({
+            todayBtn: "linked",
+            keyboardNavigation: false,
+            forceParse: false,
+            calendarWeeks: true,
+            autoclose: true,
+            format: 'dd/mm/yyyy'
+        });
+    } catch (error) {
 
-    $('.date-picker').datepicker({
-        todayBtn: "linked",
-        keyboardNavigation: false,
-        forceParse: false,
-        calendarWeeks: true,
-        autoclose: true,
-        format: 'dd/mm/yyyy'
-    });
+    }
 });
 
 
