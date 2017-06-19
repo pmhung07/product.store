@@ -95,8 +95,10 @@ class CustomersController extends Controller
             // "DELETE_MULTI" => 'Xóa'
         ];
 
+        // _debug($wantToExport);
+
         // Nếu muốn export
-        if($wantToExport && $data->count() > 0) {
+        if($wantToExport == 1 && $data->count() > 0) {
             Excel::create('DS_CUSTOMER_'.date('Ymd').'_'.time(), function($excel) use($data) {
                 $excel->sheet('Sheet1', function($sheet) use($data) {
                     $i = 1;
