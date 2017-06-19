@@ -37,13 +37,13 @@
                             </select>
                             <select name="gender" class="form-control input-sm">
                                 <option value="-1">Giới tính</option>
-                                <option value="0" {{ Request::get('gender') == 0 ? 'selected': '' }}>Nữ</option>
-                                <option value="1" {{ Request::get('gender') == 1 ? 'selected': '' }}>Nam</option>
+                                <option value="0" {{ Request::get('gender', -1) == 0 ? 'selected': '' }}>Nữ</option>
+                                <option value="1" {{ Request::get('gender', -1) == 1 ? 'selected': '' }}>Nam</option>
                             </select>
                             <label class="checkbox checkbox-inline">
                                 <input id="vip_customer" type="checkbox" name="vip_customer" value="1" {{ Request::get('vip_customer') == 1 ? 'checked' : '' }}> Mua nhiều nhất
                             </label>
-                            <button type="submit" class="btn btn-sm btn-default"><i class="fa fa-search"></i> Lọc</button>
+                            <button type="submit" class="btn btn-sm btn-default btn-search"><i class="fa fa-search"></i> Lọc</button>
                             <button type="submit" id="btn-export" class="btn btn-sm btn-danger">Export excel</button>
                         </form>
 
@@ -252,6 +252,12 @@ $(document).ready(function() {
 
     $('#province_id').ajaxLoadDistrict({
         observers: '#district_id'
+    });
+
+    $('.btn-search').on('click', function(e) {
+        e.preventDefault();
+        $(this).parents('form').find('[name="export"]').remove();
+        $(this).parents('form').submit();
     });
 
     $('#btn-export').on('click', function(e) {
