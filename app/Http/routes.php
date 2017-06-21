@@ -235,6 +235,7 @@ Route::group(['middleware' => 'auth'], function(){
 			Route::get('channel', ['as' => 'admin.statistic.getChannel' , 'uses' => 'StatisticController@getChannel']);
 			Route::get('regions', ['as' => 'admin.statistic.getRegions'	 , 'uses' => 'StatisticController@getRegions']);
 			Route::get('staff', ['as' => 'admin.statistic.getStaff' , 'uses' => 'StatisticController@getStaff']);
+			Route::get('synthetic', ['as' => 'admin.statistic.getSynthetic' , 'uses' => 'StatisticController@getSynthetic']);
 		});
 
 		// Quản lý nhân viên

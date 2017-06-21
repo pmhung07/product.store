@@ -420,4 +420,101 @@ class StatisticController extends Controller
 		return view('admin.statistic.dashboard');
 	}
 
+	public function getSynthetic(Request $request){
+		$where = '';
+		$channel = Channel::select('id','name')->get();
+		$users = User::select('id','name')->get();
+		$provinces = Provinces::select('id','name')->get();
+
+		$conditions_customers 		= $request->conditions_customers;
+		$conditions_channel 		= $request->conditions_channel;
+		$conditions_staff 			= $request->conditions_staff;
+		$conditions_provinces 		= $request->conditions_provinces; 
+		$conditions_product 		= $request->conditions_product; 
+		$conditions_customer 		= $request->conditions_customer; 
+
+		$product = Product::select('id','name')->where('id',$request->conditions_product)->get();
+		$customer = Customers::select('id','name')->where('id',$request->conditions_customer)->get();
+
+		if($conditions_customers != ''){
+			$where .= ' AND orders.customer_id='.$conditions_customers;
+		}
+		if($conditions_channel != ''){
+			$where .= ' AND orders.channel_id='.$conditions_channel;
+		}
+		if($conditions_staff != ''){
+			$where .= ' AND orders.user_id='.$conditions_staff;
+		}
+		if($conditions_provinces != ''){
+			$where .= ' AND orders.receiver_provinces='.$conditions_provinces;
+		}
+		if($conditions_product != ''){
+			$where .= ' AND order_details.product_id='.$conditions_product;
+		}
+		if($conditions_customers != ''){
+			$where .= ' AND orders.customer_id='.$conditions_customer;
+		}
+
+		if($request->has('filter-date-start') && $request->has('filter-date-end')){
+           	$where .= ' AND orders.created_at > "'.$request->GET("filter-date-start").'" AND orders.created_at < "'.(Carbon::createFromFormat("Y-m-d h:i:s",$request->GET("filter-date-end").' 00:00:00')->addDay()).'"';
+            
+        }else{
+            if($request->has('filter-date-start')){
+                $where .= ' AND orders.created_at > "'.$request->GET("filter-date-start").'" AND orders.created_at < "'.(Carbon::createFromFormat("Y-m-d h:i:s",$request->GET("filter-date-start").' 00:00:00')->addDay()).'"';
+            }elseif($request->has('filter-date-end')){
+                $where .= ' AND orders.created_at > "'.$request->GET("filter-date-end").'" AND orders.created_at < "'.(Carbon::createFromFormat("Y-m-d h:i:s",$request->GET("filter-date-end").' 00:00:00')->addDay()).'"';
+            }
+        }
+
+        $filter_by = $request->filter_by;
+        // Nếu là Đơn hàng
+		if($filter_by == 'order'){
+			$statistics = DB::table('orders')->select(
+							DB::raw('sum(order_details.total_price) as total_price'),
+							DB::raw('count(orders.id) as total_quantity'),
+							DB::raw('SUM(IF(orders.order_status = 3, order_details.total_price, 0)) AS total_price_success'),
+							DB::raw('SUM(IF(orders.order_status = 3, 1, 0)) AS total_quantity_success'),
+							DB::raw('SUM(IF(orders.order_status = 4, order_details.total_price, 0)) AS total_price_cancel'),
+							DB::raw('SUM(IF(orders.order_status = 4, 1, 0)) AS total_quantity_cancel'),
+							DB::raw('SUM(IF(orders.order_status = 2, order_details.total_price, 0)) AS total_price_delivery'),
+							DB::raw('SUM(IF(orders.order_status = 2, 1, 0)) AS total_quantity_delivery'),
+							DB::raw('SUM(IF(orders.order_status = 0, order_details.total_price, 0)) AS total_price_waiting'),
+							DB::raw('SUM(IF(orders.order_status = 0, 1, 0)) AS total_quantity_waiting'),
+							DB::raw('SUM(IF(orders.order_status = 6, order_details.total_price, 0)) AS total_price_return'),
+							DB::raw('SUM(IF(orders.order_status = 6, 1, 0)) AS total_quantity_return')
+							)
+							->leftJoin('order_details','order_details.order_id','=','orders.id')
+							->leftJoin('customers','orders.customer_id','=','customers.id')
+							->leftJoin('channel','orders.channel_id','=','channel.id')
+							->leftJoin('users','orders.user_id','=','users.id')
+							->leftJoin('provinces','orders.receiver_provinces','=','provinces.id')
+							->whereRaw('1'.$where)
+				 			->orderBy(DB::raw('SUM(IF(orders.order_status = 3, order_details.quantity, 0))'),'DESC')->get();
+		}else{
+			$statistics = DB::table('orders')->select(
+							DB::raw('sum(order_details.total_price) as total_price'),
+							DB::raw('sum(order_details.quantity) as total_quantity'),
+							DB::raw('SUM(IF(orders.order_status = 3, order_details.total_price, 0)) AS total_price_success'),
+							DB::raw('SUM(IF(orders.order_status = 3, 1, 0)) AS total_quantity_success'),
+							DB::raw('SUM(IF(orders.order_status = 4, order_details.total_price, 0)) AS total_price_cancel'),
+							DB::raw('SUM(IF(orders.order_status = 4, 1, 0)) AS total_quantity_cancel'),
+							DB::raw('SUM(IF(orders.order_status = 2, order_details.total_price, 0)) AS total_price_delivery'),
+							DB::raw('SUM(IF(orders.order_status = 2, 1, 0)) AS total_quantity_delivery'),
+							DB::raw('SUM(IF(orders.order_status = 0, order_details.total_price, 0)) AS total_price_waiting'),
+							DB::raw('SUM(IF(orders.order_status = 0, 1, 0)) AS total_quantity_waiting'),
+							DB::raw('SUM(IF(orders.order_status = 6, order_details.total_price, 0)) AS total_price_return'),
+							DB::raw('SUM(IF(orders.order_status = 6, 1, 0)) AS total_quantity_return')
+							)
+							->leftJoin('order_details','order_details.order_id','=','orders.id')
+							->leftJoin('customers','orders.customer_id','=','customers.id')
+							->leftJoin('channel','orders.channel_id','=','channel.id')
+							->leftJoin('users','orders.user_id','=','users.id')
+							->leftJoin('provinces','orders.receiver_provinces','=','provinces.id')
+							->whereRaw('1'.$where)
+				 			->orderBy(DB::raw('SUM(IF(orders.order_status = 3, order_details.quantity, 0))'),'DESC')->get();
+		}
+
+		return view('admin.statistic.synthetic',compact('channel','users','provinces','statistics','product','customer'));
+	}
+
 }
