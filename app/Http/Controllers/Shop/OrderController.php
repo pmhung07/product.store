@@ -171,25 +171,21 @@ class OrderController extends ShopController
             }
 
             foreach($orderDetailItems as $item) {
-                $isAffiliateProduct = AffiliateUserProduct::where('product_id', $item->product_id)->first();
-                if( $isAffiliateProduct )
+                // Lấy cấu hình % hoa hồng
+                if( isset($affilateProduct) && $affilateProduct->product_id == $item->product_id )
                 {
-                    // Lấy cấu hình % hoa hồng
-                    if( isset($affilateProduct) )
-                    {
-                        $affiliateUserOrderDetail = new AffiliateUserOrderDetail();
-                        $affiliateUserOrderDetail->affiliate_user_product_id = $affilitateUserProductId;
-                        $affiliateUserOrderDetail->order_id = $order->id;
-                        $affiliateUserOrderDetail->order_detail_id = $item->id;
-                        $affiliateUserOrderDetail->product_id = $item->product->id;
-                        $affiliateUserOrderDetail->merchant_id = 0;
-                        $affiliateUserOrderDetail->quantity = $item->quantity;
-                        $affiliateUserOrderDetail->price = $item->price;
-                        $affiliateUserOrderDetail->money = $item->quantity*$item->price;
-                        $affiliateUserOrderDetail->profit = $affilateProduct->profit;
+                    $affiliateUserOrderDetail = new AffiliateUserOrderDetail();
+                    $affiliateUserOrderDetail->affiliate_user_product_id = $affilitateUserProductId;
+                    $affiliateUserOrderDetail->order_id = $order->id;
+                    $affiliateUserOrderDetail->order_detail_id = $item->id;
+                    $affiliateUserOrderDetail->product_id = $item->product->id;
+                    $affiliateUserOrderDetail->merchant_id = 0;
+                    $affiliateUserOrderDetail->quantity = $item->quantity;
+                    $affiliateUserOrderDetail->price = $item->price;
+                    $affiliateUserOrderDetail->money = $item->quantity*$item->price;
+                    $affiliateUserOrderDetail->profit = $affilateProduct->profit;
 
-                        $affiliateUserOrderDetail->save();
-                    }
+                    $affiliateUserOrderDetail->save();
                 }
             }
 
