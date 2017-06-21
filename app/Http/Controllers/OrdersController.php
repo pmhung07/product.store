@@ -490,6 +490,7 @@ class OrdersController extends Controller
 
             $orders->export_warehouse = $request->export_warehouse;
             $orders->order_status = 3;
+            $orders->user_id = Auth::user()->id;
             $orders->save();
 
             $user_current_login = Auth::user()->id;
@@ -502,6 +503,7 @@ class OrdersController extends Controller
 
         }elseif($request->has('lading_status') && $request->lading_status == 3 && $request->has('payment_status') && $request->payment_status == 1){
             $orders->order_status = 3;
+            $orders->user_id = Auth::user()->id;
             $orders->save();
             $user_current_login = Auth::user()->id;
             $orderProcessing = new OrderProcessing();
@@ -520,6 +522,7 @@ class OrdersController extends Controller
         $orders = new Orders();
         $orders = Orders::find($order_id);
         $orders->order_status = 4;
+        $orders->user_id = Auth::user()->id;
         $orders->save();
 
         $user_current_login = Auth::user()->id;
@@ -538,7 +541,7 @@ class OrdersController extends Controller
 
         $orders->status = 1;
         $orders->order_status = 2;
-
+        $orders->user_id = Auth::user()->id;
         //  Kiểm tra xem có biến trạng thái thì Update
         if ($request->has('radioInlineUpdateDelivery')){
             if($request->input("radioInlineUpdateDelivery") >= ($orders->lading_status)){
@@ -579,6 +582,7 @@ class OrdersController extends Controller
         $orders = new Orders();
         $orders = Orders::find($order_id);
         $orders->order_status = 5;
+        $orders->user_id = Auth::user()->id;
 
         $customers = new Customers();
         $customers = Customers::find($orders->customer_id);
