@@ -150,6 +150,12 @@ class OrderController extends ShopController
                 $m->to($customer->email, $customer->name)->subject('Đơn hàng tại '.$_SERVER['SERVER_NAME']);
             });
 
+            // Kiểm tra có sp affiliate thì lưu vào cho thằng làm affilate nó thống kê và tính toán
+            $orderDetailItems = OrderDetails::where('order_id', $order->id)->get();
+            foreach($orderDetailItems as $item) {
+
+            }
+
             return redirect()->to('/thank.html');
         }
 
