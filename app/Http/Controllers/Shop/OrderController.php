@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers\Shop;
 
+use App\AffiliateProduct;
+use App\AffiliateUserProduct;
 use App\Customers;
 use App\Districts;
 use App\Http\Controllers\Controller;
 use App\Http\Requests;
 use App\Http\Requests\Shop\OrderFormRequest;
+use App\Models\AffiliateUserOrderDetail;
 use App\Models\Coupon;
 use App\OrderDetails;
 use App\Orders;
@@ -138,6 +141,42 @@ class OrderController extends ShopController
             }
 
             Cart::destroy();
+
+            // Send email
+            $paramsSetToMailTemplate = [
+                'order' => $order,
+                'orderDetail' => $order->details()->with('product')->get()
+            ];
+            $configEmail = config('mail.from');
+            \Mail::send('shop/mail/order', $paramsSetToMailTemplate , function ($m) use ($order, $orderDetail, $customer, $configEmail) {
+                $m->from($configEmail['address'], $configEmail['name']);
+                $m->to($customer->email, $customer->name)->subject('Đơn hàng tại '.$_SERVER['SERVER_NAME']);
+            });
+
+            // Kiểm tra có sp affiliate thì lưu vào cho thằng làm affilate nó thống kê và tính toán
+            $orderDetailItems = OrderDetails::where('order_id', $order->id)->get();
+            foreach($orderDetailItems as $item) {
+                $isAffiliateProduct = AffiliateUserProduct::where('product_id', $item->product_id)->first();
+                if( $isAffiliateProduct )
+                {
+                    // Lấy cấu hình % hoa hồng
+                    $affilateProduct = AffiliateProduct::where('product_id', $item->product_id)->first();
+                    if( $affilateProduct )
+                    {
+                        $affiliateUserOrderDetail = new AffiliateUserOrderDetail();
+                        $affiliateUserOrderDetail->order_id = $order->id;
+                        $affiliateUserOrderDetail->order_detail_id = $item->id;
+                        $affiliateUserOrderDetail->product_id = $item->product->id;
+                        $affiliateUserOrderDetail->merchant_id = 0;
+                        $affiliateUserOrderDetail->quantity = $item->quantity;
+                        $affiliateUserOrderDetail->price = $item->price;
+                        $affiliateUserOrderDetail->money = $item->quantity*$item->price;
+                        $affiliateUserOrderDetail->profit = $affilateProduct->profit;
+
+                        $affiliateUserOrderDetail->save();
+                    }
+                }
+            }
 
             return redirect()->to('/thank.html');
         }

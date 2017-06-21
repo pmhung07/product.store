@@ -17,7 +17,11 @@ $(document).ready(function () {
     }
 
     // MetsiMenu
-    $('#side-menu').metisMenu();
+    try {
+        $('#side-menu').metisMenu();
+    } catch (error) {
+
+    }
 
     // Collapse ibox function
     $('.collapse-link').on('click', function () {
@@ -58,10 +62,15 @@ $(document).ready(function () {
     });
 
     // Run menu of canvas
-    $('body.canvas-menu .sidebar-collapse').slimScroll({
-        height: '100%',
-        railOpacity: 0.9
-    });
+    try {
+        $('body.canvas-menu .sidebar-collapse').slimScroll({
+            height: '100%',
+            railOpacity: 0.9
+        });
+    } catch(error) {
+
+    }
+
 
     // Open close right sidebar
     $('.right-sidebar-toggle').on('click', function () {
@@ -69,11 +78,15 @@ $(document).ready(function () {
     });
 
     // Initialize slimscroll for right sidebar
-    $('.sidebar-container').slimScroll({
-        height: '100%',
-        railOpacity: 0.4,
-        wheelStep: 10
-    });
+    try {
+        $('.sidebar-container').slimScroll({
+            height: '100%',
+            railOpacity: 0.4,
+            wheelStep: 10
+        });
+    } catch(error) {
+
+    }
 
     // Open close small chat
     $('.open-small-chat').on('click', function () {
@@ -82,10 +95,14 @@ $(document).ready(function () {
     });
 
     // Initialize slimscroll for small chat
-    $('.small-chat-box .content').slimScroll({
-        height: '234px',
-        railOpacity: 0.4
-    });
+    try {
+        $('.small-chat-box .content').slimScroll({
+            height: '234px',
+            railOpacity: 0.4
+        });
+    } catch(error) {
+
+    }
 
     // Small todo handler
     $('.check-link').on('click', function () {
@@ -174,9 +191,14 @@ $(document).ready(function () {
         .popover();
 
     // Add slimscroll to element
-    $('.full-height-scroll').slimscroll({
-        height: '100%'
-    })
+    try {
+        $('.full-height-scroll').slimscroll({
+            height: '100%'
+        });
+    } catch(error) {
+
+    }
+
 });
 
 

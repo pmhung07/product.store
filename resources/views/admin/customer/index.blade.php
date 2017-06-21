@@ -32,13 +32,19 @@
                             <select id="district_id" name="district_id" class="form-control input-sm">
                                 <option value="">Quận/Huyện</option>
                                 @foreach($districts as $item)
-                                    <option value="{{ $item->id }}" {{ $item->id == Request::get('district_id') ? 'selected' : '' }}>{{ $item->name }}</option>
+                                    <option class="option" value="{{ $item->id }}" {{ $item->id == Request::get('district_id') ? 'selected' : '' }}>{{ $item->name }}</option>
                                 @endforeach
+                            </select>
+                            <select name="gender" class="form-control input-sm">
+                                <option value="-1">Giới tính</option>
+                                <option value="0" {{ Request::get('gender', -1) == 0 ? 'selected': '' }}>Nữ</option>
+                                <option value="1" {{ Request::get('gender', -1) == 1 ? 'selected': '' }}>Nam</option>
                             </select>
                             <label class="checkbox checkbox-inline">
                                 <input id="vip_customer" type="checkbox" name="vip_customer" value="1" {{ Request::get('vip_customer') == 1 ? 'checked' : '' }}> Mua nhiều nhất
                             </label>
-                            <button type="submit" class="btn btn-sm btn-default"><i class="fa fa-search"></i> Lọc</button>
+                            <button type="submit" class="btn btn-sm btn-default btn-search"><i class="fa fa-search"></i> Lọc</button>
+                            <button type="submit" id="btn-export" class="btn btn-sm btn-danger">Export excel</button>
                         </form>
 
                         {{-- <div style="margin: 10px 0 0 0;">
@@ -68,9 +74,6 @@
                         <table class="table table-striped table-bordered table-hover table-zip" id="editable" >
                             <thead>
                             <tr>
-                                <th>
-                                    <input type="checkbox" id="ckb_all" name="check_all">
-                                </th>
                                 <th>#</th>
                                 <th>Họ và tên</th>
                                 <th>Số điện thoại</th>
@@ -85,9 +88,6 @@
                             <?php $i=1; ?>
                             @foreach($rows as $row)
                                 <tr @if($i%2==0) {{'class="gradeA"'}} @else {{'class="gradeX"'}} @endif>
-                                    <td>
-                                        <input type="checkbox" class="ckb_item" name="customers[]" value="{{ $row->id }}">
-                                    </td>
                                     <td>{!! $i !!}</td>
                                     <td> {!! $row->name !!}</td>
                                     <td> {!! $row->phone !!}</td>
@@ -252,6 +252,18 @@ $(document).ready(function() {
 
     $('#province_id').ajaxLoadDistrict({
         observers: '#district_id'
+    });
+
+    $('.btn-search').on('click', function(e) {
+        e.preventDefault();
+        $(this).parents('form').find('[name="export"]').remove();
+        $(this).parents('form').submit();
+    });
+
+    $('#btn-export').on('click', function(e) {
+        e.preventDefault();
+        $(this).parents('form').append('<input type="hidden" name="export" value="1" />');
+        $(this).parents('form').submit();
     });
 });
 </script>

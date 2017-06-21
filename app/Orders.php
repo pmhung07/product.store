@@ -43,4 +43,9 @@ class Orders extends Model
     static function generateCode() {
         return 'MDH/'.date('dmYhis');;
     }
+
+    public function details()
+    {
+        return $this->hasMany('App\OrderDetails', 'order_id');
+    }
 }

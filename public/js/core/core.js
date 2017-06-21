@@ -64,6 +64,31 @@
 })( jQuery );
 
 
+(function($){
+    $.unserialize = function(serializedString){
+        var str = decodeURI(serializedString);
+        var pairs = str.split('&');
+        var obj = {}, p, idx, val;
+        for (var i=0, n=pairs.length; i < n; i++) {
+            p = pairs[i].split('=');
+            idx = p[0];
+
+            if (idx.indexOf("[]") == (idx.length - 2)) {
+                // Eh um vetor
+                var ind = idx.substring(0, idx.length-2)
+                if (obj[ind] === undefined) {
+                    obj[ind] = [];
+                }
+                obj[ind].push(p[1]);
+            }
+            else {
+                obj[idx] = p[1];
+            }
+        }
+        return obj;
+    };
+})(jQuery);
+
 
 $(function() {
     // $('.summernote').summernote({
@@ -131,15 +156,18 @@ $(function() {
         $this.attr('src', '/img/default_picture.png');
     });
 
+    try {
+        $('.date-picker').datepicker({
+            todayBtn: "linked",
+            keyboardNavigation: false,
+            forceParse: false,
+            calendarWeeks: true,
+            autoclose: true,
+            format: 'dd/mm/yyyy'
+        });
+    } catch (error) {
 
-    $('.date-picker').datepicker({
-        todayBtn: "linked",
-        keyboardNavigation: false,
-        forceParse: false,
-        calendarWeeks: true,
-        autoclose: true,
-        format: 'dd/mm/yyyy'
-    });
+    }
 });
 
 
@@ -156,14 +184,14 @@ tinymce.init({
         'advlist autolink lists link image charmap print preview hr anchor pagebreak',
         'searchreplace wordcount visualblocks visualchars code fullscreen',
         'insertdatetime media nonbreaking save table contextmenu directionality',
-        'emoticons template paste textcolor colorpicker textpattern imagetools codesample jbimages'
+        'emoticons template paste textcolor colorpicker textpattern imagetools codesample jbimages email'
     ],
 
     // ===========================================
     // PUT PLUGIN'S BUTTON on the toolbar
     // ===========================================
     toolbar1: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image jbimages',
-    toolbar2: 'print preview media | fontsizeselect fontselect forecolor backcolor emoticons | codesample',
+    toolbar2: 'print preview media | fontsizeselect fontselect forecolor backcolor emoticons | codesample | email',
 
 
     // ===========================================
