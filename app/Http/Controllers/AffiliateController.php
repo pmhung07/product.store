@@ -382,9 +382,11 @@ class AffiliateController extends Controller
         if(count($check_affiliate_user_product) > 0){
             return response()->json(['msg' => 'Bạn đã chọn sản phẩm này!']);
         }else{
+            $affiliate_product = AffiliateProduct::select('product_id')->where('id',$request->product_id)->first();
             $affiliate_user_product = new AffiliateUserProduct();
             $affiliate_user_product->affiliate_product_id = $request->product_id;
             $affiliate_user_product->user_id = Auth::user()->id;
+            $affiliate_user_product->product_id = $affiliate_product['product_id'];
             $affiliate_user_product->save();
             return response()->json(['msg' => 'Chọn sản phẩm thành công!']);
         }
