@@ -46,6 +46,9 @@ Route::group(['namespace' => 'Shop'], function () {
     // Gửi đơn hàng thành công, cảm ơn
     Route::get('/thank.html', 'OrderController@getThank');
 
+    // Affiliate
+    Route::get('/aff/{id}', 'AffiliateController@getIndex');
+
     // Ajax
     Route::group(['prefix' => 'ajax', 'namespace' => 'Ajax'], function() {
         Route::get('/product/quick-view', 'ProductController@getQuickView');

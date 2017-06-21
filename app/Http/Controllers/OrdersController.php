@@ -18,6 +18,8 @@ use App\Districts;
 use App\Warehouse;
 use App\WarehouseReturnProductPh;
 use App\WarehouseReturnProductPhDetails;
+use App\Models\AffiliateUserOrderDetail;
+use App\AffiliateUserProduct;
 
 use Carbon\Carbon;
 
@@ -499,6 +501,19 @@ class OrdersController extends Controller
             $orderProcessing->user_id = $user_current_login;
             $orderProcessing->order_status = 3;
             $orderProcessing->save();
+
+            // Affiliate
+            $aff_details = AffiliateUserOrderDetail::select('affiliate_user_order_detail_logs.*')->where('order_id', $order_id)->get()->toArray();
+            if (count($aff_details) > 0){
+                $dataInsert = array();
+                foreach($aff_details as $key => $value){
+                    // Lấy UserID
+                    $aff_user_product = AffiliateUserProduct::select('user_id')->where('id',$value['affiliate_user_product_id'])->first();
+                    $arrayPush = array('user_id'=> $aff_user_product['user_id'],'affiliate_user_order_logs_id'=> 1,'order_id'=> $value['order_id'],'product_id' => $value['product_id'],'product_quantity' => $value['quantity'],'current_price'=>$value['price'],'current_profit'=>$value['profit'],'profit_price'=>(($value['price']/100)*$value['profit'])*$value['quantity'],'created_at'=>date('Y-m-d H:i:s'),'updated_at'=>date('Y-m-d H:i:s'));
+                    array_push($dataInsert,$arrayPush);
+                }
+                DB::table('affiliate_user_product_logs')->insert($dataInsert); // Query Builder
+            }
             return redirect()->route('admin.orders.details',$order_id)->with(['flash_message' => 'Cập nhật trạng thái đơn hàng thành công!']);
 
         }elseif($request->has('lading_status') && $request->lading_status == 3 && $request->has('payment_status') && $request->payment_status == 1){
@@ -511,6 +526,20 @@ class OrdersController extends Controller
             $orderProcessing->user_id = $user_current_login;
             $orderProcessing->order_status = 3;
             $orderProcessing->save();
+
+            // Affiliate
+            $aff_details = AffiliateUserOrderDetail::select('affiliate_user_order_detail_logs.*')->where('order_id', $order_id)->get()->toArray();
+            if (count($aff_details) > 0){
+                $dataInsert = array();
+                foreach($aff_details as $key => $value){
+                    // Lấy UserID
+                    $aff_user_product = AffiliateUserProduct::select('user_id')->where('id',$value['affiliate_user_product_id'])->first();
+                    $arrayPush = array('user_id'=> $aff_user_product['user_id'],'affiliate_user_order_logs_id'=> 1,'order_id'=> $value['order_id'],'product_id' => $value['product_id'],'product_quantity' => $value['quantity'],'current_price'=>$value['price'],'current_profit'=>$value['profit'],'profit_price'=>(($value['price']/100)*$value['profit'])*$value['quantity'],'created_at'=>date('Y-m-d H:i:s'),'updated_at'=>date('Y-m-d H:i:s'));
+                    array_push($dataInsert,$arrayPush);
+                }
+                DB::table('affiliate_user_product_logs')->insert($dataInsert); // Query Builder
+            }
+
             return redirect()->route('admin.orders.details',$order_id)->with(['flash_message' => 'Cập nhật trạng thái đơn hàng thành công!']);
 
         }else{

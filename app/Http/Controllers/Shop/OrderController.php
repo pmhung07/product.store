@@ -18,6 +18,7 @@ use App\Provinces;
 use Cart;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
+use Cookie;
 
 class OrderController extends ShopController
 {
@@ -153,30 +154,43 @@ class OrderController extends ShopController
                 $m->to($customer->email, $customer->name)->subject('Đơn hàng tại '.$_SERVER['SERVER_NAME']);
             });
 
-            // Kiểm tra có sp affiliate thì lưu vào cho thằng làm affilate nó thống kê và tính toán
-            $orderDetailItems = OrderDetails::where('order_id', $order->id)->get();
-            foreach($orderDetailItems as $item) {
-                $isAffiliateProduct = AffiliateUserProduct::where('product_id', $item->product_id)->first();
-                if( $isAffiliateProduct )
-                {
-                    // Lấy cấu hình % hoa hồng
-                    $affilateProduct = AffiliateProduct::where('product_id', $item->product_id)->first();
-                    if( $affilateProduct )
-                    {
-                        $affiliateUserOrderDetail = new AffiliateUserOrderDetail();
-                        $affiliateUserOrderDetail->order_id = $order->id;
-                        $affiliateUserOrderDetail->order_detail_id = $item->id;
-                        $affiliateUserOrderDetail->product_id = $item->product->id;
-                        $affiliateUserOrderDetail->merchant_id = 0;
-                        $affiliateUserOrderDetail->quantity = $item->quantity;
-                        $affiliateUserOrderDetail->price = $item->price;
-                        $affiliateUserOrderDetail->money = $item->quantity*$item->price;
-                        $affiliateUserOrderDetail->profit = $affilateProduct->profit;
 
-                        $affiliateUserOrderDetail->save();
-                    }
+            $orderDetailItems = OrderDetails::where('order_id', $order->id)->get();
+
+            // Kiểm tra có sp affiliate thì lưu vào cho thằng làm affilate nó thống kê và tính toán
+            $affilitateUserProductId = (int) Cookie::get('affiliate_user_product');
+
+            if( $affilitateUserProductId )
+            {
+                $affiliateUserProduct = AffiliateUserProduct::where('id', $affilitateUserProductId)->first();
+
+                if( $affiliateUserProduct )
+                {
+                    $affilateProduct = AffiliateProduct::where('product_id', $affiliateUserProduct->product_id)->first();
                 }
             }
+
+            foreach($orderDetailItems as $item) {
+                // Lấy cấu hình % hoa hồng
+                if( isset($affilateProduct) && $affilateProduct->product_id == $item->product_id )
+                {
+                    $affiliateUserOrderDetail = new AffiliateUserOrderDetail();
+                    $affiliateUserOrderDetail->affiliate_user_product_id = $affilitateUserProductId;
+                    $affiliateUserOrderDetail->order_id = $order->id;
+                    $affiliateUserOrderDetail->order_detail_id = $item->id;
+                    $affiliateUserOrderDetail->product_id = $item->product->id;
+                    $affiliateUserOrderDetail->merchant_id = 0;
+                    $affiliateUserOrderDetail->quantity = $item->quantity;
+                    $affiliateUserOrderDetail->price = $item->price;
+                    $affiliateUserOrderDetail->money = $item->quantity*$item->price;
+                    $affiliateUserOrderDetail->profit = $affilateProduct->profit;
+
+                    $affiliateUserOrderDetail->save();
+                }
+            }
+
+            // Clear cookie affiliate
+            \Cookie::queue(\Cookie::forget('affiliate_user_product'));
 
             return redirect()->to('/thank.html');
         }

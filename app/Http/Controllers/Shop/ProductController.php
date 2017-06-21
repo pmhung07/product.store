@@ -11,6 +11,7 @@ use App\Provinces;
 use App\Warehouse;
 use App\WarehouseInventory;
 use Illuminate\Http\Request;
+use Cookie;
 
 class ProductController extends ShopController
 {
@@ -21,7 +22,7 @@ class ProductController extends ShopController
      * @param  string $slug
      * @return string
      */
-    public function getDetail($id, $slug)
+    public function getDetail($id, $slug, Request $request)
     {
         $product = Product::with('category', 'images')->findOrFail($id);
 
@@ -49,6 +50,13 @@ class ProductController extends ShopController
         $this->metadata->image = $product->image ? url(parse_image_url($product->image)) : '';
         $this->metadata->url = $product->getUrl();
         $metadata = $this->metadata->toArray();
+
+        // Nếu là sp affilitate
+        $affilitateUserProductId = (int) Cookie::get('affiliate_user_product');
+        if( $affilitateUserProductId )
+        {
+
+        }
 
         return view('shop/product/detail', compact('product', 'warehouses', 'provinces', 'properties', 'relatedProducts', 'metadata'));
     }
