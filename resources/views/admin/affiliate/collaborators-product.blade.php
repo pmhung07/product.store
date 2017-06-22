@@ -115,7 +115,7 @@
                                         <td>{{number_format($row->product_price)}}</td>
                                         <td>{{$row->my_affiliate_profit}}</td>
                                         <td>{{number_format(($row->product_price / 100)* $row->my_affiliate_profit)}}</td>
-                                        <td><a><?php echo url('/').'/product/'.$row->product_id.'-'.removeTitle($row->product_name).'?aff_id='.$row->id; ?></a></td>
+                                        <td><a><?php echo url('/').'/aff/'.$row->id; ?></a></td>
                                     </tr>
                                     <?php $i++;$total_quantity_inventory = $total_quantity_inventory + $row->quantity_inventory; ?>
                                 @endforeach
