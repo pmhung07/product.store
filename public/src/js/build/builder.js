@@ -1992,7 +1992,7 @@
         'p : font-family': ['default', 'Lato', 'Helvetica', 'Arial', 'Times New Roman']
     };
 
-    module.exports.editableContent = ['.editContent', '.navbar a', 'button', 'a.btn', '.footer a:not(.fa)', '.tableWrapper', 'h1', 'h2'];
+    module.exports.editableContent = ['.pix_button', '.editContent', '.navbar a', 'button', 'a.btn', '.footer a:not(.fa)', '.tableWrapper', 'h1', 'h2'];
 
     module.exports.autoSaveTimeout = 60000;
 
