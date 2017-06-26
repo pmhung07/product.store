@@ -1575,7 +1575,7 @@
 				window.clearInterval(this.autoSaveTimer);
             	this.autoSaveTimer = setTimeout(site.autoSave, bConfig.autoSaveTimeout);
 
-                $('#savePage .bLabel').text("Save now (!)");
+                $('#savePage .bLabel').text("Lưu nội dung (!)");
 
                 if( site.activePage.status !== 'new' ) {
 
@@ -1585,7 +1585,7 @@
 
             } else {
 
-                $('#savePage .bLabel').text("Nothing to save");
+                $('#savePage .bLabel').text("Đã lưu");
 
                 site.updatePageStatus('');
 
@@ -2239,7 +2239,7 @@
         doExportModal: function() {
 
             $('#exportModal > form #exportSubmit').show('');
-            $('#exportModal > form #exportCancel').text('Cancel & Close');
+            $('#exportModal > form #exportCancel').text('Huỷ thao tác');
 
         },
 
