@@ -49,7 +49,7 @@ class WarehouseReturnProductPhController extends Controller
 			$orders = Orders::select('orders.*')->where('code','LIKE',$request->input("order-code"))->get()->toArray();
 		}
 		if(count($orders) > 0){
-			$order_details = OrderDetails::select('order_details.*','name')->join('product', 'product.id', '=', 'order_details.product_id')->where('order_id','=',$orders[0]['id'])->get()->toArray();
+			$order_details = OrderDetails::select('order_details.*','name','sku')->join('product', 'product.id', '=', 'order_details.product_id')->where('order_id','=',$orders[0]['id'])->get()->toArray();
     	}
 
     	$warehouse = Warehouse::select('id','name')->get();

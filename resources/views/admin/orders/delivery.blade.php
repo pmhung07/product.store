@@ -367,7 +367,9 @@
                                                 <?php $total_price = 0;foreach($order_details as $key => $value){ ?>
                                                 <tr>
                                                     <td>
-                                                        <div><strong>{!! $value['name'] !!}</strong></div>
+                                                        <div><strong>{!! $value['name'] !!}</strong><br>
+                                                            <span style="font-size:10px;">SKU:</span> 
+                                                            <span class="font-stl-ort">{!! $value['sku'] !!}</span></div>
                                                     <td>{!! $value['quantity'] !!}</td>
                                                     <td>{!! number_format($value['price']) !!}</td>
                                                     <td>{!! number_format($value['price'] * $value['quantity']) !!}</td>
@@ -788,7 +790,11 @@
                                 <?php $total_price = 0;foreach($order_details as $key => $value){ ?>
                                     <tr class="gradeX get_parent_<?=$value['product_id']?>">
                                         <input class="get_product_id form-control" type="hidden" value="<?=$value['product_id']?>">
-                                        <td style="text-align:left;"><input readonly="" class="form-control" value="{!! $value['name'] !!}"></td>
+                                        <td style="text-align:left;">
+                                            {!! $value['name'] !!}<br>
+                                            <span style="font-size:10px;">SKU:</span> 
+                                            <span class="font-stl-ort">{!! $value['sku'] !!}</span>
+                                        </td>
                                         <td>
                                             <input id="quantity_suggest" class="product_quantity form-control" style="width:100%;" type="text" min="1" max="999" value="<?=$value['quantity']?>">
                                         </td>
@@ -897,7 +903,11 @@
                             <tbody class="append_product">
                                 <?php $total_price = 0;foreach($order_details as $key => $value){ ?>
                                     <tr class="gradeX get_parent_<?=$value['product_id']?>">
-                                        <td style="text-align:left;"><input readonly="" class="form-control" value="{!! $value['name'] !!}"></td>
+                                        <td style="text-align:left;">
+                                            {!! $value['name'] !!}<br>
+                                            <span style="font-size:10px;">SKU:</span> 
+                                            <span class="font-stl-ort">{!! $value['sku'] !!}</span>
+                                        </td>
                                         <td>
                                             <input readonly id="quantity_suggest" class="product_quantity form-control" style="width:100%;" type="text" min="1" max="999" value="<?=$value['quantity']?>">
                                         </td>

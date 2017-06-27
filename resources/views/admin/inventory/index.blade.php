@@ -75,7 +75,9 @@
                                         {!! $i !!}
                                     </td>
                                     <td>
-                                        {!! $row->product->name !!}
+                                        {!! $row->product->name !!}<br>
+                                        <span style="font-size:10px;">SKU:</span> 
+                                        <span class="font-stl-ort">{!! $row->product->sku !!}</span>
                                     </td>
                                     <?php
                                     $quantity = DB::table('warehouse_inventory')->where('product_id','=',$row->product_id)->sum('quantity'); 

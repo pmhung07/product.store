@@ -420,7 +420,7 @@ class OrdersController extends Controller
         $provinces_name_receiver = Provinces::select('name')->where('id',$cur_provinces)->first();
         $districts_name_receiver = Districts::select('name')->where('id',$cur_districts)->first();
 
-        $order_details = OrderDetails::select('order_details.*','name')->join('product', 'product.id', '=', 'order_details.product_id')->where('order_id','=',$id)->get();//->with('product')->get();
+        $order_details = OrderDetails::select('order_details.*','product.name','product.sku')->join('product', 'product.id', '=', 'order_details.product_id')->where('order_id','=',$id)->get();//->with('product')->get();
         $order_processing = OrderProcessing::select('order_processing.*','users.name as username','order_processing.created_at as processing_created_at')
         ->join('users', 'order_processing.user_id', '=', 'users.id')
         ->join('orders', 'orders.id', '=', 'order_processing.order_id')
@@ -459,7 +459,7 @@ class OrdersController extends Controller
         $provinces_name_receiver = Provinces::select('name')->where('id',$cur_provinces)->first();
         $districts_name_receiver = Districts::select('name')->where('id',$cur_districts)->first();
 
-        $order_details = OrderDetails::select('order_details.*','name')->join('product', 'product.id', '=', 'order_details.product_id')->where('order_id','=',$id)->get();//->with('product')->get();
+        $order_details = OrderDetails::select('order_details.*','name','sku')->join('product', 'product.id', '=', 'order_details.product_id')->where('order_id','=',$id)->get();//->with('product')->get();
         $order_processing = OrderProcessing::select('order_processing.*','users.name as username','order_processing.created_at as processing_created_at')
         ->join('users', 'order_processing.user_id', '=', 'users.id')
         ->join('orders', 'orders.id', '=', 'order_processing.order_id')

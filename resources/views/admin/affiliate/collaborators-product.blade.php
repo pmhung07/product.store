@@ -108,7 +108,7 @@
                                         <td>{{$i}}</td>
                                         <td><a>{{$row->product_sku}}</a></td>
                                         <td>
-                                            <img src="{{ parse_image_url('sm_'.$row['image']) }}" height="35">
+                                            <img src="{{ parse_image_url('sm_'.$row->product_image) }}" height="35">
                                         </td>
                                         <td><a>{{$row->product_name}}</a></td>
                                         <td>{{$row->product_group_name}}</td>
