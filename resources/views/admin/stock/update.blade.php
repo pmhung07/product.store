@@ -123,7 +123,11 @@
                                 <?php $i = 1;foreach($inventory_in_stock as $key => $value){ ?>
                                 <tr>
                                     <td>{!! $i !!}</td>
-                                    <td>{!! $value->iven_product_name !!}</td>
+                                    <td>{!! $value->iven_product_name !!}
+                                        <br>
+                                        <span style="font-size:10px;">SKU:</span> 
+                                        <span class="font-stl-ort">{!! $value->iven_product_sku !!}</span>
+                                    </td>
                                     <td>{!! $value->iven_total_quantity !!}</td>
                                     <td>{!! number_format($value->iven_total_price) !!}</td>
                                 </tr>
