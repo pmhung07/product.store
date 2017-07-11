@@ -133,7 +133,7 @@
                                     <th width="10">#</th>
                                     <th width="120">Mã Sản phẩm</th>
                                     <th width="50">Ảnh</th>
-                                    <th width="120">Tên Sản phẩm</th>
+                                    <th width="200">Tên Sản phẩm</th>
                                     <th width="120">Nhóm sản phẩm</th>
                                     <!--<th width="130">Link share sản phẩm</th>-->
                                     <th width="90">Giá bán <sup> - vnđ </sup></th>
@@ -154,9 +154,11 @@
                                         <td>{{$i}}</td>
                                         <td><a>{{$row->product_sku}}</a></td>
                                         <td>
-                                            <img src="{{ parse_image_url('sm_'.$row['image']) }}" height="35">
+                                            <img src="{{ parse_image_url('sm_'.$row->product_image) }}" height="35">
                                         </td>
-                                        <td><a>{{$row->product_name}}</a></td>
+                                        <td><a>{{$row->product_name}}</a><br>
+                                        <span style="font-size:10px;">SKU:</span> 
+                                        <span class="font-stl-ort">{!! $row->product_sku !!}</span></td>
                                         <td>{{$row->product_group_name}}</td>
                                         <!--<td><input style="width:100%;" type="text" value=""></td>-->
                                         <td>{{number_format($row->product_price)}}</td>
@@ -176,7 +178,7 @@
                                                     <i class="fa fa-hand-o-up "></i> Chọn sản phẩm
                                                 </a>
                                                 <?php }else{ ?>
-                                                    <span class="font-stl-ort">Chỉ dành cho cộng tác viên</span>
+                                                    <span class="font-stl-ort">Dành cho cộng tác viên</span>
                                                 <?php } ?>
                                             </div>
                                         </td>

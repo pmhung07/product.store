@@ -272,7 +272,12 @@
                                                 <?php $total_price = 0;foreach($order_details as $key => $value){ ?>
                                                 <tr>
                                                     <td>
-                                                        <div><strong>{!! $value['name'] !!}</strong></div>
+                                                        <div>
+                                                            <strong>{!! $value['name'] !!}</strong><br>
+                                                            <span style="font-size:10px;">SKU:</span> 
+                                                            <span class="font-stl-ort">{!! $value['sku'] !!}</span>
+                                                        </div>
+                                                    </td>
                                                     <td>{!! $value['quantity'] !!}</td>
                                                     <td>{!! number_format($value['price']) !!}</td>
                                                     <td>{!! number_format($value['price'] * $value['quantity']) !!}</td>
@@ -350,7 +355,9 @@
 
                                                 <tr>
                                                     <td>
-                                                        <div><strong>{!! $value['name'] !!}</strong></div>
+                                                        <div><strong>{!! $value['name'] !!}</strong><br>
+                                                        <span style="font-size:10px;">SKU:</span> 
+                                                        <span class="font-stl-ort">{!! $value['sku'] !!}</span></div>
                                                     <td style="color:#127e8b;">{!! $value['quantity'] !!}</td>
                                                     <td style="color:#127e8b;">{!! number_format($value['price']) !!}</td>
                                                     <td style="color:#127e8b;">{!! number_format($value['price'] * $value['quantity']) !!}</td>
@@ -735,7 +742,7 @@
                         <table class="table shoping-cart-table">
                             <thead>
                                 <tr>
-                                    <th width="220">Tên sản phẩm</th>
+                                    <th width="250">Tên sản phẩm</th>
                                     <th width="70">Số lượng</th>
                                     <th width="120">Giá bán</th>
                                     <th width="120">Thành tiền</th>
@@ -746,7 +753,11 @@
                                 <?php $total_price = 0;foreach($order_details as $key => $value){ ?>
                                     <tr class="gradeX get_parent_<?=$value['product_id']?>">
                                         <input class="get_product_id form-control" type="hidden" value="<?=$value['product_id']?>">
-                                        <td style="text-align:left;"><input readonly="" class="form-control" value="{!! $value['name'] !!}"></td>
+                                        <td style="text-align:left;">
+                                            {!! $value['name'] !!}<br>
+                                            <span style="font-size:10px;">SKU:</span> 
+                                            <span class="font-stl-ort">{!! $value['sku'] !!}</span>
+                                        </td>
                                         <td>
                                             <input id="quantity_suggest" class="product_quantity form-control" style="width:100%;" type="text" min="1" max="999" value="<?=$value['quantity']?>">
                                         </td>

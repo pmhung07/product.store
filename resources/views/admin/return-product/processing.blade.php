@@ -84,7 +84,11 @@
                                                         <input class="form-control text-center" readonly style="width:100%;" value="<?=$count?>"> 
                                                     </td>
                                                     <input class="get_product_id form-control" type="hidden" value="<?=$value['product_id']?>">
-                                                    <td style="text-align:left;"><input readonly="" class="form-control" value="{!! $value['name'] !!}"></td>
+                                                    <td style="text-align:left;">
+                                                        {!! $value['name'] !!}<br>
+                                                        <span style="font-size:10px;">SKU:</span> 
+                                                        <span class="font-stl-ort">{!! $value['sku'] !!}</span>
+                                                    </td>
                                                     <td>
                                                         <input id="quantity_suggest" class="product_quantity form-control" readonly style="width:100%;" type="text" min="1" max="999" value="<?=$value['quantity']?>">
                                                     </td>

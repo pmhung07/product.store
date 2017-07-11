@@ -187,6 +187,8 @@
             </li>
             <?php } ?>
 
+            <?php if(   active_sidebar(0) == 1  ){ ?>
+
             <li @if(Request::is('system/email-marketing/*')) {!! 'class="active"' !!} @endif>
                 <a href="javascript:;">
                     <i class="fa fa-inbox"></i>
@@ -194,14 +196,21 @@
                     <span class="fa arrow"></span>
                 </a>
                 <ul class="nav nav-second-level collapse">
+                    <?php if(active_sidebar(0) == 1 ){ ?>
                     <li>
-                        <a href="{{ route('system.emailMarketing.index') }}">Email marketing</a>
+                        <a href="{{ route('system.emailMarketing.index') }}"><i class="fa fa-envelope"></i> Email marketing</a>
                     </li>
+                    <?php } ?>
+
+                    <?php if(active_sidebar(0) == 1 ){ ?>
                     <li>
-                        <a href="{{ route('system.smsMarketing.index') }}">SMS marketing</a>
+                        <a href="{{ route('system.smsMarketing.index') }}"><i class="fa fa-paper-plane"></i> SMS marketing</a>
                     </li>
+                    <?php } ?>
                 </ul>
             </li>
+
+            <?php } ?>
 
             <?php if(active_sidebar(78) == 1 ){ ?>
             <li @if(Request::is('system/landing-page/index') ||

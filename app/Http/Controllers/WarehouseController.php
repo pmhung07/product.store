@@ -66,7 +66,7 @@ class WarehouseController extends Controller
         //$inventoryProduct = DB::table('warehouse_inventory')
           //                  ->where('warehouse_ph_id','=',$key)->sum('quantity') $total_order[0]->total_sales
         $inventory_in_stock = DB::table('warehouse_inventory')
-                ->select('product.name as iven_product_name',DB::raw('SUM(quantity) as iven_total_quantity'), DB::raw('SUM(warehouse_inventory.price * warehouse_inventory.quantity) as iven_total_price'))
+                ->select('product.name as iven_product_name','product.sku as iven_product_sku',DB::raw('SUM(quantity) as iven_total_quantity'), DB::raw('SUM(warehouse_inventory.price * warehouse_inventory.quantity) as iven_total_price'))
                 ->join('product','warehouse_inventory.product_id','=','product.id')
                 ->groupBy('warehouse_inventory.product_id')
                 ->where('warehouse_id','=',$id)

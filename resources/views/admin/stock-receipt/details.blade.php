@@ -90,8 +90,10 @@
                                     @foreach($warehouse_ph_details as $row)
                                         <tr @if($i%2==0) {{'class="gradeA"'}} @else {{'class="gradeX"'}} @endif>
                                             <td>{!! $i !!}</td>
-                                            <td>
-                                                <input style="width:100%;" readonly type="text" value="{!! $row->product->name !!}">
+                                            <td style="text-align:left;">
+                                                {!! $row->product->name !!}<br>
+                                                <span style="font-size:10px;">SKU:</span> 
+                                                <span class="font-stl-ort">{!! $row->product->sku !!}</span>
                                             </td>
                                             <td>
                                                 <input style="width:100%;" readonly type="text" value="{!! $row->quantity !!}">

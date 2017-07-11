@@ -74,12 +74,8 @@
                                     $rows_product = DB::table('product')->select('id','name')->orderBy('name','ASC')->get();
                                     ?>
                                     <td class="table-td-style" width="300">
-                                        <select name="warehouse_ph_details_product" id="status" class="form-control">
-                                            <option value="" selected="">-- Chọn sản phẩm --</option>
-                                            @foreach($rows_product as $item)
-                                                <option value="{!! $item->id !!}">{!! $item->name !!}</option>
-                                            @endforeach
-                                        </select>
+                                        <input type="text" name="search-input-product" class="form-control search-input-product"  style="width:100%;" autocomplete="off"  placeholder="Tìm kiếm sản phẩm theo tên, mã sản phẩm, barcode..">
+                                        <input class="get_warehouse_ph_details_product" type="hidden" name="warehouse_ph_details_product" value="">
                                     </td>
                                     <td class="table-td-style">
                                         <input name="warehouse_ph_details_quantity" type="number" min="0" class="form-control input-sm pd-0 text-center ng-pristine ng-untouched ng-valid ng-valid-min" tabindex="0" aria-invalid="false">
@@ -95,7 +91,7 @@
                                 </tr>
                                 <tr>
                                     <td colspan="2">
-                                        <button  class="btn btn-xs btn-primary ng-scope" type="submit"><i class="fa fa-plus"></i> Thêm sản phẩm</button><!-- end ngIf: !fParams.supplierId -->
+                                        <button  class="btn btn-xs btn-primary ng-scope" type="submit"><i class="fa fa-plus"></i> Thêm sản phẩm vào phiếu</button><!-- end ngIf: !fParams.supplierId -->
                                     </td>
                                     <td colspan="1" class="text-right">
                                     </td>
@@ -182,8 +178,10 @@
                                         @foreach($warehouse_ph_details as $row)
                                             <tr @if($i%2==0) {{'class="gradeA"'}} @else {{'class="gradeX"'}} @endif>
                                                 <td>{!! $i !!}</td>
-                                                <td>
-                                                    <input style="width:100%;" readonly type="text" value="{!! $row->product->name !!}">
+                                                <td style="text-align:left;">
+                                                    {!! $row->product->name !!}<br>
+                                                    <span style="font-size:10px;">SKU:</span> 
+                                                    <span class="font-stl-ort">{!! $row->product->sku !!}</span>
                                                     <input type="hidden" name="product_id_{!! $i !!}" value="{!! $row->product->id !!}"> 
                                                 </td>
                                                 <td>
@@ -232,7 +230,7 @@
                                 <li class="info-element" id="task4">
                                     <button type="submit" type="submit" class="btn btn-w-m btn-success">
                                         <i class="fa fa-indent"></i>
-                                        Nhập kho
+                                        Nhập hàng vào kho
                                     </button>
                                     <div class="agile-detail">
                                         <i class="fa fa-edit"></i> Lưu ý: Khi đã chuyển sang trạng thái nhập sản phẩm vào kho, bạn không thể sửa thông tin trên phiếu này!
@@ -274,6 +272,9 @@
 
 <!-- Data picker -->
 <script src="js/plugins/datapicker/bootstrap-datepicker.js"></script>
+<script src="js/typeahead.bundle.js"></script>
+<script src="js/bloodhound.js"></script>
+<script src="js/hogan-3.0.1.js"></script>
 
 <!-- Page-Level Scripts -->
 <script>
@@ -326,6 +327,41 @@ $(document).ready(function () {
     $('#confirm-delete').on('show.bs.modal', function(e) {
         $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
     });
+
+   // Search Product
+    var engineProduct = new Bloodhound({
+        remote: {
+            url: '/get-product-auto-complete?search-input-product=%QUERY%',
+            wildcard: '%QUERY%'
+        },
+        datumTokenizer: Bloodhound.tokenizers.whitespace('search-input-product'),
+        queryTokenizer: Bloodhound.tokenizers.whitespace
+    });
+
+    engineProduct.initialize();
+
+    $(".search-input-product").typeahead({
+        hint: true,
+        highlight: true,
+        minLength: 1
+    }, {
+        source: engineProduct.ttAdapter(),
+        name: 'productList',
+        displayKey: 'name',
+        templates: {
+            empty: [
+                '<div class="empty-message">Không tìm thấy kết quả</div>'
+            ].join('\n'),   
+
+            suggestion: function (data) {
+                return '<div class="user-search-result">'+data.name+' <br>  Sku: '+ data.sku +'</div>'
+            }
+        },
+        engineProduct: Hogan
+    }).on('typeahead:selected', function(event, selection) {
+        $('.get_warehouse_ph_details_product').val(selection.id);
+    });
+
 });
 
 function nextTab(elem) {
