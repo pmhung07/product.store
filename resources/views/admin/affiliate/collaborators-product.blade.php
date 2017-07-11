@@ -108,14 +108,14 @@
                                         <td>{{$i}}</td>
                                         <td><a>{{$row->product_sku}}</a></td>
                                         <td>
-                                            <img src="{{ parse_image_url('sm_'.$row['image']) }}" height="35">
+                                            <img src="{{ parse_image_url('sm_'.$row->product_image) }}" height="35">
                                         </td>
                                         <td><a>{{$row->product_name}}</a></td>
                                         <td>{{$row->product_group_name}}</td>
                                         <td>{{number_format($row->product_price)}}</td>
                                         <td>{{$row->my_affiliate_profit}}</td>
                                         <td>{{number_format(($row->product_price / 100)* $row->my_affiliate_profit)}}</td>
-                                        <td><a><?php echo url('/').'/product/'.$row->product_id.'-'.removeTitle($row->product_name).'?aff_id='.$row->id; ?></a></td>
+                                        <td><a><?php echo url('/').'/aff/'.$row->id; ?></a></td>
                                     </tr>
                                     <?php $i++;$total_quantity_inventory = $total_quantity_inventory + $row->quantity_inventory; ?>
                                 @endforeach

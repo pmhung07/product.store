@@ -104,7 +104,11 @@
                                             @foreach($statistics_product as $row)
                                                 <tr @if($i%2==0) {{'class="gradeA"'}} @else {{'class="gradeX"'}} @endif>
                                                     <td>{{$i}}</td>
-                                                    <td>{{$row->name}}</td>
+                                                    <td>
+                                                        {{$row->name}} <br>
+                                                        <span style="font-size:10px;">SKU:</span> 
+                                                        <span class="font-stl-ort">{!! $row->sku !!}</span>
+                                                    </td>
                                                     <td style="border-color: #7bbf20;">
                                                         <span class="font-stl-price">{{number_format($row->total_price_success)}} </span><br> 
                                                         <span class="font-stl-ort">{{$row->total_quantity_success}} sp</span>

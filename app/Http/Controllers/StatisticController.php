@@ -63,7 +63,7 @@ class StatisticController extends Controller
         }
 
         $statistics_product = new OrderDetails();
-	    	$statistics_product = $statistics_product->select('product.id','product.name',
+	    	$statistics_product = $statistics_product->select('product.id','product.name','product.sku',
 									DB::raw('sum(order_details.total_price) as total_price'),
 									DB::raw('sum(order_details.quantity) as total_quantity'),
 									DB::raw('SUM(IF(orders.order_status = 3, order_details.total_price, 0)) AS total_price_success'),

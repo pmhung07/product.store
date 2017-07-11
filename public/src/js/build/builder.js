@@ -1575,7 +1575,7 @@
 				window.clearInterval(this.autoSaveTimer);
             	this.autoSaveTimer = setTimeout(site.autoSave, bConfig.autoSaveTimeout);
 
-                $('#savePage .bLabel').text("Save now (!)");
+                $('#savePage .bLabel').text("Lưu nội dung (!)");
 
                 if( site.activePage.status !== 'new' ) {
 
@@ -1585,7 +1585,7 @@
 
             } else {
 
-                $('#savePage .bLabel').text("Nothing to save");
+                $('#savePage .bLabel').text("Đã lưu");
 
                 site.updatePageStatus('');
 
@@ -1992,7 +1992,7 @@
         'p : font-family': ['default', 'Lato', 'Helvetica', 'Arial', 'Times New Roman']
     };
 
-    module.exports.editableContent = ['.editContent', '.navbar a', 'button', 'a.btn', '.footer a:not(.fa)', '.tableWrapper', 'h1', 'h2'];
+    module.exports.editableContent = ['.pix_button', '.editContent', '.navbar a', 'button', 'a.btn', '.footer a:not(.fa)', '.tableWrapper', 'h1', 'h2'];
 
     module.exports.autoSaveTimeout = 60000;
 
@@ -2239,7 +2239,7 @@
         doExportModal: function() {
 
             $('#exportModal > form #exportSubmit').show('');
-            $('#exportModal > form #exportCancel').text('Cancel & Close');
+            $('#exportModal > form #exportCancel').text('Huỷ thao tác');
 
         },
 

@@ -146,13 +146,18 @@ class WarehousePhController extends Controller
             ));
         }
 
-        WarehouseInventory::insert($data_inventory); // Eloquent
+        if(count($data_inventory) > 0){
 
-        $warehouseph = new WarehousePh();
-        $warehouseph = WarehousePh::find($id);
-        $warehouseph->status = 1;
-        $warehouseph->save();
+            WarehouseInventory::insert($data_inventory); // Eloquent
 
-        return redirect()->route('admin.stock-receipt.details',$id)->with(['flash_message' => 'Sản phẩm đã được nhập vào kho!']);
+            $warehouseph = new WarehousePh();
+            $warehouseph = WarehousePh::find($id);
+            $warehouseph->status = 1;
+            $warehouseph->save();
+
+            return redirect()->route('admin.stock-receipt.details',$id)->with(['flash_message' => 'Sản phẩm đã được nhập vào kho!']);
+        }else{
+            return redirect()->route('admin.stock-receipt.getUpdate',$id)->with(['flash_error' => 'Bạn phải chọn sản phẩm để nhập vào phiếu!']);
+        }
     }
 }

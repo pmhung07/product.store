@@ -13,18 +13,18 @@ Tạo Landing Page :: Bán hàng trực tuyến
     <div class="menu" id="menu">
         <div class="main" id="main">
             @if (isset($data['templates']))
-                <h3><span class="fui-document"></span> Templates</h3>
+                <h3><span class="fui-document"></span> Mẫu</h3>
                 <ul id="templatesUl" style="margin-bottom: 30px">
-                    <li><a href="#" id="templ">Choose Template</a></li>
+                    <li><a href="#" id="templ">Chọn mẫu</a></li>
                 </ul>
             @endif
-            <h3><span class="fui-list"></span> Blocks</h3>
+            <h3><span class="fui-list"></span> Mẫu</h3>
             <ul id="elementCats">
-                <li><a href="#" id="all">All Blocks</a></li>
+                <li><a href="#" id="all">Tất cả mẫu</a></li>
             </ul>
             <a class="toggle" href="#"><span class="fui-gear"></span></a>
             <hr>
-            <h3><span class="fui-windows"></span> Pages</h3>
+            <h3><span class="fui-windows"></span> Trang</h3>
             <ul id="pages">
                 <li style="display: none;" id="newPageLI">
                     <input type="text" value="index" name="page">
@@ -53,7 +53,7 @@ Tạo Landing Page :: Bán hàng trực tuyến
             <div class="btn-group" style="float: right; margin-right: 10px;">
                 <button class="btn btn-primary btn-embossed" id="savePage">
                     <span class="fui-check"></span>
-                    <span class="bLabel">Nothing to save</span>
+                    <span class="bLabel">Đã lưu</span>
                 </button>
                 <button class="btn btn-primary btn-embossed dropdown-toggle" data-toggle="dropdown">
                     <span class="caret"></span>
@@ -66,7 +66,7 @@ Tạo Landing Page :: Bán hàng trực tuyến
             @else
             <a href="#" id="savePage" data-toggle="modal" class="btn btn-primary btn-embossed pull-right actionButtons" style="margin-right: 10px;">
                 <span class="fui-check"></span>
-                <span class="bLabel">Nothing to save</span>
+                <span class="bLabel">Đã lưu</span>
             </a>
             @endif
 
@@ -904,7 +904,7 @@ Tạo Landing Page :: Bán hàng trực tuyến
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-body">
-                    Are you sure you want to delete this block?
+                    Bạn có chắc muốn xoá Block này?
                 </div><!-- /.modal-body -->
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default btn-embossed" data-dismiss="modal">Cancel &amp; Close</button>
@@ -1032,16 +1032,16 @@ Tạo Landing Page :: Bán hàng trực tuyến
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Đóng</span></button>
-                <h4 class="modal-title" id="myModalLabel"> Are you sure?</h4>
+                <h4 class="modal-title" id="myModalLabel"> Bạn có chắc chắn không?</h4>
             </div>
             <div class="modal-body">
                 <p>
-                    You've got pending changes, if you leave this page your changes will be lost. Are you sure?
+                    Bạn đã có những thay đổi đang chờ, nếu bạn rời khỏi trang này những thay đổi của bạn sẽ bị mất. Bạn có chắc không?
                 </p>
             </div><!-- /.modal-body -->
             <div class="modal-footer">
-                <button type="button" class="btn btn-inverse" data-dismiss="modal"><span class="fui-cross"></span> Stay on this page!</button>
-                <a href="{{ route('admin.landing-page.index') }}" class="btn btn-primary btn-embossed" id="leavePageButton"><span class="fui-check"></span> Leave the page</a>
+                <button type="button" class="btn btn-inverse" data-dismiss="modal"><span class="fui-cross"></span> Ở lại trang!</button>
+                <a href="{{ route('admin.landing-page.index') }}" class="btn btn-primary btn-embossed" id="leavePageButton"><span class="fui-check"></span> Rời trang</a>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
@@ -1055,8 +1055,8 @@ Tạo Landing Page :: Bán hàng trực tuyến
                 <textarea id="contentToEdit"></textarea>
             </div><!-- /.modal-body -->
             <div class="modal-footer">
-                <button type="button" class="btn btn-default btn-embossed" data-dismiss="modal">Cancel &amp; Close</button>
-                <button type="button" type="button" class="btn btn-primary btn-embossed" id="updateContentInFrameSubmit">Update Content</button>
+                <button type="button" class="btn btn-default btn-embossed" data-dismiss="modal">Huỷ thao tác</button>
+                <button type="button" type="button" class="btn btn-primary btn-embossed" id="updateContentInFrameSubmit">Lưu nội dung</button>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
@@ -1071,16 +1071,16 @@ Tạo Landing Page :: Bán hàng trực tuyến
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                    <h4 class="modal-title" id="myModalLabel"><span class="fui-window"></span> Site Preview</h4>
+                    <h4 class="modal-title" id="myModalLabel"><span class="fui-window"></span> Xem trước</h4>
                 </div>
                 <div class="modal-body">
                     <p>
-                        Please note that links to other pages will not function properly in the preview, you can only preview a single page at once.
+                        Lưu ý, bạn chỉ có thể xem trước một trang trong cùng một thời điểm!
                     </p>
                 </div><!-- /.modal-body -->
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default btn-embossed" data-dismiss="modal"><span class="fui-cross"></span> Cancel &amp; Close</button>
-                    <button type="submit" class="btn btn-primary btn-embossed"><span class="fui-export"></span> Preview Changes</button>
+                    <button type="button" class="btn btn-default btn-embossed" data-dismiss="modal"><span class="fui-cross"></span> Huỷ thao tác</button>
+                    <button type="submit" class="btn btn-primary btn-embossed"><span class="fui-export"></span> Xem trước</button>
                 </div>
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
