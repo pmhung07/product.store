@@ -1,4 +1,12 @@
-            <div class="footer-map container-fluid wow fadeIn">
+<?php
+    // Đoạn này để đổi background footer của trang remphongthuy.vn
+    if( Request::server('SERVER_NAME') == 'remphongthuy.com.vn' ) {
+        $footerMapBg = '/img/bg-store-v10.jpg';
+    } else {
+        $footerMapBg = '/img/bg-store.jpg';
+    }
+?>
+            <div class="footer-map container-fluid wow fadeIn" style="background-image: url('{{ $footerMapBg }}')">
                 <div class="row">
                     <div class=" col-lg-12 col-md-12 button-store">
 
