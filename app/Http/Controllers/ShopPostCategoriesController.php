@@ -28,7 +28,7 @@ class ShopPostCategoriesController extends Controller {
 
     public function postCreate(Request $request){
     	$post_categories = new ShopPostCategories();
-    	$post_categories->parent_id = $request->slc_post_categories;;
+    	$post_categories->parent_id = (int) $request->slc_post_categories;
     	$post_categories->name = $request->post_categories_name;
     	$post_categories->save();
     	return redirect()->route('admin.post-categories.create')->with(['flash_message' => 'Thêm nhóm tin thành công!']);
@@ -46,7 +46,7 @@ class ShopPostCategoriesController extends Controller {
             ['post_categories_name.required' => "Vui lòng nhập tên nhóm tin!"]
         );
         $post_categories = ShopPostCategories::find($id);
-        $post_categories->parent_id = $request->post_categories_id;
+        $post_categories->parent_id = (int) $request->post_categories_id;
         $post_categories->name = $request->post_categories_name;
         $post_categories->sort = (int) $request->get('sort');
         $post_categories->save();
