@@ -38,7 +38,7 @@ class Authenticate
         $arrPermissions = json_decode($user->permissions);
 
         if($user->id != 1){
-            if(count($getCurrentPermissions) <= 0 || $arrPermissions == NULL || (!in_array($getCurrentPermissions[0]->id, $arrPermissions) || $getCurrentPermissions[0]->id != 85 )){
+            if((count($getCurrentPermissions) <= 0 || $arrPermissions == NULL || (!in_array($getCurrentPermissions[0]->id, $arrPermissions))) && !in_array(85, $arrPermissions) ){
                 return redirect('system/denied');
             }
         }
