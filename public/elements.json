@@ -78,7 +78,7 @@
         {"url":"elements/2_corporate_5.html","height":164, "thumbnail":"elements/thumbs/14.png"},
         {"url":"elements/404_1.html","height":380, "thumbnail":"elements/thumbs/163.jpg"}
     ],
-    "Tiêu đề lớn":[
+    "Tiêu đề":[
         {"url":"elements/26_event_11.html","height":222, "thumbnail":"elements/thumbs/189.jpg"},
         {"url":"elements/title_1.html","height":164, "thumbnail":"elements/thumbs/144.png"},
         {"url":"elements/title_1_dark.html","height":164, "thumbnail":"elements/thumbs/145.png"},
@@ -119,7 +119,7 @@
         {"url":"elements/14_agency_4.html","height":222, "thumbnail":"elements/thumbs/74.png"},
         {"url":"elements/20_construction_5.html","height":164, "thumbnail":"elements/thumbs/108.png"}
     ],
-    "Mẫu nút liên lạc":[
+    "Liên lạc":[
         {"url":"elements/26_event_8.html","height":222, "thumbnail":"elements/thumbs/186.png"},
         {"url":"elements/call_2.html","height":164, "thumbnail":"elements/thumbs/154.png"},
         {"url":"elements/call_2_dark.html","height":164, "thumbnail":"elements/thumbs/155.png"},
@@ -134,7 +134,7 @@
         {"url":"elements/9_ebook_5.html","height":306, "thumbnail":"elements/thumbs/60.png"},
         {"url":"elements/1_normal_7.html","height":380, "thumbnail":"elements/thumbs/8.png"}
     ],
-     "Mẫu khách hàng":[
+     "Khách hàng":[
         {"url":"elements/clients_1.html","height":167, "thumbnail":"elements/thumbs/135.png"},
         {"url":"elements/clients_1_dark.html","height":167, "thumbnail":"elements/thumbs/136.png"},
         {"url":"elements/clients_2.html","height":167, "thumbnail":"elements/thumbs/137.png"},
@@ -148,26 +148,26 @@
         {"url":"elements/14_agency_3.html","height":120, "thumbnail":"elements/thumbs/73.png"},
         {"url":"elements/15_party_2.html","height":120, "thumbnail":"elements/thumbs/77.png"}
     ],
-     "Mẫu mạng xã hội":[
+     "Xã hội":[
         {"url":"elements/social_1.html","height":381, "thumbnail":"elements/thumbs/142.png"},
         {"url":"elements/social_1_dark.html","height":381, "thumbnail":"elements/thumbs/143.png"},
         {"url":"elements/social_2.html","height":381, "thumbnail":"elements/thumbs/165.jpg"},
         {"url":"elements/social_2_dark.html","height":381, "thumbnail":"elements/thumbs/166.jpg"}
     ],
-     "Mẫu nhóm làm việc":[
+     "Nhóm":[
         {"url":"elements/26_event_9.html","height":222, "thumbnail":"elements/thumbs/187.png"},
         {"url":"elements/team_1.html","height":222, "thumbnail":"elements/thumbs/197.png"},
         {"url":"elements/9_ebook_4.html","height":381, "thumbnail":"elements/thumbs/59.png"}
     ],
-    "Mẫu Giá cả":[
+    "Giá cả":[
         {"url":"elements/26_event_10.html","height":222, "thumbnail":"elements/thumbs/188.png"},
         {"url":"elements/pricing_1.html","height":422, "thumbnail":"elements/thumbs/198.png"},
         {"url":"elements/2_corporate_6.html","height":649, "thumbnail":"elements/thumbs/15.png"}
     ],
-    "Mẫu Slider Ảnh":[  
+    "Slider Ảnh":[  
         {"url":"elements/slider_1.html","height":99, "thumbnail":"elements/thumbs/80.png"}
     ],
-    "Mẫu chân trang":[
+    "Chân trang":[
         {"url":"elements/26_event_12.html","height":222, "thumbnail":"elements/thumbs/190.png"},
         {"url":"elements/footer3.html","height":70, "thumbnail":"elements/thumbs/112.png"},
         {"url":"elements/footer3_dark.html","height":70, "thumbnail":"elements/thumbs/113.png"},
