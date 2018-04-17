@@ -1,5 +1,5 @@
     </div>
-        <a rel="nofollow" title="Về đầu trang" id="back-top" href="javascript:void(0)" class="seoquake-nofollow"><i class="fa fa-caret-up"></i> Về đầu trang</a>
+        <a rel="nofollow" title="Về đầu trang" id="back-top" href="#buy_product" class="seoquake-nofollow"><i class="fa fa-caret-up"></i> Mua vật phẩm</a>
         <footer>
             <div class='footer'>
                 <div class='container'>
@@ -122,10 +122,10 @@
                         $('#back-top').css('bottom', '45px');
                     }
                 });
-                $('#back-top').click(function(){
+                /*$('#back-top').click(function(){
                     $('body,html').animate({scrollTop:0},600);
                     return false;
-                });
+                });*/
                 $('.wrapper').on("click",".share .share-icon",function(){
                     $(this).parent().next('.content').slideToggle(500);
                 })

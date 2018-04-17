@@ -102,37 +102,22 @@
                                                 <small class="help-inline text-warning">Trường thông tin bắt buộc phải nhập</small>
                                             </div>
 
+                                            <!--<div class="form-group">
+                                                <input type="text" class="form-control input-lg" placeholder="Ngày sinh" style="border: solid 1px #3e9445;">
+                                            </div>
+                                            <div class="form-group">
+                                                <input type="text" class="form-control input-lg" placeholder="Tháng sinh" style="border: solid 1px #3e9445;">
+                                            </div>
+                                            <div class="form-group">
+                                                <input type="text" class="form-control input-lg" placeholder="Năm sinh" style="border: solid 1px #3e9445;">
+                                            </div>-->
+
+                                            <div class="form-group">
+                                                <input placeholder="Ghi chú" class="form-control input-lg" name="customer_note" value="{{ old('customer_address') }}" />
+                                            </div>
+
                                             <div class="form-group">
                                                 <input placeholder="Địa chỉ" class="form-control input-lg" name="customer_address" value="{{ old('customer_address') }}" />
-                                            </div>
-
-                                            <div class="form-group">
-                                                <select class="form-control" id="province" name="city_id">
-                                                    <option value="">Tỉnh / thành</option>
-                                                    @foreach($provinces as $item)
-                                                        <option value="{{ $item->id }}" {{ $item->id == old('city_id') ? 'selected' : '' }}>{{ $item->name }}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-
-                                            <div class="form-group">
-                                                <select class="form-control" id="district" name="district_id">
-                                                    <option value="">Chọn quận / huyện</option>
-                                                    @foreach($districts as $item)
-                                                        <option class="option" value="{{ $item->id }}" {{ $item->id == old('district_id') ? 'selected' : '' }}>{{ $item->name }}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-
-                                            <div class="form-group">
-                                                <div class="row">
-                                                    <div class="col-sm-8">
-                                                        <input placeholder="Mã giảm giá" class="form-control input-lg" name="coupon" value="{{ old('coupon') }}" />
-                                                    </div>
-                                                    <div class="col-sm-4">
-                                                        <button id="btn-check-coupon" class="btn btn-sm btn-danger btn-check-coupon">Kiểm tra</button>
-                                                    </div>
-                                                </div>
                                             </div>
 
                                             <div class="form-group">

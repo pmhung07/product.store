@@ -165,6 +165,18 @@
                             </div>
                         </div>
                     </div>
+
+                    <div class="col-xs-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading"><b>Scripts</b></div>
+                            <div class="panel-body">
+                                <div class="form-group">
+                                    <label>Mã</label>
+                                    <textarea class="form-control" name="embed_code">{!! $setting->embed_code !!}</textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="row">
                     <div class="col-xs-12">

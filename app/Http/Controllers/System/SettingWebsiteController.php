@@ -51,6 +51,7 @@ class SettingWebsiteController extends Controller
         $setting->meta_title = clean($request->get('meta_title'));
         $setting->meta_keyword = clean($request->get('meta_keyword'));
         $setting->meta_description = clean($request->get('meta_description'));
+        $setting->embed_code = $request->get('embed_code');
         $setting->merchant_id = $merchantId;
 
         if($request->hasFile('logo')) {

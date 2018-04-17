@@ -39,7 +39,7 @@
             <div class="" id="orther-article">
                 <div class="blog-category-items">
                     <h3 class="category-title article-title">
-                        <a href="javascript:void(0)">Vật phẩm mới nhất</a>
+                        <a href="javascript:void(0)">Gợi ý vật phẩm</a>
                     </h3>
                     <div class="items-doc">
                         <div class="row">

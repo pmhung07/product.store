@@ -1,0 +1,68 @@
+/*------------*/
+.SP_HOT_List {
+    margin: 0 0 20px 0;
+    text-align: left;
+}
+.SP_HOT_List ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+.SP_HOT_List ul li {
+    width: 31%;
+    display: inline-block;
+    float: left;
+    margin: 0 2% 2% 0;
+}
+.SP_HOT_List_BOX {
+    border: 1px solid#eceded;
+    padding: 0 8px 0 0;
+    height: 151px;
+}
+.SP_HOT_List_BOX_img {
+    width: 171px;
+    float: left;
+}
+.SP_HOT_List_BOX_img img {
+    width: 100% !important;
+    height: 150px;
+    display: block;
+}
+.SP_HOT_List_BOX_text {
+    margin-left: 180px;
+    text-align: right;
+}
+.SP_HOT_List_BOX_text p {
+    font-size: 16px;
+    line-height: 22px;
+    color: #464646;
+    margin: 0;
+    padding: 15px 0 15px 0;
+    font-family: 'Open Sans', sans-serif;
+}
+.SP_HOT_List_BOX_text p > a {
+    color: #464646;
+}
+.SP_HOT_List_BOX_text span {
+    font-size: 16px;
+    font-weight: bold;
+    color: #F00;
+    text-align: right;
+}
+.SP_HOT_List_BOX_text_button {
+    padding: 8px 15px 8px 15px;
+    background-color: #FFF;
+    border: 1px solid#ff7200;
+    color: #ff7200;
+    font-size: 14px;
+    font-weight: bold;
+    border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    margin: 8px 0 0 0;
+}
+@media only screen and (max-width: 800px) {
+    .SP_HOT_List ul li {
+        width: 100%;
+    }
+}

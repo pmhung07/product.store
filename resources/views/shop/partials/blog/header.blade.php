@@ -23,16 +23,16 @@
 
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" type="text/javascript"></script>
 
-        <script src='/shop/assets/hstatic.net/969/1000003969/1000161857/owl.carousel.2.js%3Fv=8910' type='text/javascript'></script>
-        <link href='/shop/assets/hstatic.net/969/1000003969/1000161857/owl.carousel.2.css%3Fv=8910.css' rel='stylesheet' type='text/css'  media='all'  />
-        <link href='/shop/assets/hstatic.net/969/1000003969/1000161857/owl.theme.2.css%3Fv=8910.css' rel='stylesheet' type='text/css'  media='all'  />
-        <link href='/shop/assets/hstatic.net/969/1000003969/1000161857/owl.transitions.2.css%3Fv=8910.css' rel='stylesheet' type='text/css'  media='all'  />
+        <script src='http://9119.vn/shop/assets/hstatic.net/969/1000003969/1000161857/owl.carousel.2.js%3Fv=8910' type='text/javascript'></script>
+        <link href='http://9119.vn/shop/assets/hstatic.net/969/1000003969/1000161857/owl.carousel.2.css%3Fv=8910.css' rel='stylesheet' type='text/css'  media='all'  />
+        <link href='http://9119.vn/shop/assets/hstatic.net/969/1000003969/1000161857/owl.theme.2.css%3Fv=8910.css' rel='stylesheet' type='text/css'  media='all'  />
+        <link href='http://9119.vn/shop/assets/hstatic.net/969/1000003969/1000161857/owl.transitions.2.css%3Fv=8910.css' rel='stylesheet' type='text/css'  media='all'  />
         <link href='/shop/assets/hstatic.net/969/1000003969/10/2016/3-16/jquery.fancybox.css' rel='stylesheet' type='text/css'  media='all'  />
-        <script src='/shop/assets/hstatic.net/288/1000046288/1000069273/jquery.fancybox.js%3Fv=700' type='text/javascript'></script>
-        <link rel="stylesheet" href="/shop/assets/hstatic.net/288/1000046288/1000069273/slicknav.css%3Fv=699.css" type='text/css' >
-        <script src="/shop/assets/hstatic.net/434/1000006434/1000055716/jquery.slicknav.min.js%3Fv=257"></script>
-        <link href='/shop/assets/hstatic.net/969/1000003969/1000161857/nobita.css%3Fv=8910.css' rel='stylesheet' type='text/css'  media='all'  />
-        <link href='/shop/assets/hstatic.net/969/1000003969/1000161857/blog-new.css%3Fv=8910.css' rel='stylesheet' type='text/css'  media='all'  />
+        <script src='http://9119.vn/shop/assets/hstatic.net/288/1000046288/1000069273/jquery.fancybox.js%3Fv=700' type='text/javascript'></script>
+        <link rel="stylesheet" href="http://9119.vn/shop/assets/hstatic.net/288/1000046288/1000069273/slicknav.css%3Fv=699.css" type='text/css' >
+        <script src="http://9119.vn/shop/assets/hstatic.net/434/1000006434/1000055716/jquery.slicknav.min.js%3Fv=257"></script>
+        <link href='http://9119.vn/shop/assets/hstatic.net/969/1000003969/1000161857/nobita.css%3Fv=8910.css' rel='stylesheet' type='text/css'  media='all'  />
+        <link href='http://9119.vn/shop/assets/hstatic.net/969/1000003969/1000161857/blog-new.css%3Fv=8910.css' rel='stylesheet' type='text/css'  media='all'  />
 
         <script src='/shop/assets/hstatic.net/0/0/global/design/theme-default/jquery.flexslider.js' type='text/javascript'></script>
         <link href='/shop/assets/hstatic.net/0/0/global/design/theme-default/flexslider.css' rel='stylesheet' type='text/css'  media='all'  />

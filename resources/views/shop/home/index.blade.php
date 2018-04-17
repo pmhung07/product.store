@@ -29,14 +29,14 @@
     <div class="container">
         <div class="row" style="text-align:center;margin-bottom:20px">
             <div class="col-xs-12 col-sm-12 col-md-12 text-center" >
-                <h3 class="title-top">Top 05 sản phẩm hot nhất tuần</h3>
+                <h3 class="title-top">Kiến thức phong thuỷ thiết yếu</h3>
             </div>
         </div>
         <div class="row">
             <div class="home-filter-top5 center-product product-item products-resize home-filter-product-new">
-                <?php foreach($hotProducts as $item): ?>
+                <?php foreach($postSuggest as $item): ?>
                     <div class="col-xs-12 col-sm-4 col-md-3 col-lg-24">
-                        {!! view('shop/partials/product/item', ['product' => $item, 'type' => ''])->render() !!}
+                        {!! view('shop/partials/product/suggest', ['product' => $item, 'type' => ''])->render() !!}
                     </div>
                 <?php endforeach; ?>
             </div>
@@ -56,15 +56,45 @@
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="title" id="price-200">
                     <div class="flexbox-title-content">
-                        <span class="flexbox-title-name">TOP sản phẩm mới nhất tuần này</span>
+                        <span class="flexbox-title-name">Sản phẩm bán chạy</span>
                     </div>
                 </div>
                 <div class="center-product product-item products-resize home-filter-product-new">
-                    <?php foreach($newestProductsInWeek as $item): ?>
-                        <div class="col-xs-12 col-sm-4 col-md-3 col-lg-24">
-                            {!! view('shop/partials/product/item', ['product' => $item, 'type' => ''])->render() !!}
-                        </div>
-                    <?php endforeach; ?>
+
+
+                    <div class="SP_HOT_List" id="banchay" style="">
+                    <ul>
+                        <?php foreach($newestProductsInWeek as $product): ?>
+                        <li>
+                            <div class="SP_HOT_List_BOX">
+                                <div class="SP_HOT_List_BOX_img" style="cursor: pointer">
+                                    <a href="{{ $product->getUrl() }}">
+                                        @if($product->back_image)
+                                            <img class="image-hover image" src="{{ parse_image_url($product->back_image) }}" alt="{{ $product->getName() }}" width="171px" height="127px" />
+                                        @else
+                                            <img class="image-hover image" src="{{ parse_image_url($product->image) }}" alt="{{ $product->getName() }}" width="171px" height="127px" />
+                                        @endif
+                                    </a>
+                                </div>
+                                <div class="SP_HOT_List_BOX_text">
+                                    <p>
+                                        <a href="{{ $product->getUrl() }}" title="{{ $product->getName() }}">{{ $product->getName() }}</a>
+                                    </p>
+                                    <span>
+                                        {{ formatCurrency($product->getPrice()) }} đ
+                                    </span>
+                                    <a style="float: right;" href="{{ $product->getUrl() }}" style="cursor: pointer" class="SP_HOT_List_BOX_text_button">MUA NGAY</a>
+                                </div>
+                                <div class="both"></div>
+                            </div>
+                        </li>
+                        <?php endforeach; ?>
+                    </ul>
+                    </div>
+
+                    <!--<div class="col-xs-12 col-sm-4 col-md-3 col-lg-24">
+                    </div>-->
+                    
                 </div>
             </div>
         </div>
@@ -202,4 +232,17 @@
         }
     });
 </script>
+
+<div class="footer-map container-fluid wow fadeIn">
+    <div class="row">
+        @foreach($footerImg as $item)
+            <div class="item">
+                <a class="link" href="{{ $item->link }}">
+                    <img style="width: 100%;height: auto;" class="img" src="{{ parse_image_url($item->image) }}" alt="{{ $item->image_alt ? $item->image_alt : url('/') }}" />
+                </a>
+            </div>
+        @endforeach
+    </div>
+</div>
+
 @stop

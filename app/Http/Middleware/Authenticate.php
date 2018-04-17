@@ -36,9 +36,27 @@ class Authenticate
 
         $getCurrentPermissions = Permissions::where('slug','LIKE',$currentPath)->select('id')->get();
         $arrPermissions = json_decode($user->permissions);
+        //var_dump($arrPermissions);die();
+
+        // $arrfixwebmng
+        $arr_fix_web = array(
+            'admin.post.index',
+            'admin.post.getCreate',
+            'admin.post.getUpdate',
+            'admin.post.getDelete',
+            'admin.post-suggest.index',
+            'admin.post-suggest.getCreate',
+            'admin.post-suggest.getUpdate',
+            'admin.post-suggest.getDelete'
+        );
 
         if($user->id != 1){
-            if((count($getCurrentPermissions) <= 0 || $arrPermissions == NULL || (!in_array($getCurrentPermissions[0]->id, $arrPermissions))) && !in_array(85, $arrPermissions) ){
+            if( count(  $getCurrentPermissions) > 0 && 
+                        $arrPermissions != NULL && 
+                        (in_array($getCurrentPermissions[0]->id, $arrPermissions)) || 
+                        (in_array(85, $arrPermissions) && in_array($currentPath, $arr_fix_web)) ){
+                return $next($request);
+            }else{
                 return redirect('system/denied');
             }
         }

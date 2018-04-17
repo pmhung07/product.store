@@ -128,6 +128,7 @@ class OrderController extends ShopController
             $order->total_price = $totalPrice;
             $order->code = Orders::generateCode();
             $order->coupon = $couponCode;
+            $order->note = clean($request->get('customer_note'));;
             $order->save();
 
             // Lưu đơn hàng chi tiết

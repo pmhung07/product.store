@@ -8,6 +8,7 @@ use App\Models\Testimonial;
 use App\Orders;
 use App\Product;
 use App\ShopPost;
+use App\ShopPostSuggest;
 
 class HomeController extends ShopController {
 
@@ -15,6 +16,12 @@ class HomeController extends ShopController {
     {
         $slideItems = Banner::where('page', 'home')
                             ->where('position', 'top')
+                            ->where('status', 1)
+                            ->orderBy('created_at', 'DESC')
+                            ->get();
+
+        $footerImg = Banner::where('page', 'home')
+                            ->where('position', 'bottom')
                             ->where('status', 1)
                             ->orderBy('created_at', 'DESC')
                             ->get();
@@ -31,6 +38,9 @@ class HomeController extends ShopController {
                         ->take(8)
                         ->get();
 
+        // Kien thuc phong thuy thiet yeu
+        $postSuggest = ShopPostSuggest::take(5)->orderByRaw('RAND()')->get();
+
         $hotProducts = $newestProductsInWeek = Product::take(5)->where('parent_id', 0)
                                        // ->whereBetween('created_at', [$sevenDayAgo, $today])
                                        ->orderByRaw('RAND()')->get();
@@ -38,7 +48,7 @@ class HomeController extends ShopController {
         // Sản phẩm mới trong tuần
         $sevenDayAgo = date('Y-m-d 00:00:00', strtotime('-7 days'));
         $today = date('Y-m-d 23:59:59');
-        $newestProductsInWeek = Product::take(10)->where('parent_id', 0)
+        $newestProductsInWeek = Product::take(6)->where('parent_id', 0)
                                        // ->whereBetween('created_at', [$sevenDayAgo, $today])
                                        ->orderBy('created_at', 'DESC')->get();
 
@@ -55,6 +65,6 @@ class HomeController extends ShopController {
         $this->metadata->url = url('/');
         $metadata = $this->metadata->toArray();
 
-        return view('shop/home/index', compact('hotProducts', 'newestProductsInWeek', 'posts', 'slideItems', 'testimonials', 'metadata'));
+        return view('shop/home/index', compact('hotProducts', 'newestProductsInWeek', 'posts', 'slideItems', 'testimonials', 'metadata', 'footerImg', 'postSuggest'));
     }
 }

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests;
 use App\ShopPost;
 use App\ShopPostCategories;
+use App\Product;
 use Illuminate\Http\Request;
 
 class PostController extends ShopBlogController
@@ -63,6 +64,7 @@ class PostController extends ShopBlogController
                          ->take(8)
                          ->orderBy('created_at', 'DESC')
                          ->get();
+        $relatedProduct = Product::orderBy('updated_at', 'DESC')->limit(4)->get();
 
         // Metadata
         $this->metadata->title = $post->meta_title ? $post->meta_title : $post->title;
@@ -71,6 +73,6 @@ class PostController extends ShopBlogController
         $this->metadata->url = $post->getUrl();
         $metadata = $this->metadata->toArray();
 
-        return view('shop/post/detail', compact('post', 'relatedPosts', 'metadata'));
+        return view('shop/post/detail', compact('post', 'relatedPosts', 'metadata', 'relatedProduct'));
     }
 }

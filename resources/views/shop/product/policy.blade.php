@@ -1,3 +1,4 @@
+<!--<div class="deliver-top withStore"></div>-->
 <div class="sec-policies-feature">
     <div class="hidden-btn-buy-now" style="padding: 10px 0 0 0">
         <div class="wrapper-rightInfo">

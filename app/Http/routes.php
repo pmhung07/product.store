@@ -380,6 +380,15 @@ Route::group(['middleware' => 'auth'], function(){
 				Route::get('delete/{id}', ['as' => 'admin.post.getDelete' , 'uses' => 'ShopPostController@getDelete']);
 			});
 
+			Route::group(['prefix' => 'post-suggest'], function(){
+				Route::get('index', ['as' => 'admin.post-suggest.index' , 'uses' => 'ShopPostSuggestController@getIndex']);
+				Route::get('create', ['as' => 'admin.post-suggest.getCreate' , 'uses' => 'ShopPostSuggestController@getCreate']);
+				Route::post('create', ['as' => 'admin.post-suggest.getCreate' , 'uses' => 'ShopPostSuggestController@postCreate']);
+				Route::get('update/{id}', ['as' => 'admin.post-suggest.getUpdate' , 'uses' => 'ShopPostSuggestController@getUpdate']);
+				Route::post('update/{id}', ['as' => 'admin.post-suggest.getUpdate' , 'uses' => 'ShopPostSuggestController@postUpdate']);
+				Route::get('delete/{id}', ['as' => 'admin.post-suggest.getDelete' , 'uses' => 'ShopPostSuggestController@getDelete']);
+			});
+
 			// Trang tĩnh
 			Route::group(['prefix' => 'page'], function(){
 				Route::get('index', ['as' => 'admin.page.index' , 'uses' => 'ShopPageController@getIndex']);
