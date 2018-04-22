@@ -27,6 +27,9 @@ Route::group(['namespace' => 'Shop'], function () {
     // Tin tức chi tiết
     Route::get('/tin-tuc/{id}-{slug}', ['as' => 'shop.post.detail', 'uses' => 'PostController@getDetail']);
 
+    // Giới thieu vật phẩm
+    Route::get('/vat-pham/{id}-{slug}', ['as' => 'shop.post-suggest.detail', 'uses' => 'PostSuggestController@getDetail']);
+
     // Danh mục tin tức
     Route::get('/danh-muc/tin-tuc/{id}-{slug}', ['as' => 'shop.post_category.posts', 'uses' => 'PostCategoryController@getPosts']);
 

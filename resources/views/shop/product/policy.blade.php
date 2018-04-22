@@ -1,58 +1,67 @@
 <!--<div class="deliver-top withStore"></div>-->
-<div class="sec-policies-feature">
-    <div class="hidden-btn-buy-now" style="padding: 10px 0 0 0">
-        <div class="wrapper-rightInfo">
-            <div class="price">
-                <label class="variant-price">{{ formatCurrency($product->price) }}<sup>đ</sup></label>
-            </div>
+<div class="ssec-policies-feature">
+    <div class='col-right'>
+        <div class='title-col'>
+            <h3 style="font-size: 15px;margin-top: 0px;margin-bottom: 20px;">
+                Có thể bạn quan tâm
+            </h3>
+        </div>
+        <div class='list-r'>
+            <div class='row'>
+                @foreach($relatedPosts as $item)
+                <div class='one-r col-md-12 col-sm-5 col-xs-10' style="padding-bottom: 10px;border-bottom: solid 1px #cecece;margin-bottom: 20px;">
+                    <a href="{{ $item->getUrl() }}">
+                        <div class='img-one' style="background: url('{{ parse_image_url('md_' . $item->image) }}') no-repeat;background-size: cover;background-position: center;"></div>
+                    </a>
+                    <h3 class='title-one'>
+                        <a href="{{ $item->getUrl() }}">{{ $item->getTitle() }}</a>
+                    </h3>
 
-            <div id="show-bonus"></div>
-
-            <div class="product-form">
-                <div class="clearfix"></div>
-                <div>
-                    <div class="product-btn-buy-2">
-                        <a href="javascript:void(0)" title="Đặt mua" class="addnow">MUA NGAY</a>
-                    </div>
                 </div>
-            </div>
-            <div class="deliver-top-no deliver-phone">
-                <div class="tit">Hỗ trợ mua nhanh</div>
-                <div class="tit-color">{{ $GLB_Setting->phone }}</div>
-                <div class="descrip">Mã SP: {{ $product->sku }}</div>
+                @endforeach
             </div>
         </div>
-    </div>
-    <div class="deliver-top info ">
-        <div class="tit-color">Sẽ có tại nhà bạn</div>
-        <div class="descrip">từ 1-5 ngày làm việc</div>
-    </div>
-    <div class="deliver-top-no deliver-dt">
-        <a href="#">
-            <div class="tit">Giao hàng miễn phí</div>
-            <div class="descrip">sản phẩm trên 300,000đ</div>
-        </a>
-    </div>
-    <div class="deliver-top-no deliver-ch" style="background:none !important">
-        <div style="position:absolute;margin-left:-37px;">
-            <img src="//hstatic.net/969/1000003969/10/2016/6-15/icon-day90.png"/>
-        </div>
-        <a href="#">
-            <div class="tit">Đổi trả miễn phí</div>
-            <div class="descrip">Đổi trả miễn phí
-                90 ngày
-            </div>
-        </a>
-    </div>
-    <div class="deliver-top-no deliver-pay">
-        <a href="#">
-            <div class="tit">thanh toán</div>
-            <div class="descrip">Thanh toán khi nhận hàng</div>
-        </a>
-    </div>
-    <div class="deliver-top-no deliver-phone">
-        <div class="tit">Hỗ trợ mua nhanh</div>
-        <div class="tit-color">{{ $GLB_Setting->phone }}</div>
-        <div class="descrip">từ 8:30 - 21:30 mỗi ngày</div>
     </div>
 </div>
+
+<style type="text/css">
+    
+.title-col {
+    font-size: 25px;
+    font-weight: bold;
+    color: #000;
+    position: relative;
+    z-index: 0;
+    margin: auto;
+}
+.title-col h3 {
+    position: relative;
+    z-index: 5;
+    display: table;
+    margin: 20px auto 10px;
+    background: #fff;
+    font-family: 'SFU', Arial, sans-serif;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 22px;
+    padding: 5px 10px;
+}
+h3.title-one {
+    font-size: 18px;
+    line-height: 1.2;
+    margin-top: 10px;
+    text-align: center;
+}
+h3.title-one a {
+    color: #000;
+}
+span.date {
+    font-size: 11px;
+    color: #666;
+    display: block;
+    font-family: Arial, sans-serif;
+}
+.img-one {
+    height: 170px;
+}
+</style>

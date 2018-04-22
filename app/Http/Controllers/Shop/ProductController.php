@@ -10,6 +10,7 @@ use App\Properties;
 use App\Provinces;
 use App\Warehouse;
 use App\WarehouseInventory;
+use App\ShopPostSuggest;
 use Illuminate\Http\Request;
 use Cookie;
 
@@ -44,6 +45,8 @@ class ProductController extends ShopController
         // Sản phẩm có thể bạn quan tâm
         $relatedProducts = Product::where('product_group_id', $product->product_group_id)->whereNotIn('id',[$product->id])->orderBy('updated_at', 'DESC')->take(10)->get();
 
+        $relatedPosts = ShopPostSuggest::where('product_group_id', $product->product_group_id)->orderBy('updated_at', 'DESC')->take(10)->get();
+
         // Metadata
         $this->metadata->title = $product->name;
         $this->metadata->description = substr(strip_tags($product->content), 0, 200);
@@ -58,7 +61,7 @@ class ProductController extends ShopController
 
         }
 
-        return view('shop/product/detail', compact('product', 'warehouses', 'provinces', 'properties', 'relatedProducts', 'metadata'));
+        return view('shop/product/detail', compact('product', 'warehouses', 'provinces', 'properties', 'relatedProducts', 'metadata', 'relatedPosts'));
     }
 
 
